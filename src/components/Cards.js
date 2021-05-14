@@ -4,7 +4,7 @@ import Card from "./Card";
 
 import axios from "axios";
 
-const baseUrl = 'http://127.0.0.1:4001/cards';
+const baseUrl = 'https://spintosuccess.herokuapp.com/cards';
 
 
 /**
@@ -21,7 +21,7 @@ function usePrevious(value) {
 }
 
 
-export default function Cards() {
+export default function Cards({onProgressUpdate}) {
 
   const [cardsList, setCardsList] = useState([]);
   const previousLength = usePrevious(cardsList.length);
@@ -38,9 +38,7 @@ export default function Cards() {
    * @param cardId
    * @param isSuccess
    */
-  function handleAnswer(/*event,*/ cardId, isSuccess) {
-    // event.stopPropagation();
-
+  function handleAnswer(cardId, isSuccess) {
     // Get data
     const targetCard = cardsList.find((card) => card._id === cardId);
 
@@ -55,13 +53,15 @@ export default function Cards() {
 
     triggerCardUpdate(updatedCard);
 
-    const updatedCardsList = [...cardsList].filter(card => card._id !== cardId);
-    setCardsList(updatedCardsList);
+    // const updatedCardsList = [...cardsList].filter(card => card._id !== cardId);
+    // setCardsList(updatedCardsList);
   }
 
 
   function fetchCards() {
-    axios.get(baseUrl).then(({data}) => {setCardsList(data.cards);})
+    axios.get(baseUrl).then(({data}) => {
+      setCardsList(data.cards);
+    })
   }
 
   /**
@@ -77,7 +77,7 @@ export default function Cards() {
       {cardsList.map(card => <Card
         data={card}
         key={card._id}
-        onAnswer={(/*event,*/ isSuccess) => handleAnswer(/*event,*/ card._id, isSuccess)}
+        onAnswer={(isSuccess) => handleAnswer(card._id, isSuccess)}
       />)}
     </div>
   );

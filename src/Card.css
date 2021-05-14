@@ -23,8 +23,13 @@
   transition: transform 150ms ease-in-out;
 }
 
+.Card__image {
+  height: 90%;
+}
+
 .Card__delay {
   font-weight: initial;
+  margin: 0.5rem 1rem;
 }
 
 .Card__action--failed {
@@ -34,14 +39,12 @@
 
 
 .Card--answerShown-enter, .Card--answerShown-enter-active {
-  opacity: 0;
-  transform: rotateY(-180deg);
+  opacity: 0.01;
 }
 
 .Card--answerShown-enter-done {
   opacity: 1;
-  transform: rotateY(0);
-  transition: opacity 300ms, transform 300ms;
+  transition: opacity 300ms;
 }
 
 .Card--answerShown-exit, .Card--answerShown-exit-active {
@@ -54,11 +57,9 @@
 @keyframes fadeOut {
   from {
     opacity: 1;
-    transform: rotateY(0);
   }
 
   to {
     opacity: 0;
-    transform: rotateY(180deg);
   }
 }
