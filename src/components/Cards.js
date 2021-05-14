@@ -69,7 +69,7 @@ export default function Cards() {
    * @param card
    */
   function triggerCardUpdate(card) {
-    axios.post(`${baseUrl}/${card._id}`, {newDelay: card.currentDelay});
+    axios.post(`${baseUrl}/${card._id}`, {newDelay: card.currentDelay}).then(fetchCards);
   }
 
   return (

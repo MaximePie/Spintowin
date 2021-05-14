@@ -9,10 +9,24 @@ function App() {
   return (
     <BrowserRouter>
       <div className="App">
-        <div>
-          <NavLink to='/' >S'entraîner</NavLink>
-          <NavLink to='/add'>Ajouter</NavLink>
-          <Stopwatch/>
+        <div className="Navbar">
+          <NavLink
+            activeClassName="Navbar__link--active"
+            className="Navbar__link"
+            to='/'
+            exact
+          >
+            🥋 S'entraîner
+          </NavLink>
+          <NavLink
+            to='/add'
+            className="Navbar__link"
+            activeClassName="Navbar__link--active"
+            exact
+          >
+            ➕ Ajouter
+          </NavLink>
+          <Stopwatch className="Navbar__stopwatch" />
         </div>
         <Switch>
           <Route path="/" component={Cards} exact/>

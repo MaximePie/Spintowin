@@ -46,3 +46,29 @@ input {
   padding: 4px 8px;
   margin: 0.25rem;
 }
+
+.Navbar {
+  height: 40px;
+  background-color: dodgerblue;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+}
+
+.Navbar__link {
+  color: white;
+  margin: 0 0.5rem;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.Navbar__link--active {
+  text-decoration: underline lightblue;
+}
+
+.Navbar__stopwatch {
+  color: white;
+  margin-left: 1rem;
+  font-size: 1.25rem;
+}
