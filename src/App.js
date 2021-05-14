@@ -3,6 +3,7 @@ import './App.css';
 import Cards from "./components/Cards";
 import AddCard from "./components/AddCard";
 import Stopwatch from "./components/Stopwatch";
+import Stats from "./components/Stats";
 import {BrowserRouter, Switch, Route, NavLink} from "react-router-dom";
 
 function App() {
@@ -26,11 +27,20 @@ function App() {
           >
             ➕ Ajouter
           </NavLink>
+          <NavLink
+            to='/stats'
+            className="Navbar__link"
+            activeClassName="Navbar__link--active"
+            exact
+          >
+            🤔 Stats
+          </NavLink>
           <Stopwatch className="Navbar__stopwatch" />
         </div>
         <Switch>
           <Route path="/" component={Cards} exact/>
           <Route path="/add" component={AddCard}/>
+          <Route path="/stats" component={Stats}/>
         </Switch>
       </div>
     </BrowserRouter>
