@@ -35,11 +35,11 @@ export default function Cards() {
   /**
    * If the answer is wrong, we go back to the first interval : 15 seconds
    * If the answer is right, we increment de interval so it appears later
-   * @param event
    * @param cardId
+   * @param isSuccess
    */
-  function handleAnswer(event, cardId, isSuccess) {
-    event.stopPropagation();
+  function handleAnswer(/*event,*/ cardId, isSuccess) {
+    // event.stopPropagation();
 
     // Get data
     const targetCard = cardsList.find((card) => card._id === cardId);
@@ -77,7 +77,7 @@ export default function Cards() {
       {cardsList.map(card => <Card
         data={card}
         key={card._id}
-        onAnswer={(event, isSuccess) => handleAnswer(event, card._id, isSuccess)}
+        onAnswer={(/*event,*/ isSuccess) => handleAnswer(/*event,*/ card._id, isSuccess)}
       />)}
     </div>
   );

@@ -1,41 +1,7 @@
-.Card {
-  border-radius: 8px;
-  width: 180px;
-  height: 150px;
-  border: solid 1px lightgray;
-  margin: 0.5rem;
-  padding: 1rem;
-  cursor: pointer;
-  transition: transform 75ms ease-in-out;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-
-  font-weight: bold;
-  font-size: 1.1em;
-
-  text-align: center;
-}
-
-.Card:hover {
-  transform: translateY(-8px);
-  transition: transform 150ms ease-in-out;
-}
-
-.Card__delay {
-  font-weight: initial;
-}
 
 .Cards {
   display: flex;
   flex-wrap: wrap;
-}
-
-.Card__action--failed {
-  background-color: indianred;
-  margin-left: 0.5rem;
 }
 
 
