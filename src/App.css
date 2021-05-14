@@ -1,38 +1,82 @@
-.App {
+.Card {
+  border-radius: 8px;
+  width: 180px;
+  height: 150px;
+  border: solid 1px lightgray;
+  margin: 0.5rem;
+  padding: 1rem;
+  cursor: pointer;
+  transition: transform 75ms ease-in-out;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  font-weight: bold;
+  font-size: 1.1em;
+
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.Card:hover {
+  transform: translateY(-8px);
+  transition: transform 150ms ease-in-out;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.Card__delay {
+  font-weight: initial;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.Cards {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-wrap: wrap;
+}
+
+.Card__action--failed {
+  background-color: indianred;
+  margin-left: 0.5rem;
+}
+
+
+.AddCard {
+  border-radius: 8px;
+  width: 180px;
+  border: solid 1px lightgray;
+  margin: 0.5rem;
+  padding: 1rem;
+  cursor: pointer;
+
+  display: flex;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  align-items: center;
+  flex-direction: column;
+
+  text-align: center;
 }
 
-.App-link {
-  color: #61dafb;
+button {
+  border-radius: 4px;
+  background-color: aquamarine;
+  outline: none;
+  border: none;
+  padding: 4px 8px;
+  width: 80px;
+  height: 32px;
+
+  cursor: pointer;
+  transition: filter 150ms ease-in-out;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+button:hover {
+  filter: brightness(0.8);
+  transition: filter 150ms ease-in-out;
+}
+
+
+input {
+  border: none;
+  border-bottom: 1px lightblue solid;
+  padding: 4px 8px;
+  margin: 0.25rem;
 }
