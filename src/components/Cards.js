@@ -6,8 +6,6 @@ import axios from "axios";
 
 const baseUrl = `${process.env.REACT_APP_BASE_URL}/cards`;
 
-console.log(baseUrl);
-
 /**
  * This custom hooks returns the previous value of the ref.
  * It has an effect in hit which allows the previous value to update.
@@ -57,12 +55,12 @@ export default function Cards({onProgressUpdate}) {
     const targetCard = cardsList.find((card) => card._id === cardId);
 
     let updatedCard = {...targetCard};
-    const updatedCurrentDelayIndex = intervals.indexOf(updatedCard.currentDelay) + 1;
+    const currentDelayIndex = intervals.indexOf(updatedCard.currentDelay);
     // Edit data
-    if (isSuccess && updatedCurrentDelayIndex !== 0) {
-      updatedCard.currentDelay = intervals[updatedCurrentDelayIndex];
+    if (isSuccess && currentDelayIndex !== 0) {
+      updatedCard.currentDelay = intervals[currentDelayIndex + 1];
     } else {
-      updatedCard.currentDelay = intervals[1];
+      updatedCard.currentDelay = intervals[currentDelayIndex - 1];
     }
 
     triggerCardUpdate(updatedCard);
