@@ -3,6 +3,8 @@ import {intervals,} from "../data/cards"
 import Card from "./Card";
 
 import axios from "axios";
+import {getFromServer, postOnServer} from "../server";
+import {Link} from "react-router-dom";
 
 const baseUrl = `${process.env.REACT_APP_BASE_URL}/cards`;
 
@@ -14,7 +16,9 @@ const baseUrl = `${process.env.REACT_APP_BASE_URL}/cards`;
 function usePrevious(value) {
   const ref = useRef();
 
-  useEffect(() => {ref.current = value;});
+  useEffect(() => {
+    ref.current = value;
+  });
   const previousValue = ref.current;
   return previousValue;
 }
@@ -23,6 +27,7 @@ function usePrevious(value) {
 export default function Cards({onProgressUpdate}) {
 
   const [cardsList, setCardsList] = useState([]);
+  const [isLoading, setLoadingState] = useState(false);
   const previousLength = usePrevious(cardsList.length);
 
   useEffect(() => {
@@ -31,15 +36,15 @@ export default function Cards({onProgressUpdate}) {
     }
   }, [cardsList]);
 
-  console.log(process.env.REACT_APP_TEST);
-
   return (
     <div className="Cards">
-      {cardsList.map(card => <Card
-        data={card}
-        key={card._id}
-        onAnswer={(isSuccess) => handleAnswer(card._id, isSuccess)}
-      />)}
+      {!cardsList.length && <p>Pas de cartes pour le moment, <Link to="add">créez-en quelques unes</Link> !</p>}
+      {cardsList.map(card =>
+        <Card
+          data={card}
+          key={card._id}
+          onAnswer={(isSuccess) => handleAnswer(card._id, isSuccess)}
+        />)}
     </div>
   );
 
@@ -56,23 +61,30 @@ export default function Cards({onProgressUpdate}) {
 
     let updatedCard = {...targetCard};
     const currentDelayIndex = intervals.indexOf(updatedCard.currentDelay);
+
     // Edit data
-    if (isSuccess && currentDelayIndex !== 0) {
+    if (!updatedCard.currentDelay) {
+      updatedCard.currentDelay = intervals[1];
+    }
+    else if (isSuccess && currentDelayIndex !== 0) {
       updatedCard.currentDelay = intervals[currentDelayIndex + 1];
     } else {
       updatedCard.currentDelay = intervals[currentDelayIndex - 1];
     }
 
     triggerCardUpdate(updatedCard);
-
-    // const updatedCardsList = [...cardsList].filter(card => card._id !== cardId);
-    // setCardsList(updatedCardsList);
   }
 
 
   function fetchCards() {
-    axios.get(baseUrl).then(({data}) => {
-      setCardsList(data.cards);
+    setLoadingState(true);
+    getFromServer('/cards/').then(({data}) => {
+      if (data.cards) {
+        setCardsList(data.cards);
+      } else {
+        setCardsList([]);
+      }
+      setLoadingState(false);
     })
   }
 
@@ -81,6 +93,6 @@ export default function Cards({onProgressUpdate}) {
    * @param card
    */
   function triggerCardUpdate(card) {
-    axios.post(`${baseUrl}/${card._id}`, {newDelay: card.currentDelay}).then(fetchCards);
+    postOnServer(`/cards/${card._id}`, {newDelay: card.currentDelay || intervals[1]}).then(fetchCards);
   }
 }

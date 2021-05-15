@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
-import axios from "axios";
 import StatsCard from "./StatsCard";
-const baseUrl = `${process.env.BASE_URL}/stats`;
+import {getFromServer} from "../server";
+const baseUrl = `/cards/stats`;
 export default function Stats() {
   const [stats, setStats] = useState(undefined);
 
@@ -32,7 +32,7 @@ export default function Stats() {
   );
 
   function fetchStats() {
-    axios.get(baseUrl).then(response => {
+    getFromServer(baseUrl).then(response => {
       setStats(response.data);
     });
   }

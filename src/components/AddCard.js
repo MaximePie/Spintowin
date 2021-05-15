@@ -1,10 +1,12 @@
 import React from 'react';
 import axios from "axios";
+import {postOnServer} from "../server";
 
 export default function AddCard() {
   const [question, setQuestion] = React.useState('');
   const [answer, setAnswer] = React.useState('');
   const [image, setImage] = React.useState(undefined);
+  const [displayedImage, setDisplayedImage] = React.useState(undefined);
 
   const isValid = (question || image) && answer;
 
@@ -32,10 +34,10 @@ export default function AddCard() {
               <input
                 className="AddCard__image-field fileInput"
                 type="file"
-                onChange={(event) => setImage(URL.createObjectURL(event.target.files[0]))}
+                onChange={updateImage}
               />
               {image && (
-                <img className="AddCard__image-field" src={image} alt=""/>
+                <img className="AddCard__image-field" src={displayedImage} alt=""/>
               )}
             </label>
             </div>
@@ -57,6 +59,12 @@ export default function AddCard() {
     </div>
   );
 
+  function updateImage(event) {
+    setImage(event.target.files[0]);
+    console.log(event.target.files[0]);
+    setDisplayedImage(URL.createObjectURL(event.target.files[0]))
+  }
+
   function saveQuestion() {
 
     if (!isValid) {
@@ -65,21 +73,17 @@ export default function AddCard() {
 
     const formData = new FormData();
     formData.append('file', image);
-    const questionBody = {
-      question,
-      answer,
-      files: null,
-    };
 
-    formData.append('state', JSON.stringify(questionBody));
-
-
-    axios.post(
-      `${process.env.BASE_URL}/cards`,
+    formData.append('question', question);
+    formData.append('answer', answer);
+    postOnServer(
+      `/cards`,
       formData
     ).then(() => {
       setQuestion('');
       setAnswer('');
+      setImage(undefined);
+      setDisplayedImage(undefined);
     })
   }
 }
