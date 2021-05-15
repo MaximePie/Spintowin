@@ -75,7 +75,7 @@ export default function AddCard() {
 
 
     axios.post(
-      'https://spintosuccess.herokuapp.com/cards',
+      `${process.env.BASE_URL}/cards`,
       formData
     ).then(() => {
       setQuestion('');

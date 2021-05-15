@@ -4,8 +4,9 @@ import Card from "./Card";
 
 import axios from "axios";
 
-const baseUrl = 'https://spintosuccess.herokuapp.com/cards';
+const baseUrl = `${process.env.REACT_APP_BASE_URL}/cards`;
 
+console.log(baseUrl);
 
 /**
  * This custom hooks returns the previous value of the ref.
@@ -31,6 +32,19 @@ export default function Cards({onProgressUpdate}) {
       fetchCards()
     }
   }, [cardsList]);
+
+  console.log(process.env.REACT_APP_TEST);
+
+  return (
+    <div className="Cards">
+      {cardsList.map(card => <Card
+        data={card}
+        key={card._id}
+        onAnswer={(isSuccess) => handleAnswer(card._id, isSuccess)}
+      />)}
+    </div>
+  );
+
 
   /**
    * If the answer is wrong, we go back to the first interval : 15 seconds
@@ -71,15 +85,4 @@ export default function Cards({onProgressUpdate}) {
   function triggerCardUpdate(card) {
     axios.post(`${baseUrl}/${card._id}`, {newDelay: card.currentDelay}).then(fetchCards);
   }
-
-  return (
-    <div className="Cards">
-      {cardsList.map(card => <Card
-        data={card}
-        key={card._id}
-        onAnswer={(isSuccess) => handleAnswer(card._id, isSuccess)}
-      />)}
-    </div>
-  );
-
 }

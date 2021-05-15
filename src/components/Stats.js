@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import axios from "axios";
 import StatsCard from "./StatsCard";
-const baseUrl = 'https://spintosuccess.herokuapp.com/cards/stats';
+const baseUrl = `${process.env.BASE_URL}/stats`;
 export default function Stats() {
   const [stats, setStats] = useState(undefined);
 
