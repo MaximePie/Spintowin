@@ -3,7 +3,7 @@ import {CircularProgressbar} from 'react-circular-progressbar';
 
 export default function OngoingStatsData({data}) {
 
-  const {percentage, number, total} = data;
+  const {percentage} = data;
 
   return (
     <>

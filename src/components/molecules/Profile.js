@@ -11,6 +11,7 @@ export default function Profile({user}) {
         <img
           className="Profile__image"
           src={castorImage}
+          alt={"Avatar d'utilisateur"}
         />
       </div>
       <p>{username}, niveau {level}</p>

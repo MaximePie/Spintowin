@@ -31,7 +31,7 @@ export default function TrainingPage() {
     if (previousLength > cardsList.length || previousLength === undefined) {
       fetchCards()
     }
-  }, [cardsList]);
+  }, [cardsList, previousLength]);
 
   useEffect(fetchUserData, []);
 
@@ -59,7 +59,6 @@ export default function TrainingPage() {
     getFromServer('/users/connectedUser').then(({data}) => {
       const { user: userData } = data;
       const {experience, level, username} = userData;
-      console.log()
       if (level !== user.level) {
         store.addNotification(levelUpNotification)
       }

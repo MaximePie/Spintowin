@@ -1,6 +1,7 @@
 import React from 'react';
-import axios from "axios";
 import {postOnServer} from "../../server";
+import {addCardFailureNotification, addCardSuccessNotification} from "../../services/notification";
+import { store } from 'react-notifications-component';
 
 export default function AddCard() {
   const [question, setQuestion] = React.useState('');
@@ -79,11 +80,20 @@ export default function AddCard() {
     postOnServer(
       `/cards`,
       formData
-    ).then(() => {
-      setQuestion('');
-      setAnswer('');
-      setImage(undefined);
-      setDisplayedImage(undefined);
+    ).then((response) => {
+      if (response.status === 200) {
+        store.addNotification(addCardSuccessNotification);
+        setQuestion('');
+        setAnswer('');
+        setImage(undefined);
+        setDisplayedImage(undefined);
+      }
+      else {
+        store.addNotification({
+          ...addCardFailureNotification,
+          message: addCardFailureNotification.message + response.message,
+        });
+      }
     })
   }
 }

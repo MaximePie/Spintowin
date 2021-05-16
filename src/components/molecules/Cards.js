@@ -4,9 +4,6 @@ import Card from "./Card";
 
 import {Link} from "react-router-dom";
 
-const baseUrl = `${process.env.REACT_APP_BASE_URL}/cards`;
-
-
 export default function Cards({cardsList, triggerCardUpdate}) {
   return (
     <div className="Cards">
