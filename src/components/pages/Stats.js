@@ -23,16 +23,19 @@ export default function Stats() {
           />
           <StatsCard
             title="Mémorisation"
-            data={stats.memorizedData}
+            data={{
+              mainData: stats.memorizedData,
+              total: stats.workInProgressData.total,
+            }}
           />
         </div>
       )}
-      {JSON.stringify(stats)}
     </div>
   );
 
   function fetchStats() {
     getFromServer(baseUrl).then(response => {
+      console.log(response.data);
       setStats(response.data);
     });
   }
