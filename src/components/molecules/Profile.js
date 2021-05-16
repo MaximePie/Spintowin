@@ -3,7 +3,7 @@ import "../../style/Profile.css"
 import castorImage from "../../images/castor.jpg";
 
 export default function Profile({user}) {
-  const {level, experience, username} = user;
+  const {level, experience, username} = user || {};
 
   return (
     <div className="Profile">

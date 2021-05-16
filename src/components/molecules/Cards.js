@@ -1,9 +1,7 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React from 'react';
 import {intervals,} from "../../data/cards"
 import Card from "./Card";
 
-import axios from "axios";
-import {getFromServer, postOnServer} from "../../server";
 import {Link} from "react-router-dom";
 
 const baseUrl = `${process.env.REACT_APP_BASE_URL}/cards`;
