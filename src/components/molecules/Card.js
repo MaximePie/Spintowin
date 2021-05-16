@@ -42,8 +42,19 @@ export default function Card({data, onAnswer}) {
           <>
             <p>{answer}</p>
             <div>
-              <button onMouseEnter={() => setAnswerSuccessState(true)}>OK</button>
-              <button className="Card__action--failed" onMouseEnter={() => setAnswerSuccessState(false)}>Pas OK</button>
+              <button
+                onMouseEnter={() => setAnswerSuccessState(true)}
+                onClick={() => setAnswerSuccessState(true)}
+              >
+                OK
+              </button>
+              <button
+                className="Card__action--failed"
+                onMouseEnter={() => setAnswerSuccessState(false)}
+                onClick={() => setAnswerSuccessState(false)}
+              >
+                Pas OK
+              </button>
             </div>
           </>
         </div>

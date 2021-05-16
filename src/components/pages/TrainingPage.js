@@ -59,7 +59,7 @@ export default function TrainingPage() {
     getFromServer('/users/connectedUser').then(({data}) => {
       const { user: userData } = data;
       const {experience, level, username} = userData;
-      if (level !== user.level) {
+      if (user.level && level !== user.level) {
         store.addNotification(levelUpNotification)
       }
 
