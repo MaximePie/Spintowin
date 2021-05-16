@@ -1,3 +1,8 @@
+.TrainingPage {
+  display: grid;
+  grid-template-columns: 400px 1fr;
+}
+
 .Stats {
   padding: 1rem;
 }

@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from "react";
-import './App.css';
-import AuthForm from "./components/AuthForm";
-import Cards from "./components/Cards";
-import AddCard from "./components/AddCard";
-import Stopwatch from "./components/Stopwatch";
-import Stats from "./components/Stats";
+import './style/App.css';
+import AuthForm from "./components/pages/AuthForm";
+import TrainingPage from "./components/pages/TrainingPage";
+import AddCard from "./components/pages/AddCard";
+import Stopwatch from "./components/molecules/Stopwatch";
+import Stats from "./components/pages/Stats";
 import {BrowserRouter, NavLink, Route, Switch} from "react-router-dom";
 import {axiosInstance, setAuthToken} from "./server";
 
@@ -81,7 +81,7 @@ function App() {
         <Switch>
           {user && (
             <>
-              <Route path="/" exact component={Cards}/>
+              <Route path="/" exact component={TrainingPage}/>
               <Route path="/add" component={AddCard}/>
               <Route path="/stats" component={Stats}/>
             </>

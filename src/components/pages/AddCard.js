@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from "axios";
-import {postOnServer} from "../server";
+import {postOnServer} from "../../server";
 
 export default function AddCard() {
   const [question, setQuestion] = React.useState('');

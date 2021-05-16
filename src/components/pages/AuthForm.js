@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {axiosInstance} from "../server";
+import {axiosInstance} from "../../server";
 
 export default function AuthForm({action, onTokenAcquisition}) {
 

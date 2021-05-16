@@ -1,41 +1,15 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {intervals,} from "../data/cards"
+import {intervals,} from "../../data/cards"
 import Card from "./Card";
 
 import axios from "axios";
-import {getFromServer, postOnServer} from "../server";
+import {getFromServer, postOnServer} from "../../server";
 import {Link} from "react-router-dom";
 
 const baseUrl = `${process.env.REACT_APP_BASE_URL}/cards`;
 
-/**
- * This custom hooks returns the previous value of the ref.
- * It has an effect in hit which allows the previous value to update.
- * @param value
- */
-function usePrevious(value) {
-  const ref = useRef();
 
-  useEffect(() => {
-    ref.current = value;
-  });
-  const previousValue = ref.current;
-  return previousValue;
-}
-
-
-export default function Cards({onProgressUpdate}) {
-
-  const [cardsList, setCardsList] = useState([]);
-  const [isLoading, setLoadingState] = useState(false);
-  const previousLength = usePrevious(cardsList.length);
-
-  useEffect(() => {
-    if (previousLength > cardsList.length || previousLength === undefined) {
-      fetchCards()
-    }
-  }, [cardsList]);
-
+export default function Cards({cardsList, triggerCardUpdate}) {
   return (
     <div className="Cards">
       {!cardsList.length && <p>Pas de cartes pour le moment, <Link to="add">créez-en quelques unes</Link> !</p>}
@@ -75,24 +49,4 @@ export default function Cards({onProgressUpdate}) {
     triggerCardUpdate(updatedCard);
   }
 
-
-  function fetchCards() {
-    setLoadingState(true);
-    getFromServer('/cards/').then(({data}) => {
-      if (data.cards) {
-        setCardsList(data.cards);
-      } else {
-        setCardsList([]);
-      }
-      setLoadingState(false);
-    })
-  }
-
-  /**
-   * Triggers the request to update the Card after a given Answer
-   * @param card
-   */
-  function triggerCardUpdate(card) {
-    postOnServer(`/cards/${card._id}`, {newDelay: card.currentDelay || intervals[1]}).then(fetchCards);
-  }
 }
