@@ -18,32 +18,32 @@ function App() {
           {user && (
             <>
               <div className="Navbar__right">
-              <NavLink
-                activeClassName="Navbar__link--active"
-                className="Navbar__link"
-                to='/'
-                exact
-              >
-                🥋 S'entraîner
-              </NavLink>
-              <NavLink
-                to='/add'
-                className="Navbar__link"
-                activeClassName="Navbar__link--active"
-                exact
-              >
-                ➕ Ajouter
-              </NavLink>
-              <NavLink
-                to='/stats'
-                className="Navbar__link"
-                activeClassName="Navbar__link--active"
-                exact
-              >
-                🤔 Stats
-              </NavLink>
-              <Stopwatch className="Navbar__stopwatch"/>
-            </div>
+                <NavLink
+                  activeClassName="Navbar__link--active"
+                  className="Navbar__link"
+                  to='/'
+                  exact
+                >
+                  🥋 S'entraîner
+                </NavLink>
+                <NavLink
+                  to='/add'
+                  className="Navbar__link"
+                  activeClassName="Navbar__link--active"
+                  exact
+                >
+                  ➕ Ajouter
+                </NavLink>
+                <NavLink
+                  to='/stats'
+                  className="Navbar__link"
+                  activeClassName="Navbar__link--active"
+                  exact
+                >
+                  🤔 Stats
+                </NavLink>
+                <Stopwatch className="Navbar__stopwatch"/>
+              </div>
               <div className="Navbar__left">
                 <a
                   className="Navbar__link"
@@ -91,7 +91,7 @@ function App() {
               <Route path="/login" exact>
                 <AuthForm action="login" onTokenAcquisition={getUserWithToken}/>
               </Route>
-              <Route path="/register" exact >
+              <Route path="/register" exact>
                 <AuthForm action="register" onTokenAcquisition={getUserWithToken}/>
               </Route>
             </>
