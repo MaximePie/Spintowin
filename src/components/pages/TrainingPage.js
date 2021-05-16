@@ -3,8 +3,8 @@ import Cards from "../molecules/Cards";
 import Profile from "../molecules/Profile";
 import {getFromServer, postOnServer} from "../../server";
 import {intervals} from "../../data/cards";
-
-
+import {levelUpNotification} from "../../services/notification"
+import { store } from 'react-notifications-component';
 
 /**
  * This custom hooks returns the previous value of the ref.
@@ -57,8 +57,13 @@ export default function TrainingPage() {
 
   function fetchUserData() {
     getFromServer('/users/connectedUser').then(({data}) => {
-      const { user } = data;
-      const {experience, level, username} = user;
+      const { user: userData } = data;
+      const {experience, level, username} = userData;
+      console.log()
+      if (level !== user.level) {
+        store.addNotification(levelUpNotification)
+      }
+
       setUser({
         experience,
         level,
