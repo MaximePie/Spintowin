@@ -1,4 +1,4 @@
-@import '../node_modules/@fortawesome/fontawesome-free/css/all.min.css';
+@import '../../node_modules/@fortawesome/fontawesome-free/css/all.min.css';
 
 
 $mediumSpacing: 8px;
@@ -29,12 +29,13 @@ $gray: #b5b5b5;
 }
 
 
-@import "./style/mixins";
-@import "./style/App";
-@import "style/molecules/Navbar";
-@import "style/molecules/Card";
-@import "style/molecules/StatsCard";
-@import "style/pages/Profile";
-@import "./style/pages/AddCard";
-@import "./style/pages/AuthForm";
-@import "./style/atoms/InputGroup";
+@import "./mixins";
+@import "./App";
+@import "./molecules/Navbar";
+@import "./molecules/Card";
+@import "./molecules/StatsCard";
+@import "./pages/TrainingPage";
+@import "./molecules/Profile";
+@import "./pages/AddCard";
+@import "./pages/AuthForm";
+@import "./atoms/InputGroup";

@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react';
-import "../../style/molecules/Card.scss";
 import {CSSTransition} from 'react-transition-group';
 
 export default function Card({data, onAnswer}) {

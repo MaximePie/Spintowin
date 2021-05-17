@@ -1,0 +1,73 @@
+.Card {
+  border-radius: 8px;
+  width: 180px;
+  height: 150px;
+  border: solid 1px lightgray;
+  margin: 0.5rem;
+  padding: 1rem;
+  cursor: pointer;
+  transition: transform 75ms ease-in-out;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  font-weight: bold;
+  font-size: 1.1em;
+
+  text-align: center;
+
+  @include for-phone-only {
+    width: 130px;
+  }
+
+  &:hover {
+    transform: translateY(-8px);
+    transition: transform 150ms ease-in-out;
+  }
+
+  &__image {
+    height: 90%;
+  }
+
+  &__delay {
+    font-weight: initial;
+    margin: 0.5rem 1rem;
+  }
+
+  &__action--failed {
+    background-color: indianred;
+    margin-left: 0.5rem;
+
+    @include for-phone-only {
+      margin-left: 0;
+      margin-top: 0.5rem;
+    }
+  }
+
+
+  &--answerShown-enter, &--answerShown-enter-active {
+    opacity: 0.01;
+  }
+
+  &--answerShown-enter-done {
+    opacity: 1;
+    transition: opacity 300ms;
+  }
+
+  &--answerShown-exit, &--answerShown-exit-active {
+    opacity: 1;
+    transform: rotateY(0);
+    animation: fadeOut 300ms forwards;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}

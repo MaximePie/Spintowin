@@ -1,0 +1,25 @@
+@mixin for-phone-only {
+  @media (max-width: 999px) { @content; }
+}
+
+.Profile {
+  height: 400px;
+  border-radius: 8px;
+  border: solid 1px lightgray;
+  margin: 0.5rem;
+
+  font-weight: bold;
+  font-size: 1.1em;
+
+  text-align: center;
+
+
+  @include for-phone-only {
+    width: 95vw;
+  }
+
+  &__image-container {
+    overflow: hidden;
+    border-radius: 4px;
+  }
+}
