@@ -5,6 +5,7 @@ const defaultValue = {
 }
 
 export const viewportContext = React.createContext(defaultValue);
+const mobileWidth = 1000;
 
 export function ViewportContextProvider ({children}) {
 
@@ -12,10 +13,10 @@ export function ViewportContextProvider ({children}) {
 
   useEffect(() => {
     const width = document.documentElement.clientWidth;
-    if (width < 900 && !isMobile) {
+    if (width < mobileWidth && !isMobile) {
       setMobileState(true);
     }
-    else if (width >= 900 && isMobile) {
+    else if (width >= mobileWidth && isMobile) {
       setMobileState(false);
     }
     window.addEventListener("resize", checkSize);
@@ -29,10 +30,10 @@ export function ViewportContextProvider ({children}) {
 
   function checkSize() {
     const width = document.documentElement.clientWidth;
-    if (width < 900 && !isMobile) {
+    if (width < mobileWidth && !isMobile) {
       setMobileState(true);
     }
-    else if (width >= 900) {
+    else if (width >= mobileWidth) {
       setMobileState(false);
     }
   }

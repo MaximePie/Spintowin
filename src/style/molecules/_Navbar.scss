@@ -12,9 +12,13 @@
   }
 
   &__right {
-    width: 50%;
     display: flex;
     justify-content: space-between;
+    align-items: baseline;
+
+    @include for-phone-only {
+      width: 50%;
+    }
   }
 
   &__link {

@@ -1,6 +1,6 @@
 import React from 'react';
 import {postOnServer} from "../../server";
-import {addCardFailureNotification, addCardSuccessNotification} from "../../services/notification";
+import {addCardFailureNotification, addCardSuccessNotification, addNotification} from "../../services/notification";
 import { store } from 'react-notifications-component';
 import InputGroup from "../atoms/InputGroup";
 
@@ -83,7 +83,6 @@ export default function AddCard() {
 
   function updateImage(event) {
     setImage(event.target.files[0]);
-    console.log(event.target.files[0]);
     setDisplayedImage(URL.createObjectURL(event.target.files[0]))
   }
 
@@ -103,7 +102,8 @@ export default function AddCard() {
       formData
     ).then((response) => {
       if (response.status === 200) {
-        store.addNotification(addCardSuccessNotification);
+        addNotification(addCardSuccessNotification);
+        // store.addNotification({addCardSuccessNotification});
         setQuestion('');
         setAnswer('');
         setImage(undefined);

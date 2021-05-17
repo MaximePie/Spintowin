@@ -1,3 +1,4 @@
+import { store } from 'react-notifications-component';
 
 const baseNotification = {
   insert: "top",
@@ -51,3 +52,12 @@ export const addCardFailureNotification = {
   message: "Il y a eu un problème lors de la création : ",
   type: "warning",
 };
+
+
+export function addNotification(details, isMobile = false) {
+  let notification = details;
+  if (isMobile) {
+    notification.insert = "bottom";
+  }
+  store.addNotification(details);
+}

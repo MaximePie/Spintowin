@@ -13,15 +13,24 @@
 
   text-align: center;
 
+  @include for-phone-only {
+    width: initial;
+  }
+
   &__fields {
     margin-top: 1rem;
     display: grid;
     grid-template-rows: 200px 1fr;
     grid-row-gap: 1rem;
   }
+
   &__subfields {
     display: flex;
     flex-direction: row;
+
+    @include for-phone-only {
+      flex-direction: column;
+    }
   }
 
   &__subfield-field {
@@ -34,6 +43,12 @@
     &:first-child {
       margin-right: 4px;
       border-right: solid 1px lightgray;
+
+      @include for-phone-only {
+        margin-right: 0;
+        border-right: none;
+        margin-bottom: 1rem;
+      }
     }
 
     &--disabled {
@@ -44,9 +59,6 @@
     }
   }
 
-  &__image-field {
-    border-bottom: none;
-  }
 
   &__actions {
     margin-top: 1rem;
@@ -74,11 +86,44 @@
   &__image-field {
     width: 200px;
     height: 180px;
+    border-bottom: none;
+
+    @include for-phone-only {
+      height: 120px;
+    }
   }
 
   &__field {
     min-width: 186px !important;
   }
+}
+
+
+.fileLabel {
+  cursor: pointer;
+  color: #00b1ca;
+  font-weight: bold;
+}
+
+.fileLabel--empty {
+  border: 2px dashed lightblue;
+  width: 200px;
+  height: 180px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  @include for-phone-only {
+    height: 120px;
+  }
+}
+
+.label-file:hover {
+  color: #25a5c4;
+}
+
+.fileInput {
+  display: none;
 }
 
 
