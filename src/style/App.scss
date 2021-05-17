@@ -17,65 +17,6 @@
   flex-wrap: wrap;
 }
 
-
-.AddCard {
-  border-radius: 8px;
-  width: 500px;
-  border: solid 1px lightgray;
-  margin: 0.5rem;
-  padding: 1rem;
-  cursor: pointer;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-
-  text-align: center;
-}
-
-.AddCard__fields {
-  margin-top: 1rem;
-  display: grid;
-  grid-template-rows: 200px 1fr;
-  grid-row-gap: 1rem;
-}
-
-.AddCard__subfields {
-  display: flex;
-  flex-direction: row;
-}
-
-.AddCard__subfield-field:first-child {
-  margin-right: 4px;
-  border-right: solid 1px lightgray;
-}
-
-.AddCard__subfield-field {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 240px;
-}
-
-.AddCard__image-field {
-  border-bottom: none;
-}
-
-.AddCard__actions {
-  margin-top: 1rem;
-}
-
-.AddCard__submit--disabled {
-  background-color: #dcfff0;
-  cursor: not-allowed;
-}
-
-.AddCard__submit--disabled:hover {
-  filter: initial;
-}
-
 .fileLabel {
   cursor: pointer;
   color: #00b1ca;
@@ -99,35 +40,17 @@
   display: none;
 }
 
-.AddCard__remove-image {
-  color: red;
-  margin-right: 1rem;
-}
-
-.AddCard__image-field {
-  width: 200px;
-  height: 180px;
-}
-
-.AddCard__subfield-field--disabled {
-  color: gray;
-  pointer-events: none;
-  background-color: lightgray;
-}
-
-.AddCard__field {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+body {
+  margin: 0;
 }
 
 button {
   border-radius: 4px;
-  background-color: aquamarine;
+  background-color: $primaryColor;
+  color: whitesmoke;
   outline: none;
   border: none;
   padding: 4px 8px;
-  width: 80px;
   height: 32px;
 
   cursor: pointer;
@@ -143,9 +66,9 @@ button:hover {
 input {
   border: none;
   border-bottom: 1px lightblue solid;
-  padding: 4px 8px;
+  padding: 4px 0;
   margin: 0.25rem;
-  width: 150px;
+  min-width: 150px;
 }
 
 .Navbar {
@@ -164,6 +87,9 @@ input {
   text-decoration: none;
   text-transform: uppercase;
   font-weight: bold;
+
+  background: none;
+  width: initial;
 }
 
 .Navbar__link--active {

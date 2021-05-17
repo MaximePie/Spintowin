@@ -1,5 +1,7 @@
 import React, {useState} from 'react';
 import {axiosInstance} from "../../server";
+import InputGroup from "../atoms/InputGroup"
+import {Link} from "react-router-dom";
 
 export default function AuthForm({action, onTokenAcquisition}) {
 
@@ -8,24 +10,70 @@ export default function AuthForm({action, onTokenAcquisition}) {
   const [username, setUsername] = useState('');
 
   return (
-    <div className="AuthForm">
-      <label>
-        Email :
-        <input type="text" value={email} onChange={(event) => setMail(event.target.value)}/>
-      </label>
-      <label>
-        Mot de passe :
-        <input type="password" value={password} onChange={(event) => setPassword(event.target.value)}/>
-      </label>
-      {action === 'register' && (
-        <>
-          <label>
-            Nom d'utilisateur
-            <input type="text" value={username} onChange={(event) => setUsername(event.target.value)}/>
+    <div className="AuthForm-container">
+
+      <div className="AuthForm">
+        <h3>Bienvenue !</h3>
+        {action === 'register' && (
+          <>
+            <div className="AuthForm__field">
+              <label className="AuthForm__label">
+                Nom d'utilisateur
+              </label>
+              <InputGroup
+                type="text"
+                value={username}
+                onChange={(event) => setUsername(event.target.value)}
+                className="AuthForm__input"
+                icon="user"
+                placeholder="Entrez votre castobriquet"
+              />
+            </div>
+          </>
+        )}
+        <div className="AuthForm__field">
+          <label className="AuthForm__label">
+            Email
           </label>
-        </>
-      )}
-      <button onClick={sendData}>Se connecter ou s'enregistrer</button>
+          <InputGroup
+            type="text"
+            value={email}
+            onChange={(event) => setMail(event.target.value)}
+            className="AuthForm__input"
+            icon="envelope"
+            placeholder="Entrez votre e-mail"
+          />
+        </div>
+        <div className="AuthForm__field">
+          <label className="AuthForm__label">
+            Mot de passe
+          </label>
+          <InputGroup
+            type="password"
+            value={password}
+            onChange={(event) => setPassword(event.target.value)}
+            className="AuthForm__input"
+            icon="lock"
+            isIconSolid
+            placeholder="Entrez votre mot de passe"
+          />
+        </div>
+        <button onClick={sendData} className="AuthForm__action">
+          {action === 'register' ? "S'enregistrer" : 'Se connecter'}
+        </button>
+        {action === "register" && (
+          <div className="AuthForm__redirection">
+            <p>Vous avez déjà un compte ?</p>
+            <Link to="/login">Connectez-vous</Link>
+          </div>
+        )}
+        {action === "login" && (
+          <div className="AuthForm__redirection">
+            <p>Vous n'avez pas de compte ?</p>
+            <Link to="/register">Créez un compte</Link>
+          </div>
+        )}
+      </div>
     </div>
   );
 
@@ -39,13 +87,11 @@ export default function AuthForm({action, onTokenAcquisition}) {
         const token = data.token;
         if (token) {
           onTokenAcquisition(token, true);
-        }
-        else if (data.message) {
+        } else if (data.message) {
           console.log(data.message);
         }
       });
-    }
-    else if (action === 'login') {
+    } else if (action === 'login') {
       axiosInstance.post('/users/login', {
         email,
         password,
@@ -53,8 +99,7 @@ export default function AuthForm({action, onTokenAcquisition}) {
         const token = data.token;
         if (token) {
           onTokenAcquisition(token, true);
-        }
-        else if (data.error) {
+        } else if (data.error) {
           console.log(data.error);
         }
       });

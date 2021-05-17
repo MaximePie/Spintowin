@@ -1,0 +1,85 @@
+.AddCard {
+  border-radius: 8px;
+  width: 500px;
+  border: solid 1px lightgray;
+  margin: 0.5rem;
+  padding: 1rem;
+  cursor: pointer;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  text-align: center;
+
+  &__fields {
+    margin-top: 1rem;
+    display: grid;
+    grid-template-rows: 200px 1fr;
+    grid-row-gap: 1rem;
+  }
+  &__subfields {
+    display: flex;
+    flex-direction: row;
+  }
+
+  &__subfield-field {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 240px;
+
+    &:first-child {
+      margin-right: 4px;
+      border-right: solid 1px lightgray;
+    }
+
+    &--disabled {
+      color: gray;
+      pointer-events: none;
+      background-color: lightgray;
+      transition: background-color 250ms ease;
+    }
+  }
+
+  &__image-field {
+    border-bottom: none;
+  }
+
+  &__actions {
+    margin-top: 1rem;
+  }
+
+  &__submit {
+    transition: background-color 250ms ease;
+  }
+
+  &__submit--disabled {
+    background-color: $primaryColorDisabled;
+    transition: background-color 250ms ease;
+    cursor: not-allowed;
+  }
+
+  &__submit--disabled:hover {
+    filter: initial;
+  }
+
+  &__remove-image {
+    color: red;
+    margin-right: 1rem;
+  }
+
+  &__image-field {
+    width: 200px;
+    height: 180px;
+  }
+
+  &__field {
+    min-width: 186px !important;
+  }
+}
+
+
+

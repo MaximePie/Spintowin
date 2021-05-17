@@ -1,5 +1,5 @@
 import React from 'react';
-import "../../style/Profile.css"
+import "../../style/Profile.scss"
 import castorImage from "../../images/castor.jpg";
 
 export default function Profile({user}) {

@@ -2,6 +2,7 @@ import React from 'react';
 import {postOnServer} from "../../server";
 import {addCardFailureNotification, addCardSuccessNotification} from "../../services/notification";
 import { store } from 'react-notifications-component';
+import InputGroup from "../atoms/InputGroup";
 
 export default function AddCard() {
   const [question, setQuestion] = React.useState('');
@@ -16,10 +17,20 @@ export default function AddCard() {
       <h3>Ajouter une question</h3>
       <div className="AddCard__fields">
         <div className="AddCard__subfields">
-          <label className={`AddCard__subfield-field ${image && 'AddCard__subfield-field--disabled'}`}>
-            ❓ Question
-            <input type="text" value={question} onChange={(event) => setQuestion(event.target.value)}/>
-          </label>
+          <div className={`AddCard__subfield-field ${image && 'AddCard__subfield-field--disabled'}`}>
+            <label>
+              Question
+            </label>
+            <InputGroup
+              type="text"
+              value={question}
+              onChange={(event) => setQuestion(event.target.value)}
+              icon="question"
+              isIconSolid
+              placeholder="Quelle est la taille d'un castor ?"
+              className="AddCard__field"
+            />
+          </div>
           <div className="AddCard__subfield-field">
             <div>
               {image && (
@@ -44,10 +55,20 @@ export default function AddCard() {
             </div>
           </div>
         </div>
-        <label className="AddCard__field">
-          Réponse
-          <input type="text" value={answer} onChange={(event) => setAnswer(event.target.value)}/>
-        </label>
+        <div>
+          <label className="AddCard__field">
+            Réponse
+          </label>
+          <InputGroup
+            type="text"
+            value={answer}
+            onChange={(event) => setAnswer(event.target.value)}
+            icon="lightbulb"
+            isIconSolid
+            placeholder="80 - 100 cm"
+            className="AddCard__field"
+          />
+        </div>
       </div>
       <div className="AddCard__actions">
         <button

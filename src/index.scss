@@ -1,0 +1,38 @@
+@import '../node_modules/@fortawesome/fontawesome-free/css/all.min.css';
+
+
+$mediumSpacing: 8px;
+$defaultBorderRadius: 8px;
+$borderRadiusSmall: 4px;
+$defaultSpacing: 1rem;
+$borderCard: solid 1px lightgray;
+
+$navbarHeight: 40px;
+$primaryColor: dodgerblue;
+$primaryColorDisabled: #6EBDFF;
+$gray: #b5b5b5;
+
+
+@mixin cardStyle {
+  border-radius: $defaultBorderRadius;
+  border: $borderCard;
+  padding: $defaultSpacing;
+  cursor: pointer;
+
+  // Centered
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  text-align: center;
+}
+
+
+@import "./style/App";
+@import "./style/Card";
+@import "./style/Profile";
+@import "./style/StatsCard";
+@import "./style/pages/AddCard";
+@import "./style/pages/AuthForm";
+@import "./style/atoms/InputGroup";

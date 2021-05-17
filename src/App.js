@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from "react";
-import './style/App.css';
 import AuthForm from "./components/pages/AuthForm";
 import TrainingPage from "./components/pages/TrainingPage";
 import AddCard from "./components/pages/AddCard";
@@ -45,12 +44,12 @@ function App() {
                 <Stopwatch className="Navbar__stopwatch"/>
               </div>
               <div className="Navbar__left">
-                <a
+                <button
                   className="Navbar__link"
                   onClick={logout}
                 >
                   Se déconnecter
-                </a>
+                </button>
               </div>
             </>
           )}
