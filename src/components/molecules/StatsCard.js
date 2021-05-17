@@ -1,5 +1,5 @@
 import React from 'react';
-import "../../style/StatsCard.scss";
+import "../../style/molecules/StatsCard.scss";
 import 'react-circular-progressbar/dist/styles.css';
 import OngoingStatsData from "./OngoingStatsData";
 import BarChart from "./BarChart";

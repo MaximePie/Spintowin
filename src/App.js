@@ -1,102 +1,45 @@
 import React, {useEffect, useState} from "react";
+import {ViewportContextProvider} from "./contexts/viewport"
+
+
 import AuthForm from "./components/pages/AuthForm";
 import TrainingPage from "./components/pages/TrainingPage";
 import AddCard from "./components/pages/AddCard";
-import Stopwatch from "./components/molecules/Stopwatch";
+import Navbar from "./components/molecules/Navbar";
 import Stats from "./components/pages/Stats";
-import {BrowserRouter, NavLink, Route, Switch} from "react-router-dom";
+import {BrowserRouter, Route, Switch} from "react-router-dom";
 import {axiosInstance, setAuthToken} from "./server";
+
 
 function App() {
   const [user, setUser] = useState(undefined);
   useEffect(checkIfUserIsAuthed, []);
   return (
     <BrowserRouter>
-      <div className="App">
-        <div className="Navbar">
-          {user && (
-            <>
-              <div className="Navbar__right">
-                <NavLink
-                  activeClassName="Navbar__link--active"
-                  className="Navbar__link"
-                  to='/'
-                  exact
-                >
-                  🥋 S'entraîner
-                </NavLink>
-                <NavLink
-                  to='/add'
-                  className="Navbar__link"
-                  activeClassName="Navbar__link--active"
-                  exact
-                >
-                  ➕ Ajouter
-                </NavLink>
-                <NavLink
-                  to='/stats'
-                  className="Navbar__link"
-                  activeClassName="Navbar__link--active"
-                  exact
-                >
-                  🤔 Stats
-                </NavLink>
-                <Stopwatch className="Navbar__stopwatch"/>
-              </div>
-              <div className="Navbar__left">
-                <button
-                  className="Navbar__link"
-                  onClick={logout}
-                >
-                  Se déconnecter
-                </button>
-              </div>
-            </>
-          )}
-          {!user && (
-            <>
-              <span/>
-              <div className="Navbar__left">
-                <NavLink
-                  to='/login'
-                  className="Navbar__link"
-                  activeClassName="Navbar__link--active"
-                  exact
-                >
-                  Se connecter
-                </NavLink>
-                <NavLink
-                  to='/register'
-                  className="Navbar__link"
-                  activeClassName="Navbar__link--active"
-                  exact
-                >
-                  Créer un compte
-                </NavLink>
-              </div>
-            </>
-          )}
+      <ViewportContextProvider>
+        <div className="App">
+          <Navbar user={user} logout={logout}/>
+          <Switch>
+            {user && (
+              <>
+                <Route path="/" exact component={TrainingPage}/>
+                <Route path="/add" component={AddCard}/>
+                <Route path="/stats" component={Stats}/>
+              </>
+            )}
+            {!user && (
+              <>
+                <Route path="/login" exact>
+                  <AuthForm action="login" onTokenAcquisition={getUserWithToken}/>
+                </Route>
+                <Route path="/register" exact>
+                  <AuthForm action="register" onTokenAcquisition={getUserWithToken}/>
+                </Route>
+              </>
+            )}
+          </Switch>
         </div>
-        <Switch>
-          {user && (
-            <>
-              <Route path="/" exact component={TrainingPage}/>
-              <Route path="/add" component={AddCard}/>
-              <Route path="/stats" component={Stats}/>
-            </>
-          )}
-          {!user && (
-            <>
-              <Route path="/login" exact>
-                <AuthForm action="login" onTokenAcquisition={getUserWithToken}/>
-              </Route>
-              <Route path="/register" exact>
-                <AuthForm action="register" onTokenAcquisition={getUserWithToken}/>
-              </Route>
-            </>
-          )}
-        </Switch>
-      </div>
+      </ViewportContextProvider>
     </BrowserRouter>
   );
 

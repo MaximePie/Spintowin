@@ -71,34 +71,3 @@ input {
   margin: 0.25rem;
   min-width: 150px;
 }
-
-.Navbar {
-  height: 40px;
-  background-color: dodgerblue;
-  padding: 0.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.Navbar__link {
-  cursor: pointer;
-  color: white;
-  margin: 0 0.5rem;
-  text-decoration: none;
-  text-transform: uppercase;
-  font-weight: bold;
-
-  background: none;
-  width: initial;
-}
-
-.Navbar__link--active {
-  text-decoration: underline lightblue;
-}
-
-.Navbar__stopwatch {
-  color: white;
-  margin-left: 1rem;
-  font-size: 1.25rem;
-}

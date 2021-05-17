@@ -29,10 +29,12 @@ $gray: #b5b5b5;
 }
 
 
+@import "./style/mixins";
 @import "./style/App";
-@import "./style/Card";
-@import "./style/Profile";
-@import "./style/StatsCard";
+@import "style/molecules/Navbar";
+@import "style/molecules/Card";
+@import "style/molecules/StatsCard";
+@import "style/pages/Profile";
 @import "./style/pages/AddCard";
 @import "./style/pages/AuthForm";
 @import "./style/atoms/InputGroup";
