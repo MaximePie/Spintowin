@@ -1,6 +1,5 @@
 @import '../../node_modules/@fortawesome/fontawesome-free/css/all.min.css';
-
-
+@import url('https://fonts.googleapis.com/css2?family=KoHo:ital,wght@0,300;0,400;1,400&display=swap');
 $mediumSpacing: 8px;
 $defaultBorderRadius: 8px;
 $borderRadiusSmall: 4px;
@@ -11,6 +10,10 @@ $navbarHeight: 40px;
 $primaryColor: dodgerblue;
 $primaryColorDisabled: #6EBDFF;
 $gray: #b5b5b5;
+
+body {
+  font-family: 'KoHo', sans-serif;
+}
 
 
 @mixin cardStyle {
