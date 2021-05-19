@@ -35,7 +35,6 @@ export default function Stats() {
 
   function fetchStats() {
     getFromServer(baseUrl).then(response => {
-      console.log(response.data);
       setStats(response.data);
     });
   }

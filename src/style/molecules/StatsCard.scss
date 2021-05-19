@@ -21,11 +21,12 @@
   margin-bottom: 0;
 }
 
-.OngoingStatsData__progressBar {
-  text-align: center;
-  height: 50%;
-  width: 50%;
-  margin-bottom: 1rem;
+.OngoingStatsData__donut {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 

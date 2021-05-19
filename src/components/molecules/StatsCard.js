@@ -9,13 +9,13 @@ export default function StatsCard({title, data}) {
     <div className={`StatsCard ${title==="Mémorisation" && 'StatsCard--large'}`}>
       <h3 className="StatsCard__title">{title}</h3>
       {title === "Cartes en cours d'apprentissage" && (
-        <OngoingStatsData data={data}
+        <OngoingStatsData
       />)}
       {title === "Score" && (
         <h4>{data}</h4>
       )}
       {title === "Mémorisation" && (
-        <BarChart data={data}/>
+        <BarChart/>
       )}
     </div>
   );
