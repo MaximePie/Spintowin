@@ -6,6 +6,7 @@ import AuthForm from "./components/pages/AuthForm";
 import TrainingPage from "./components/pages/TrainingPage";
 import AddCard from "./components/pages/AddCard";
 import Navbar from "./components/molecules/Navbar";
+import LoadingAppGif from "./components/molecules/LoadingAppGif";
 import Stats from "./components/pages/Stats";
 import {BrowserRouter, Route, Switch} from "react-router-dom";
 import {axiosInstance, setAuthToken} from "./server";
@@ -13,12 +14,21 @@ import {axiosInstance, setAuthToken} from "./server";
 
 function App() {
   const [user, setUser] = useState(undefined);
-  useEffect(checkIfUserIsAuthed, []);
+  const [isLoading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setLoading(true);
+    checkIfUserIsAuthed()
+  }, []);
+
   return (
     <BrowserRouter>
       <ViewportContextProvider>
         <div className="App">
           <Navbar user={user} logout={logout}/>
+          {isLoading && (
+            <LoadingAppGif/>
+          )}
           <Switch>
             {user && (
               <>
@@ -53,6 +63,7 @@ function App() {
 
   function getUserWithToken(token, isAfterLogging = false) {
     axiosInstance.get('/users/connectedUser').then((user) => {
+      setLoading(false);
       localStorage.setItem('auth-token', token);
       setAuthToken(token);
       setUser(user);
