@@ -17,7 +17,6 @@ export function getFromServer(path) {
 }
 
 export function postOnServer(path, body) {
-  console.log(body);
   return axiosInstance.post(
     path,
     body,

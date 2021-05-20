@@ -46,8 +46,6 @@ export default function OngoingStatsData() {
 
     const formatedStarted = started / total * 100;
     const formatedToday = today / total * 100;
-    console.log(formatedStarted)
-    console.log(formatedToday)
     return [
       isNaN(formatedStarted) ? 0 : formatedStarted,
       isNaN(formatedToday) ? 0 : formatedToday,

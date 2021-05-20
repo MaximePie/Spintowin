@@ -28,7 +28,7 @@ export default function TrainingPage() {
   const previousLength = usePrevious(cardsList.length);
 
   useEffect(() => {
-    if (previousLength > cardsList.length || previousLength === undefined) {
+    if (previousLength === undefined) {
       fetchCards()
     }
   }, [cardsList, previousLength]);
@@ -46,11 +46,19 @@ export default function TrainingPage() {
 
 
   function fetchCards() {
-    getFromServer('/cards/').then(({data}) => {
+    getFromServer('/cards').then(({data}) => {
       if (data.cards) {
-        setCardsList(data.cards);
+        setCardsList([...cardsList, ...data.cards]);
       } else {
         setCardsList([]);
+      }
+    })
+  }
+
+  function getOneCard() {
+    getFromServer('/cards/getOne').then(({data}) => {
+      if (data.cards) {
+        setCardsList([...cardsList, ...data.cards]);
       }
     })
   }
@@ -77,7 +85,7 @@ export default function TrainingPage() {
    */
   function triggerCardUpdate(card) {
     postOnServer(`/cards/${card._id}`, {newDelay: card.currentDelay || intervals[1]}).then(() => {
-      fetchCards();
+      getOneCard();
       fetchUserData();
     });
   }
