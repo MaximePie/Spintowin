@@ -55,6 +55,7 @@ export default function TrainingPage() {
     })
   }
 
+  // TODO - Remove this method and restore the previous function with parameterss
   function getOneCard() {
     getFromServer('/cards/getOne').then(({data}) => {
       if (data.cards) {
