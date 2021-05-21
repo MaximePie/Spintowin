@@ -1,4 +1,5 @@
 .Card {
+  overflow: hidden;
   border-radius: 8px;
   width: 180px;
   height: 150px;
@@ -48,26 +49,30 @@
 
   &--answerShown-enter, &--answerShown-enter-active {
     opacity: 0.01;
+    transform: rotateY(90deg);
   }
 
   &--answerShown-enter-done {
     opacity: 1;
-    transition: opacity 300ms;
+    transition: opacity 300ms, transform 300ms;
+    transform: rotateY(0);
   }
 
   &--answerShown-exit, &--answerShown-exit-active {
     opacity: 1;
     transform: rotateY(0);
-    animation: fadeOut 300ms forwards;
+    animation: rotateOut 300ms forwards;
   }
 }
 
 @keyframes fadeOut {
   from {
     opacity: 1;
+    transform: rotateY(0);
   }
 
   to {
     opacity: 0;
+    transform: rotateY(180deg);
   }
 }

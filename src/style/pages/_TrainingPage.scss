@@ -1,8 +1,2 @@
 .TrainingPage {
-  display: grid;
-  grid-template-columns: 400px 1fr;
-
-  @include for-phone-only {
-    grid-template-columns: initial;
-  }
 }

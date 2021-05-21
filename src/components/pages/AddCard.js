@@ -10,7 +10,10 @@ export default function AddCard() {
   const [image, setImage] = React.useState(undefined);
   const [displayedImage, setDisplayedImage] = React.useState(undefined);
 
-  const isValid = (question || image) && answer;
+  let isValid = (question || image) && answer;
+  if (image?.size >= 1000000) {
+    isValid = false;
+  }
 
   return (
     <div className="AddCard">
@@ -51,6 +54,7 @@ export default function AddCard() {
               {image && (
                 <img className="AddCard__image-field" src={displayedImage} alt=""/>
               )}
+              {image?.size >= 1000000 && <p>L'image est trop lourde. 1Mo maximum</p>}
             </label>
             </div>
           </div>
@@ -103,7 +107,6 @@ export default function AddCard() {
     ).then((response) => {
       if (response.status === 200) {
         addNotification(addCardSuccessNotification);
-        // store.addNotification({addCardSuccessNotification});
         setQuestion('');
         setAnswer('');
         setImage(undefined);

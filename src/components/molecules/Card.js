@@ -42,14 +42,12 @@ export default function Card({data, onAnswer}) {
             <p>{answer}</p>
             <div>
               <button
-                onMouseEnter={() => setAnswerSuccessState(true)}
                 onClick={() => setAnswerSuccessState(true)}
               >
                 OK
               </button>
               <button
                 className="Card__action--failed"
-                onMouseEnter={() => setAnswerSuccessState(false)}
                 onClick={() => setAnswerSuccessState(false)}
               >
                 Pas OK
@@ -64,7 +62,6 @@ export default function Card({data, onAnswer}) {
   function formatedImage(image) {
     const base64Flag = `data:${image.contentType};base64,`;
     const imageString = arrayBufferToBase64(image.data);
-
     return base64Flag + imageString;
   }
 
