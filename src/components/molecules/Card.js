@@ -19,7 +19,7 @@ export default function Card({data, onAnswer}) {
         <div className="Card" onClick={revealAnswer}>
           <p className="Card__delay">🎯{currentDelay}</p>
           {question && (
-            <p>{question}</p>
+            <p className="Card__answer">{question}</p>
           )}
           {image && (
             <img className="Card__image" src={formatedImage(image.data)} alt=""/>
@@ -34,7 +34,7 @@ export default function Card({data, onAnswer}) {
         <div className="Card" onClick={revealAnswer}>
           <p className="Card__delay">🎯{currentDelay}</p>
           <>
-            <p>{answer}</p>
+            <p className="Card__answer">{answer}</p>
             <div>
               <button
                 onClick={() => setAnswerSuccessState(true)}

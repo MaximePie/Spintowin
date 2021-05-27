@@ -36,6 +36,11 @@
     margin: 0.5rem 1rem;
   }
 
+  &__answer {
+    font-weight: 500;
+    margin: 8px 0 16px 0;
+  }
+
   &__action--failed {
     background-color: indianred;
     margin-left: 0.5rem;
