@@ -9,6 +9,7 @@ export default function Card({data, onAnswer}) {
   useEffect(() => {
     if (isAnswerSuccessful === true || isAnswerSuccessful === false) {
       setAnswerDisplayState(false);
+      onAnswer(isAnswerSuccessful);
     }
   }, [isAnswerSuccessful]);
 
@@ -27,14 +28,8 @@ export default function Card({data, onAnswer}) {
       )}
       <CSSTransition
         in={isAnswerShown}
-        timeout={{
-          appear: 0,
-          enter: 0,
-          exit: 200,
-        }}
         classNames="Card--answerShown"
         unmountOnExit
-        onExited={() => {onAnswer(isAnswerSuccessful)}}
       >
         <div className="Card" onClick={revealAnswer}>
           <p className="Card__delay">🎯{currentDelay}</p>
