@@ -23,7 +23,7 @@ export default function OngoingStatsData() {
         }
       },
       colors: ['#008ffb', '#00e396', '#e3e4ea'],
-      labels: ['Déjà démarrées', "Démarrées aujourd'hui", 'Total'],
+      labels: ['Déjà démarrées', "Démarrées aujourd'hui", 'Restantes'],
     }
   }
 
@@ -49,7 +49,7 @@ export default function OngoingStatsData() {
     return [
       isNaN(formatedStarted) ? 0 : formatedStarted,
       isNaN(formatedToday) ? 0 : formatedToday,
-      100,
+      100 - formatedStarted - formatedToday,
     ]
   }
 

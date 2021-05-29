@@ -30,6 +30,7 @@ export default function Card({data, onAnswer}) {
         in={isAnswerShown}
         classNames="Card--answerShown"
         unmountOnExit
+        timeout={0}
       >
         <div className="Card" onClick={revealAnswer}>
           <p className="Card__delay">🎯{currentDelay}</p>
