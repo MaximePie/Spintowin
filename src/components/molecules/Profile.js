@@ -1,9 +1,14 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import "../../style/molecules/Profile.scss"
 import castorImage from "../../images/castor.jpg";
+import {getFromServer} from "../../server";
 
-export default function Profile({user}) {
+export default function Profile() {
+  const [user, setUser] = useState({});
   const {level, experience, username} = user || {};
+  console.log(user);
+
+  useEffect(fetchUserData, []);
 
   return (
     <div className="Profile">
@@ -18,4 +23,8 @@ export default function Profile({user}) {
       <p>XP : {experience}</p>
     </div>
   );
+
+  function fetchUserData() {
+    getFromServer('/users/connectedUser/').then(({data}) => setUser(data.user))
+  }
 }
