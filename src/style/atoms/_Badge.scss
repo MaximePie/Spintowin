@@ -1,0 +1,38 @@
+.Badge {
+  margin: 1em;
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  grid-column-gap: 1em;
+  padding: 1em 0;
+
+  height: 132px;
+  border-bottom: $borderCard;
+
+  &__details {
+    text-align: initial;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  h4 {
+    margin: 0;
+  }
+
+  .react-sweet-progress-symbol {
+    width: 140px;
+  }
+
+  &__image-container {
+    height: 100%;
+    width: 100%;
+    display: grid;
+    grid-template-rows: 1fr 24px;
+  }
+
+  &__image {
+    height: 100%;
+    width: 100%;
+  }
+}

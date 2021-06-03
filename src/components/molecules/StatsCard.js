@@ -2,6 +2,7 @@ import React from 'react';
 import "../../style/molecules/StatsCard.scss";
 import 'react-circular-progressbar/dist/styles.css';
 import OngoingStatsData from "./OngoingStatsData";
+import Badges from "./Badges";
 import BarChart from "./BarChart";
 
 export default function StatsCard({title, data}) {
@@ -17,6 +18,7 @@ export default function StatsCard({title, data}) {
       {title === "Mémorisation" && (
         <BarChart/>
       )}
+      {title === "Badges" && <Badges/>}
     </div>
   );
 }
