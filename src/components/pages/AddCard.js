@@ -3,6 +3,7 @@ import {postOnServer} from "../../server";
 import {addCardFailureNotification, addCardSuccessNotification, addNotification} from "../../services/notification";
 import { store } from 'react-notifications-component';
 import InputGroup from "../atoms/InputGroup";
+import {Link} from "react-router-dom";
 
 export default function AddCard() {
   const [question, setQuestion] = React.useState('');
@@ -18,6 +19,10 @@ export default function AddCard() {
   return (
     <div className="AddCard">
       <h3>Ajouter une question</h3>
+      <h4>
+        Besoin d'aide ?
+        <a href="/https://www.youtube.com/watch?v=JK9N84UqexA">{` Cette vidéo`}</a> devrait faire l'affaire !
+      </h4>
       <div className="AddCard__fields">
         <div className="AddCard__subfields">
           <div className={`AddCard__subfield-field ${image && 'AddCard__subfield-field--disabled'}`}>
