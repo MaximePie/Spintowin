@@ -4,9 +4,12 @@ import Card from "./Card";
 
 import {Link} from "react-router-dom";
 
-export default function Cards({cardsList, triggerCardUpdate}) {
+export default function Cards({cardsList, triggerCardUpdate, remainingCards}) {
   return (
     <div className="Cards">
+      <div className="Card">
+        <p className="Card__answer">{remainingCards} cartes</p>
+      </div>
       {!cardsList.length && <p>Pas de cartes pour le moment, <Link to="add">créez-en quelques unes</Link> !</p>}
       {cardsList.map(card =>
         <Card

@@ -24,6 +24,7 @@ function usePrevious(value) {
 
 export default function TrainingPage() {
   const [cardsList, setCardsList] = useState([]);
+  const [remainingCards, setRemainingCards] = useState(0);
   const previousLength = usePrevious(cardsList.length);
 
   useEffect(() => {
@@ -34,7 +35,11 @@ export default function TrainingPage() {
 
   return (
     <div className="TrainingPage">
-      <Cards cardsList={cardsList} triggerCardUpdate={triggerCardUpdate}/>
+      <Cards
+        cardsList={cardsList}
+        triggerCardUpdate={triggerCardUpdate}
+        remainingCards={remainingCards}
+      />
     </div>
   );
 
@@ -43,6 +48,7 @@ export default function TrainingPage() {
     getFromServer('/cards').then(({data}) => {
       if (data.cards) {
         setCardsList([...data.cards]);
+        setRemainingCards(data.remainingCards)
       } else {
         setCardsList([]);
       }
