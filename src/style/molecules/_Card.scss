@@ -27,6 +27,15 @@
     transition: transform 150ms ease-in-out;
   }
 
+  &--static {
+    font-weight: normal;
+    cursor: pointer !important;
+
+    &:hover {
+      transform: initial;
+    }
+  }
+
   &__image {
     height: 90%;
   }

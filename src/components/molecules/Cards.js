@@ -1,14 +1,38 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {intervals,} from "../../data/cards"
 import Card from "./Card";
 
 import {Link} from "react-router-dom";
 
 export default function Cards({cardsList, triggerCardUpdate, remainingCards}) {
+
+  const [isScoreDisplayed, setScoreDisplayState] = useState(false);
+  const [shouldCardsBeInverted, setInvertedState] = useState(false);
+
   return (
     <div className="Cards">
-      <div className="Card">
+      <div className="Card Card--static">
         <p className="Card__answer">{remainingCards} cartes</p>
+        <div>
+          <label className="Card--static__label">
+            <input
+              type="checkbox"
+              onChange={(event) => setScoreDisplayState(event.target.checked)}
+              value={isScoreDisplayed}
+            />
+            Afficher le score
+          </label>
+        </div>
+        <div>
+          <label className="Card--static__label">
+            <input
+              type="checkbox"
+              onChange={(event) => setInvertedState(event.target.checked)}
+              value={shouldCardsBeInverted}
+            />
+            Inverser
+          </label>
+        </div>
       </div>
       {!cardsList.length && <p>Pas de cartes pour le moment, <Link to="add">créez-en quelques unes</Link> !</p>}
       {cardsList.map(card =>
@@ -16,6 +40,8 @@ export default function Cards({cardsList, triggerCardUpdate, remainingCards}) {
           data={card}
           key={card._id}
           onAnswer={(isSuccess) => handleAnswer(card._id, isSuccess)}
+          isScoreDisplayed={isScoreDisplayed}
+          shouldCardsBeInverted={shouldCardsBeInverted}
         />)}
     </div>
   );
@@ -37,8 +63,7 @@ export default function Cards({cardsList, triggerCardUpdate, remainingCards}) {
     // Edit data
     if (!updatedCard.currentDelay) {
       updatedCard.currentDelay = intervals[1];
-    }
-    else if (isSuccess && currentDelayIndex !== 0) {
+    } else if (isSuccess && currentDelayIndex !== 0) {
       const newDelayIndex = currentDelayIndex + updatedCard.currentSuccessfulAnswersStreak;
       updatedCard.currentDelay = intervals[newDelayIndex];
     } else {

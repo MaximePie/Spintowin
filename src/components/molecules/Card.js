@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {CSSTransition} from 'react-transition-group';
 
-export default function Card({data, onAnswer}) {
+export default function Card({data, onAnswer, isScoreDisplayed, shouldCardsBeInverted}) {
   const {question, answer, currentDelay, image} = data;
   const [isAnswerShown, setAnswerDisplayState] = useState(false);
   const [isAnswerSuccessful, setAnswerSuccessState] = useState(undefined);
@@ -17,9 +17,14 @@ export default function Card({data, onAnswer}) {
     <>
       {!isAnswerShown && isAnswerSuccessful === undefined && (
         <div className="Card" onClick={revealAnswer}>
-          <p className="Card__delay">🎯{currentDelay}</p>
-          {question && (
+          {isScoreDisplayed && (
+            <p className="Card__delay">🎯{currentDelay}</p>
+          )}
+          {question && !shouldCardsBeInverted && (
             <p className="Card__answer">{question}</p>
+          )}
+          {answer && shouldCardsBeInverted && (
+            <p className="Card__answer">{answer}</p>
           )}
           {image && (
             <img className="Card__image" src={formatedImage(image.data)} alt=""/>
@@ -33,9 +38,16 @@ export default function Card({data, onAnswer}) {
         timeout={0}
       >
         <div className="Card" onClick={revealAnswer}>
-          <p className="Card__delay">🎯{currentDelay}</p>
+          {isScoreDisplayed && (
+            <p className="Card__delay">🎯{currentDelay}</p>
+          )}
           <>
-            <p className="Card__answer">{answer}</p>
+            {!shouldCardsBeInverted && (
+              <p className="Card__answer">{answer}</p>
+            )}
+            {shouldCardsBeInverted && (
+              <p className="Card__answer">{question}</p>
+            )}
             <div>
               <button
                 onClick={() => setAnswerSuccessState(true)}
