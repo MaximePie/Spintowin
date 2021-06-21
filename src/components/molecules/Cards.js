@@ -39,7 +39,8 @@ export default function Cards({cardsList, triggerCardUpdate, remainingCards}) {
       updatedCard.currentDelay = intervals[1];
     }
     else if (isSuccess && currentDelayIndex !== 0) {
-      updatedCard.currentDelay = intervals[currentDelayIndex + 1];
+      const newDelayIndex = currentDelayIndex + updatedCard.currentSuccessfulAnswersStreak;
+      updatedCard.currentDelay = intervals[newDelayIndex];
     } else {
       updatedCard.currentDelay = intervals[currentDelayIndex - 1];
     }

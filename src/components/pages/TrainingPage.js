@@ -1,10 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react';
 import Cards from "../molecules/Cards";
-import Profile from "../molecules/Profile";
 import {getFromServer, postOnServer} from "../../server";
 import {intervals} from "../../data/cards";
-import {levelUpNotification} from "../../services/notification"
-import {store} from 'react-notifications-component';
 
 /**
  * This custom hooks returns the previous value of the ref.
