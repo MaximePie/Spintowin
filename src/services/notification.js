@@ -53,6 +53,12 @@ export const addCardFailureNotification = {
   type: "warning",
 };
 
+export const streakNotification = {
+  ...baseNotification,
+  title: "Bravo !",
+  type: "success",
+};
+
 
 export function addNotification(details, isMobile = false) {
   let notification = details;

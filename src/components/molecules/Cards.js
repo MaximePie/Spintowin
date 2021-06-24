@@ -3,6 +3,8 @@ import {intervals,} from "../../data/cards"
 import Card from "./Card";
 
 import {Link} from "react-router-dom";
+import {store} from "react-notifications-component";
+import {addCardFailureNotification, streakNotification} from "../../services/notification";
 
 export default function Cards({cardsList, triggerCardUpdate, remainingCards}) {
 
@@ -72,7 +74,12 @@ export default function Cards({cardsList, triggerCardUpdate, remainingCards}) {
         newDelayIndex += 1;
       }
       updatedCard.currentDelay = intervals[newDelayIndex];
-      console.log(newDelayIndex);
+      if (updatedCard.currentSuccessfulAnswerStreak > 2) {
+        store.addNotification({
+          ...streakNotification,
+          message: `${updatedCard.currentSuccessfulAnswerStreak} à la suite !`,
+        });
+      }
     } else {
       updatedCard.currentDelay = intervals[currentDelayIndex - 1];
     }

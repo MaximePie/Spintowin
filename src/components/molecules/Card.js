@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {CSSTransition} from 'react-transition-group';
 
 export default function Card({data, onAnswer, isScoreDisplayed, shouldCardsBeInverted}) {
-  const {question, answer, currentDelay, image, currentSuccessfulAnswerStreak} = data;
+  const {question, answer, currentDelay, image} = data;
   const [isAnswerShown, setAnswerDisplayState] = useState(false);
   const [isAnswerSuccessful, setAnswerSuccessState] = useState(undefined);
 
