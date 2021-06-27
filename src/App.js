@@ -70,6 +70,7 @@ function App() {
   function getUserWithToken(token, isAfterLogging = false) {
     axiosInstance.get('/users/connectedUser').then((user) => {
       setLoading(false);
+      console.log("Hop")
       localStorage.setItem('auth-token', token);
       setAuthToken(token);
       setUser(user);
@@ -83,6 +84,9 @@ function App() {
     const token = localStorage.getItem('auth-token');
     if (token !== null) {
       getUserWithToken(token);
+    }
+    else {
+      setLoading(false);
     }
   }
 }
