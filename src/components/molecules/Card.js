@@ -1,10 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import {CSSTransition} from 'react-transition-group';
+import {Button, Modal} from "semantic-ui-react";
 
 export default function Card({data, onAnswer, isScoreDisplayed, shouldCardsBeInverted}) {
   const {question, answer, currentDelay, image} = data;
   const [isAnswerShown, setAnswerDisplayState] = useState(false);
   const [isAnswerSuccessful, setAnswerSuccessState] = useState(undefined);
+  const [isModalOpen, setOpenModalState] = useState(true);
 
   useEffect(() => {
     if (isAnswerSuccessful === true || isAnswerSuccessful === false) {
@@ -15,6 +17,36 @@ export default function Card({data, onAnswer, isScoreDisplayed, shouldCardsBeInv
 
   return (
     <>
+      <Modal
+        trigger={<i className="fas fa-edit Card__edit"/>}
+        header='Reminder!'
+        content='Call Benjamin regarding the reports.'
+        actions={['Snooze', { key: 'done', content: 'Done', positive: true }]}
+      >
+        <Modal.Header>Select a Photo</Modal.Header>
+        <Modal.Content image>
+          <Modal.Description>
+            <h1>Default Profile Image</h1>
+            <p>
+              We've found the following gravatar image associated with your e-mail
+              address.
+            </p>
+            <p>Is it okay to use this photo?</p>
+          </Modal.Description>
+        </Modal.Content>
+        <Modal.Actions>
+          <Button color='black' onClick={() => setOpenModalState(false)}>
+            Nope
+          </Button>
+          <Button
+            content="Yep, that's me"
+            labelPosition='right'
+            icon='checkmark'
+            onClick={() => setOpenModalState(false)}
+            positive
+          />
+        </Modal.Actions>
+      </Modal>
       {!isAnswerShown && isAnswerSuccessful === undefined && (
         <div className="Card" onClick={revealAnswer}>
           {isScoreDisplayed && (

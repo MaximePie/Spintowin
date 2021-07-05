@@ -53,6 +53,18 @@ export const addCardFailureNotification = {
   type: "warning",
 };
 
+export const systemErrorNotification = {
+  ...baseNotification,
+  title: "Aïe !",
+  message: "Il y a eu une erreur, sûrement un problème de configuration de la part du serveur. Nous allons corriger tout ça.",
+  type: "danger",
+  dismiss: {
+    duration: 7500,
+    onScreen: true,
+    pauseOnHover: true,
+  },
+};
+
 export const streakNotification = {
   ...baseNotification,
   title: "Bravo !",

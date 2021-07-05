@@ -1,4 +1,6 @@
 .Card {
+  position: relative;
+
   overflow: hidden;
   border-radius: 8px;
   width: 180px;
@@ -7,7 +9,6 @@
   margin: 0.5rem;
   padding: 1rem;
   cursor: pointer;
-  transition: transform 75ms ease-in-out;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -22,9 +23,10 @@
     width: 130px;
   }
 
-  &:hover {
-    transform: translateY(-8px);
-    transition: transform 150ms ease-in-out;
+  &__edit {
+    position: absolute;
+    top: 0.5rem;
+    left: 0.5rem;
   }
 
   &--static {

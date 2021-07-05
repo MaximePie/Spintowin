@@ -12,6 +12,9 @@ import LoadingAppGif from "./components/molecules/LoadingAppGif";
 import Stats from "./components/pages/Stats";
 import {BrowserRouter, Route, Switch} from "react-router-dom";
 import {axiosInstance, setAuthToken} from "./server";
+import {store} from "react-notifications-component";
+import {systemErrorNotification} from "./services/notification";
+import handleError from "./services/errors";
 
 
 function App() {
@@ -36,7 +39,6 @@ function App() {
               {user && (
                 <>
                   <Route path="/" exact component={TrainingPage}/>
-                  {/*<Route path="/editCards" exact component={DeleteCardsPage}/>*/}
                   <Route path="/add" component={AddCard}/>
                   <Route path="/stats" component={Stats}/>
                 </>
@@ -70,14 +72,13 @@ function App() {
   function getUserWithToken(token, isAfterLogging = false) {
     axiosInstance.get('/users/connectedUser').then((user) => {
       setLoading(false);
-      console.log("Hop")
       localStorage.setItem('auth-token', token);
       setAuthToken(token);
       setUser(user);
       if (isAfterLogging) {
         document.location.replace('/stats');
       }
-    })
+    }).catch(handleError)
   }
 
   function checkIfUserIsAuthed() {
