@@ -1,0 +1,21 @@
+.Stats {
+  padding: 1rem;
+}
+
+.Stats__list {
+  display: grid;
+  grid-template-columns: 500px 500px 1fr;
+
+  @include for-phone-only {
+    grid-template-columns: initial;
+  }
+
+  &--top {
+    grid-template-columns: 500px 400px 1fr;
+
+    @include for-phone-only {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+}

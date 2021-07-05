@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react';
-import "../../style/molecules/Profile.scss"
 import castorImage from "../../images/castor.jpg";
 import {getFromServer} from "../../server";
 

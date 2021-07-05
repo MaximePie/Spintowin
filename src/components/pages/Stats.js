@@ -17,13 +17,9 @@ export default function Stats() {
         <>
           <div className="Stats__list Stats__list--top">
             <Profile/>
-            <StatsCard
-              title="Score"
-              data={stats.score}
-            />
-            <StatsCard title="Badges"/>
           </div>
           <div className="Stats__list">
+            <StatsCard title="Badges"/>
             <StatsCard
               title="Cartes en cours d'apprentissage"
               data={stats.workInProgressData}
