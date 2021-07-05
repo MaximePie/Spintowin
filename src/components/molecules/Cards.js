@@ -4,12 +4,14 @@ import Card from "./Card";
 
 import {Link} from "react-router-dom";
 import {store} from "react-notifications-component";
-import {addCardFailureNotification, streakNotification} from "../../services/notification";
+import {streakNotification} from "../../services/notification";
+import {viewportContext} from "../../contexts/viewport";
 
 export default function Cards({cardsList, triggerCardUpdate, remainingCards}) {
 
   const [isScoreDisplayed, setScoreDisplayState] = useState(false);
   const [shouldCardsBeInverted, setInvertedState] = useState(false);
+  const {isMobile} = React.useContext(viewportContext);
 
   return (
     <div className="Cards">
@@ -78,6 +80,7 @@ export default function Cards({cardsList, triggerCardUpdate, remainingCards}) {
         store.addNotification({
           ...streakNotification,
           message: `${updatedCard.currentSuccessfulAnswerStreak} à la suite !`,
+          container: isMobile ? "bottom-center" : "top-right",
         });
       }
     } else {

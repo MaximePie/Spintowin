@@ -6,18 +6,18 @@ const baseNotification = {
   animationIn: ["animate__animated", "animate__fadeIn"],
   animationOut: ["animate__animated", "animate__fadeOut"],
   dismiss: {
-    duration: 3000,
+    duration: 2500,
     onScreen: true,
     pauseOnHover: true,
   },
   touchSlidingExit: {
     swipe: {
-      duration: 400,
+      duration: 250,
       timingFunction: 'ease-out',
       delay: 0,
     },
     fade: {
-      duration: 400,
+      duration: 250,
       timingFunction: 'ease-out',
       delay: 0
     }
