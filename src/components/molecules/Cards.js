@@ -7,7 +7,7 @@ import {store} from "react-notifications-component";
 import {streakNotification} from "../../services/notification";
 import {viewportContext} from "../../contexts/viewport";
 
-export default function Cards({cardsList, triggerCardUpdate, remainingCards}) {
+export default function Cards({cardsList, triggerCardUpdate, remainingCards, fetchCards}) {
 
   const [isScoreDisplayed, setScoreDisplayState] = useState(false);
   const [shouldCardsBeInverted, setInvertedState] = useState(false);
@@ -46,6 +46,7 @@ export default function Cards({cardsList, triggerCardUpdate, remainingCards}) {
           onAnswer={(isSuccess) => handleAnswer(card._id, isSuccess)}
           isScoreDisplayed={isScoreDisplayed}
           shouldCardsBeInverted={shouldCardsBeInverted}
+          onUpdate={fetchCards}
         />)}
     </div>
   );

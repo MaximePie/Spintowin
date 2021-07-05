@@ -36,6 +36,7 @@ export default function TrainingPage() {
         cardsList={cardsList}
         triggerCardUpdate={triggerCardUpdate}
         remainingCards={remainingCards}
+        fetchCards={fetchCards}
       />
     </div>
   );

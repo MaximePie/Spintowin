@@ -12,8 +12,6 @@ import LoadingAppGif from "./components/molecules/LoadingAppGif";
 import Stats from "./components/pages/Stats";
 import {BrowserRouter, Route, Switch} from "react-router-dom";
 import {axiosInstance, setAuthToken} from "./server";
-import {store} from "react-notifications-component";
-import {systemErrorNotification} from "./services/notification";
 import handleError from "./services/errors";
 
 

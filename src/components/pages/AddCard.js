@@ -1,9 +1,8 @@
 import React from 'react';
 import {postOnServer} from "../../server";
-import {addCardFailureNotification, addCardSuccessNotification, addNotification} from "../../services/notification";
+import {addCardFailureNotification, CardSuccessNotification, addNotification} from "../../services/notification";
 import { store } from 'react-notifications-component';
 import InputGroup from "../atoms/InputGroup";
-import {Link} from "react-router-dom";
 
 export default function AddCard() {
   const [question, setQuestion] = React.useState('');
@@ -111,7 +110,7 @@ export default function AddCard() {
       formData
     ).then((response) => {
       if (response.status === 200) {
-        addNotification(addCardSuccessNotification);
+        addNotification(CardSuccessNotification);
         setQuestion('');
         setAnswer('');
         setImage(undefined);

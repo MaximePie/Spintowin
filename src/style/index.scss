@@ -11,6 +11,7 @@ $borderCard: solid 1px lightgray;
 $navbarHeight: 40px;
 $primaryColor: dodgerblue;
 $primaryColorDisabled: #6EBDFF;
+$dangerColor: #ff6d46;
 $gray: #b5b5b5;
 
 body {
@@ -40,6 +41,7 @@ body {
 @import "./molecules/Card";
 @import "./molecules/StatsCard";
 @import "./molecules/Profile";
+@import "./molecules/QuestionEditionModal";
 
 @import "./pages/TrainingPage";
 @import "./pages/AddCard";

@@ -38,13 +38,12 @@ export const levelUpNotification = {
   type: "success",
 }
 
-export const addCardSuccessNotification = {
+export const CardSuccessNotification = {
   ...baseNotification,
   title: "Bravo !",
   message: "Votre carte a correctement été ajoutée ! Allez l'essayer !",
   type: "success",
 }
-
 
 export const addCardFailureNotification = {
   ...baseNotification,
