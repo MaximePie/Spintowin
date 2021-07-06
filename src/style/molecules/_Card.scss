@@ -6,8 +6,7 @@
   width: 180px;
   height: 150px;
   border: solid 1px lightgray;
-  margin: 0.5rem;
-  padding: 1rem;
+  margin: 0.25rem;
   cursor: pointer;
   display: flex;
   justify-content: center;
@@ -20,7 +19,12 @@
   text-align: center;
 
   @include for-phone-only {
-    width: 130px;
+    width: 170px;
+  }
+
+  &__image {
+    height: 100%;
+    width: 100%;
   }
 
   &__edit {
@@ -36,10 +40,6 @@
     &:hover {
       transform: initial;
     }
-  }
-
-  &__image {
-    height: 90%;
   }
 
   &__delay {
