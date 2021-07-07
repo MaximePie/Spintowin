@@ -20,6 +20,7 @@
     "react-scripts": "4.0.3",
     "react-stopwatch": "^2.0.4",
     "react-sweet-progress": "^1.1.2",
+    "react-tooltip": "^4.2.21",
     "react-transition-group": "^4.4.1",
     "semantic-ui-react": "^2.0.3",
     "web-vitals": "^1.0.1"

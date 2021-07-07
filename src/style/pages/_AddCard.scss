@@ -17,6 +17,16 @@
     width: initial;
   }
 
+  &__hint {
+    color: $successColor;
+    margin-left: 0.5rem;
+    font-size: 1em;
+
+    &:hover {
+
+    }
+  }
+
   &__fields {
     margin-top: 1rem;
     display: grid;

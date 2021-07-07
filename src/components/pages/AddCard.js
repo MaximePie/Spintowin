@@ -1,14 +1,20 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {postOnServer} from "../../server";
 import {addCardFailureNotification, CardSuccessNotification, addNotification} from "../../services/notification";
 import { store } from 'react-notifications-component';
 import InputGroup from "../atoms/InputGroup";
+import ReactTooltip from "react-tooltip";
+import {viewportContext} from "../../contexts/viewport";
 
 export default function AddCard() {
   const [question, setQuestion] = React.useState('');
   const [answer, setAnswer] = React.useState('');
   const [image, setImage] = React.useState(undefined);
   const [displayedImage, setDisplayedImage] = React.useState(undefined);
+
+  const [isTooltipDisplayed, setTooltipDisplayState] = React.useState(false);
+  const {isMobile} = useContext(viewportContext);
+  const tooltipPlace = isMobile ? "bottom" : "top";
 
   let isValid = (question || image) && answer;
   if (image?.size >= 1000000) {
@@ -17,11 +23,21 @@ export default function AddCard() {
 
   return (
     <div className="AddCard">
-      <h3>Ajouter une question</h3>
-      <h4>
-        Besoin d'aide ?
-        <a href="/https://www.youtube.com/watch?v=JK9N84UqexA">{` Cette vidéo`}</a> devrait faire l'affaire !
-      </h4>
+      <ReactTooltip id="main" place={tooltipPlace} type="dark" effect="solid" multiline/>
+      <h3>
+        Ajouter une question
+        <a
+          className="AddCard__hint"
+          data-for="main"
+          data-tip="Besoin d'aide ?<br />Cliquez ici pour découvrir<br />comment ajouter vos premières questions"
+          data-iscapture="true"
+          href="https://www.youtube.com/watch?v=JK9N84UqexA"
+          onClick={handleHintClick}
+        >
+          <i className="far fa-question-circle"/>
+        </a>
+      </h3>
+
       <div className="AddCard__fields">
         <div className="AddCard__subfields">
           <div className={`AddCard__subfield-field ${image && 'AddCard__subfield-field--disabled'}`}>
@@ -88,6 +104,22 @@ export default function AddCard() {
       </div>
     </div>
   );
+
+  /**
+   * Redirects the user on Youtube link if he is on desktop
+   * Else,
+   *  if the tooltip is open, redirects
+   *  else, display the tooltip.
+   */
+  function handleHintClick(event) {
+    if (isMobile && !isTooltipDisplayed) {
+      event.preventDefault();
+      setTooltipDisplayState(true);
+      setTimeout(() => {
+        setTooltipDisplayState(false);
+      },2000)
+    }
+  }
 
   function updateImage(event) {
     setImage(event.target.files[0]);
