@@ -78,12 +78,6 @@
     transition: background-color 250ms ease;
   }
 
-  &__submit--disabled {
-    background-color: $primaryColorDisabled;
-    transition: background-color 250ms ease;
-    cursor: not-allowed;
-  }
-
   &__submit--disabled:hover {
     filter: initial;
   }

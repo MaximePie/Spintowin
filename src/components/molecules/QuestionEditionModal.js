@@ -7,7 +7,7 @@ import {CardSuccessNotification} from "../../services/notification";
 
 export default function QuestionEditionModal({card, onClose}) {
 
-  const {answer: initialAnswer, question: initialQuestion, _id} = card;
+  const {answer: initialAnswer, question: initialQuestion, cardId: _id} = card;
   const [question, setQuestion] = React.useState(initialQuestion);
   const [answer, setAnswer] = React.useState(initialAnswer);
   return (

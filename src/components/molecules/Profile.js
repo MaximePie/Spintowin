@@ -5,7 +5,6 @@ import {getFromServer} from "../../server";
 export default function Profile() {
   const [user, setUser] = useState({});
   const {level, experience, username} = user || {};
-  console.log(user);
 
   useEffect(fetchUserData, []);
 

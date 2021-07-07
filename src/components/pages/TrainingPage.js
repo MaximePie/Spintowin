@@ -43,7 +43,7 @@ export default function TrainingPage() {
 
 
   function fetchCards() {
-    getFromServer('/cards').then(({data}) => {
+    getFromServer('/userCards').then(({data}) => {
       if (data.cards) {
         setCardsList([...data.cards]);
         setRemainingCards(data.remainingCards)
@@ -58,6 +58,6 @@ export default function TrainingPage() {
    * @param card
    */
   function triggerCardUpdate(card) {
-    postOnServer(`/cards/${card._id}`, {newDelay: card.currentDelay || intervals[1]}).then(fetchCards);
+    postOnServer(`/userCards/update/${card.cardId}`, {newDelay: card.currentDelay || intervals[1]}).then(fetchCards);
   }
 }

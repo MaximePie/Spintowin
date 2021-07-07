@@ -3,7 +3,7 @@ import {CSSTransition} from 'react-transition-group';
 import QuestionEditionModal from "./QuestionEditionModal";
 
 export default function Card({data, onAnswer, isScoreDisplayed, shouldCardsBeInverted, onUpdate}) {
-  const {question, answer, currentDelay, image} = data;
+  const {question, answer, currentDelay, image, isOwnerOfCard} = data;
   const [isAnswerShown, setAnswerDisplayState] = useState(false);
   const [isAnswerSuccessful, setAnswerSuccessState] = useState(undefined);
   const [isModalOpen, setOpenModalState] = useState(false);
@@ -47,7 +47,9 @@ export default function Card({data, onAnswer, isScoreDisplayed, shouldCardsBeInv
         timeout={0}
       >
         <div className="Card" onClick={revealAnswer}>
-          <i className="fas fa-edit Card__edit" onClick={() => setOpenModalState(true)}/>
+          {isOwnerOfCard && (
+            <i className="fas fa-edit Card__edit" onClick={() => setOpenModalState(true)}/>
+          )}
           {isScoreDisplayed && (
             <p className="Card__delay">🎯{currentDelay}</p>
           )}

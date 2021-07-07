@@ -28,6 +28,16 @@ button:hover {
   transition: filter 150ms ease-in-out;
 }
 
+button:disabled {
+  background-color: $primaryColorDisabled;
+  transition: background-color 250ms ease;
+  cursor: not-allowed;
+
+  &:hover {
+    transition: none;
+    filter: initial;
+  }
+}
 
 input {
   border: none;

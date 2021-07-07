@@ -43,9 +43,10 @@ body {
 @import "./molecules/StatsCard";
 @import "./molecules/Profile";
 @import "./molecules/QuestionEditionModal";
+@import "./molecules/AddCardUser";
 
 @import "./pages/TrainingPage";
-@import "./pages/AddCard";
+@import "molecules/AddCardForm";
 @import "./pages/AuthForm";
 @import "./pages/LoadingAppGif";
 @import "./pages/Stats";

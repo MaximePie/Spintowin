@@ -5,7 +5,6 @@ import {ViewportContextProvider} from "./contexts/viewport"
 import AuthForm from "./components/pages/AuthForm";
 import TrainingPage from "./components/pages/TrainingPage";
 import AddCard from "./components/pages/AddCard";
-import DeleteCardsPage from "./components/pages/DeleteCardsPage";
 import WelcomePage from "./components/pages/WelcomePage";
 import Navbar from "./components/molecules/Navbar";
 import LoadingAppGif from "./components/molecules/LoadingAppGif";
