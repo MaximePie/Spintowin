@@ -3,6 +3,11 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
+
+  &__loading {
+    position: absolute;
+    top: 0.3rem;
+  }
 }
 
 body {

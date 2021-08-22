@@ -6,8 +6,25 @@ import {Link} from "react-router-dom";
 import {store} from "react-notifications-component";
 import {streakNotification} from "../../services/notification";
 import {viewportContext} from "../../contexts/viewport";
+import LoadingGif from "../atoms/LoadingGif";
 
-export default function Cards({cardsList, triggerCardUpdate, remainingCards, fetchCards}) {
+
+import {PropTypes} from 'prop-types';
+
+Cards.propTypes = {
+  cardsList: PropTypes.array,
+  triggerCardUpdate: PropTypes.func.isRequired,
+  fetchCards: PropTypes.func.isRequired,
+  remainingCards: PropTypes.number,
+  isLoading: PropTypes.bool,
+};
+
+Cards.defaultProps = {
+  remainingCards: 0,
+  isLoading: false,
+};
+
+export default function Cards({cardsList, triggerCardUpdate, remainingCards, fetchCards, isLoading}) {
 
   const [isScoreDisplayed, setScoreDisplayState] = useState(false);
   const [shouldCardsBeInverted, setInvertedState] = useState(false);
@@ -17,6 +34,7 @@ export default function Cards({cardsList, triggerCardUpdate, remainingCards, fet
     <div className="Cards">
       <div className="Card Card--static">
         <p className="Card__answer">{remainingCards} cartes</p>
+        <LoadingGif isLoading={isLoading} className="Cards__loading"/>
         <div>
           <label className="Card--static__label">
             <input
@@ -38,7 +56,7 @@ export default function Cards({cardsList, triggerCardUpdate, remainingCards, fet
           </label>
         </div>
       </div>
-      {!cardsList.length && <p>Pas de cartes pour le moment, <Link to="add">créez-en quelques unes</Link> !</p>}
+      {!isLoading && !cardsList.length && <p>Pas de cartes pour le moment, <Link to="add">créez-en quelques unes</Link> !</p>}
       {cardsList.map(card =>
         <Card
           data={card}

@@ -2,6 +2,7 @@ import React, {useEffect, useRef, useState} from 'react';
 import Cards from "../molecules/Cards";
 import {getFromServer, postOnServer} from "../../server";
 import {intervals} from "../../data/cards";
+import LoadingGif from "../atoms/LoadingGif";
 
 /**
  * This custom hooks returns the previous value of the ref.
@@ -22,6 +23,7 @@ function usePrevious(value) {
 export default function TrainingPage() {
   const [cardsList, setCardsList] = useState([]);
   const [remainingCards, setRemainingCards] = useState(0);
+  const [isLoading, setLoadingState] = useState(false);
   const previousLength = usePrevious(cardsList.length);
 
   useEffect(() => {
@@ -37,13 +39,16 @@ export default function TrainingPage() {
         triggerCardUpdate={triggerCardUpdate}
         remainingCards={remainingCards}
         fetchCards={fetchCards}
+        isLoading={isLoading}
       />
     </div>
   );
 
 
   function fetchCards() {
+    setLoadingState(true);
     getFromServer('/userCards').then(({data}) => {
+      setLoadingState(false);
       if (data.cards) {
         setCardsList([...data.cards]);
         setRemainingCards(data.remainingCards)
