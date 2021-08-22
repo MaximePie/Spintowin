@@ -63,6 +63,7 @@ function App() {
       localStorage.removeItem('auth-token');
       setAuthToken(null);
       setUser(undefined);
+      document.location.pathname = "/";
     })
   }
 
