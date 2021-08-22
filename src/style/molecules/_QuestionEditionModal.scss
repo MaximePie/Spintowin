@@ -16,8 +16,17 @@
     width: 800px;
     height: 500px;
     background-color: white;
+    position: relative;
 
     @include cardStyle;
+
+    &__close-button {
+      position: absolute;
+      top: 0.5rem;
+      right: 1rem;
+      font-size: 1.25em;
+      color: #989898;
+    }
 
     &__fields, &__field {
       display: flex;

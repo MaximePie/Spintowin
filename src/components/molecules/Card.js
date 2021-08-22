@@ -21,6 +21,7 @@ export default function Card({data, onAnswer, isScoreDisplayed, shouldCardsBeInv
         <QuestionEditionModal
           card={data}
           onClose={handleQuestionEditionModalClose}
+          isOwnerOfCard={isOwnerOfCard}
         />
       )}
 
@@ -47,9 +48,7 @@ export default function Card({data, onAnswer, isScoreDisplayed, shouldCardsBeInv
         timeout={0}
       >
         <div className="Card" onClick={revealAnswer}>
-          {isOwnerOfCard && (
-            <i className="fas fa-edit Card__edit" onClick={() => setOpenModalState(true)}/>
-          )}
+          <i className="fas fa-edit Card__edit" onClick={() => setOpenModalState(true)}/>
           {isScoreDisplayed && (
             <p className="Card__delay">🎯{currentDelay}</p>
           )}
