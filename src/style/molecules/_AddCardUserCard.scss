@@ -1,7 +1,4 @@
 .AddCardUserCard {
-  &__button-text {
-    margin-left: 0.25rem;
-  }
 
   position: relative;
 
@@ -22,10 +19,14 @@
   text-align: center;
 
   @include for-phone-only {
-    width: 170px;
+    width: 140px;
   }
 
-  &-image {
+  &__button-text {
+    margin-left: 0.25rem;
+  }
+
+  &__image {
     height: 100%;
     width: 100%;
   }

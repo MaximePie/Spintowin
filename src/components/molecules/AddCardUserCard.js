@@ -10,7 +10,7 @@ export default function AddCardUserCard({card, onAbsorbSuccess}) {
   return (
     <div className="AddCardUserCard">
       {card.question && <p>{card.question}</p>}
-      {!card.question && <img className="AddCardUser__card-image" src={formatedImage(card.image.data)}/>}
+      {!card.question && <img className="AddCardUserCard__image" src={formatedImage(card.image.data)}/>}
       <p>
         {card.answer}
       </p>
