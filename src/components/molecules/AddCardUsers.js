@@ -16,7 +16,7 @@ export default function AddCardUsers() {
   return (
     <div className="AddCardUsers">
       {users.map(user => (
-        <div onClick={() => setDisplayedUser(user._id)}>
+        <div className="AddCardUsers__user" onClick={() => setDisplayedUser(user._id)}>
           <p>{user.username}</p>
         </div>
       ))}

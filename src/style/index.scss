@@ -44,6 +44,8 @@ body {
 @import "./molecules/Profile";
 @import "./molecules/QuestionEditionModal";
 @import "./molecules/AddCardUser";
+@import "./molecules/AddCardUsers";
+@import "./molecules/AddCardUserCard";
 
 @import "./pages/TrainingPage";
 @import "molecules/AddCardForm";
@@ -51,3 +53,4 @@ body {
 @import "./pages/LoadingAppGif";
 @import "./pages/Stats";
 @import "./atoms/InputGroup";
+@import "./atoms/LoadingGif";
