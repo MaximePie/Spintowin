@@ -4,7 +4,7 @@ import Card from "./Card";
 
 import {Link} from "react-router-dom";
 import {store} from "react-notifications-component";
-import {streakNotification} from "../../services/notification";
+import {memorisedNotification, streakNotification} from "../../services/notification";
 import {viewportContext} from "../../contexts/viewport";
 import LoadingGif from "../atoms/LoadingGif";
 
@@ -83,8 +83,9 @@ export default function Cards({cardsList, triggerCardUpdate, remainingCards, fet
     let updatedCard = {...targetCard};
     const currentDelayIndex = intervals.indexOf(updatedCard.currentDelay);
 
+
     // Edit data
-    if (!updatedCard.currentDelay) {
+    if (!updatedCard.currentDelay) { // Reset if interval does not exist
       updatedCard.currentDelay = intervals[1];
     } else if (isSuccess && currentDelayIndex !== 0) {
       let newDelayIndex = currentDelayIndex;
@@ -94,13 +95,25 @@ export default function Cards({cardsList, triggerCardUpdate, remainingCards, fet
       else {
         newDelayIndex += 1;
       }
-      updatedCard.currentDelay = intervals[newDelayIndex];
-      if (updatedCard.currentSuccessfulAnswerStreak > 2) {
+
+      // If newDelayIndex is greater than the max interval, set it to memorised
+      if (newDelayIndex > intervals.length) {
+        updatedCard.isMemorized = true;
         store.addNotification({
-          ...streakNotification,
-          message: `${updatedCard.currentSuccessfulAnswerStreak} à la suite !`,
+          ...memorisedNotification,
+          message: `Vous avez mémorisé la carte ${updatedCard.answer} ! Félicitations !`,
           container: isMobile ? "bottom-center" : "top-right",
         });
+      }
+      else {
+        updatedCard.currentDelay = intervals[newDelayIndex];
+        if (updatedCard.currentSuccessfulAnswerStreak > 2) {
+          store.addNotification({
+            ...streakNotification,
+            message: `${updatedCard.currentSuccessfulAnswerStreak} à la suite !`,
+            container: isMobile ? "bottom-center" : "top-right",
+          });
+        }
       }
     } else {
       updatedCard.currentDelay = intervals[currentDelayIndex - 1];

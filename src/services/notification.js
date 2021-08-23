@@ -70,6 +70,12 @@ export const streakNotification = {
   type: "success",
 };
 
+export const memorisedNotification = {
+  ...baseNotification,
+  title: "Félicitations !",
+  type: "success",
+};
+
 
 export function addNotification(details, isMobile = false) {
   let notification = details;
