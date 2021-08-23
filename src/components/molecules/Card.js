@@ -1,8 +1,8 @@
-import React, {useEffect, useState} from 'react';
+import React, {memo, useEffect, useState} from 'react';
 import {CSSTransition} from 'react-transition-group';
 import QuestionEditionModal from "./QuestionEditionModal";
 
-export default function Card({data, onAnswer, isScoreDisplayed, shouldCardsBeInverted, onUpdate}) {
+const Card = function({data, onAnswer, isScoreDisplayed, shouldCardsBeInverted, onUpdate}) {
   const {question, answer, currentDelay, image, isOwnerOfCard} = data;
   const [isAnswerShown, setAnswerDisplayState] = useState(false);
   const [isAnswerSuccessful, setAnswerSuccessState] = useState(undefined);
@@ -104,11 +104,13 @@ export default function Card({data, onAnswer, isScoreDisplayed, shouldCardsBeInv
     const bytes = [].slice.call(new Uint8Array(buffer));
     bytes.forEach((b) => binary += String.fromCharCode(b));
     return window.btoa(binary);
-  };
+  }
 
   function revealAnswer() {
     if (!isAnswerShown) {
       setAnswerDisplayState(true);
     }
   }
-}
+};
+
+export default memo(Card, () => true);
