@@ -1,7 +1,7 @@
 import React, {useContext} from 'react';
 import {postOnServer} from "../../server";
-import {addCardFailureNotification, CardSuccessNotification, addNotification} from "../../services/notification";
-import { store } from 'react-notifications-component';
+import {addCardFailureNotification, addNotification, CardSuccessNotification} from "../../services/notification";
+import {store} from 'react-notifications-component';
 import InputGroup from "../atoms/InputGroup";
 import ReactTooltip from "react-tooltip";
 import {viewportContext} from "../../contexts/viewport";
@@ -37,71 +37,73 @@ export default function AddCardForm() {
           <i className="far fa-question-circle"/>
         </a>
       </h3>
-
-      <div className="AddCard__fields">
-        <div className="AddCard__subfields">
-          <div className={`AddCard__subfield-field ${image && 'AddCard__subfield-field--disabled'}`}>
-            <label>
-              Question
+      <form onSubmit={saveQuestion}>
+        <div className="AddCard__fields">
+          <div className="AddCard__subfields">
+            <div className={`AddCard__subfield-field ${image && 'AddCard__subfield-field--disabled'}`}>
+              <label>
+                Question
+              </label>
+              <InputGroup
+                type="text"
+                value={question}
+                onChange={(event) => setQuestion(event.target.value)}
+                icon="question"
+                isIconSolid
+                placeholder="Quelle est la taille d'un castor ?"
+                className="AddCard__field"
+              />
+            </div>
+            <div className="AddCard__subfield-field">
+              <div>
+                {image && (
+                  <span
+                    onClick={() => setImage(undefined)}
+                    className="AddCard__remove-image"
+                  >
+                  X
+                </span>
+                )}
+                <label
+                  className={`fileLabel ${!image && 'fileLabel--empty'} ${question && 'AddCard__subfield-field--disabled'}`}>
+                  🖼️ Image
+                  <input
+                    className="AddCard__image-field fileInput"
+                    type="file"
+                    onChange={updateImage}
+                  />
+                  {image && (
+                    <img className="AddCard__image-field" src={displayedImage} alt=""/>
+                  )}
+                  {image?.size >= 1000000 && <p>L'image est trop lourde. 1Mo maximum</p>}
+                </label>
+              </div>
+            </div>
+          </div>
+          <div>
+            <label className="AddCard__field">
+              Réponse
             </label>
             <InputGroup
               type="text"
-              value={question}
-              onChange={(event) => setQuestion(event.target.value)}
-              icon="question"
+              value={answer}
+              onChange={(event) => setAnswer(event.target.value)}
+              icon="lightbulb"
               isIconSolid
-              placeholder="Quelle est la taille d'un castor ?"
+              placeholder="80 - 100 cm"
               className="AddCard__field"
             />
           </div>
-          <div className="AddCard__subfield-field">
-            <div>
-              {image && (
-                <span
-                  onClick={() => setImage(undefined)}
-                  className="AddCard__remove-image"
-                >
-                  X
-                </span>
-              )}
-            <label className={`fileLabel ${!image && 'fileLabel--empty'} ${question && 'AddCard__subfield-field--disabled'}`}>
-              🖼️ Image
-              <input
-                className="AddCard__image-field fileInput"
-                type="file"
-                onChange={updateImage}
-              />
-              {image && (
-                <img className="AddCard__image-field" src={displayedImage} alt=""/>
-              )}
-              {image?.size >= 1000000 && <p>L'image est trop lourde. 1Mo maximum</p>}
-            </label>
-            </div>
-          </div>
         </div>
-        <div>
-          <label className="AddCard__field">
-            Réponse
-          </label>
-          <InputGroup
-            type="text"
-            value={answer}
-            onChange={(event) => setAnswer(event.target.value)}
-            icon="lightbulb"
-            isIconSolid
-            placeholder="80 - 100 cm"
-            className="AddCard__field"
-          />
+        <div className="AddCard__actions">
+          <button
+            onClick={saveQuestion}
+            className={`AddCard__submit ${!isValid && "AddCard__submit--disabled"}`}
+          >
+            Envoyer
+          </button>
         </div>
-      </div>
-      <div className="AddCard__actions">
-        <button
-          onClick={saveQuestion}
-          className={`AddCard__submit ${!isValid && "AddCard__submit--disabled"}`}
-        >
-          Envoyer
-        </button>
-      </div>
+      </form>
     </div>
   );
 
@@ -117,7 +119,7 @@ export default function AddCardForm() {
       setTooltipDisplayState(true);
       setTimeout(() => {
         setTooltipDisplayState(false);
-      },2000)
+      }, 2000)
     }
   }
 
@@ -126,7 +128,8 @@ export default function AddCardForm() {
     setDisplayedImage(URL.createObjectURL(event.target.files[0]))
   }
 
-  function saveQuestion() {
+  function saveQuestion(event) {
+    event.preventDefault();
 
     if (!isValid) {
       return;
@@ -147,8 +150,7 @@ export default function AddCardForm() {
         setAnswer('');
         setImage(undefined);
         setDisplayedImage(undefined);
-      }
-      else {
+      } else {
         store.addNotification({
           ...addCardFailureNotification,
           message: addCardFailureNotification.message + response.message,

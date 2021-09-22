@@ -113,4 +113,8 @@ const Card = function({data, onAnswer, isScoreDisplayed, shouldCardsBeInverted, 
   }
 };
 
-export default memo(Card, () => true);
+function areEquals(previousProps, nextProps) {
+	return previousProps.isScoreDisplayed === nextProps.isScoreDisplayed && previousProps.shouldCardsBeInverted === nextProps.shouldCardsBeInverted;
+}
+
+export default memo(Card, areEquals);
