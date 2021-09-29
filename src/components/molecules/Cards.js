@@ -97,7 +97,7 @@ export default function Cards({cardsList, triggerCardUpdate, remainingCards, fet
       }
 
       // If newDelayIndex is greater than the max interval, set it to memorised
-      if (newDelayIndex > intervals.length) {
+      if (newDelayIndex >= intervals.length) {
         updatedCard.isMemorized = true;
         store.addNotification({
           ...memorisedNotification,
