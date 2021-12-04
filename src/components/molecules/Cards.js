@@ -57,7 +57,7 @@ export default function Cards({cardsList, triggerCardUpdate, remainingCards, fet
         </div>
       </div>
       {!isLoading && !cardsList.length && <p>Pas de cartes pour le moment, <Link to="add">créez-en quelques unes</Link> !</p>}
-      {cardsList.map(card =>
+      {cardsList.map((card, index) =>
         <Card
           data={card}
           key={card._id}

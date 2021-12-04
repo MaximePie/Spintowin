@@ -1,6 +1,7 @@
-import React, {memo, useEffect, useState} from 'react';
+import React, {memo, useContext, useEffect, useState} from 'react';
 import {CSSTransition} from 'react-transition-group';
 import QuestionEditionModal from "./QuestionEditionModal";
+import {viewportContext} from "../../contexts/viewport";
 
 const Card = function({data, onAnswer, isScoreDisplayed, shouldCardsBeInverted, onUpdate}) {
   const {question, answer, currentDelay, image, isOwnerOfCard} = data;
@@ -114,7 +115,9 @@ const Card = function({data, onAnswer, isScoreDisplayed, shouldCardsBeInverted, 
 };
 
 function areEquals(previousProps, nextProps) {
-	return previousProps.isScoreDisplayed === nextProps.isScoreDisplayed && previousProps.shouldCardsBeInverted === nextProps.shouldCardsBeInverted;
+  const isSameScore = previousProps.isScoreDisplayed === nextProps.isScoreDisplayed;
+  const isSameInversionsState =  previousProps.shouldCardsBeInverted === nextProps.shouldCardsBeInverted;
+	return isSameInversionsState && isSameScore
 }
 
 export default memo(Card, areEquals);
