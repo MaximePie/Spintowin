@@ -1,13 +1,13 @@
 .Card {
+  position: relative;
+
   overflow: hidden;
   border-radius: 8px;
   width: 180px;
   height: 150px;
   border: solid 1px lightgray;
-  margin: 0.5rem;
-  padding: 1rem;
+  margin: 0.25rem;
   cursor: pointer;
-  transition: transform 75ms ease-in-out;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -19,12 +19,18 @@
   text-align: center;
 
   @include for-phone-only {
-    width: 130px;
+    width: 170px;
   }
 
-  &:hover {
-    transform: translateY(-8px);
-    transition: transform 150ms ease-in-out;
+  &__image {
+    height: 100%;
+    width: 100%;
+  }
+
+  &__edit {
+    position: absolute;
+    top: 0.5rem;
+    left: 0.5rem;
   }
 
   &--static {
@@ -34,10 +40,6 @@
     &:hover {
       transform: initial;
     }
-  }
-
-  &__image {
-    height: 90%;
   }
 
   &__delay {

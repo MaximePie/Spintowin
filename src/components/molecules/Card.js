@@ -1,10 +1,13 @@
-import React, {useEffect, useState} from 'react';
+import React, {memo, useContext, useEffect, useState} from 'react';
 import {CSSTransition} from 'react-transition-group';
+import QuestionEditionModal from "./QuestionEditionModal";
+import {viewportContext} from "../../contexts/viewport";
 
-export default function Card({data, onAnswer, isScoreDisplayed, shouldCardsBeInverted}) {
-  const {question, answer, currentDelay, image} = data;
+const Card = function({data, onAnswer, isScoreDisplayed, shouldCardsBeInverted, onUpdate}) {
+  const {question, answer, currentDelay, image, isOwnerOfCard} = data;
   const [isAnswerShown, setAnswerDisplayState] = useState(false);
   const [isAnswerSuccessful, setAnswerSuccessState] = useState(undefined);
+  const [isModalOpen, setOpenModalState] = useState(false);
 
   useEffect(() => {
     if (isAnswerSuccessful === true || isAnswerSuccessful === false) {
@@ -15,6 +18,14 @@ export default function Card({data, onAnswer, isScoreDisplayed, shouldCardsBeInv
 
   return (
     <>
+      {isModalOpen && (
+        <QuestionEditionModal
+          card={data}
+          onClose={handleQuestionEditionModalClose}
+          isOwnerOfCard={isOwnerOfCard}
+        />
+      )}
+
       {!isAnswerShown && isAnswerSuccessful === undefined && (
         <div className="Card" onClick={revealAnswer}>
           {isScoreDisplayed && (
@@ -38,6 +49,7 @@ export default function Card({data, onAnswer, isScoreDisplayed, shouldCardsBeInv
         timeout={0}
       >
         <div className="Card" onClick={revealAnswer}>
+          <i className="fas fa-edit Card__edit" onClick={() => setOpenModalState(true)}/>
           {isScoreDisplayed && (
             <p className="Card__delay">🎯{currentDelay}</p>
           )}
@@ -67,6 +79,14 @@ export default function Card({data, onAnswer, isScoreDisplayed, shouldCardsBeInv
     </>
   );
 
+  /**
+   * Closes the modal, and updates the current collection
+   */
+  function handleQuestionEditionModalClose() {
+    setOpenModalState(false);
+    onUpdate();
+  }
+
   function formatedImage(image) {
     const base64Flag = `data:${image.contentType};base64,`;
     const imageString = arrayBufferToBase64(image.data);
@@ -85,11 +105,19 @@ export default function Card({data, onAnswer, isScoreDisplayed, shouldCardsBeInv
     const bytes = [].slice.call(new Uint8Array(buffer));
     bytes.forEach((b) => binary += String.fromCharCode(b));
     return window.btoa(binary);
-  };
+  }
 
   function revealAnswer() {
     if (!isAnswerShown) {
       setAnswerDisplayState(true);
     }
   }
+};
+
+function areEquals(previousProps, nextProps) {
+  const isSameScore = previousProps.isScoreDisplayed === nextProps.isScoreDisplayed;
+  const isSameInversionsState =  previousProps.shouldCardsBeInverted === nextProps.shouldCardsBeInverted;
+	return isSameInversionsState && isSameScore
 }
+
+export default memo(Card, areEquals);

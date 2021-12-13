@@ -4,17 +4,37 @@ import Card from "./Card";
 
 import {Link} from "react-router-dom";
 import {store} from "react-notifications-component";
-import {addCardFailureNotification, streakNotification} from "../../services/notification";
+import {memorisedNotification, streakNotification} from "../../services/notification";
+import {viewportContext} from "../../contexts/viewport";
+import LoadingGif from "../atoms/LoadingGif";
 
-export default function Cards({cardsList, triggerCardUpdate, remainingCards}) {
+
+import {PropTypes} from 'prop-types';
+
+Cards.propTypes = {
+  cardsList: PropTypes.array,
+  triggerCardUpdate: PropTypes.func.isRequired,
+  fetchCards: PropTypes.func.isRequired,
+  remainingCards: PropTypes.number,
+  isLoading: PropTypes.bool,
+};
+
+Cards.defaultProps = {
+  remainingCards: 0,
+  isLoading: false,
+};
+
+export default function Cards({cardsList, triggerCardUpdate, remainingCards, fetchCards, isLoading}) {
 
   const [isScoreDisplayed, setScoreDisplayState] = useState(false);
   const [shouldCardsBeInverted, setInvertedState] = useState(false);
+  const {isMobile} = React.useContext(viewportContext);
 
   return (
     <div className="Cards">
       <div className="Card Card--static">
         <p className="Card__answer">{remainingCards} cartes</p>
+        <LoadingGif isLoading={isLoading} className="Cards__loading"/>
         <div>
           <label className="Card--static__label">
             <input
@@ -36,14 +56,15 @@ export default function Cards({cardsList, triggerCardUpdate, remainingCards}) {
           </label>
         </div>
       </div>
-      {!cardsList.length && <p>Pas de cartes pour le moment, <Link to="add">créez-en quelques unes</Link> !</p>}
-      {cardsList.map(card =>
+      {!isLoading && !cardsList.length && <p>Pas de cartes pour le moment, <Link to="add">créez-en quelques unes</Link> !</p>}
+      {cardsList.map((card, index) =>
         <Card
           data={card}
           key={card._id}
           onAnswer={(isSuccess) => handleAnswer(card._id, isSuccess)}
           isScoreDisplayed={isScoreDisplayed}
           shouldCardsBeInverted={shouldCardsBeInverted}
+          onUpdate={fetchCards}
         />)}
     </div>
   );
@@ -60,14 +81,12 @@ export default function Cards({cardsList, triggerCardUpdate, remainingCards}) {
     const targetCard = cardsList.find((card) => card._id === cardId);
 
     let updatedCard = {...targetCard};
-    const {currentDelay} = updatedCard
     const currentDelayIndex = intervals.indexOf(updatedCard.currentDelay);
-    const shouldIncreaseDelay = isSuccess && currentDelayIndex !== 0
 
     // Edit data
-    if (!currentDelay) {
+    if (!updatedCard.currentDelay) { // Reset if interval does not exist
       updatedCard.currentDelay = intervals[1];
-    } else if (shouldIncreaseDelay) {
+    } else if (isSuccess && currentDelayIndex !== 0) {
       let newDelayIndex = currentDelayIndex;
       if (updatedCard.currentSuccessfulAnswerStreak) {
         newDelayIndex += updatedCard.currentSuccessfulAnswerStreak;
@@ -76,12 +95,25 @@ export default function Cards({cardsList, triggerCardUpdate, remainingCards}) {
         newDelayIndex += 1;
       }
 
-      // TODO - Remove this line to enable streak effect
-      newDelayIndex = currentDelayIndex + 1;
-
-      updatedCard.currentDelay = intervals[newDelayIndex]
-
-      tryToDisplayStreakNotification();
+      // If newDelayIndex is greater than the max interval, set it to memorised
+      if (newDelayIndex >= intervals.length) {
+        updatedCard.isMemorized = true;
+        store.addNotification({
+          ...memorisedNotification,
+          message: `Vous avez mémorisé la carte ${updatedCard.answer} ! Félicitations !`,
+          container: isMobile ? "bottom-center" : "top-right",
+        });
+      }
+      else {
+        updatedCard.currentDelay = intervals[newDelayIndex];
+        if (updatedCard.currentSuccessfulAnswerStreak > 2) {
+          store.addNotification({
+            ...streakNotification,
+            message: `${updatedCard.currentSuccessfulAnswerStreak} à la suite !`,
+            container: isMobile ? "bottom-center" : "top-right",
+          });
+        }
+      }
     } else {
       updatedCard.currentDelay = intervals[currentDelayIndex - 1];
     }

@@ -13,13 +13,13 @@
 
   text-align: center;
 
-
   @include for-phone-only {
-    width: 95vw;
+    margin: 0;
   }
 
   &__image-container {
     overflow: hidden;
     border-radius: 4px;
+    width: 100%;
   }
 }

@@ -17,6 +17,16 @@
     width: initial;
   }
 
+  &__hint {
+    color: $successColor;
+    margin-left: 0.5rem;
+    font-size: 1em;
+
+    &:hover {
+
+    }
+  }
+
   &__fields {
     margin-top: 1rem;
     display: grid;
@@ -66,12 +76,6 @@
 
   &__submit {
     transition: background-color 250ms ease;
-  }
-
-  &__submit--disabled {
-    background-color: $primaryColorDisabled;
-    transition: background-color 250ms ease;
-    cursor: not-allowed;
   }
 
   &__submit--disabled:hover {

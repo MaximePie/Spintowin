@@ -1,5 +1,7 @@
 @import '../../node_modules/@fortawesome/fontawesome-free/css/all.min.css';
 @import url('https://fonts.googleapis.com/css2?family=KoHo:ital,wght@0,300;0,400;1,400&display=swap');
+@import "./mixins";
+
 $mediumSpacing: 8px;
 $defaultBorderRadius: 8px;
 $borderRadiusSmall: 4px;
@@ -9,6 +11,8 @@ $borderCard: solid 1px lightgray;
 $navbarHeight: 40px;
 $primaryColor: dodgerblue;
 $primaryColorDisabled: #6EBDFF;
+$dangerColor: #ff6d46;
+$successColor: #00e396;
 $gray: #b5b5b5;
 
 body {
@@ -32,15 +36,21 @@ body {
 }
 
 
-@import "./mixins";
 @import "./App";
 @import "./atoms/Badge";
 @import "./molecules/Navbar";
 @import "./molecules/Card";
 @import "./molecules/StatsCard";
-@import "./pages/TrainingPage";
 @import "./molecules/Profile";
-@import "./pages/AddCard";
+@import "./molecules/QuestionEditionModal";
+@import "./molecules/AddCardUser";
+@import "./molecules/AddCardUsers";
+@import "./molecules/AddCardUserCard";
+
+@import "./pages/TrainingPage";
+@import "molecules/AddCardForm";
 @import "./pages/AuthForm";
-@import "pages/LoadingAppGif";
+@import "./pages/LoadingAppGif";
+@import "./pages/Stats";
 @import "./atoms/InputGroup";
+@import "./atoms/LoadingGif";

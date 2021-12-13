@@ -8,6 +8,7 @@ export default function AuthForm({action, onTokenAcquisition}) {
   const [password, setPassword] = useState('');
   const [email, setMail] = useState('');
   const [username, setUsername] = useState('');
+  const [hasAdsEnabled, setAdsState] = useState(false);
 
   return (
     <div className="AuthForm-container">
@@ -58,6 +59,21 @@ export default function AuthForm({action, onTokenAcquisition}) {
             placeholder="Entrez votre mot de passe"
           />
         </div>
+        {action === 'register' && (
+          <>
+            <div className="AuthForm__field AuthForm__field--checkbox">
+              <input
+                type="checkbox"
+                value={hasAdsEnabled}
+                onChange={(event) => setAdsState(event.target.checked)}
+                className="AuthForm__input"
+              />
+              <label className="AuthForm__label">
+                Je souhaite contribuer gratuitement en activant les publicités
+              </label>
+            </div>
+          </>
+        )}
         <button onClick={sendData} className="AuthForm__action">
           {action === 'register' ? "S'enregistrer" : 'Se connecter'}
         </button>
@@ -82,13 +98,13 @@ export default function AuthForm({action, onTokenAcquisition}) {
       axiosInstance.post('/users/register', {
         email,
         password,
-        username
+        username,
+        hasAdsEnabled,
       }).then(({data}) => {
         const token = data.token;
         if (token) {
           onTokenAcquisition(token, true);
         } else if (data.message) {
-          console.log(data.message);
         }
       });
     } else if (action === 'login') {
@@ -100,7 +116,6 @@ export default function AuthForm({action, onTokenAcquisition}) {
         if (token) {
           onTokenAcquisition(token, true);
         } else if (data.error) {
-          console.log(data.error);
         }
       });
     }

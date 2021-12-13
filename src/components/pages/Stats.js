@@ -12,28 +12,23 @@ export default function Stats() {
   return (
     <div className="Stats">
       <h1>Statistiques</h1>
-      <p>Vous avancez bien, bravo !</p>
       {stats && (
         <>
           <div className="Stats__list Stats__list--top">
             <Profile/>
-            <StatsCard
-              title="Score"
-              data={stats.score}
-            />
-            <StatsCard title="Badges"/>
-          </div>
-          <div className="Stats__list">
-            <StatsCard
-              title="Cartes en cours d'apprentissage"
-              data={stats.workInProgressData}
-            />
             <StatsCard
               title="Mémorisation"
               data={{
                 mainData: stats.memorizedData,
                 total: stats.workInProgressData.total,
               }}
+            />
+          </div>
+          <div className="Stats__list">
+            <StatsCard title="Badges"/>
+            <StatsCard
+              title="Cartes en cours d'apprentissage"
+              data={stats.workInProgressData}
             />
           </div>
         </>

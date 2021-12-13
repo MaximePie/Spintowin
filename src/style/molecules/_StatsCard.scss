@@ -10,6 +10,10 @@
   flex-direction: column;
 
   text-align: center;
+
+  @include for-phone-only {
+    margin: 0.5rem 0;
+  }
 }
 
 .StatsCard--large {

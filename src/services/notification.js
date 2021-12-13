@@ -6,18 +6,18 @@ const baseNotification = {
   animationIn: ["animate__animated", "animate__fadeIn"],
   animationOut: ["animate__animated", "animate__fadeOut"],
   dismiss: {
-    duration: 3000,
+    duration: 2500,
     onScreen: true,
     pauseOnHover: true,
   },
   touchSlidingExit: {
     swipe: {
-      duration: 400,
+      duration: 250,
       timingFunction: 'ease-out',
       delay: 0,
     },
     fade: {
-      duration: 400,
+      duration: 250,
       timingFunction: 'ease-out',
       delay: 0
     }
@@ -38,13 +38,12 @@ export const levelUpNotification = {
   type: "success",
 }
 
-export const addCardSuccessNotification = {
+export const CardSuccessNotification = {
   ...baseNotification,
   title: "Bravo !",
   message: "Votre carte a correctement été ajoutée ! Allez l'essayer !",
   type: "success",
 }
-
 
 export const addCardFailureNotification = {
   ...baseNotification,
@@ -53,9 +52,27 @@ export const addCardFailureNotification = {
   type: "warning",
 };
 
+export const systemErrorNotification = {
+  ...baseNotification,
+  title: "Aïe !",
+  message: "Il y a eu une erreur, sûrement un problème de configuration de la part du serveur. Nous allons corriger tout ça.",
+  type: "danger",
+  dismiss: {
+    duration: 7500,
+    onScreen: true,
+    pauseOnHover: true,
+  },
+};
+
 export const streakNotification = {
   ...baseNotification,
   title: "Bravo !",
+  type: "success",
+};
+
+export const memorisedNotification = {
+  ...baseNotification,
+  title: "Félicitations !",
   type: "success",
 };
 

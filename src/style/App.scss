@@ -1,25 +1,13 @@
 
-.Stats {
-  padding: 1rem;
-}
-
-.Stats__list {
-  display: grid;
-  grid-template-columns: 500px 1fr;
-
-  @include for-phone-only {
-    grid-template-columns: initial;
-  }
-
-  &--top {
-    grid-template-columns: 500px 400px 1fr;
-  }
-}
-
 .Cards {
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
+
+  &__loading {
+    position: absolute;
+    top: 0.3rem;
+  }
 }
 
 body {
@@ -45,6 +33,16 @@ button:hover {
   transition: filter 150ms ease-in-out;
 }
 
+button:disabled {
+  background-color: $primaryColorDisabled;
+  transition: background-color 250ms ease;
+  cursor: not-allowed;
+
+  &:hover {
+    transition: none;
+    filter: initial;
+  }
+}
 
 input {
   border: none;
