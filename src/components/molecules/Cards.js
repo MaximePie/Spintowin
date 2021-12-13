@@ -82,11 +82,12 @@ export default function Cards({cardsList, triggerCardUpdate, remainingCards, fet
 
     let updatedCard = {...targetCard};
     const currentDelayIndex = intervals.indexOf(updatedCard.currentDelay);
+    const shouldIncreaseDelay = isSuccess && currentDelayIndex !== 0
 
     // Edit data
     if (!updatedCard.currentDelay) { // Reset if interval does not exist
       updatedCard.currentDelay = intervals[1];
-    } else if (isSuccess && currentDelayIndex !== 0) {
+    } else if (shouldIncreaseDelay) {
       let newDelayIndex = currentDelayIndex;
       if (updatedCard.currentSuccessfulAnswerStreak) {
         newDelayIndex += updatedCard.currentSuccessfulAnswerStreak;
@@ -106,13 +107,10 @@ export default function Cards({cardsList, triggerCardUpdate, remainingCards, fet
       }
       else {
         updatedCard.currentDelay = intervals[newDelayIndex];
-        if (updatedCard.currentSuccessfulAnswerStreak > 2) {
-          store.addNotification({
-            ...streakNotification,
-            message: `${updatedCard.currentSuccessfulAnswerStreak} à la suite !`,
-            container: isMobile ? "bottom-center" : "top-right",
-          });
-        }
+
+        // TODO - Disable this line if you want the streak effect back.
+
+        tryToDisplayStreakNotification(updatedCard.currentSuccessfulAnswerStreak)
       }
     } else {
       updatedCard.currentDelay = intervals[currentDelayIndex - 1];
@@ -131,10 +129,11 @@ export default function Cards({cardsList, triggerCardUpdate, remainingCards, fet
   function tryToDisplayStreakNotification(currentSuccessfulAnswerStreak) {
     const shouldDisplayStreakNotification = currentSuccessfulAnswerStreak >= 3
     if (shouldDisplayStreakNotification) {
-      store.addNotification({
-        ...streakNotification,
-        message: `${currentSuccessfulAnswerStreak} à la suite !`,
-      });
+        store.addNotification({
+            ...streakNotification,
+            message: `${currentSuccessfulAnswerStreak} à la suite !`,
+            container: isMobile ? "bottom-center" : "top-right",
+        });
     }
   }
 
