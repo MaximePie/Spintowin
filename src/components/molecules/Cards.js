@@ -98,12 +98,21 @@ export default function Cards({cardsList, triggerCardUpdate, remainingCards, fet
 
       // If newDelayIndex is greater than the max interval, set it to memorised
       if (newDelayIndex >= intervals.length) {
-        updatedCard.isMemorized = true;
-        store.addNotification({
-          ...memorisedNotification,
-          message: `Vous avez mémorisé la carte ${updatedCard.answer} ! Félicitations !`,
-          container: isMobile ? "bottom-center" : "top-right",
-        });
+
+        // Set to the last interval
+        if(updatedCard.currentSuccessfulAnswerStreak > 1) {
+          updatedCard.currentDelay = intervals[intervals.length]
+          updatedCard.currentSuccessfulAnswerStreak = 0
+        }
+        else {
+          // Set to memorized
+          updatedCard.isMemorized = true;
+          store.addNotification({
+            ...memorisedNotification,
+            message: `Vous avez mémorisé la carte ${updatedCard.answer} ! Félicitations !`,
+            container: isMobile ? "bottom-center" : "top-right",
+          });
+        }
       }
       else {
         updatedCard.currentDelay = intervals[newDelayIndex];
