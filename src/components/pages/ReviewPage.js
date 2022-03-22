@@ -24,6 +24,7 @@ export default function ReviewPage() {
           data={card}
           onAnswer={(isSuccess) => handleAnswer(isSuccess)}
           onUpdate={fetchCard}
+          isSingle
         />
       )}
     </div>

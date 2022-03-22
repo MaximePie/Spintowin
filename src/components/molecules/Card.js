@@ -2,7 +2,7 @@ import React, {memo, useEffect, useState} from 'react';
 import {CSSTransition} from 'react-transition-group';
 import QuestionEditionModal from "./QuestionEditionModal";
 
-const Card = function Card({data, onAnswer, isScoreDisplayed, shouldCardsBeInverted, onUpdate}) {
+const Card = function Card({data, onAnswer, isScoreDisplayed, shouldCardsBeInverted, onUpdate, isSingle}) {
   const {question, answer, currentDelay, image, isOwnerOfCard} = data;
   const [isAnswerShown, setAnswerDisplayState] = useState(false);
   const [isAnswerSuccessful, setAnswerSuccessState] = useState(undefined);
@@ -15,6 +15,8 @@ const Card = function Card({data, onAnswer, isScoreDisplayed, shouldCardsBeInver
     }
   }, [isAnswerSuccessful]);
 
+  useEffect(setKeyBinds, []);
+
   return (
     <>
       {isModalOpen && (
@@ -26,7 +28,7 @@ const Card = function Card({data, onAnswer, isScoreDisplayed, shouldCardsBeInver
       )}
 
       {!isAnswerShown && isAnswerSuccessful === undefined && (
-        <div className="Card" onClick={revealAnswer}>
+        <div className={`Card ${isSingle && 'Card--isSingle'}`} onClick={revealAnswer}>
           {isScoreDisplayed && (
             <p className="Card__delay">🎯{currentDelay}</p>
           )}
@@ -111,12 +113,35 @@ const Card = function Card({data, onAnswer, isScoreDisplayed, shouldCardsBeInver
       setAnswerDisplayState(true);
     }
   }
+
+  function setKeyBinds() {
+    document.addEventListener("keydown", event => {
+      switch (event.code) {
+        case "NumpadEnter":
+          revealAnswer();
+          break;
+        case "Numpad1":
+          if (isAnswerShown) {
+            setAnswerSuccessState(true)
+          }
+          break;
+        case "Numpad3":
+          if (isAnswerShown) {
+            setAnswerSuccessState(false);
+          }
+          break;
+
+        default:
+          break;
+      }
+    })
+  }
 };
 
 function areEquals(previousProps, nextProps) {
   const isSameScore = previousProps.isScoreDisplayed === nextProps.isScoreDisplayed;
-  const isSameInversionsState =  previousProps.shouldCardsBeInverted === nextProps.shouldCardsBeInverted;
-	return isSameInversionsState && isSameScore
+  const isSameInversionsState = previousProps.shouldCardsBeInverted === nextProps.shouldCardsBeInverted;
+  return isSameInversionsState && isSameScore
 }
 
 export default memo(Card, areEquals);
