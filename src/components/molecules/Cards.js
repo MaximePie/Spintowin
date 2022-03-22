@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import {intervals,} from "../../data/cards"
 import Card from "./Card";
 
 import {Link} from "react-router-dom";
@@ -10,6 +9,7 @@ import LoadingGif from "../atoms/LoadingGif";
 
 
 import {PropTypes} from 'prop-types';
+import {generateUpdatedCard} from "../../services/card";
 
 Cards.propTypes = {
   cardsList: PropTypes.array,
@@ -79,58 +79,21 @@ export default function Cards({cardsList, triggerCardUpdate, remainingCards, fet
   function handleAnswer(cardId, isSuccess) {
     // Get data
     const targetCard = cardsList.find((card) => card._id === cardId);
+    const updatedCard = generateUpdatedCard(targetCard, isSuccess);
 
-    let updatedCard = {...targetCard};
-    const currentDelayIndex = intervals.indexOf(updatedCard.currentDelay);
-    const shouldIncreaseDelay = isSuccess && currentDelayIndex !== 0;
-
-    // Edit data
-    if (!updatedCard.currentDelay) { // Reset if interval does not exist
-      console.log("resetting");
-      console.log(updatedCard);
-      updatedCard.currentDelay = intervals[1];
-    } else if (shouldIncreaseDelay) {
-
-      console.log("increasing");
-      console.log(updatedCard);
-      let newDelayIndex = currentDelayIndex;
-      if (updatedCard.currentSuccessfulAnswerStreak) {
-        newDelayIndex += updatedCard.currentSuccessfulAnswerStreak;
-      }
-      else {
-        newDelayIndex += 1;
-      }
-
-      // If newDelayIndex is greater than the max interval, set it to memorised
-      if (newDelayIndex >= intervals.length) {
-
-        // Set to the last interval
-        if(updatedCard.currentSuccessfulAnswerStreak > 1) {
-          updatedCard.currentDelay = intervals[intervals.length]
-          updatedCard.currentSuccessfulAnswerStreak = 0
-        }
-        else {
-          // Set to memorized
-          updatedCard.isMemorized = true;
-          store.addNotification({
-            ...memorisedNotification,
-            message: `Vous avez mémorisé la carte ${updatedCard.answer} ! Félicitations !`,
-            container: isMobile ? "bottom-center" : "top-right",
-          });
-        }
-      }
-      else {
-        updatedCard.currentDelay = intervals[newDelayIndex];
-
-        // TODO - Disable this line if you want the streak effect back.
-
-        tryToDisplayStreakNotification(updatedCard.currentSuccessfulAnswerStreak)
-      }
-    } else {
-      updatedCard.currentDelay = intervals[currentDelayIndex - 1];
+    if (updatedCard.isMemorized) {
+      store.addNotification({
+        ...memorisedNotification,
+        message: `Vous avez mémorisé la carte ${updatedCard.answer} ! Félicitations !`,
+        container: isMobile ? "bottom-center" : "top-right",
+      });
     }
 
-    triggerCardUpdate(updatedCard);
+
+    // TODO - Disable this line if you want the streak effect back.
+    tryToDisplayStreakNotification(updatedCard.currentSuccessfulAnswerStreak);
+
+    triggerCardUpdate();
   }
 
   /**

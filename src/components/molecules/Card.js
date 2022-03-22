@@ -1,9 +1,8 @@
-import React, {memo, useContext, useEffect, useState} from 'react';
+import React, {memo, useEffect, useState} from 'react';
 import {CSSTransition} from 'react-transition-group';
 import QuestionEditionModal from "./QuestionEditionModal";
-import {viewportContext} from "../../contexts/viewport";
 
-const Card = function({data, onAnswer, isScoreDisplayed, shouldCardsBeInverted, onUpdate}) {
+const Card = function Card({data, onAnswer, isScoreDisplayed, shouldCardsBeInverted, onUpdate}) {
   const {question, answer, currentDelay, image, isOwnerOfCard} = data;
   const [isAnswerShown, setAnswerDisplayState] = useState(false);
   const [isAnswerSuccessful, setAnswerSuccessState] = useState(undefined);

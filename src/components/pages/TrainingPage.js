@@ -2,7 +2,6 @@ import React, {useEffect, useRef, useState} from 'react';
 import Cards from "../molecules/Cards";
 import {getFromServer, postOnServer} from "../../server";
 import {intervals} from "../../data/cards";
-import LoadingGif from "../atoms/LoadingGif";
 
 /**
  * This custom hooks returns the previous value of the ref.
