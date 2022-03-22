@@ -63,6 +63,8 @@ export default function TrainingPage() {
    * @param card
    */
   function triggerCardUpdate(card) {
-    postOnServer(`/userCards/update/${card.cardId}`, {newDelay: card.currentDelay || intervals[1]}).then(fetchCards);
+    postOnServer(`/userCards/update/${card.cardId}`,
+      {newDelay: card.currentDelay || intervals[1], isMemorized: card.isMemorized})
+      .then(fetchCards);
   }
 }

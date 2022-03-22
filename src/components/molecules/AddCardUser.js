@@ -45,8 +45,7 @@ export default function AddCardUser({userId}) {
       if (response.status === 201) {
         // TODO - Afficher une notification de succès
         addNotification(CardSuccessNotification);
-      }
-      else {
+      } else {
         // TODO - Gérer l'erreur
       }
     })
@@ -55,12 +54,13 @@ export default function AddCardUser({userId}) {
 
   /**
    * Adds the selected cart to the Cart List
-   * @param cardId
+   * @param cardId id de mongoDB
    */
   function addCardToCart(cardId) {
-    console.log("Adding " + cardId);
     setCardsCart([...cardsCart, cardId]);
   }
+
+  // TODO - Se connecter feature
 
   /**
    * Fetches the info relative to the user
@@ -71,8 +71,7 @@ export default function AddCardUser({userId}) {
       setLoadingState(false);
       if (status === 200) {
         setCards(data.cards);
-      }
-      else {
+      } else {
         // TODO - Handle error
       }
     })

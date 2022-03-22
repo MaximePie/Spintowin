@@ -82,12 +82,17 @@ export default function Cards({cardsList, triggerCardUpdate, remainingCards, fet
 
     let updatedCard = {...targetCard};
     const currentDelayIndex = intervals.indexOf(updatedCard.currentDelay);
-    const shouldIncreaseDelay = isSuccess && currentDelayIndex !== 0
+    const shouldIncreaseDelay = isSuccess && currentDelayIndex !== 0;
 
     // Edit data
     if (!updatedCard.currentDelay) { // Reset if interval does not exist
+      console.log("resetting");
+      console.log(updatedCard);
       updatedCard.currentDelay = intervals[1];
     } else if (shouldIncreaseDelay) {
+
+      console.log("increasing");
+      console.log(updatedCard);
       let newDelayIndex = currentDelayIndex;
       if (updatedCard.currentSuccessfulAnswerStreak) {
         newDelayIndex += updatedCard.currentSuccessfulAnswerStreak;
