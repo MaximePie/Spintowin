@@ -50,7 +50,7 @@ const Card = function Card({data, onAnswer, isScoreDisplayed, shouldCardsBeInver
         unmountOnExit
         timeout={0}
       >
-        <div className="Card" onClick={revealAnswer}>
+        <div className={`Card ${isSingle && 'Card--isSingle'}`} onClick={revealAnswer}>
           <i className="fas fa-edit Card__edit" onClick={() => setOpenModalState(true)}/>
           {isScoreDisplayed && (
             <p className="Card__delay">🎯{currentDelay}</p>

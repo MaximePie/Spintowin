@@ -46,9 +46,10 @@ body {
 @import "./molecules/AddCardUser";
 @import "./molecules/AddCardUsers";
 @import "./molecules/AddCardUserCard";
+@import "molecules/AddCardForm";
 
 @import "./pages/TrainingPage";
-@import "molecules/AddCardForm";
+@import "./pages/ReviewPage";
 @import "./pages/AuthForm";
 @import "./pages/LoadingAppGif";
 @import "./pages/Stats";

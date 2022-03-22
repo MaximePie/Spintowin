@@ -18,8 +18,48 @@
 
   text-align: center;
 
+  &--isSingle {
+    width: 340px;
+    height: 480px;
+    font-size: 2em;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+
+    .Card__action--failed {
+      background-color: indianred;
+      margin-left: 0.5rem;
+      margin-bottom: 1em;
+
+      @include for-phone-only {
+        margin-top: 0.5rem;
+      }
+    }
+
+    .Card__answer {
+      font-weight: 500;
+      margin: 3em 0 16px 0;
+    }
+
+    .Card__image {
+      height: 340px;
+      width: 340px;
+      @include for-phone-only {
+        height: 240px;
+        width: 240px;
+      }
+    }
+  }
+
   @include for-phone-only {
     width: 170px;
+
+    &--isSingle {
+      width: 240px;
+      height: 340px;
+    }
   }
 
   &__image {
