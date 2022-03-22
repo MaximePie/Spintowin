@@ -7,6 +7,7 @@ const Card = function Card({data, onAnswer, isScoreDisplayed, shouldCardsBeInver
   const [isAnswerShown, setAnswerDisplayState] = useState(false);
   const [isAnswerSuccessful, setAnswerSuccessState] = useState(undefined);
   const [isModalOpen, setOpenModalState] = useState(false);
+  const isAnswerShownRef = React.useRef(false);
 
   useEffect(() => {
     if (isAnswerSuccessful === true || isAnswerSuccessful === false) {
@@ -111,6 +112,7 @@ const Card = function Card({data, onAnswer, isScoreDisplayed, shouldCardsBeInver
   function revealAnswer() {
     if (!isAnswerShown) {
       setAnswerDisplayState(true);
+      isAnswerShownRef.current = true;
     }
   }
 
@@ -121,17 +123,14 @@ const Card = function Card({data, onAnswer, isScoreDisplayed, shouldCardsBeInver
           revealAnswer();
           break;
         case "Numpad1":
-          if (isAnswerShown) {
+          if (isAnswerShownRef.current) {
             setAnswerSuccessState(true)
           }
           break;
         case "Numpad3":
-          if (isAnswerShown) {
+          if (isAnswerShownRef.current) {
             setAnswerSuccessState(false);
           }
-          break;
-
-        default:
           break;
       }
     })

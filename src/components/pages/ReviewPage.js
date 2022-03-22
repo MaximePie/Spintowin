@@ -12,8 +12,16 @@ export default function ReviewPage() {
   const [card, setCard] = useState(null);
   const {isMobile} = React.useContext(viewportContext);
   const [remainingCards, setRemainingCards] = useState(0);
+  const isCancelled = React.useRef(false);
 
-  useEffect(fetchCard, []);
+  useEffect(() => {
+    if (!isCancelled.current) {
+      fetchCard();
+    }
+    return () => {
+      isCancelled.current = true;
+    }
+  }, []);
 
 
   return (
@@ -78,6 +86,7 @@ export default function ReviewPage() {
   function tryToDisplayStreakNotification(currentSuccessfulAnswerStreak) {
     const shouldDisplayStreakNotification = currentSuccessfulAnswerStreak >= 3
     if (shouldDisplayStreakNotification) {
+      console.log(currentSuccessfulAnswerStreak)
       store.addNotification({
         ...streakNotification,
         message: `${currentSuccessfulAnswerStreak} à la suite !`,
@@ -91,6 +100,7 @@ export default function ReviewPage() {
    * @param card
    */
   function triggerCardUpdate(card) {
+    setCard(null);
     postOnServer(`/userCards/update/${card.cardId}`,
       {newDelay: card.currentDelay || intervals[1], isMemorized: card.isMemorized})
       .then(fetchCard);

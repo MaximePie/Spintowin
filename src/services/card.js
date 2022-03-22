@@ -18,6 +18,8 @@ export function generateUpdatedCard(card, isSuccess) {
   if (!updatedCard.currentDelay) { // Reset if interval does not exist
     updatedCard.currentDelay = intervals[1];
   } else if (shouldIncreaseDelay) {
+    updatedCard.currentSuccessfulAnswerStreak ++
+
     let newDelayIndex = currentDelayIndex;
     if (updatedCard.currentSuccessfulAnswerStreak) {
       newDelayIndex += updatedCard.currentSuccessfulAnswerStreak;
@@ -42,8 +44,9 @@ export function generateUpdatedCard(card, isSuccess) {
     else {
       updatedCard.currentDelay = intervals[newDelayIndex];
     }
-  } else {
+  } else { // Answer is incorrect
     updatedCard.currentDelay = intervals[currentDelayIndex - 1];
+    updatedCard.currentSuccessfulAnswerStreak = 0
   }
 
   return updatedCard
