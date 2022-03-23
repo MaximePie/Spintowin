@@ -114,7 +114,11 @@ export default function ReviewPage() {
   function triggerCardUpdate(card) {
     setCard(null);
     postOnServer(`/userCards/update/${card.cardId}`,
-      {newDelay: card.currentDelay || intervals[1], isMemorized: card.isMemorized})
+      {
+        newDelay: card.currentDelay || intervals[1],
+        isMemorized: card.isMemorized,
+        currentSuccessfulAnswerStreak: card.currentSuccessfulAnswerStreak
+      })
       .then(fetchCard);
   }
 }
