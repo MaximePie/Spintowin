@@ -18,7 +18,7 @@ export function generateUpdatedCard(card, isSuccess) {
   if (!updatedCard.currentDelay) { // Reset if interval does not exist
     updatedCard.currentDelay = intervals[1];
   } else if (shouldIncreaseDelay) {
-    updatedCard.currentSuccessfulAnswerStreak ++
+    updatedCard.currentSuccessfulAnswerStreak ++;
 
     let newDelayIndex = currentDelayIndex;
     if (updatedCard.currentSuccessfulAnswerStreak) {
@@ -30,11 +30,10 @@ export function generateUpdatedCard(card, isSuccess) {
 
     // If newDelayIndex is greater than the max interval, set it to memorised
     if (newDelayIndex >= intervals.length) {
-
       // Set to the last interval
-      if(updatedCard.currentSuccessfulAnswerStreak > 1) {
-        updatedCard.currentDelay = intervals[intervals.length];
-        updatedCard.currentSuccessfulAnswerStreak = 0
+      if (updatedCard.currentSuccessfulAnswerStreak > 1) {
+        updatedCard.currentDelay = intervals[intervals.length - 1];
+        updatedCard.currentSuccessfulAnswerStreak = 1
       }
       else {
         // Set to memorized
