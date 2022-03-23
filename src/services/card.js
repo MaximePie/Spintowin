@@ -22,7 +22,8 @@ export function generateUpdatedCard(card, isSuccess) {
 
     let newDelayIndex = currentDelayIndex;
     if (updatedCard.currentSuccessfulAnswerStreak) {
-      newDelayIndex += updatedCard.currentSuccessfulAnswerStreak;
+      // newDelayIndex += updatedCard.currentSuccessfulAnswerStreak;
+      newDelayIndex ++;
     }
     else {
       newDelayIndex += 1;
@@ -43,7 +44,8 @@ export function generateUpdatedCard(card, isSuccess) {
       updatedCard.currentDelay = intervals[newDelayIndex];
     }
   } else { // Answer is incorrect
-    updatedCard.currentDelay = intervals[currentDelayIndex - 1];
+    // updatedCard.currentDelay = intervals[currentDelayIndex - 1];
+    updatedCard.currentDelay = intervals[0];
     updatedCard.currentSuccessfulAnswerStreak = 0
   }
 
