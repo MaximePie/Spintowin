@@ -1,5 +1,5 @@
 import Card from "../molecules/Card";
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {generateUpdatedCard} from "../../services/card";
 import {store} from "react-notifications-component";
 import {memorisedNotification, streakNotification} from "../../services/notification";
@@ -10,8 +10,12 @@ import {intervals} from "../../data/cards";
 export default function ReviewPage() {
   const [isLoading, setLoadingState] = useState(false);
   const [card, setCard] = useState(null);
-  const {isMobile} = React.useContext(viewportContext);
+  const {isMobile} = useContext(viewportContext);
   const [remainingCards, setRemainingCards] = useState(0);
+
+  const [numberOfSuccess, setNumberOfSuccess] = useState(0);
+  const [numberOfFailures, setNumberOfFailures] = useState(0);
+
   const isCancelled = React.useRef(false);
 
   useEffect(() => {
@@ -26,7 +30,8 @@ export default function ReviewPage() {
 
   return (
     <div className="ReviewPage">
-      <h4>Révisons ! ({remainingCards})</h4>
+      <h4 className="ReviewPage__header">Révisons ! ({remainingCards})</h4>
+      <p><i className="ReviewPage__success">{numberOfSuccess}</i>/<i className="ReviewPage__failures">{numberOfFailures}</i></p>
       {!isLoading && card && (
         <Card
           data={card}
@@ -66,6 +71,13 @@ export default function ReviewPage() {
         message: `Vous avez mémorisé la carte ${updatedCard.answer} ! Félicitations !`,
         container: isMobile ? "bottom-center" : "top-right",
       });
+    }
+
+    if (isSuccess) {
+      setNumberOfSuccess(numberOfSuccess + updatedCard.currentSuccessfulAnswerStreak)
+    }
+    else {
+      setNumberOfFailures(numberOfFailures + 1)
     }
 
 
