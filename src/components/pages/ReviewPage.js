@@ -38,6 +38,7 @@ export default function ReviewPage() {
           onAnswer={(isSuccess) => handleAnswer(isSuccess)}
           onUpdate={fetchCard}
           isSingle
+          isScoreDisplayed
         />
       )}
     </div>
@@ -74,7 +75,8 @@ export default function ReviewPage() {
     }
 
     if (isSuccess) {
-      setNumberOfSuccess(numberOfSuccess + updatedCard.currentSuccessfulAnswerStreak)
+      // setNumberOfSuccess(numberOfSuccess + updatedCard.currentSuccessfulAnswerStreak)
+      setNumberOfSuccess(numberOfSuccess + 1)
     }
     else {
       setNumberOfFailures(numberOfFailures + 1)

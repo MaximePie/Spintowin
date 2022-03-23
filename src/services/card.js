@@ -1,6 +1,4 @@
 import {intervals} from "../data/cards";
-import {store} from "react-notifications-component";
-import {memorisedNotification} from "./notification";
 
 /**
  * Updates the card according to the given answer

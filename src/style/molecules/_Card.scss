@@ -24,7 +24,7 @@
     font-size: 2em;
 
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     flex-direction: column;
 
@@ -40,7 +40,7 @@
 
     .Card__answer {
       font-weight: 500;
-      margin: 3em 0 16px 0;
+      margin: 0em 0 16px 0;
     }
 
     .Card__image {

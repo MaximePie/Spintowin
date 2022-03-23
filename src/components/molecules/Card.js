@@ -30,18 +30,20 @@ const Card = function Card({data, onAnswer, isScoreDisplayed, shouldCardsBeInver
 
       {!isAnswerShown && isAnswerSuccessful === undefined && (
         <div className={`Card ${isSingle && 'Card--isSingle'}`} onClick={revealAnswer}>
-          {isScoreDisplayed && (
-            <p className="Card__delay">🎯{currentDelay}</p>
-          )}
-          {question && !shouldCardsBeInverted && (
-            <p className="Card__answer">{question}</p>
-          )}
-          {answer && shouldCardsBeInverted && (
-            <p className="Card__answer">{answer}</p>
-          )}
-          {image && (
-            <img className="Card__image" src={formatedImage(image.data)} alt=""/>
-          )}
+          <div>
+            {isScoreDisplayed && (
+              <p className="Card__delay">🎯{currentDelay}</p>
+            )}
+            {question && !shouldCardsBeInverted && (
+              <p className="Card__answer">{question}</p>
+            )}
+            {answer && shouldCardsBeInverted && (
+              <p className="Card__answer">{answer}</p>
+            )}
+            {image && (
+              <img className="Card__image" src={formatedImage(image.data)} alt=""/>
+            )}
+          </div>
         </div>
       )}
       <CSSTransition
