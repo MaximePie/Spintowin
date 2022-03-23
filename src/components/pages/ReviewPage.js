@@ -117,7 +117,6 @@ export default function ReviewPage() {
       {
         newDelay: card.currentDelay || intervals[1],
         isMemorized: card.isMemorized,
-        currentSuccessfulAnswerStreak: card.currentSuccessfulAnswerStreak
       })
       .then(fetchCard);
   }

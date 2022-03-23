@@ -33,7 +33,6 @@ export function generateUpdatedCard(card, isSuccess) {
       // Set to the last interval
       if (updatedCard.currentSuccessfulAnswerStreak > 1) {
         updatedCard.currentDelay = intervals[intervals.length - 1];
-        updatedCard.currentSuccessfulAnswerStreak = 1
       }
       else {
         // Set to memorized

@@ -93,7 +93,7 @@ export default function Cards({cardsList, triggerCardUpdate, remainingCards, fet
     // TODO - Disable this line if you want the streak effect back.
     tryToDisplayStreakNotification(updatedCard.currentSuccessfulAnswerStreak);
 
-    triggerCardUpdate();
+    triggerCardUpdate(updatedCard);
   }
 
   /**
