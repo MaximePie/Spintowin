@@ -125,14 +125,10 @@ const Card = function Card({data, onAnswer, isScoreDisplayed, shouldCardsBeInver
           revealAnswer();
           break;
         case "Numpad1":
-          if (isAnswerShownRef.current) {
-            setAnswerSuccessState(true)
-          }
+          setAnswerSuccessState(true)
           break;
         case "Numpad3":
-          if (isAnswerShownRef.current) {
-            setAnswerSuccessState(false);
-          }
+          setAnswerSuccessState(false);
           break;
       }
     })
