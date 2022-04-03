@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import StatsCard from "../molecules/StatsCard";
 import {getFromServer} from "../../server";
 import Profile from "../molecules/Profile";
+
 const baseUrl = `/cards/stats`;
 
 export default function Stats() {
@@ -30,6 +31,8 @@ export default function Stats() {
               title="Cartes en cours d'apprentissage"
               data={stats.workInProgressData}
             />
+          </div>
+          <div className="Stats__list Stats__list--large">
             <StatsCard
               title="Wrong Answers"
             />

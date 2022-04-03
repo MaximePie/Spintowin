@@ -27,21 +27,22 @@ export default function MemorizationBarChart() {
         },
         series: [
             {
-                name: "series-1",
+                name: "Errors",
                 data: values()
             }
         ]
     };
 
     return (
-        <div className="app">
+        <div className="WrongAnswersBarChart">
             <div className="row">
-                <div className="mixed-chart">
+                <div className="mixed-chart WrongAnswersBarChart__chart">
                     <Chart
                         options={chartData.options}
                         series={chartData.series}
                         type="bar"
-                        width="500"
+                        width="100%"
+                        height="400"
                     />
                 </div>
             </div>
@@ -55,8 +56,7 @@ export default function MemorizationBarChart() {
         return intervals.map(interval => {
             if (graphData.length) {
                 const wrongAnswerDelay = graphData.find(wrongAnswer => wrongAnswer._id === interval);
-                console.log(wrongAnswerDelay);
-                return wrongAnswerDelay?.count || 0
+                return `${wrongAnswerDelay?.count} ` || 0
             }
             return 0;
         })
