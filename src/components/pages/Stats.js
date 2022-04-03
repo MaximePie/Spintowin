@@ -30,6 +30,9 @@ export default function Stats() {
               title="Cartes en cours d'apprentissage"
               data={stats.workInProgressData}
             />
+            <StatsCard
+              title="Wrong Answers"
+            />
           </div>
         </>
       )}

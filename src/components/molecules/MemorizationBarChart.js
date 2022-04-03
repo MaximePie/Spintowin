@@ -4,7 +4,7 @@ import {getFromServer} from "../../server";
 import {viewportContext} from "../../contexts/viewport";
 
 
-export default function BarChart() {
+export default function MemorizationBarChart() {
 
   const [graphData, setGraphData] = useState([]);
   const {isMobile} = useContext(viewportContext);

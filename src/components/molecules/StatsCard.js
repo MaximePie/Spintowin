@@ -2,7 +2,8 @@ import React from 'react';
 import 'react-circular-progressbar/dist/styles.css';
 import OngoingStatsData from "./OngoingStatsData";
 import Badges from "./Badges";
-import BarChart from "./BarChart";
+import MemorizationBarChart from "./MemorizationBarChart";
+import WrongAnswersBarChart from "./WrongAnswersBarChart";
 
 export default function StatsCard({title, data}) {
   return (
@@ -15,7 +16,10 @@ export default function StatsCard({title, data}) {
         <h4>{data}</h4>
       )}
       {title === "Mémorisation" && (
-        <BarChart/>
+        <MemorizationBarChart/>
+      )}
+      {title === "Wrong Answers" && (
+        <WrongAnswersBarChart/>
       )}
       {title === "Badges" && <Badges/>}
     </div>
