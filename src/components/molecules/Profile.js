@@ -23,6 +23,10 @@ export default function Profile() {
   );
 
   function fetchUserData() {
-    getFromServer('/users/connectedUser/').then(({data}) => setUser(data.user))
+    getFromServer('/users/connectedUser/').then(({data}) => setUser({
+      experience: data.experience,
+      level: data.level,
+      username: data.username
+    }))
   }
 }
