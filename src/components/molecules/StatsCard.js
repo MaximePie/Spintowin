@@ -3,7 +3,7 @@ import 'react-circular-progressbar/dist/styles.css';
 import OngoingStatsData from "./OngoingStatsData";
 import Badges from "./Badges";
 import MemorizationBarChart from "./MemorizationBarChart";
-import WrongAnswersBarChart from "./WrongAnswersBarChart";
+import AnswersBarChart from "./AnswersBarChart";
 
 export default function StatsCard({title, data}) {
   return (
@@ -19,7 +19,7 @@ export default function StatsCard({title, data}) {
         <MemorizationBarChart/>
       )}
       {title === "Wrong Answers" && (
-        <WrongAnswersBarChart/>
+        <AnswersBarChart/>
       )}
       {title === "Badges" && <Badges/>}
     </div>

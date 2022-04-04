@@ -9,9 +9,9 @@ import {intervals} from "../../data/cards";
  * @returns {JSX.Element}
  * @constructor
  */
-export default function MemorizationBarChart() {
+export default function AnswersBarChart() {
 
-    const [graphData, setGraphData] = useState([]);
+    const [graphData, setGraphData] = useState({});
     const {isMobile} = useContext(viewportContext);
 
     useEffect(fetchData, []);
@@ -23,20 +23,25 @@ export default function MemorizationBarChart() {
             },
             xaxis: {
                 categories: intervals
-            }
+            },
+            colors: ["#F44336", "#1e8ee9"]
         },
         series: [
             {
                 name: "Errors",
-                data: values()
+                data: wrongAnswers()
+            },
+            {
+                name: "Answer Time",
+                data: answerTimes()
             }
         ]
     };
 
     return (
-        <div className="WrongAnswersBarChart">
+        <div className="AnswersBarChart">
             <div className="row">
-                <div className="mixed-chart WrongAnswersBarChart__chart">
+                <div className="mixed-chart AnswersBarChart__chart">
                     <Chart
                         options={chartData.options}
                         series={chartData.series}
@@ -50,12 +55,25 @@ export default function MemorizationBarChart() {
     );
 
     /**
+     * Returns all the answer delay averages
+     */
+    function answerTimes() {
+        return intervals.map(interval => {
+            if (graphData?.answerDelays?.length) {
+                const answer = graphData.answerDelays.find(answer => answer._id === interval);
+                return Math.round(answer?.average / 100 || 0);
+            }
+            return 0;
+        })
+    }
+
+    /**
      * Returns all the wrong answer values
      */
-    function values() {
+    function wrongAnswers() {
         return intervals.map(interval => {
-            if (graphData.length) {
-                const wrongAnswerDelay = graphData.find(wrongAnswer => wrongAnswer._id === interval);
+            if (graphData?.wrongAnswers?.length) {
+                const wrongAnswerDelay = graphData.wrongAnswers.find(wrongAnswer => wrongAnswer._id === interval);
                 return `${wrongAnswerDelay?.count} ` || 0
             }
             return 0;
@@ -63,6 +81,6 @@ export default function MemorizationBarChart() {
     }
 
     function fetchData() {
-        getFromServer('/users/connectedUser/wrongAnswers').then(response => setGraphData(response.data?.wrongAnswers))
+        getFromServer('/users/connectedUser/answers').then(response => setGraphData(response.data))
     }
 }

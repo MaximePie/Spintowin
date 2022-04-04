@@ -16,6 +16,8 @@ export default function ReviewPage() {
   const [numberOfSuccess, setNumberOfSuccess] = useState(0);
   const [numberOfFailures, setNumberOfFailures] = useState(0);
 
+  const [answerTimeStart, setAnswerTimeStart] = useState(null);
+
   const isCancelled = React.useRef(false);
 
   useEffect(() => {
@@ -26,6 +28,10 @@ export default function ReviewPage() {
       isCancelled.current = true;
     }
   }, []);
+
+  useEffect(() => {
+    setAnswerTimeStart(new Date())
+  }, [card])
 
 
   return (
@@ -100,7 +106,6 @@ export default function ReviewPage() {
   function tryToDisplayStreakNotification(currentSuccessfulAnswerStreak) {
     const shouldDisplayStreakNotification = currentSuccessfulAnswerStreak >= 3
     if (shouldDisplayStreakNotification) {
-      console.log(currentSuccessfulAnswerStreak)
       store.addNotification({
         ...streakNotification,
         message: `${currentSuccessfulAnswerStreak} à la suite !`,
@@ -115,10 +120,15 @@ export default function ReviewPage() {
    */
   function triggerCardUpdate(card) {
     setCard(null);
+    let answerTime = new Date() - answerTimeStart;
+    answerTime = answerTime > 15000 ? 15000 : answerTime;
+
     postOnServer(`/userCards/update/${card.cardId}`,
       {
         newDelay: card.currentDelay || intervals[1],
         isMemorized: card.isMemorized,
+        answerTime,
+        isFromReviewPage: true,
       })
       .then(fetchCard);
   }
