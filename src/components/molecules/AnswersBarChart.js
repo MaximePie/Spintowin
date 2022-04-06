@@ -22,7 +22,7 @@ export default function AnswersBarChart() {
                 id: "basic-bar"
             },
             xaxis: {
-                categories: intervals
+                categories: intervals.filter((interval, index) => index > 1)
             },
             colors: ["#F44336", "#1e8ee9"]
         },
@@ -58,7 +58,7 @@ export default function AnswersBarChart() {
      * Returns all the answer delay averages
      */
     function answerTimes() {
-        return intervals.map(interval => {
+        return intervals.filter((interval, index) => index > 1).map(interval => {
             if (graphData?.answerDelays?.length) {
                 const answer = graphData.answerDelays.find(answer => answer._id === interval);
                 return Math.round(answer?.average / 100 || 0);
@@ -71,7 +71,7 @@ export default function AnswersBarChart() {
      * Returns all the wrong answer values
      */
     function wrongAnswers() {
-        return intervals.map(interval => {
+        return intervals.filter((interval, index) => index > 1).map(interval => {
             if (graphData?.wrongAnswers?.length) {
                 const wrongAnswerDelay = graphData.wrongAnswers.find(wrongAnswer => wrongAnswer._id === interval);
                 return `${wrongAnswerDelay?.count} ` || 0
