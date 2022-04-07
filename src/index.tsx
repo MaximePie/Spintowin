@@ -3,13 +3,13 @@ import ReactDOM from 'react-dom';
 import './style/index.scss';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import ReactNotification from 'react-notifications-component'
+import {ReactNotifications} from 'react-notifications-component'
 import 'react-notifications-component/dist/theme.css'
 
 ReactDOM.render(
   <React.StrictMode>
     <div className="app-container">
-      <ReactNotification/>
+      <ReactNotifications/>
       <App />
     </div>
   </React.StrictMode>,

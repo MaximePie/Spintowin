@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import ReactApexChart from 'react-apexcharts'
-import {getFromServer} from "../../server";
+import {getFromServer} from "../../services/server";
 
 export default function OngoingStatsData() {
   const [data, setData] = useState({});

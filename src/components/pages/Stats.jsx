@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import StatsCard from "../molecules/StatsCard";
-import {getFromServer} from "../../server";
+import {getFromServer} from "../../services/server";
 import Profile from "../molecules/Profile";
 
 const baseUrl = `/cards/stats`;

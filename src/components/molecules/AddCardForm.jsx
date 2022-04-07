@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import {postOnServer} from "../../server";
+import {postOnServer} from "../../services/server";
 import {addCardFailureNotification, addNotification, CardSuccessNotification} from "../../services/notification";
 import {store} from 'react-notifications-component';
 import InputGroup from "../atoms/InputGroup";

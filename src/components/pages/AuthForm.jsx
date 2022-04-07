@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {axiosInstance} from "../../server";
+import {axiosInstance} from "../../services/server";
 import InputGroup from "../atoms/InputGroup"
 import {Link} from "react-router-dom";
 

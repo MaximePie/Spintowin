@@ -1,6 +1,6 @@
 import React, {useContext, useEffect, useState} from 'react';
 import ReactApexChart from 'react-apexcharts'
-import {getFromServer} from "../../server";
+import {getFromServer} from "../../services/server";
 import {viewportContext} from "../../contexts/viewport";
 
 

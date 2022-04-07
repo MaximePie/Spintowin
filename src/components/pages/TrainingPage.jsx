@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react';
 import Cards from "../molecules/Cards";
-import {getFromServer, postOnServer} from "../../server";
+import {getFromServer, postOnServer} from "../../services/server";
 import {intervals} from "../../data/cards";
 
 /**

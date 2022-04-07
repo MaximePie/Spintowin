@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {getFromServer} from "../../server";
+import {getFromServer} from "../../services/server";
 import AddCardUser from "./AddCardUser";
 
 export default function AddCardUsers() {

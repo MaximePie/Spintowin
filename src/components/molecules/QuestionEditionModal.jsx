@@ -1,6 +1,6 @@
 import React from 'react';
 import InputGroup from "../atoms/InputGroup";
-import {getFromServer, postOnServer} from "../../server";
+import {getFromServer, postOnServer} from "../../services/server";
 import {store} from 'react-notifications-component';
 import handleError from "../../services/errors";
 import {CardSuccessNotification} from "../../services/notification";

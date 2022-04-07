@@ -1,6 +1,7 @@
-import { store } from 'react-notifications-component';
+import {Store} from 'react-notifications-component';
+import {iNotification} from "react-notifications-component/dist/src/typings";
 
-const baseNotification = {
+const baseNotification: iNotification = {
   insert: "top",
   container: "top-right",
   animationIn: ["animate__animated", "animate__fadeIn"],
@@ -64,23 +65,22 @@ export const systemErrorNotification = {
   },
 };
 
-export const streakNotification = {
+export const streakNotification: iNotification  = {
   ...baseNotification,
   title: "Bravo !",
   type: "success",
 };
 
-export const memorisedNotification = {
+export const memorisedNotification: iNotification = {
   ...baseNotification,
   title: "Félicitations !",
   type: "success",
 };
 
 
-export function addNotification(details, isMobile = false) {
-  let notification = details;
+export function addNotification(details: iNotification, isMobile = false) {
   if (isMobile) {
-    notification.insert = "bottom";
+    details.insert = "bottom";
   }
-  store.addNotification(details);
+  Store.addNotification(details);
 }

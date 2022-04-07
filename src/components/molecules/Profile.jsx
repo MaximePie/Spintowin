@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import castorImage from "../../images/castor.jpg";
-import {getFromServer} from "../../server";
+import {getFromServer} from "../../services/server";
 
 export default function Profile() {
   const [user, setUser] = useState({});

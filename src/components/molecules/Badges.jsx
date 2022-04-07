@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {getFromServer} from "../../server";
+import {getFromServer} from "../../services/server";
 import Badge from "./Badge";
 
 export default function Badges() {

@@ -1,10 +1,11 @@
 import Card from "../molecules/Card";
+import CardType from "../../types/Card";
 import React, {useContext, useEffect, useState} from "react";
 import {generateUpdatedCard} from "../../services/card";
-import {store} from "react-notifications-component";
+import {Store} from "react-notifications-component";
 import {memorisedNotification, streakNotification} from "../../services/notification";
 import {viewportContext} from "../../contexts/viewport";
-import {getFromServer, postOnServer} from "../../server";
+import {getFromServer, postOnServer} from "../../services/server";
 import {intervals} from "../../data/cards";
 
 export default function ReviewPage() {
@@ -16,7 +17,7 @@ export default function ReviewPage() {
   const [numberOfSuccess, setNumberOfSuccess] = useState(0);
   const [numberOfFailures, setNumberOfFailures] = useState(0);
 
-  const [answerTimeStart, setAnswerTimeStart] = useState(null);
+  const [answerTimeStart, setAnswerTimeStart] = useState<Date | null>(null);
 
   const isCancelled = React.useRef(false);
 
@@ -41,10 +42,11 @@ export default function ReviewPage() {
       {!isLoading && card && (
         <Card
           data={card}
-          onAnswer={(isSuccess) => handleAnswer(isSuccess)}
+          onAnswer={(isSuccess: boolean) => handleAnswer(isSuccess)}
           onUpdate={fetchCard}
           isSingle
           isScoreDisplayed
+          shouldCardsBeInverted={false}
         />
       )}
     </div>
@@ -66,14 +68,14 @@ export default function ReviewPage() {
   /**
    * If the answer is wrong, we go back to the previous interval so it appears earlier
    * If the answer is right, we increment the interval so it appears later
-   * @param isSuccess
+   * @param isSuccess {boolean}
    */
-  function handleAnswer(isSuccess) {
+  function handleAnswer(isSuccess: boolean) {
     // Get data
     const updatedCard = generateUpdatedCard(card, isSuccess);
 
     if (updatedCard.isMemorized) {
-      store.addNotification({
+      Store.addNotification({
         ...memorisedNotification,
         message: `Vous avez mémorisé la carte ${updatedCard.answer} ! Félicitations !`,
         container: isMobile ? "bottom-center" : "top-right",
@@ -100,13 +102,13 @@ export default function ReviewPage() {
    * If the parameter >= 3,
    * Display the current successful answer streak notification
    * Else, do nothing
-   * @param currentSuccessfulAnswerStreak Number, the current amount of successful answers
+   * @param currentSuccessfulAnswerStreak {number}, the current amount of successful answers
    * the user gave.
    */
-  function tryToDisplayStreakNotification(currentSuccessfulAnswerStreak) {
+  function tryToDisplayStreakNotification(currentSuccessfulAnswerStreak: number) {
     const shouldDisplayStreakNotification = currentSuccessfulAnswerStreak >= 3
     if (shouldDisplayStreakNotification) {
-      store.addNotification({
+      Store.addNotification({
         ...streakNotification,
         message: `${currentSuccessfulAnswerStreak} à la suite !`,
         container: isMobile ? "bottom-center" : "top-right",
@@ -118,15 +120,18 @@ export default function ReviewPage() {
    * Triggers the request to update the Card after a given Answer
    * @param card
    */
-  function triggerCardUpdate(card) {
+  function triggerCardUpdate(card: CardType) {
     setCard(null);
-    let answerTime = new Date() - answerTimeStart;
+    let answerTime = 0;
+    if (answerTimeStart) {
+      answerTime = new Date().getTime() - answerTimeStart.getTime();
+    }
     answerTime = answerTime > 15000 ? 15000 : answerTime;
 
     postOnServer(`/userCards/update/${card.cardId}`,
       {
         newDelay: card.currentDelay || intervals[1],
-        isMemorized: card.isMemorized,
+        isMemorized: card.isMemorized || false,
         answerTime,
         isFromReviewPage: true,
       })

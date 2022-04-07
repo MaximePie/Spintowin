@@ -11,7 +11,7 @@ import Navbar from "./components/molecules/Navbar";
 import LoadingAppGif from "./components/molecules/LoadingAppGif";
 import Stats from "./components/pages/Stats";
 import {BrowserRouter, Route, Switch} from "react-router-dom";
-import {axiosInstance, setAuthToken} from "./server";
+import {axiosInstance, setAuthToken} from "./services/server";
 import handleError from "./services/errors";
 
 

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {getFromServer, postOnServer} from "../../server";
+import {getFromServer, postOnServer} from "../../services/server";
 import AddCardUserCard from "./AddCardUserCard";
 import {addNotification, CardSuccessNotification} from "../../services/notification";
 

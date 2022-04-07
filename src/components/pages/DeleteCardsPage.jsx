@@ -1,6 +1,6 @@
 
 import React, {useEffect, useState} from 'react';
-import {getFromServer} from "../../server";
+import {getFromServer} from "../../services/server";
 
 export default function DeleteCardsPage() {
   const [cards, setCards] = useState([]);
