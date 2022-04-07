@@ -12,7 +12,6 @@ import {intervals} from "../../data/cards";
 export default function AnswersBarChart() {
 
     const [graphData, setGraphData] = useState({});
-    const {isMobile} = useContext(viewportContext);
 
     useEffect(fetchData, []);
 

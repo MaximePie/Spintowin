@@ -14,7 +14,7 @@ const Card = function Card({data, onAnswer, isScoreDisplayed, shouldCardsBeInver
       setAnswerDisplayState(false);
       onAnswer(isAnswerSuccessful);
     }
-  }, [isAnswerSuccessful]);
+  }, [isAnswerSuccessful, onAnswer]);
 
   useEffect(setKeyBinds, []);
 
@@ -129,6 +129,8 @@ const Card = function Card({data, onAnswer, isScoreDisplayed, shouldCardsBeInver
           break;
         case "Numpad3":
           setAnswerSuccessState(false);
+          break;
+        default:
           break;
       }
     })
