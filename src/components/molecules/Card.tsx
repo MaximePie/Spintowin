@@ -197,7 +197,8 @@ function areEquals(previousProps: CardProps, nextProps: CardProps) {
   const isSameScore = previousProps.isScoreDisplayed === nextProps.isScoreDisplayed;
   // eslint-disable-next-line max-len
   const isSameInversionsState = previousProps.shouldCardsBeInverted === nextProps.shouldCardsBeInverted;
-  return isSameInversionsState && isSameScore;
+  const isSameAsBefore = isSameInversionsState && isSameScore;
+  return previousProps.data.answer !== nextProps.data.answer ? false : isSameAsBefore;
 }
 
 export default memo(Card, areEquals);

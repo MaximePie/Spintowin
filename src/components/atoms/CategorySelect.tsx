@@ -1,35 +1,55 @@
 import React, { useEffect, useState } from 'react';
 import CreatableSelect from 'react-select/creatable';
-import { OnChangeValue, ActionMeta } from 'react-select';
+import Select, { OnChangeValue, ActionMeta, MultiValue } from 'react-select';
 import CategoryType from '../../types/CategoryType';
 import { getFromServer, postOnServer } from '../../services/server';
-
-interface CategorySelectProps {
-  onSelect: (
-    // eslint-disable-next-line no-unused-vars
-    newValue: OnChangeValue<{ value: string, label: string }, false>,
-    // eslint-disable-next-line no-unused-vars
-    actionMeta: ActionMeta<formatedCategoryType>
-  ) => void
-}
 
 type formatedCategoryType = {
   label: string,
   value: string,
 }
 
-export default function CategorySelect({ onSelect }: CategorySelectProps) {
+interface CategorySelectProps {
+  onSelect: (
+    // eslint-disable-next-line no-unused-vars
+    newValue: OnChangeValue<formatedCategoryType, false>,
+    // eslint-disable-next-line no-unused-vars
+    actionMeta: ActionMeta<formatedCategoryType>
+  ) => void | null,
+  variant: 'creatable' | 'multi',
+  onSelectMultiple: (
+    // eslint-disable-next-line no-unused-vars
+    newValue: MultiValue<formatedCategoryType>,
+    // eslint-disable-next-line no-unused-vars
+    actionMeta: ActionMeta<formatedCategoryType>
+  )
+    => void | null
+}
+
+export default function CategorySelect(
+  { onSelect, variant, onSelectMultiple }: CategorySelectProps,
+) {
   const [categories, setCategories] = useState<formatedCategoryType[]>([]);
 
   useEffect(fetchCategories, []);
 
   return (
     <div className="CategorySelect">
-      <CreatableSelect
-        options={categories}
-        onCreateOption={createCategory}
-        onChange={onSelect}
-      />
+      {variant === 'creatable' && (
+        <CreatableSelect
+          options={categories}
+          onCreateOption={createCategory}
+          onChange={onSelect}
+        />
+      )}
+
+      {variant === 'multi' && (
+        <Select
+          isMulti
+          options={categories}
+          onChange={onSelectMultiple}
+        />
+      )}
     </div>
   );
 

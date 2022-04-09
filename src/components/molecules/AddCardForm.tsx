@@ -46,7 +46,7 @@ export default function AddCardForm() {
       </h3>
       <form onSubmit={saveQuestion}>
         <div className="AddCard__fields">
-          <CategorySelect onSelect={handleCategorySelection} />
+          <CategorySelect onSelectMultiple={() => {}} onSelect={handleCategorySelection} variant="creatable" />
           <div className="AddCard__subfields">
             <div className={`AddCard__subfield-field ${isImageLoaded && 'AddCard__subfield-field--disabled'}`}>
               <label>

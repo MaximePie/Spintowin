@@ -1,12 +1,14 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Store } from 'react-notifications-component';
+import { MultiValue } from 'react-select';
 import Card from '../molecules/Card';
 import UserCardType from '../../types/UserCard';
 import generateUpdatedCard from '../../services/card';
 import { memorisedNotification, streakNotification } from '../../services/notification';
 import { viewportContext } from '../../contexts/viewport';
-import { getFromServer, postOnServer } from '../../services/server';
+import { postOnServer } from '../../services/server';
 import intervals from '../../data/cards';
+import CategorySelect from '../atoms/CategorySelect';
 
 export default function ReviewPage() {
   const [isLoading, setLoadingState] = useState(false);
@@ -14,6 +16,7 @@ export default function ReviewPage() {
   const { isMobile } = useContext(viewportContext);
   const [remainingCards, setRemainingCards] = useState(0);
 
+  const [categories, setCategories] = useState<string[]>([]);
   const [numberOfSuccess, setNumberOfSuccess] = useState(0);
   const [numberOfFailures, setNumberOfFailures] = useState(0);
 
@@ -29,6 +32,8 @@ export default function ReviewPage() {
       isCancelled.current = true;
     };
   }, []);
+
+  useEffect(fetchCard, [categories]);
 
   useEffect(() => {
     setAnswerTimeStart(new Date());
@@ -46,6 +51,7 @@ export default function ReviewPage() {
         /
         <i className="ReviewPage__failures">{numberOfFailures}</i>
       </p>
+      <CategorySelect onSelect={() => {}} onSelectMultiple={updateCategories} variant="multi" />
       {!isLoading && card && (
         <Card
           data={card}
@@ -60,13 +66,24 @@ export default function ReviewPage() {
   );
 
   /**
+   * Updates the current categories
+   * @param newValue
+   */
+  function updateCategories(newValue: MultiValue<{label: string, value: string}>) {
+    const newCategories = newValue.map((category) => category.value);
+    setCategories(newCategories);
+  }
+
+  /**
    * Fetch one card the user has to answer
    */
   function fetchCard() {
     setLoadingState(true);
-    getFromServer('/userCards/getOne').then(({ data }) => {
+    postOnServer('/userCards/getOne', { categories }).then(({ data }) => {
       setLoadingState(false);
-      setCard(data.card);
+      if (data.card) {
+        setCard(data.card);
+      }
       setRemainingCards(data.remainingCards);
     });
   }
@@ -121,7 +138,7 @@ export default function ReviewPage() {
 
   /**
    * Triggers the request to update the Card after a given Answer
-   * @param card
+   * @param updatedCard
    */
   function triggerCardUpdate(updatedCard: UserCardType) {
     setCard(null);
