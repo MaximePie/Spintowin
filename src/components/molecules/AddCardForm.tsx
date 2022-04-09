@@ -6,6 +6,7 @@ import ReactTooltip from 'react-tooltip';
 import { postOnServer } from '../../services/server';
 import { addCardFailureNotification, addNotification, CardSuccessNotification } from '../../services/notification';
 import InputGroup from '../atoms/InputGroup';
+import CategorySelect from '../atoms/CategorySelect';
 import { viewportContext } from '../../contexts/viewport';
 
 export default function AddCardForm() {
@@ -43,6 +44,7 @@ export default function AddCardForm() {
       </h3>
       <form onSubmit={saveQuestion}>
         <div className="AddCard__fields">
+          <CategorySelect />
           <div className="AddCard__subfields">
             <div className={`AddCard__subfield-field ${isImageLoaded && 'AddCard__subfield-field--disabled'}`}>
               <label>

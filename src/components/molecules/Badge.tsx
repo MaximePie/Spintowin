@@ -3,9 +3,13 @@ import React from 'react';
 import { Progress } from 'react-sweet-progress';
 import 'react-sweet-progress/lib/style.css';
 
+// @ts-ignore
 import addedCardBadge from '../../images/addedCardBadge.svg';
+// @ts-ignore
 import moreThanOneWeekBadge from '../../images/moreThanOneWeekBadge.svg';
+// @ts-ignore
 import moreThanOneDayBadge from '../../images/moreThanOneDayBadge.svg';
+// @ts-ignore
 import moreThanOneMonthBadge from '../../images/moreThanOneMonthBadge.svg';
 import BadgeType from '../../types/BadgeType';
 
