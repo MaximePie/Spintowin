@@ -11,6 +11,7 @@ type UserCardType = {
   answer: string,
   question: string,
   image: ImageType,
-  isOwnerOfCard: boolean
+  isOwnerOfCard: boolean,
+  category: string | null
 }
 export default UserCardType;

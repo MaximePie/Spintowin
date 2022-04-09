@@ -3,6 +3,8 @@ import { CSSTransition } from 'react-transition-group';
 import QuestionEditionModal from './QuestionEditionModal';
 import UserCardType from '../../types/UserCard';
 import ImageType from '../../types/ImageType';
+import { postOnServer } from '../../services/server';
+import { addNotification, CategorySuccess, systemErrorNotification } from '../../services/notification';
 
 type CardProps = {
   data: UserCardType,
@@ -26,6 +28,8 @@ const Card = function Card({
     currentDelay,
     image,
     isOwnerOfCard,
+    _id,
+    category,
   } = data;
   const [isAnswerShown, setAnswerDisplayState] = useState(false);
   const [isAnswerSuccessful, setAnswerSuccessState] = useState<boolean | undefined>(undefined);
@@ -60,6 +64,11 @@ const Card = function Card({
           onKeyUp={(event) => event.key === 'enter' && revealAnswer()}
         >
           <div>
+            {category && (
+              <p>
+                {category}
+              </p>
+            )}
             {isScoreDisplayed && (
               <p className="Card__delay">
                 🎯
@@ -99,6 +108,11 @@ const Card = function Card({
             role="button"
             tabIndex={0}
           />
+          {category && (
+            <p>
+              {category}
+            </p>
+          )}
           {isScoreDisplayed && (
             <p className="Card__delay">
               🎯
@@ -180,10 +194,35 @@ const Card = function Card({
         case 'Numpad3':
           setAnswerSuccessState(false);
           break;
+        case 'Numpad4':
+          attachCardToCategory('country');
+          break;
+        case 'Numpad5':
+          attachCardToCategory('german');
+          break;
+        case 'Numpad6':
+          attachCardToCategory('vietnamese');
+          break;
         default:
           break;
       }
     });
+  }
+
+  /**
+   * This should stay temporary
+   * @param categoryIdentifier
+   */
+  function attachCardToCategory(categoryIdentifier: string) {
+    postOnServer(`/userCards/categories/add/${_id}`, { categoryIdentifier })
+      .then((response) => {
+        // @ts-ignore
+        if (response.code === 200) {
+          addNotification(CategorySuccess);
+        } else {
+          addNotification(systemErrorNotification);
+        }
+      });
   }
 };
 
