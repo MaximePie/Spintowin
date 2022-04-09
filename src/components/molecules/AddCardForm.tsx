@@ -1,5 +1,5 @@
 import React, {
-  ChangeEvent, useContext, useState,
+  ChangeEvent, FormEvent, useContext, useState,
 } from 'react';
 import { Store } from 'react-notifications-component';
 import ReactTooltip from 'react-tooltip';
@@ -113,9 +113,8 @@ export default function AddCardForm() {
         </div>
         <div className="AddCard__actions">
           <button
-            onClick={() => saveQuestion()}
             className={`AddCard__submit ${!isValid && 'AddCard__submit--disabled'}`}
-            type="button"
+            type="submit"
           >
             Envoyer
           </button>
@@ -158,7 +157,10 @@ export default function AddCardForm() {
     }
   }
 
-  function saveQuestion() {
+  function saveQuestion(event: FormEvent | null = null) {
+    if (event) {
+      event.preventDefault();
+    }
     if (!isValid) {
       return;
     }
@@ -181,7 +183,6 @@ export default function AddCardForm() {
         setAnswer('');
         setImage({} as Blob);
         setDisplayedImage('');
-        setCategory(null);
       } else {
         // @ts-ignore
         const { message } = response;

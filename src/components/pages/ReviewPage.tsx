@@ -4,7 +4,7 @@ import { MultiValue } from 'react-select';
 import Card from '../molecules/Card';
 import UserCardType from '../../types/UserCard';
 import generateUpdatedCard from '../../services/card';
-import { memorisedNotification, streakNotification } from '../../services/notification';
+import { memorisedNotification } from '../../services/notification';
 import { viewportContext } from '../../contexts/viewport';
 import { postOnServer } from '../../services/server';
 import intervals from '../../data/cards';
@@ -112,28 +112,7 @@ export default function ReviewPage() {
       setNumberOfFailures(numberOfFailures + 1);
     }
 
-    // TODO - Disable this line if you want the streak effect back.
-    tryToDisplayStreakNotification(updatedCard.currentSuccessfulAnswerStreak);
-
     triggerCardUpdate(updatedCard);
-  }
-
-  /**
-   * If the parameter >= 3,
-   * Display the current successful answer streak notification
-   * Else, do nothing
-   * @param currentSuccessfulAnswerStreak {number}, the current amount of successful answers
-   * the user gave.
-   */
-  function tryToDisplayStreakNotification(currentSuccessfulAnswerStreak: number) {
-    const shouldDisplayStreakNotification = currentSuccessfulAnswerStreak >= 3;
-    if (shouldDisplayStreakNotification) {
-      Store.addNotification({
-        ...streakNotification,
-        message: `${currentSuccessfulAnswerStreak} à la suite !`,
-        container: isMobile ? 'bottom-center' : 'top-right',
-      });
-    }
   }
 
   /**
