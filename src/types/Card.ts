@@ -1,9 +1,11 @@
-import {ObjectId} from 'bson';
-import {intervals} from "../data/cards";
+import { ObjectId } from 'bson';
+import ImageType from './ImageType';
 
 type CardType = {
-  cardId: typeof ObjectId,
-  currentDelay: typeof intervals[number],
-  isMemorized?: boolean,
+  question: string;
+  answer: string;
+  _id: typeof ObjectId,
+  isAssignedToConnectedUser?: boolean,
+  image?: ImageType
 }
-export default CardType
+export default CardType;

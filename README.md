@@ -14,7 +14,7 @@ Make sure the `.env` is up to date on backoffice
 
 ## How to start : 
 
-Start the backoffice : `nodemon server.js` (I am going to deploy it soon, promise !
+Start the backoffice : `nodemon server.ts` (I am going to deploy it soon, promise !
 This is a message for ma future me, just in case)
 
 Start the front : `yarn && yarn start`;

@@ -1,7 +1,7 @@
 /**
  * Represents the possible repetition intervals in seconds
  */
-export const intervals = [
+export default [
   0,
   5,
   13,

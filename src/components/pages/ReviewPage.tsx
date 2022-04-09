@@ -1,17 +1,17 @@
-import Card from "../molecules/Card";
-import CardType from "../../types/Card";
-import React, {useContext, useEffect, useState} from "react";
-import {generateUpdatedCard} from "../../services/card";
-import {Store} from "react-notifications-component";
-import {memorisedNotification, streakNotification} from "../../services/notification";
-import {viewportContext} from "../../contexts/viewport";
-import {getFromServer, postOnServer} from "../../services/server";
-import {intervals} from "../../data/cards";
+import React, { useContext, useEffect, useState } from 'react';
+import { Store } from 'react-notifications-component';
+import Card from '../molecules/Card';
+import UserCardType from '../../types/UserCard';
+import generateUpdatedCard from '../../services/card';
+import { memorisedNotification, streakNotification } from '../../services/notification';
+import { viewportContext } from '../../contexts/viewport';
+import { getFromServer, postOnServer } from '../../services/server';
+import intervals from '../../data/cards';
 
 export default function ReviewPage() {
   const [isLoading, setLoadingState] = useState(false);
   const [card, setCard] = useState(null);
-  const {isMobile} = useContext(viewportContext);
+  const { isMobile } = useContext(viewportContext);
   const [remainingCards, setRemainingCards] = useState(0);
 
   const [numberOfSuccess, setNumberOfSuccess] = useState(0);
@@ -27,18 +27,25 @@ export default function ReviewPage() {
     }
     return () => {
       isCancelled.current = true;
-    }
+    };
   }, []);
 
   useEffect(() => {
-    setAnswerTimeStart(new Date())
-  }, [card])
-
+    setAnswerTimeStart(new Date());
+  }, [card]);
 
   return (
     <div className="ReviewPage">
-      <h4 className="ReviewPage__header">Révisons ! ({remainingCards})</h4>
-      <p><i className="ReviewPage__success">{numberOfSuccess}</i>/<i className="ReviewPage__failures">{numberOfFailures}</i></p>
+      <h4 className="ReviewPage__header">
+        Révisons ! (
+        {remainingCards}
+        )
+      </h4>
+      <p>
+        <i className="ReviewPage__success">{numberOfSuccess}</i>
+        /
+        <i className="ReviewPage__failures">{numberOfFailures}</i>
+      </p>
       {!isLoading && card && (
         <Card
           data={card}
@@ -50,20 +57,19 @@ export default function ReviewPage() {
         />
       )}
     </div>
-  )
+  );
 
   /**
    * Fetch one card the user has to answer
    */
   function fetchCard() {
     setLoadingState(true);
-    getFromServer('/userCards/getOne').then(({data}) => {
+    getFromServer('/userCards/getOne').then(({ data }) => {
       setLoadingState(false);
       setCard(data.card);
-      setRemainingCards(data.remainingCards)
-    })
+      setRemainingCards(data.remainingCards);
+    });
   }
-
 
   /**
    * If the answer is wrong, we go back to the previous interval so it appears earlier
@@ -78,25 +84,22 @@ export default function ReviewPage() {
       Store.addNotification({
         ...memorisedNotification,
         message: `Vous avez mémorisé la carte ${updatedCard.answer} ! Félicitations !`,
-        container: isMobile ? "bottom-center" : "top-right",
+        container: isMobile ? 'bottom-center' : 'top-right',
       });
     }
 
     if (isSuccess) {
       // setNumberOfSuccess(numberOfSuccess + updatedCard.currentSuccessfulAnswerStreak)
-      setNumberOfSuccess(numberOfSuccess + 1)
+      setNumberOfSuccess(numberOfSuccess + 1);
+    } else {
+      setNumberOfFailures(numberOfFailures + 1);
     }
-    else {
-      setNumberOfFailures(numberOfFailures + 1)
-    }
-
 
     // TODO - Disable this line if you want the streak effect back.
     tryToDisplayStreakNotification(updatedCard.currentSuccessfulAnswerStreak);
 
     triggerCardUpdate(updatedCard);
   }
-
 
   /**
    * If the parameter >= 3,
@@ -106,12 +109,12 @@ export default function ReviewPage() {
    * the user gave.
    */
   function tryToDisplayStreakNotification(currentSuccessfulAnswerStreak: number) {
-    const shouldDisplayStreakNotification = currentSuccessfulAnswerStreak >= 3
+    const shouldDisplayStreakNotification = currentSuccessfulAnswerStreak >= 3;
     if (shouldDisplayStreakNotification) {
       Store.addNotification({
         ...streakNotification,
         message: `${currentSuccessfulAnswerStreak} à la suite !`,
-        container: isMobile ? "bottom-center" : "top-right",
+        container: isMobile ? 'bottom-center' : 'top-right',
       });
     }
   }
@@ -120,7 +123,7 @@ export default function ReviewPage() {
    * Triggers the request to update the Card after a given Answer
    * @param card
    */
-  function triggerCardUpdate(card: CardType) {
+  function triggerCardUpdate(updatedCard: UserCardType) {
     setCard(null);
     let answerTime = 0;
     if (answerTimeStart) {
@@ -128,13 +131,15 @@ export default function ReviewPage() {
     }
     answerTime = answerTime > 15000 ? 15000 : answerTime;
 
-    postOnServer(`/userCards/update/${card.cardId}`,
+    postOnServer(
+      `/userCards/update/${updatedCard.cardId}`,
       {
-        newDelay: card.currentDelay || intervals[1],
-        isMemorized: card.isMemorized || false,
+        newDelay: updatedCard.currentDelay || intervals[1],
+        isMemorized: updatedCard.isMemorized || false,
         answerTime,
         isFromReviewPage: true,
-      })
+      },
+    )
       .then(fetchCard);
   }
 }

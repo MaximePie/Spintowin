@@ -1,4 +1,4 @@
-import {intervals} from "../data/cards";
+import intervals from '../data/cards';
 
 /**
  * Updates the card according to the given answer
@@ -7,8 +7,8 @@ import {intervals} from "../data/cards";
  *
  * @return updatedCard - The updated card
  */
-export function generateUpdatedCard(card, isSuccess) {
-  let updatedCard = {...card};
+export default function generateUpdatedCard(card, isSuccess) {
+  const updatedCard = { ...card };
   const currentDelayIndex = intervals.indexOf(updatedCard.currentDelay);
   const shouldIncreaseDelay = isSuccess && currentDelayIndex !== 0;
 
@@ -16,14 +16,12 @@ export function generateUpdatedCard(card, isSuccess) {
   if (!updatedCard.currentDelay) { // Reset if interval does not exist
     updatedCard.currentDelay = intervals[1];
   } else if (shouldIncreaseDelay) {
-    updatedCard.currentSuccessfulAnswerStreak ++;
+    updatedCard.currentSuccessfulAnswerStreak += 1;
 
     let newDelayIndex = currentDelayIndex;
     if (updatedCard.currentSuccessfulAnswerStreak) {
-      // newDelayIndex += updatedCard.currentSuccessfulAnswerStreak;
-      newDelayIndex ++;
-    }
-    else {
+      newDelayIndex += 1;
+    } else {
       newDelayIndex += 1;
     }
 
@@ -32,20 +30,18 @@ export function generateUpdatedCard(card, isSuccess) {
       // Set to the last interval
       if (updatedCard.currentSuccessfulAnswerStreak > 1) {
         updatedCard.currentDelay = intervals[intervals.length - 1];
-      }
-      else {
+      } else {
         // Set to memorized
         updatedCard.isMemorized = true;
       }
-    }
-    else {
+    } else {
       updatedCard.currentDelay = intervals[newDelayIndex];
     }
   } else { // Answer is incorrect
     // updatedCard.currentDelay = intervals[currentDelayIndex - 1];
     updatedCard.currentDelay = intervals[0];
-    updatedCard.currentSuccessfulAnswerStreak = 0
+    updatedCard.currentSuccessfulAnswerStreak = 0;
   }
 
-  return updatedCard
+  return updatedCard;
 }
