@@ -1,8 +1,9 @@
 import React, {
-  ChangeEvent, useContext,
+  ChangeEvent, useContext, useState,
 } from 'react';
 import { Store } from 'react-notifications-component';
 import ReactTooltip from 'react-tooltip';
+import { OnChangeValue } from 'react-select';
 import { postOnServer } from '../../services/server';
 import { addCardFailureNotification, addNotification, CardSuccessNotification } from '../../services/notification';
 import InputGroup from '../atoms/InputGroup';
@@ -10,12 +11,13 @@ import CategorySelect from '../atoms/CategorySelect';
 import { viewportContext } from '../../contexts/viewport';
 
 export default function AddCardForm() {
-  const [question, setQuestion] = React.useState('');
-  const [answer, setAnswer] = React.useState('');
-  const [image, setImage] = React.useState<Blob>({} as Blob);
-  const [displayedImage, setDisplayedImage] = React.useState<string>('');
+  const [question, setQuestion] = useState('');
+  const [answer, setAnswer] = useState('');
+  const [image, setImage] = useState<Blob>({} as Blob);
+  const [category, setCategory] = useState<string | null>(null);
+  const [displayedImage, setDisplayedImage] = useState<string>('');
 
-  const [isTooltipDisplayed, setTooltipDisplayState] = React.useState(false);
+  const [isTooltipDisplayed, setTooltipDisplayState] = useState(false);
   const { isMobile } = useContext(viewportContext);
   const tooltipPlace = isMobile ? 'bottom' : 'top';
 
@@ -44,7 +46,7 @@ export default function AddCardForm() {
       </h3>
       <form onSubmit={saveQuestion}>
         <div className="AddCard__fields">
-          <CategorySelect />
+          <CategorySelect onSelect={handleCategorySelection} />
           <div className="AddCard__subfields">
             <div className={`AddCard__subfield-field ${isImageLoaded && 'AddCard__subfield-field--disabled'}`}>
               <label>
@@ -123,6 +125,18 @@ export default function AddCardForm() {
   );
 
   /**
+   * Update the selected category with the given value
+   * @param newValue
+   */
+  function handleCategorySelection(
+    newValue: OnChangeValue<{ value: string, label: string }, false>,
+  ) {
+    if (newValue) {
+      setCategory(newValue.value);
+    }
+  }
+
+  /**
    * Redirects the user on Youtube link if he is on desktop
    * Else,
    *  if the tooltip is open, redirects
@@ -154,6 +168,9 @@ export default function AddCardForm() {
 
     formData.append('question', question);
     formData.append('answer', answer);
+    if (category) {
+      formData.append('category', category.toString());
+    }
     postOnServer(
       '/cards',
       formData,
@@ -164,6 +181,7 @@ export default function AddCardForm() {
         setAnswer('');
         setImage({} as Blob);
         setDisplayedImage('');
+        setCategory(null);
       } else {
         // @ts-ignore
         const { message } = response;
