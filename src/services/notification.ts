@@ -47,6 +47,13 @@ export const CardSuccessNotification: iNotification = {
   type: 'success',
 };
 
+export const CategorySuccess: iNotification = {
+  ...baseNotification,
+  title: 'Bien !',
+  message: 'Votre catégorie a correctement été ajoutée.',
+  type: 'success',
+};
+
 export const addCardFailureNotification: iNotification = {
   ...baseNotification,
   title: 'Oups...',
@@ -54,7 +61,7 @@ export const addCardFailureNotification: iNotification = {
   type: 'warning',
 };
 
-export const systemErrorNotification = {
+export const systemErrorNotification: iNotification = {
   ...baseNotification,
   title: 'Aïe !',
   message: 'Il y a eu une erreur, sûrement un problème de configuration de la part du serveur. Nous allons corriger tout ça.',
@@ -78,7 +85,7 @@ export const memorisedNotification: iNotification = {
   type: 'success',
 };
 
-export function addNotification(baseDetails: iNotification, isMobile = false) {
+export function addNotification(baseDetails: iNotification = baseNotification, isMobile = false) {
   const details = { ...baseDetails };
   if (isMobile) {
     details.insert = 'bottom';

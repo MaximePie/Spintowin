@@ -26,6 +26,7 @@ const Card = function Card({
     currentDelay,
     image,
     isOwnerOfCard,
+    category,
   } = data;
   const [isAnswerShown, setAnswerDisplayState] = useState(false);
   const [isAnswerSuccessful, setAnswerSuccessState] = useState<boolean | undefined>(undefined);
@@ -60,6 +61,11 @@ const Card = function Card({
           onKeyUp={(event) => event.key === 'enter' && revealAnswer()}
         >
           <div>
+            {category && (
+              <p>
+                {category}
+              </p>
+            )}
             {isScoreDisplayed && (
               <p className="Card__delay">
                 🎯
@@ -99,6 +105,11 @@ const Card = function Card({
             role="button"
             tabIndex={0}
           />
+          {category && (
+            <p>
+              {category}
+            </p>
+          )}
           {isScoreDisplayed && (
             <p className="Card__delay">
               🎯
