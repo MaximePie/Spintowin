@@ -3,6 +3,13 @@
   align-items: center;
   flex-direction: column;
 
+  &__content {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: $singleCardWidth;
+  }
+
   &__header {
     margin: 0.25em 0;
   }

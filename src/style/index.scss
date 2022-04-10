@@ -2,6 +2,9 @@
 @import url('https://fonts.googleapis.com/css2?family=KoHo:ital,wght@0,300;0,400;1,400&display=swap');
 @import "./mixins";
 
+$cardWidth: 180px;
+$singleCardWidth: 340px;
+
 $mediumSpacing: 8px;
 $defaultBorderRadius: 8px;
 $borderRadiusSmall: 4px;
@@ -47,7 +50,8 @@ body {
 @import "./molecules/AddCardUsers";
 @import "./molecules/AddCardUserCard";
 @import "./molecules/AnswersBarChart";
-@import "molecules/AddCardForm";
+@import "./molecules/AddCardForm";
+@import "./molecules/CategorySelect";
 
 @import "./pages/TrainingPage";
 @import "./pages/ReviewPage";

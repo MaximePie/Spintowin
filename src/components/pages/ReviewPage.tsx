@@ -41,32 +41,34 @@ export default function ReviewPage() {
 
   return (
     <div className="ReviewPage">
-      <h4 className="ReviewPage__header">
-        Révisons ! (
-        {remainingCards}
-        )
-      </h4>
-      <p>
-        <i className="ReviewPage__success">{numberOfSuccess}</i>
-        /
-        <i className="ReviewPage__failures">{numberOfFailures}</i>
-      </p>
-      <CategorySelect
-        onSelect={() => {}}
-        onSelectMultiple={updateCategories}
-        variant="multi"
-        value={null}
-      />
-      {!isLoading && card && (
-        <Card
-          data={card}
-          onAnswer={(isSuccess: boolean) => handleAnswer(isSuccess)}
-          onUpdate={fetchCard}
-          isSingle
-          isScoreDisplayed
-          shouldCardsBeInverted={false}
+      <div className="ReviewPage__content">
+        <h4 className="ReviewPage__header">
+          Révisons ! (
+          {remainingCards}
+          )
+        </h4>
+        <p>
+          <i className="ReviewPage__success">{numberOfSuccess}</i>
+          /
+          <i className="ReviewPage__failures">{numberOfFailures}</i>
+        </p>
+        <CategorySelect
+          onSelect={() => {}}
+          onSelectMultiple={updateCategories}
+          variant="multi"
+          value={null}
         />
-      )}
+        {!isLoading && card && (
+          <Card
+            data={card}
+            onAnswer={(isSuccess: boolean) => handleAnswer(isSuccess)}
+            onUpdate={fetchCard}
+            isSingle
+            isScoreDisplayed
+            shouldCardsBeInverted={false}
+          />
+        )}
+      </div>
     </div>
   );
 

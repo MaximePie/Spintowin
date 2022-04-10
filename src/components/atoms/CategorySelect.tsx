@@ -50,6 +50,7 @@ export default function CategorySelect(
           onCreateOption={createCategory}
           onChange={onSelect}
           value={defaultValue()}
+          placeholder="Catégorie"
         />
       )}
 
@@ -57,6 +58,7 @@ export default function CategorySelect(
         <Select
           isMulti
           options={categories}
+          placeholder="Catégorie"
           onChange={onSelectMultiple}
         />
       )}
