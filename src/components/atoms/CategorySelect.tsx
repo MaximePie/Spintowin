@@ -9,7 +9,7 @@ type formatedCategoryType = {
   value: string,
 }
 
-interface CategorySelectProps {
+type CategorySelectProps = {
   onSelect: (
     // eslint-disable-next-line no-unused-vars
     newValue: OnChangeValue<formatedCategoryType, false>,
@@ -23,11 +23,14 @@ interface CategorySelectProps {
     // eslint-disable-next-line no-unused-vars
     actionMeta: ActionMeta<formatedCategoryType>
   )
-    => void | null
+    => void | null,
+  value: string | null
 }
 
 export default function CategorySelect(
-  { onSelect, variant, onSelectMultiple }: CategorySelectProps,
+  {
+    onSelect, variant, onSelectMultiple, value,
+  }: CategorySelectProps,
 ) {
   const [categories, setCategories] = useState<formatedCategoryType[]>([]);
 
@@ -40,6 +43,7 @@ export default function CategorySelect(
           options={categories}
           onCreateOption={createCategory}
           onChange={onSelect}
+          defaultValue={defaultValue()}
         />
       )}
 
@@ -52,6 +56,16 @@ export default function CategorySelect(
       )}
     </div>
   );
+
+  /**
+   * Return the formated default value based on categories
+   */
+  function defaultValue() {
+    if (categories?.length) {
+      return categories.find((inspectedCategory) => inspectedCategory.label === value);
+    }
+    return null;
+  }
 
   /**
    * Fetch categories list from the server

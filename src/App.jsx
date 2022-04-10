@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { ViewportContextProvider } from './contexts/viewport';
+import { UserContextProvider } from './contexts/user';
 
 import AuthForm from './components/pages/AuthForm';
 import TrainingPage from './components/pages/TrainingPage';
@@ -24,37 +25,40 @@ function App() {
 
   return (
     <BrowserRouter>
-      <ViewportContextProvider>
-        <div className="App">
-          <Navbar user={user} logout={logout} />
-          {isLoading && (
-            <LoadingAppGif />
-          )}
-          {!isLoading && (
-            <Switch>
-              {user && (
-                <>
-                  <Route path="/" exact component={TrainingPage} />
-                  <Route path="/review" exact component={ReviewPage} />
-                  <Route path="/add" component={AddCard} />
-                  <Route path="/stats" component={Stats} />
-                </>
-              )}
-              {!user && (
-                <>
-                  <Route path="/" exact component={WelcomePage} />
-                  <Route path="/login" exact>
-                    <AuthForm action="login" onTokenAcquisition={getUserWithToken} />
-                  </Route>
-                  <Route path="/register" exact>
-                    <AuthForm action="register" onTokenAcquisition={getUserWithToken} />
-                  </Route>
-                </>
-              )}
-            </Switch>
-          )}
-        </div>
-      </ViewportContextProvider>
+      <UserContextProvider>
+        <ViewportContextProvider>
+          <div className="App">
+            <Navbar user={user} logout={logout} />
+            {isLoading && (
+              <LoadingAppGif />
+            )}
+            {!isLoading && (
+              <Switch>
+                {user && (
+                  <>
+                    <Route path="/" exact component={TrainingPage} />
+                    <Route path="/review" exact component={ReviewPage} />
+                    <Route path="/add" component={AddCard} />
+                    <Route path="/stats" component={Stats} />
+                  </>
+                )}
+                {!user && (
+                  <>
+                    <Route path="/" exact component={WelcomePage} />
+                    <Route path="/login" exact>
+                      <AuthForm action="login" onTokenAcquisition={getUserWithToken} />
+                    </Route>
+                    <Route path="/register" exact>
+                      <AuthForm action="register" onTokenAcquisition={getUserWithToken} />
+                    </Route>
+                  </>
+                )}
+              </Switch>
+            )}
+          </div>
+        </ViewportContextProvider>
+      </UserContextProvider>
+
     </BrowserRouter>
   );
 

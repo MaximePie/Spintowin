@@ -1,5 +1,5 @@
 import React, {
-  ChangeEvent, FormEvent, useContext, useState,
+  ChangeEvent, FormEvent, useContext, useEffect, useState,
 } from 'react';
 import { Store } from 'react-notifications-component';
 import ReactTooltip from 'react-tooltip';
@@ -9,17 +9,24 @@ import { addCardFailureNotification, addNotification, CardSuccessNotification } 
 import InputGroup from '../atoms/InputGroup';
 import CategorySelect from '../atoms/CategorySelect';
 import { viewportContext } from '../../contexts/viewport';
+import { UserContext } from '../../contexts/user';
 
 export default function AddCardForm() {
+  const userContext = useContext(UserContext);
+
   const [question, setQuestion] = useState('');
   const [answer, setAnswer] = useState('');
   const [image, setImage] = useState<Blob>({} as Blob);
-  const [category, setCategory] = useState<string | null>(null);
+  const [category, setCategory] = useState<string | null>(userContext.selectedCategory || null);
   const [displayedImage, setDisplayedImage] = useState<string>('');
 
   const [isTooltipDisplayed, setTooltipDisplayState] = useState(false);
   const { isMobile } = useContext(viewportContext);
   const tooltipPlace = isMobile ? 'bottom' : 'top';
+
+  useEffect(() => {
+    userContext.setSelectedCategory(category);
+  }, [category]);
 
   let isValid = (question || image) && !!answer;
   if (image?.size >= 1000000) {
@@ -46,7 +53,12 @@ export default function AddCardForm() {
       </h3>
       <form onSubmit={saveQuestion}>
         <div className="AddCard__fields">
-          <CategorySelect onSelectMultiple={() => {}} onSelect={handleCategorySelection} variant="creatable" />
+          <CategorySelect
+            onSelectMultiple={() => {}}
+            onSelect={handleCategorySelection}
+            variant="creatable"
+            value={category}
+          />
           <div className="AddCard__subfields">
             <div className={`AddCard__subfield-field ${isImageLoaded && 'AddCard__subfield-field--disabled'}`}>
               <label>

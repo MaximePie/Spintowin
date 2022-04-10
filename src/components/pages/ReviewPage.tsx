@@ -51,7 +51,12 @@ export default function ReviewPage() {
         /
         <i className="ReviewPage__failures">{numberOfFailures}</i>
       </p>
-      <CategorySelect onSelect={() => {}} onSelectMultiple={updateCategories} variant="multi" />
+      <CategorySelect
+        onSelect={() => {}}
+        onSelectMultiple={updateCategories}
+        variant="multi"
+        value={null}
+      />
       {!isLoading && card && (
         <Card
           data={card}
