@@ -1,4 +1,4 @@
-.AddCard {
+.AddCardForm {
   border-radius: 8px;
   width: 500px;
   border: solid 1px lightgray;
@@ -30,7 +30,7 @@
   &__fields {
     margin-top: 1rem;
     display: grid;
-    grid-template-rows: 200px 1fr;
+    grid-template-rows: 40px 180px 1fr;
     grid-row-gap: 1rem;
   }
 
@@ -72,14 +72,6 @@
 
   &__actions {
     margin-top: 1rem;
-  }
-
-  &__submit {
-    transition: background-color 250ms ease;
-  }
-
-  &__submit--disabled:hover {
-    filter: initial;
   }
 
   &__remove-image {

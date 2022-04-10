@@ -36,12 +36,12 @@ export default function AddCardForm() {
   const isImageLoaded = !!image.size;
 
   return (
-    <div className="AddCard">
+    <div className="AddCardForm">
       <ReactTooltip id="main" place={tooltipPlace} type="dark" effect="solid" multiline />
       <h3>
         Ajouter une question
         <a
-          className="AddCard__hint"
+          className="AddCardForm__hint"
           data-for="main"
           data-tip="Besoin d'aide ?<br />Cliquez ici pour découvrir<br />comment ajouter vos premières questions"
           data-iscapture="true"
@@ -52,15 +52,15 @@ export default function AddCardForm() {
         </a>
       </h3>
       <form onSubmit={saveQuestion}>
-        <div className="AddCard__fields">
+        <div className="AddCardForm__fields">
           <CategorySelect
             onSelectMultiple={() => {}}
             onSelect={handleCategorySelection}
             variant="creatable"
             value={category}
           />
-          <div className="AddCard__subfields">
-            <div className={`AddCard__subfield-field ${isImageLoaded && 'AddCard__subfield-field--disabled'}`}>
+          <div className="AddCardForm__subfields">
+            <div className={`AddCardForm__subfield-field ${isImageLoaded && 'AddCardForm__subfield-field--disabled'}`}>
               <label>
                 Question
                 <InputGroup
@@ -70,16 +70,16 @@ export default function AddCardForm() {
                   icon="question"
                   isIconSolid
                   placeholder="Quelle est la taille d'un castor ?"
-                  className="AddCard__field"
+                  className="AddCardForm__field"
                 />
               </label>
             </div>
-            <div className="AddCard__subfield-field">
+            <div className="AddCardForm__subfield-field">
               <div>
                 {isImageLoaded && (
                   <span
                     onClick={() => setImage({} as Blob)}
-                    className="AddCard__remove-image"
+                    className="AddCardForm__remove-image"
                     onKeyUp={
                     (event) => event.key === 'enter' && setImage({} as Blob)
                   }
@@ -94,13 +94,13 @@ export default function AddCardForm() {
                 >
                   🖼️ Image
                   <input
-                    className="AddCard__image-field fileInput"
+                    className="AddCardForm__image-field fileInput"
                     type="file"
                     onChange={updateImage}
                   />
                   {isImageLoaded && (
                     <>
-                      <img className="AddCard__image-field" src={displayedImage} alt="" />
+                      <img className="AddCardForm__image-field" src={displayedImage} alt="" />
                       {image?.size >= 1000000 && <p>L&apos;image est trop lourde. 1Mo maximum</p>}
                     </>
                   )}
@@ -109,7 +109,7 @@ export default function AddCardForm() {
             </div>
           </div>
           <div>
-            <label className="AddCard__field">
+            <label className="AddCardForm__field">
               Réponse
               <InputGroup
                 type="text"
@@ -118,15 +118,16 @@ export default function AddCardForm() {
                 icon="lightbulb"
                 isIconSolid
                 placeholder="80 - 100 cm"
-                className="AddCard__field"
+                className="AddCardForm__field"
               />
             </label>
           </div>
         </div>
-        <div className="AddCard__actions">
+        <div className="AddCardForm__actions">
           <button
-            className={`AddCard__submit ${!isValid && 'AddCard__submit--disabled'}`}
+            className="AddCardForm__submit"
             type="submit"
+            disabled={!isValid}
           >
             Envoyer
           </button>
