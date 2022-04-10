@@ -35,7 +35,7 @@ export default function StatsCard({ title, data }: StatsCardProps) {
       {title === 'Mémorisation' && (
         <MemorizationBarChart />
       )}
-      {title === 'Wrong Answers' && (
+      {title === 'Réponses' && (
         <AnswersBarChart />
       )}
       {title === 'Badges' && <Badges />}

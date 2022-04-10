@@ -50,7 +50,7 @@ export default function Stats() {
           </div>
           <div className="Stats__list Stats__list--large">
             <StatsCard
-              title="Wrong Answers"
+              title="Réponses"
             />
           </div>
         </>

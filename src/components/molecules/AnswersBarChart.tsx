@@ -3,19 +3,13 @@ import Chart from 'react-apexcharts';
 import { getFromServer } from '../../services/server';
 import intervals from '../../data/cards';
 
-type wrongAnswerType = {
-  _id: number
-  count: number,
-}
-
 type answerType = {
-  average: number,
-} & wrongAnswerType
-
-type graphDataType = {
-  answerDelays: [],
-  wrongAnswers: wrongAnswerType[],
+  delay: number,
+  delayAverage: number,
+  successfulAnswersRate: number,
 }
+
+type graphDataType = answerType[];
 
 /**
  * Calculates generates a graph based on the wrong answers given by the user.
@@ -40,12 +34,12 @@ export default function AnswersBarChart() {
       xaxis: {
         categories: intervals.filter((interval, index) => index > 1),
       },
-      colors: ['#F44336', '#1e8ee9'],
+      colors: ['#9dea9d', '#1e8ee9'],
     },
     series: [
       {
-        name: 'Errors',
-        data: wrongAnswers(),
+        name: 'Réussite',
+        data: successfulAnswersRate(),
       },
       {
         name: 'Answer Time',
@@ -76,13 +70,13 @@ export default function AnswersBarChart() {
      */
   function answerTimes() {
     return intervals.filter((interval, index) => index > 1).map((interval) => {
-      if (graphData?.answerDelays?.length) {
-        const answer: answerType | undefined = graphData.answerDelays
-          .find((graphAnswer: answerType) => graphAnswer._id === interval)
+      if (graphData?.length) {
+        const answer: answerType | undefined = graphData
+          .find((graphAnswer: answerType) => graphAnswer.delay === interval)
           || {} as answerType;
 
         if (answer) {
-          return Math.round(answer.average / 100);
+          return Math.round(answer.delayAverage / 100);
         }
         return 0;
       }
@@ -93,12 +87,12 @@ export default function AnswersBarChart() {
   /**
      * Returns all the wrong answer values
      */
-  function wrongAnswers() {
+  function successfulAnswersRate() {
     return intervals.filter((interval, index) => index > 1).map((interval) => {
-      if (graphData?.wrongAnswers?.length) {
-        const wrongAnswerDelay = graphData.wrongAnswers
-          .find((wrongAnswer) => wrongAnswer._id === interval);
-        return `${wrongAnswerDelay?.count} ` || 0;
+      if (graphData?.length) {
+        const answerDelay = graphData
+          .find((answer) => answer.delay === interval);
+        return `${answerDelay?.successfulAnswersRate} ` || 0;
       }
       return 0;
     });
@@ -106,7 +100,7 @@ export default function AnswersBarChart() {
 
   function fetchData() {
     getFromServer('/users/connectedUser/answers').then(
-      (response) => isMounted && setGraphData(response.data),
+      (response) => isMounted && setGraphData(response.data.answersStats),
     );
   }
 }
