@@ -18,8 +18,13 @@ type serverStatsType = {
 
 export default function Stats() {
   const [stats, setStats] = useState<serverStatsType>({} as serverStatsType);
+  let isMounted: boolean;
 
-  useEffect(fetchStats, []);
+  useEffect(() => {
+    isMounted = true;
+    fetchStats();
+    return () => { isMounted = false; };
+  }, []);
 
   return (
     <div className="Stats">
@@ -55,7 +60,7 @@ export default function Stats() {
 
   function fetchStats() {
     getFromServer(baseUrl).then((response) => {
-      setStats(response.data);
+      if (isMounted) setStats(response.data);
     });
   }
 }

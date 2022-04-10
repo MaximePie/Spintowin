@@ -24,8 +24,13 @@ type graphDataType = {
  */
 export default function AnswersBarChart() {
   const [graphData, setGraphData] = useState<graphDataType>({} as graphDataType);
+  let isMounted = false;
 
-  useEffect(fetchData, []);
+  useEffect(() => {
+    isMounted = true;
+    fetchData();
+    return () => { isMounted = false; };
+  }, []);
 
   const chartData = {
     options: {
@@ -100,6 +105,8 @@ export default function AnswersBarChart() {
   }
 
   function fetchData() {
-    getFromServer('/users/connectedUser/answers').then((response) => setGraphData(response.data));
+    getFromServer('/users/connectedUser/answers').then(
+      (response) => isMounted && setGraphData(response.data),
+    );
   }
 }

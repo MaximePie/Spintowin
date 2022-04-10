@@ -34,7 +34,13 @@ export default function CategorySelect(
 ) {
   const [categories, setCategories] = useState<formatedCategoryType[]>([]);
 
-  useEffect(fetchCategories, []);
+  useEffect(() => {
+    let isMounted = true;
+    if (isMounted) {
+      fetchCategories();
+    }
+    return () => { isMounted = false; };
+  }, []);
 
   return (
     <div className="CategorySelect">
@@ -43,7 +49,7 @@ export default function CategorySelect(
           options={categories}
           onCreateOption={createCategory}
           onChange={onSelect}
-          defaultValue={defaultValue()}
+          value={defaultValue()}
         />
       )}
 
@@ -62,7 +68,9 @@ export default function CategorySelect(
    */
   function defaultValue() {
     if (categories?.length) {
-      return categories.find((inspectedCategory) => inspectedCategory.label === value);
+      return categories.find(
+        (inspectedCategory) => inspectedCategory.value === value,
+      );
     }
     return null;
   }

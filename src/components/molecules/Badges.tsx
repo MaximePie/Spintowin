@@ -17,6 +17,7 @@ export default function Badges() {
     <div className="Badges">
       {badges.map((badgeData) => (
         <Badge
+          key={badgeData.badge._id.toString()}
           badge={badgeData.badge}
           current={badgeData.current}
           required={badgeData.required}
