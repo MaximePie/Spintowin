@@ -1,6 +1,12 @@
 .CategorySelect {
   width: 100%;
 
+  &--warning {
+    .CategorySelect__select__control {
+      border: $warning 2px solid;
+    }
+  }
+
   &:hover {
     cursor: pointer;
   }

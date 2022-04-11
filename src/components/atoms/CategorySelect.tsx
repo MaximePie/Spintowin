@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import CreatableSelect from 'react-select/creatable';
-import Select, { OnChangeValue, ActionMeta, MultiValue } from 'react-select';
+import Select, {
+  OnChangeValue, ActionMeta, MultiValue,
+} from 'react-select';
+import classNames from 'classnames';
 import CategoryType from '../../types/CategoryType';
 import { getFromServer, postOnServer } from '../../services/server';
 
@@ -34,6 +37,10 @@ export default function CategorySelect(
 ) {
   const [categories, setCategories] = useState<formatedCategoryType[]>([]);
 
+  const classnames = classNames('CategorySelect', {
+    'CategorySelect--warning': !value,
+  });
+
   useEffect(() => {
     let isMounted = true;
     if (isMounted) {
@@ -43,9 +50,10 @@ export default function CategorySelect(
   }, []);
 
   return (
-    <div className="CategorySelect">
+    <div className={classnames}>
       {variant === 'creatable' && (
         <CreatableSelect
+          classNamePrefix="CategorySelect__select"
           options={categories}
           onCreateOption={createCategory}
           onChange={onSelect}
