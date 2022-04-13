@@ -1,6 +1,7 @@
 @import '../../node_modules/@fortawesome/fontawesome-free/css/all.min.css';
 @import url('https://fonts.googleapis.com/css2?family=KoHo:ital,wght@0,300;0,400;1,400&display=swap');
 @import "./mixins";
+@import "./variables";
 
 $cardWidth: 180px;
 $singleCardWidth: 340px;
@@ -10,14 +11,6 @@ $defaultBorderRadius: 8px;
 $borderRadiusSmall: 4px;
 $defaultSpacing: 1rem;
 $borderCard: solid 1px lightgray;
-
-$navbarHeight: 40px;
-$primaryColor: dodgerblue;
-$primaryColorDisabled: #6EBDFF;
-$dangerColor: #ff6d46;
-$warning: #eab000 !default;
-$successColor: #00e396;
-$gray: #b5b5b5;
 
 body {
   font-family: 'KoHo', sans-serif;

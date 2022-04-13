@@ -34,7 +34,7 @@ export default function AnswersBarChart() {
       xaxis: {
         categories: intervals.filter((interval, index) => index > 1),
       },
-      colors: ['#9dea9d', '#1e8ee9'],
+      colors: ['#f04444', '#1e8ee9'],
     },
     series: [
       {
@@ -42,7 +42,7 @@ export default function AnswersBarChart() {
         data: successfulAnswersRate(),
       },
       {
-        name: 'Answer Time',
+        name: 'Temps de réponse moyen',
         data: answerTimes(),
       },
     ],
@@ -92,7 +92,10 @@ export default function AnswersBarChart() {
       if (graphData?.length) {
         const answerDelay = graphData
           .find((answer) => answer.delay === interval);
-        return `${answerDelay?.successfulAnswersRate} ` || 0;
+        if (answerDelay) {
+          return `${100 - answerDelay!.successfulAnswersRate} `;
+        }
+        return 0;
       }
       return 0;
     });
