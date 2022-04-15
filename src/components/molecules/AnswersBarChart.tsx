@@ -76,7 +76,7 @@ export default function AnswersBarChart() {
           || {} as answerType;
 
         if (answer) {
-          return Math.round(answer.delayAverage / 100);
+          return Math.round(answer.delayAverage / 100) / 10;
         }
         return 0;
       }
