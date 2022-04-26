@@ -1,26 +1,29 @@
 import React, { useEffect, useState } from 'react';
 import { ObjectId } from 'bson';
+import useSWR from 'swr';
+/* eslint-disable */
+
 import { getFromServer, postOnServer } from '../../services/server';
 import AddCardUserCard from './AddCardUserCard';
 import { addNotification, CardSuccessNotification } from '../../services/notification';
 import UserCardType from '../../types/UserCard';
 import CardType from '../../types/Card';
+import axios from 'axios';
 
 type CardUserProps = {
   userId: ObjectId
 }
+const fetcher = (url: string) => getFromServer(url).then(response => response.data.cards)
 
 export default function AddCardUser({ userId }: CardUserProps) {
   // The cards of the user
-  const [cards, setCards] = useState([]);
+  const {data: cards, error} = useSWR(`/userCards/list/${userId}`, fetcher);
   const [isLoading, setLoadingState] = useState(false);
   // An array of Ids representing the selected cards by the User
   const [cardsCart, setCardsCart] = useState<CardType['_id'][]>([]);
-
   // Trigger the fetch method at the beginning of the component lifeCycle,
   // and when the userId changes
   useEffect(fetchUserInfo, [userId]);
-
   return (
     <div className="AddCardUser">
       <button
@@ -33,7 +36,7 @@ export default function AddCardUser({ userId }: CardUserProps) {
         {cardsCart.length}
         )
       </button>
-      {((isLoading && cards.length) || (!isLoading)) && (
+      {((isLoading && cards?.length) || (!isLoading)) && (
         <div>
           {cards?.map((card: UserCardType) => (
             <AddCardUserCard
@@ -77,10 +80,10 @@ export default function AddCardUser({ userId }: CardUserProps) {
    */
   function fetchUserInfo() {
     setLoadingState(true);
-    getFromServer(`/userCards/list/${userId}`).then(({ status, data }) => {
+    getFromServer(`/userCards/list/${userId}`).then(({ status }) => {
       setLoadingState(false);
       if (status === 200) {
-        setCards(data.cards);
+        // setCards(data.cards);
       } else {
         // TODO - Handle error
       }
