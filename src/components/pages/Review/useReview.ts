@@ -15,8 +15,10 @@ export default function useReview() {
   const { isMobile } = useContext(viewportContext);
 
   const [categories, setCategories] = useState<string[]>([]);
-  const [numberOfSuccess, setNumberOfSuccess] = useState(0);
-  const [numberOfFailures, setNumberOfFailures] = useState(0);
+  const [score, setScore] = useState({
+    numberOfSuccess: 0,
+    numberOfFailures: 0,
+  });
 
   const [answerTimeStart, setAnswerTimeStart] = useState<Date | null>(null);
 
@@ -79,9 +81,15 @@ export default function useReview() {
 
     if (isSuccess) {
       // setNumberOfSuccess(numberOfSuccess + updatedCard.currentSuccessfulAnswerStreak)
-      setNumberOfSuccess(numberOfSuccess + 1);
+      setScore({
+        ...score,
+        numberOfSuccess: score.numberOfSuccess + 1,
+      });
     } else {
-      setNumberOfFailures(numberOfFailures + 1);
+      setScore({
+        ...score,
+        numberOfFailures: score.numberOfFailures + 1,
+      });
     }
 
     triggerCardUpdate(updatedCard);
@@ -113,8 +121,7 @@ export default function useReview() {
 
   return {
     remainingCards,
-    numberOfSuccess,
-    numberOfFailures,
+    score,
     isLoading,
     card,
     fetchCard,

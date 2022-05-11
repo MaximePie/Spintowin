@@ -9,8 +9,10 @@ import useReview from './useReview';
 export default function Review() {
   const {
     remainingCards,
-    numberOfSuccess,
-    numberOfFailures,
+    score: {
+      numberOfSuccess,
+      numberOfFailures,
+    },
     isLoading,
     card,
     fetchCard,
