@@ -1,18 +1,25 @@
-import React, { useContext, useEffect, useState } from 'react';
+// @ts-ignore
+/* eslint-disable */
+
+import { useContext, useEffect, useState } from 'react';
 import { MultiValue } from 'react-select';
 import { Store } from 'react-notifications-component';
-import { postOnServer } from '../../../services/server';
+import {useQuery, useQueryClient} from 'react-query';
+import { getFromServer, postOnServer } from '../../../services/server';
 import { viewportContext } from '../../../contexts/viewport';
 import generateUpdatedCard from '../../../services/card';
 import { memorisedNotification } from '../../../services/notification';
 import UserCardType from '../../../types/UserCard';
-import intervals from '../../../data/cards';
+import intervals from "../../../data/cards";
 
 export default function useReview() {
-  const [remainingCards, setRemainingCards] = useState(0);
-  const [isLoading, setLoadingState] = useState(false);
-  const [card, setCard] = useState(null);
+  const queryClient = useQueryClient()
+  const [cards, setCards] = useState<UserCardType[] | undefined>([]);
+  const [remainingCards, setRemainingCards] = useState<number | undefined>(0);
   const { isMobile } = useContext(viewportContext);
+  const { isLoading, error, data } = useQuery('cards', fetchCards);
+  const currentCard = cards ? cards[0] : null;
+
 
   const [categories, setCategories] = useState<string[]>([]);
   const [score, setScore] = useState({
@@ -22,35 +29,27 @@ export default function useReview() {
 
   const [answerTimeStart, setAnswerTimeStart] = useState<Date | null>(null);
 
-  const isCancelled = React.useRef(false);
-
   useEffect(() => {
-    setAnswerTimeStart(new Date());
-  }, [card]);
-
-  useEffect(() => {
-    if (!isCancelled.current) {
-      fetchCard();
+    if (currentCard) {
+      setAnswerTimeStart(new Date());
     }
-    return () => {
-      isCancelled.current = true;
-    };
-  }, []);
+  }, [currentCard]);
 
-  useEffect(fetchCard, [categories]);
+  useEffect(() => {
+    queryClient.invalidateQueries();
+  }, [categories]);
 
-  /**
-   * Fetch one card the user has to answer
-   */
-  function fetchCard() {
-    setLoadingState(true);
-    postOnServer('/userCards/getOne', { categories }).then(({ data }) => {
-      setLoadingState(false);
-      if (data.card) {
-        setCard(data.card);
-      }
+  useEffect(() => {
+    if (data?.cards) {
+      setCards(data.cards);
+    }
+    if (data?.remainingCards) {
       setRemainingCards(data.remainingCards);
-    });
+    }
+  }, [data]);
+
+  function fetchCards() {
+    return getFromServer('/userCards').then((response) => response.data);
   }
 
   /**
@@ -69,7 +68,7 @@ export default function useReview() {
    */
   function handleAnswer(isSuccess: boolean) {
     // Get data
-    const updatedCard = generateUpdatedCard(card, isSuccess);
+    const updatedCard = generateUpdatedCard(currentCard, isSuccess);
 
     if (updatedCard.isMemorized) {
       Store.addNotification({
@@ -92,6 +91,16 @@ export default function useReview() {
       });
     }
 
+    if (cards) {
+      const updatedCards = [...cards];
+      updatedCards.shift();
+      setCards(updatedCards);
+    }
+
+    if (remainingCards) {
+      setRemainingCards(remainingCards - 1);
+    }
+
     triggerCardUpdate(updatedCard);
   }
 
@@ -100,7 +109,6 @@ export default function useReview() {
    * @param updatedCard
    */
   function triggerCardUpdate(updatedCard: UserCardType) {
-    setCard(null);
     let answerTime = 0;
     if (answerTimeStart) {
       answerTime = new Date().getTime() - answerTimeStart.getTime();
@@ -116,15 +124,16 @@ export default function useReview() {
         isFromReviewPage: true,
       },
     )
-      .then(fetchCard);
   }
 
   return {
     remainingCards,
     score,
     isLoading,
-    card,
-    fetchCard,
+    error,
+    data,
+    currentCard,
+    fetchCards,
     updateCategories,
     handleAnswer,
   };

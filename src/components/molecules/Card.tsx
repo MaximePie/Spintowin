@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { CSSTransition } from 'react-transition-group';
 import QuestionEditionModal from './QuestionEditionModal';
 import UserCardType from '../../types/UserCard';
@@ -38,7 +38,7 @@ const Card = function Card({
       setAnswerDisplayState(false);
       onAnswer(isAnswerSuccessful);
     }
-  }, [isAnswerSuccessful, onAnswer]);
+  }, [isAnswerSuccessful]);
 
   useEffect(setKeyBinds, []);
 
@@ -203,13 +203,4 @@ Card.defaultProps = {
   shouldCardsBeInverted: false,
   isSingle: false,
 };
-
-function areEquals(previousProps: CardProps, nextProps: CardProps) {
-  const isSameScore = previousProps.isScoreDisplayed === nextProps.isScoreDisplayed;
-  // eslint-disable-next-line max-len
-  const isSameInversionsState = previousProps.shouldCardsBeInverted === nextProps.shouldCardsBeInverted;
-  const isSameAsBefore = isSameInversionsState && isSameScore;
-  return previousProps.data.answer !== nextProps.data.answer ? false : isSameAsBefore;
-}
-
-export default memo(Card, areEquals);
+export default Card;

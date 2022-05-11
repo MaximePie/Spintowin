@@ -14,10 +14,10 @@ export default function Review() {
       numberOfFailures,
     },
     isLoading,
-    card,
-    fetchCard,
+    currentCard,
     updateCategories,
     handleAnswer,
+    fetchCards,
   } = useReview();
 
   return (
@@ -39,11 +39,13 @@ export default function Review() {
           variant="multi"
           value={null}
         />
-        {!isLoading && card && (
+        {isLoading && <p>Chargement ...</p>}
+        {currentCard && (
           <Card
-            data={card}
+            key={currentCard._id.toString()}
+            data={currentCard}
             onAnswer={(isSuccess: boolean) => handleAnswer(isSuccess)}
-            onUpdate={fetchCard}
+            onUpdate={fetchCards}
             isSingle
             isScoreDisplayed
             shouldCardsBeInverted={false}
