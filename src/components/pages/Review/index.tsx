@@ -1,16 +1,16 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Store } from 'react-notifications-component';
 import { MultiValue } from 'react-select';
-import Card from '../molecules/Card';
-import UserCardType from '../../types/UserCard';
-import generateUpdatedCard from '../../services/card';
-import { memorisedNotification } from '../../services/notification';
-import { viewportContext } from '../../contexts/viewport';
-import { postOnServer } from '../../services/server';
-import intervals from '../../data/cards';
-import CategorySelect from '../atoms/CategorySelect';
+import Card from '../../molecules/Card';
+import UserCardType from '../../../types/UserCard';
+import generateUpdatedCard from '../../../services/card';
+import { memorisedNotification } from '../../../services/notification';
+import { viewportContext } from '../../../contexts/viewport';
+import { postOnServer } from '../../../services/server';
+import intervals from '../../../data/cards';
+import CategorySelect from '../../atoms/CategorySelect';
 
-export default function ReviewPage() {
+export default function Index() {
   const [isLoading, setLoadingState] = useState(false);
   const [card, setCard] = useState(null);
   const { isMobile } = useContext(viewportContext);
