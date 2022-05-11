@@ -9,8 +9,9 @@ const flex = `
 `;
 
 const spacings = {
-  mediumSpacing: '8px',
-  defaultSpacing: '1rem',
+  medium: '8px',
+  default: '1rem',
+  small: '0.25rem',
 };
 
 const shapes = {

@@ -9,8 +9,11 @@ import { viewportContext } from '../../../contexts/viewport';
 import { postOnServer } from '../../../services/server';
 import intervals from '../../../data/cards';
 import CategorySelect from '../../atoms/CategorySelect';
+import {
+  StyledReview, Content, Header, Score,
+} from './styles';
 
-export default function Index() {
+export default function Review() {
   const [isLoading, setLoadingState] = useState(false);
   const [card, setCard] = useState(null);
   const { isMobile } = useContext(viewportContext);
@@ -40,17 +43,17 @@ export default function Index() {
   }, [card]);
 
   return (
-    <div className="ReviewPage">
-      <div className="ReviewPage__content">
-        <h4 className="ReviewPage__header">
+    <StyledReview>
+      <Content>
+        <Header>
           Révisons ! (
           {remainingCards}
           )
-        </h4>
+        </Header>
         <p>
-          <i className="ReviewPage__success">{numberOfSuccess}</i>
+          <Score type="success">{numberOfSuccess}</Score>
           /
-          <i className="ReviewPage__failures">{numberOfFailures}</i>
+          <Score type="failures">{numberOfFailures}</Score>
         </p>
         <CategorySelect
           onSelect={() => {}}
@@ -68,8 +71,8 @@ export default function Index() {
             shouldCardsBeInverted={false}
           />
         )}
-      </div>
-    </div>
+      </Content>
+    </StyledReview>
   );
 
   /**

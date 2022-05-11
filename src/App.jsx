@@ -7,7 +7,7 @@ import AuthForm from './components/pages/AuthForm';
 import TrainingPage from './components/pages/TrainingPage';
 import AddCard from './components/pages/AddCard';
 import WelcomePage from './components/pages/WelcomePage';
-import Review from './components/pages/Review';
+import Review from './components/pages/Review/Review';
 import Navbar from './components/molecules/Navbar';
 import LoadingAppGif from './components/molecules/LoadingAppGif';
 import Stats from './components/pages/Stats';
