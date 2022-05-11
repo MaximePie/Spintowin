@@ -7,12 +7,10 @@ import reportWebVitals from './reportWebVitals';
 import 'react-notifications-component/dist/theme.css';
 
 ReactDOM.render(
-  <React.StrictMode>
-    <div className="app-container">
-      <ReactNotifications />
-      <App />
-    </div>
-  </React.StrictMode>,
+  <div className="app-container">
+    <ReactNotifications />
+    <App />
+  </div>,
   document.getElementById('root'),
 );
 
