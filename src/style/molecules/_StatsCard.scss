@@ -1,0 +1,38 @@
+.StatsCard {
+  border-radius: 8px;
+  border: solid 1px lightgray;
+  margin: 0.5rem 0.5rem 0.5rem 0;
+  padding: 1rem;
+
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: column;
+
+  text-align: center;
+
+  @include for-phone-only {
+    margin: 0.5rem 0;
+  }
+}
+
+.StatsCard--large {
+  max-width: 1000px;
+}
+
+.StatsCard__title {
+  margin-bottom: 0;
+}
+
+.OngoingStatsData__donut {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+
+.BarChart {
+  width: 90%;
+}

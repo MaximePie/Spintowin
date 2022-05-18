@@ -1,0 +1,57 @@
+
+.Cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+
+  &__loading {
+    position: absolute;
+    top: 0.3rem;
+  }
+}
+
+body {
+  margin: 0;
+}
+
+button {
+  border-radius: 4px;
+  background-color: $primaryColor;
+  color: whitesmoke;
+  outline: none;
+  border: none;
+  padding: 4px 8px;
+  height: 32px;
+  min-width: 64px;
+
+  cursor: pointer;
+  transition: filter 150ms ease-in-out;
+}
+
+button:hover {
+  filter: brightness(0.8);
+  transition: filter 150ms ease-in-out;
+}
+
+button:disabled {
+  background-color: $primaryColorDisabled;
+  transition: background-color 250ms ease;
+  cursor: not-allowed;
+
+  &:hover {
+    transition: none;
+    filter: initial;
+  }
+}
+
+input {
+  border: none;
+  border-bottom: 1px lightblue solid;
+  padding: 4px 0;
+  margin: 0.25rem;
+  min-width: 150px;
+}
+
+input[type="checkbox"] {
+  min-width: initial;
+}

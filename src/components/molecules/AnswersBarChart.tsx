@@ -1,0 +1,109 @@
+import React, { useEffect, useState } from 'react';
+import Chart from 'react-apexcharts';
+import { getFromServer } from '../../services/server';
+import intervals from '../../data/cards';
+
+type answerType = {
+  delay: number,
+  delayAverage: number,
+  successfulAnswersRate: number,
+}
+
+type graphDataType = answerType[];
+
+/**
+ * Calculates generates a graph based on the wrong answers given by the user.
+ * @returns {JSX.Element}
+ * @constructor
+ */
+export default function AnswersBarChart() {
+  const [graphData, setGraphData] = useState<graphDataType>({} as graphDataType);
+  let isMounted = false;
+
+  useEffect(() => {
+    isMounted = true;
+    fetchData();
+    return () => { isMounted = false; };
+  }, []);
+
+  const chartData = {
+    options: {
+      chart: {
+        id: 'basic-bar',
+      },
+      xaxis: {
+        categories: intervals.filter((interval, index) => index > 1),
+      },
+      colors: ['#f04444', '#1e8ee9'],
+    },
+    series: [
+      {
+        name: 'Réussite',
+        data: successfulAnswersRate(),
+      },
+      {
+        name: 'Temps de réponse moyen',
+        data: answerTimes(),
+      },
+    ],
+  };
+
+  return (
+    <div className="AnswersBarChart">
+      <div className="row">
+        <div className="mixed-chart AnswersBarChart__chart">
+          <Chart
+            options={chartData.options}
+            // @ts-ignore
+            series={chartData.series}
+            type="bar"
+            width="100%"
+            height="400"
+          />
+        </div>
+      </div>
+    </div>
+  );
+
+  /**
+     * Returns all the answer delay averages
+     */
+  function answerTimes() {
+    return intervals.filter((interval, index) => index > 1).map((interval) => {
+      if (graphData?.length) {
+        const answer: answerType | undefined = graphData
+          .find((graphAnswer: answerType) => graphAnswer.delay === interval)
+          || {} as answerType;
+
+        if (answer) {
+          return Math.round(answer.delayAverage / 100) / 10;
+        }
+        return 0;
+      }
+      return 0;
+    });
+  }
+
+  /**
+     * Returns all the wrong answer values
+     */
+  function successfulAnswersRate() {
+    return intervals.filter((interval, index) => index > 1).map((interval) => {
+      if (graphData?.length) {
+        const answerDelay = graphData
+          .find((answer) => answer.delay === interval);
+        if (answerDelay) {
+          return `${100 - answerDelay!.successfulAnswersRate} `;
+        }
+        return 0;
+      }
+      return 0;
+    });
+  }
+
+  function fetchData() {
+    getFromServer('/users/connectedUser/answers').then(
+      (response) => isMounted && setGraphData(response.data.answersStats),
+    );
+  }
+}

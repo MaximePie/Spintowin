@@ -1,0 +1,116 @@
+.Card {
+  position: relative;
+
+  overflow: hidden;
+  border-radius: 8px;
+  width: 180px;
+  height: 150px;
+  border: solid 1px lightgray;
+  margin: 0.25rem;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  font-weight: bold;
+  font-size: 1.1em;
+
+  text-align: center;
+
+  &--isSingle {
+    width: $singleCardWidth;
+    height: 480px;
+    font-size: 2em;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    .Card__action--failed {
+      background-color: indianred;
+      margin-left: 0.5rem;
+      margin-bottom: 1em;
+
+      @include for-phone-only {
+        margin-top: 0.5rem;
+      }
+    }
+
+    .Card__answer {
+      font-weight: 500;
+      margin: 0em 0 16px 0;
+    }
+
+    .Card__image {
+      height: 320px;
+      width: 320px;
+      @include for-phone-only {
+        height: 240px;
+        width: 240px;
+      }
+    }
+  }
+
+  @include for-phone-only {
+    width: 170px;
+
+    &--isSingle {
+      width: 240px;
+      height: 340px;
+    }
+  }
+
+  &__image {
+    height: 100%;
+    width: 100%;
+  }
+
+  &__edit {
+    position: absolute;
+    top: 0.5rem;
+    left: 0.5rem;
+  }
+
+  &--static {
+    font-weight: normal;
+    cursor: pointer !important;
+
+    &:hover {
+      transform: initial;
+    }
+  }
+
+  &__delay {
+    font-weight: initial;
+    margin: 0.5rem 1rem;
+  }
+
+  &__answer {
+    font-weight: 500;
+    margin: 8px 0 16px 0;
+  }
+
+  &__action--failed {
+    background-color: indianred;
+    margin-left: 0.5rem;
+
+    @include for-phone-only {
+      margin-left: 0;
+      margin-top: 0.5rem;
+    }
+  }
+
+
+  &--answerShown-enter, &--answerShown-enter-active {
+    opacity: 0.01;
+    transform: rotateY(90deg);
+  }
+
+  &--answerShown-enter-done {
+    opacity: 1;
+    transition: opacity 300ms, transform 300ms;
+    transform: rotateY(0);
+  }
+}

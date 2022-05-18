@@ -1,0 +1,61 @@
+.QuestionEditionModal__container {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  background-color: #00000080;
+  width: 100vw;
+  height: 100vh;
+
+  .QuestionEditionModal {
+    width: 800px;
+    height: 500px;
+    background-color: white;
+    position: relative;
+
+    @include cardStyle;
+
+    &__close-button {
+      position: absolute;
+      top: 0.5rem;
+      right: 1rem;
+      font-size: 1.25em;
+      color: #989898;
+    }
+
+    &__fields, &__field {
+      display: flex;
+      flex-direction: column;
+      align-items: baseline;
+    }
+
+    &__field {
+      min-width: 186px !important;
+    }
+
+    .InputGroup {
+      display: flex;
+      align-items: center;
+    }
+
+    &__actions {
+      display: flex;
+    }
+
+    &__action {
+      margin: 1rem 0.5rem;
+      &--danger {
+        background-color: $dangerColor;
+      }
+
+      &-icon {
+        margin-right: 0.5rem;
+      }
+    }
+  }
+}

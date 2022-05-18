@@ -1,0 +1,5 @@
+src/**/*.svg
+src/**/*.png
+src/**/*.gif
+src/**/*.jpg
+src/**/*.scss

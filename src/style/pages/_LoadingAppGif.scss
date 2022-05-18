@@ -1,0 +1,26 @@
+.LoadingAppGif {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  &__container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    border: $borderCard;
+    border-radius: 4px;
+    margin: 1rem;
+  }
+
+  &__loadingGif {
+    width: 50px;
+  }
+
+  &__image {
+    filter: grayscale(0.9);
+    height: 200px;
+  }
+}

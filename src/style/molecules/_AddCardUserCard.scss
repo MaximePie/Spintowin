@@ -1,0 +1,46 @@
+.AddCardUserCard {
+
+  position: relative;
+
+  overflow: hidden;
+  border-radius: 8px;
+  width: 180px;
+  border: solid 1px lightgray;
+  margin: 0.25rem;
+  padding-bottom: 1rem;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  font-size: 1.1em;
+
+  text-align: center;
+
+  @include for-phone-only {
+    width: 140px;
+  }
+
+  &__button-text {
+    margin-left: 0.25rem;
+  }
+
+  &__image {
+    height: 100%;
+    width: 100%;
+  }
+
+  &-answer {
+    font-weight: 500;
+    margin: 8px 0 16px 0;
+  }
+
+  &__loading {
+    position: absolute;
+  }
+
+  &__actions {
+    position: relative;
+  }
+}

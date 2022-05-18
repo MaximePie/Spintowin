@@ -1,0 +1,57 @@
+.Navbar {
+  height: 40px;
+  background-color: dodgerblue;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  @include for-phone-only {
+    flex-wrap: wrap;
+    height: 32px;
+  }
+
+  &__right {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+
+    @include for-phone-only {
+      width: 50%;
+    }
+  }
+
+  &__link {
+    cursor: pointer;
+    color: white;
+    margin: 0 1rem;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: bold;
+
+    background: none;
+    width: initial;
+
+    @include for-phone-only {
+      margin: 0 1rem;
+    }
+
+    i {
+      margin-right: 0.5rem;
+
+      @include for-phone-only {
+        font-size: 1.2em;
+      }
+    }
+  }
+
+  &__link--active {
+    text-decoration: underline lightblue;
+  }
+
+  &__stopwatch {
+    color: white;
+    margin-left: 1rem;
+    font-size: 1.25rem;
+  }
+}

@@ -1,0 +1,56 @@
+.AuthForm-container {
+  // Screen size - Nav bar height - padding top - Navbar padding
+  height: calc(100vh - #{$navbarHeight} - 8rem - 1rem);
+  padding-top: 8rem;
+}
+
+.AuthForm {
+  @include cardStyle;
+  margin: 0 auto;
+  width: 300px;
+
+  &__field {
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    flex-direction: column;
+    margin: 1rem 0;
+
+    &--checkbox {
+      width: 244px;
+      flex-direction: row;
+      justify-content: space-between;
+
+      input {
+        margin-right: 1rem;
+      }
+    }
+  }
+
+  &__label {
+    text-align: left;
+    display: inline-block;
+    font-size: 0.8em;
+  }
+
+  &__input {
+    margin: 0;
+    padding: 0;
+    height: 24px;
+  }
+
+  &__action {
+    margin-top: $defaultSpacing;
+    text-transform: uppercase;
+    width: 80%;
+  }
+
+
+  &__redirection {
+    margin-top: 4rem;
+    color: #989898;
+    p {
+      margin: 0.5rem 0;
+    }
+  }
+}

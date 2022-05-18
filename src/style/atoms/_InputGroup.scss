@@ -1,0 +1,17 @@
+
+.InputGroup {
+  margin: 0.25rem 0;
+  i {
+    color: $gray;
+    font-size: 0.8em;
+    margin-right: 1em;
+    vertical-align: text-bottom;
+  }
+  input {
+    min-width: 220px;
+    outline: none;
+    &::placeholder {
+      color: $gray;
+    }
+  }
+}
