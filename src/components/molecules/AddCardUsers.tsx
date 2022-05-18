@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { getFromServer } from '../../services/server';
 import AddCardUser from './AddCardUser';
-import UserType from '../../types/UserType';
+import User from '../../types/User';
 
 export default function AddCardUsers() {
   // All the users in the database
-  const [users, setUsers] = useState<UserType[]>([]);
+  const [users, setUsers] = useState<User[]>([]);
 
   // The  _id selected by the user
-  const [displayedUser, setDisplayedUser] = useState<UserType['_id']>();
+  const [displayedUser, setDisplayedUser] = useState<User['_id']>();
 
   // Fetch users at the first display of the component
   useEffect(fetchUsers, []);

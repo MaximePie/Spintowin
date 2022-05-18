@@ -1,9 +1,9 @@
 import React, { memo } from 'react';
-import UserCardType from '../../types/UserCard';
+import UserCard from '../../types/UserCard';
 import ImageType from '../../types/ImageType';
 
 type AddCardUserCardDetailsProps = {
-  card: UserCardType
+  card: UserCard
 }
 
 function AddCardUserCardDetails({ card }: AddCardUserCardDetailsProps) {

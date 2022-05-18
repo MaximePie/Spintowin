@@ -2,10 +2,10 @@ import React, { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import Stopwatch from './Stopwatch';
 import { viewportContext } from '../../contexts/viewport';
-import UserType from '../../types/UserType';
+import User from '../../types/User';
 
 type NavbarProps = {
-  user: UserType,
+  user: User | undefined,
   logout: Function
 }
 

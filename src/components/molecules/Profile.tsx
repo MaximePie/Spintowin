@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import castorImage from '../../images/castor.jpg';
 import { getFromServer } from '../../services/server';
-import UserType from '../../types/UserType';
+import User from '../../types/User';
 
 export default function Profile() {
-  const [user, setUser] = useState<UserType>({} as UserType);
+  const [user, setUser] = useState<User>({} as User);
   const { level, experience, username } = user || {};
 
   useEffect(fetchUserData, []);

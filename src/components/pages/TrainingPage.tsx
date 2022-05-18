@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import Cards from '../molecules/Cards';
 import { getFromServer, postOnServer } from '../../services/server';
 import intervals from '../../data/cards';
-import UserCardType from '../../types/UserCard';
+import UserCard from '../../types/UserCard';
 
 /**
  * This custom hooks returns the previous value of the ref.
@@ -19,7 +19,7 @@ function usePrevious(value: number) {
 }
 
 export default function TrainingPage() {
-  const [cardsList, setCardsList] = useState<UserCardType[]>([]);
+  const [cardsList, setCardsList] = useState<UserCard[]>([]);
   const [remainingCards, setRemainingCards] = useState(0);
   const [isLoading, setLoadingState] = useState(false);
   const previousLength = usePrevious(cardsList.length);
@@ -59,7 +59,7 @@ export default function TrainingPage() {
    * Triggers the request to update the Card after a given Answer
    * @param card
    */
-  function triggerCardUpdate(card: UserCardType) {
+  function triggerCardUpdate(card: UserCard) {
     postOnServer(
       `/userCards/update/${card.cardId}`,
       { newDelay: card.currentDelay || intervals[1], isMemorized: card.isMemorized },

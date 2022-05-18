@@ -4,10 +4,10 @@ import InputGroup from '../atoms/InputGroup';
 import { getFromServer, postOnServer } from '../../services/server';
 import handleError from '../../services/errors';
 import { CardSuccessNotification } from '../../services/notification';
-import UserCardType from '../../types/UserCard';
+import UserCard from '../../types/UserCard';
 
 type QuestionEditionModalProps = {
-  card: UserCardType,
+  card: UserCard,
   isOwnerOfCard?: boolean
   onClose: Function
 }

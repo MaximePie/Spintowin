@@ -5,7 +5,7 @@ export const axiosInstance = axios.create({
   baseURL: import.meta.env.VITE_BASE_URL,
 });
 
-export function setAuthToken(authToken: string) {
+export function setAuthToken(authToken: string | null) {
   axiosInstance.defaults.headers = {
     'auth-token': authToken,
   };

@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { CSSTransition } from 'react-transition-group';
 import QuestionEditionModal from './QuestionEditionModal';
-import UserCardType from '../../types/UserCard';
+import UserCard from '../../types/UserCard';
 import ImageType from '../../types/ImageType';
 
 type CardProps = {
-  data: UserCardType,
+  data: UserCard,
   onAnswer: Function,
   isScoreDisplayed?: boolean,
   shouldCardsBeInverted?: boolean,

@@ -1,10 +1,10 @@
 import { ObjectId } from 'bson';
 
-type UserType = {
+type User = {
   _id: ObjectId
   username: string,
   level: number,
   experience: number,
 }
 
-export default UserType;
+export default User;

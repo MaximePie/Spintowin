@@ -9,12 +9,12 @@ import { getFromServer, postOnServer } from '../../../services/server';
 import { viewportContext } from '../../../contexts/viewport';
 import generateUpdatedCard from '../../../services/card';
 import { memorisedNotification } from '../../../services/notification';
-import UserCardType from '../../../types/UserCard';
+import UserCard from '../../../types/UserCard';
 import intervals from "../../../data/cards";
 
 export default function useReview() {
   const queryClient = useQueryClient()
-  const [cards, setCards] = useState<UserCardType[] | undefined>([]);
+  const [cards, setCards] = useState<UserCard[] | undefined>([]);
   const [remainingCards, setRemainingCards] = useState<number | undefined>(0);
   const { isMobile } = useContext(viewportContext);
   const { isLoading, error, data } = useQuery('cards', fetchCards);
@@ -68,7 +68,7 @@ export default function useReview() {
    */
   function handleAnswer(isSuccess: boolean) {
     // Get data
-    const updatedCard = generateUpdatedCard(currentCard, isSuccess);
+    const updatedCard = generateUpdatedCard(currentCard!, isSuccess);
 
     if (updatedCard.isMemorized) {
       Store.addNotification({
@@ -108,7 +108,7 @@ export default function useReview() {
    * Triggers the request to update the Card after a given Answer
    * @param updatedCard
    */
-  function triggerCardUpdate(updatedCard: UserCardType) {
+  function triggerCardUpdate(updatedCard: UserCard) {
     let answerTime = 0;
     if (answerTimeStart) {
       answerTime = new Date().getTime() - answerTimeStart.getTime();

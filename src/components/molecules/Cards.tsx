@@ -8,11 +8,11 @@ import { viewportContext } from '../../contexts/viewport';
 import LoadingGif from '../atoms/LoadingGif';
 
 import generateUpdatedCard from '../../services/card';
-import UserCardType from '../../types/UserCard';
+import UserCard from '../../types/UserCard';
 import CardType from '../../types/Card';
 
 type CardsProps = {
-  cardsList: UserCardType[],
+  cardsList: UserCard[],
   triggerCardUpdate: Function,
   fetchCards: Function,
   remainingCards?: number,
@@ -91,7 +91,7 @@ export default function Cards({
   function handleAnswer(cardId: CardType['_id'], isSuccess: boolean) {
     // Get data
     const targetCard = cardsList.find((card) => card._id === cardId);
-    const updatedCard = generateUpdatedCard(targetCard, isSuccess);
+    const updatedCard = generateUpdatedCard(targetCard!, isSuccess);
 
     if (updatedCard.isMemorized) {
       Store.addNotification({

@@ -2,7 +2,7 @@ import { ObjectId } from 'bson';
 import intervals from '../data/cards';
 import ImageType from './ImageType';
 
-type UserCardType = {
+type UserCard = {
   isAssignedToConnectedUser?: boolean;
   _id: typeof ObjectId,
   cardId: typeof ObjectId,
@@ -12,6 +12,7 @@ type UserCardType = {
   question: string,
   image: ImageType,
   isOwnerOfCard: boolean,
-  category: string | null
+  category: string | null,
+  currentSuccessfulAnswerStreak: number,
 }
-export default UserCardType;
+export default UserCard;

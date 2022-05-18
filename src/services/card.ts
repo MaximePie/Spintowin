@@ -1,4 +1,5 @@
 import intervals from '../data/cards';
+import UserCard from "../types/UserCard";
 
 /**
  * Updates the card according to the given answer
@@ -7,7 +8,7 @@ import intervals from '../data/cards';
  *
  * @return updatedCard - The updated card
  */
-export default function generateUpdatedCard(card, isSuccess) {
+export default function generateUpdatedCard(card: UserCard, isSuccess: boolean) {
   const updatedCard = { ...card };
   const currentDelayIndex = intervals.indexOf(updatedCard.currentDelay);
   const shouldIncreaseDelay = isSuccess && currentDelayIndex !== 0;
