@@ -12,6 +12,7 @@ type InputGroupProps = {
 
 InputGroup.defaultProps = {
   isIconSolid: true,
+  className: "",
 };
 
 export default function InputGroup(

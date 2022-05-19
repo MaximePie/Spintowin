@@ -4,7 +4,7 @@
 import { useContext, useEffect, useState } from 'react';
 import { MultiValue } from 'react-select';
 import { Store } from 'react-notifications-component';
-import {useQuery, useQueryClient} from 'react-query';
+import {QueryClient, useQuery, useQueryClient} from 'react-query';
 import { getFromServer, postOnServer } from '../../../services/server';
 import { viewportContext } from '../../../contexts/viewport';
 import generateUpdatedCard from '../../../services/card';
@@ -46,7 +46,14 @@ export default function useReview() {
     if (data?.remainingCards) {
       setRemainingCards(data.remainingCards);
     }
-  }, [data]);
+  }, [data])
+
+  /**
+   * Invalidates the queries
+   */
+  function refetch() {
+    queryClient.invalidateQueries();
+  }
 
   function fetchCards() {
     return getFromServer('/userCards').then((response) => response.data);
@@ -133,7 +140,7 @@ export default function useReview() {
     error,
     data,
     currentCard,
-    fetchCards,
+    refetch,
     updateCategories,
     handleAnswer,
   };

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { CSSTransition } from 'react-transition-group';
-import QuestionEditionModal from './QuestionEditionModal';
+import QuestionEditionModal from './QuestionEditionModal/QuestionEditionModal';
 import UserCard from '../../types/UserCard';
 import ImageType from '../../types/ImageType';
 

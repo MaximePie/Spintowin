@@ -17,7 +17,7 @@ export default function Review() {
     currentCard,
     updateCategories,
     handleAnswer,
-    fetchCards,
+    refetch,
   } = useReview();
 
   return (
@@ -45,7 +45,7 @@ export default function Review() {
             key={currentCard._id.toString()}
             data={currentCard}
             onAnswer={(isSuccess: boolean) => handleAnswer(isSuccess)}
-            onUpdate={fetchCards}
+            onUpdate={refetch}
             isSingle
             isScoreDisplayed
             shouldCardsBeInverted={false}
