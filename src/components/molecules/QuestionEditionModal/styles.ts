@@ -32,37 +32,6 @@ export const CloseButton = styled.span`
   color: ${colors.grey};
 `
 
-type ButtonProps = {
-  variant: keyof typeof colors,
-}
-
-export const Button = styled.button<ButtonProps>`
-  // Positionning
-  margin: ${spacings.default};
-  
-  // Shape
-  border-radius: ${shapes.borders.radius.small};
-  outline: none;
-  border: none;
-  height: 32px;
-  min-width: 64px;
-  
-  // Content
-  padding: ${spacings.small} ${spacings.default};
-  background-color: ${({variant}) => colors[variant]};
-  color: ${colors.white};
-
-
-
-  // Behavior
-  cursor: pointer;
-  transition: filter 150ms ease-in-out;
-
-  i {
-    margin-right: ${spacings.medium};
-  }
-`
-
 export const Form = styled.form`
   height: 80%;
   ${flex('column')};

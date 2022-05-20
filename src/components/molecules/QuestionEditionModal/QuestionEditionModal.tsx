@@ -2,7 +2,8 @@ import React from 'react';
 import InputGroup from '../../atoms/InputGroup';
 import QuestionEditionModalProps from "./types";
 import useQuestionEditionModal from "./useQuestionEditionModal";
-import {CloseButton, Modal, ModalContainer, Button, Form, Fields, Field, Actions} from "./styles";
+import {CloseButton, Modal, ModalContainer, Form, Fields, Field, Actions} from "./styles";
+import Button from "../../atoms/Button/Button"
 
 QuestionEditionModal.defaultProps = {
   isOwnerOfCard: false,
@@ -45,10 +46,9 @@ export default function QuestionEditionModal(props: QuestionEditionModalProps) {
               onClick={deleteCard}
               type="button"
               variant="danger"
-            >
-              <i className="fas fa-times"/>
-              Supprimer
-            </Button>
+              icon="fas fa-times"
+              text="Supprimer"
+            />
             <Form onSubmit={save}>
               <Fields>
                 <Field>
@@ -83,15 +83,13 @@ export default function QuestionEditionModal(props: QuestionEditionModalProps) {
                   onClick={closeModal}
                   type="button"
                   variant="gray"
-                >
-                  Annuler
-                </Button>
+                  text="Annuler"
+                />
                 <Button
                   type="submit"
                   variant="primary"
-                >
-                  Enregistrer
-                </Button>
+                  text="Enregistrer"
+                />
               </Actions>
             </Form>
           </>
