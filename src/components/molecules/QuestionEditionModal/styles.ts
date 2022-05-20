@@ -1,19 +1,8 @@
 import styled from "styled-components";
-import {cardStyle, colors, flex, shapes, spacings} from "../../../style/StyledComponents/variables";
+import {cardStyle, colors, flex, modalContainer, spacings} from "../../../style/StyledComponents/variables";
 
 export const ModalContainer = styled.div`
-  position: absolute;
-  top: 0;
-  right: 0;
-  z-index: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-
-  background-color: #00000080;
-  width: 100vw;
-  height: 100vh;
+  ${modalContainer}
 `
 
 export const Modal = styled.div`

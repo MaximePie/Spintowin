@@ -5,6 +5,7 @@ type User = {
   username: string,
   level: number,
   experience: number,
+  hasCategoriesDisplayed?: boolean,
 }
 
 export default User;

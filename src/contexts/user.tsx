@@ -5,11 +5,16 @@
 import React, {
   createContext, ReactNode, useMemo, useState,
 } from 'react';
+import User from "../types/User";
 
 type UserContextType = {
   selectedCategory: string | null,
   // @ts-ignore
-  setSelectedCategory: (_category: string | null) => void
+  setSelectedCategory: (_category: string | null) => void,
+
+  user: User,
+  setUser: (_user: User) => void,
+  setCategoryDisplayState: (_isDisplayed: boolean) => void,
 }
 
 const userInitialValues: UserContextType = {} as UserContextType;
@@ -23,12 +28,19 @@ type UserContextProviderProps = {
 export function UserContextProvider(
   { children }: UserContextProviderProps,
 ) {
+  const [user, setUser] = useState<User>({} as User)
   const [selectedCategory, setSelectedCategory] = useState<string | null>('');
 
   const userContextValue = useMemo(
     () => (
-      { selectedCategory, setSelectedCategory }),
-    [selectedCategory],
+      {
+        selectedCategory,
+        setSelectedCategory,
+        user,
+        setUser,
+        setCategoryDisplayState
+      }),
+    [selectedCategory, user],
   );
 
   return (
@@ -36,4 +48,15 @@ export function UserContextProvider(
       {children}
     </UserContext.Provider>
   );
+
+  /**
+   * Update the User's choice
+   * @param _isDisplayed
+   */
+  function setCategoryDisplayState(_isDisplayed: boolean) {
+    setUser({
+      ...user,
+      hasCategoriesDisplayed: _isDisplayed,
+    })
+  }
 }
