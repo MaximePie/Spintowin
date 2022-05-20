@@ -4,7 +4,7 @@ import { StyledButtonProps} from "./types";
 
 export const StyledButton = styled.button<StyledButtonProps>`
   // Positionning
-  margin: ${spacings.default};
+  margin: ${spacings.oldMedium};
   
   // Shape
   border-radius: ${shapes.borders.radius.small};
@@ -14,7 +14,7 @@ export const StyledButton = styled.button<StyledButtonProps>`
   min-width: 64px;
   
   // Content
-  padding: ${spacings.small} ${spacings.default};
+  padding: ${spacings.small} ${spacings.oldMedium};
   background-color: ${({variant}) => colors[variant]};
   color: ${colors.white};
 
@@ -25,6 +25,6 @@ export const StyledButton = styled.button<StyledButtonProps>`
   transition: filter 150ms ease-in-out;
 
   i {
-    margin-right: ${spacings.medium};
+    margin-right: ${spacings.oldMedium};
   }
 `

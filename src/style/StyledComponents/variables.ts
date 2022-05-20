@@ -18,8 +18,7 @@ export function flex(
 }
 
 const spacings = {
-  medium: '8px',
-  default: '1rem',
+  oldMedium: '1rem',
   small: '0.25rem',
 };
 
@@ -42,7 +41,7 @@ export const cardStyle = `
 
   border-radius: ${shapes.borders.defaultBorderRadius};
   border: ${shapes.borders.borderCard};
-  padding: ${spacings.medium};
+  padding: ${spacings.oldMedium};
   cursor: pointer;
 
   // Centered
