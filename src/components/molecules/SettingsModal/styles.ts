@@ -15,7 +15,7 @@ export const Modal = styled.div`
 `
 
 export const Field = styled.div`
-  ${flex()}
+  ${flex('row', 'flex-start')}
 `
 
 export const CloseButton = styled.span`
