@@ -90,6 +90,7 @@ function App() {
   function checkIfUserIsAuthed() {
     const token = localStorage.getItem('auth-token');
     if (token !== null) {
+      setAuthToken(token);
       getUserWithToken(token);
     } else {
       setLoading(false);

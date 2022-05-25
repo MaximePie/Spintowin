@@ -3,6 +3,7 @@ import { CSSTransition } from 'react-transition-group';
 import QuestionEditionModal from './QuestionEditionModal/QuestionEditionModal';
 import UserCard from '../../types/UserCard';
 import ImageType from '../../types/ImageType';
+import {UserContext} from "../../contexts/user";
 
 type CardProps = {
   data: UserCard,
@@ -33,6 +34,8 @@ const Card = function Card({
   const [isModalOpen, setOpenModalState] = useState(false);
   const isAnswerShownRef = React.useRef(false);
 
+  const {user: {hasCategoriesDisplayed}} = React.useContext(UserContext);
+
   useEffect(() => {
     if (isAnswerSuccessful === true || isAnswerSuccessful === false) {
       setAnswerDisplayState(false);
@@ -61,7 +64,7 @@ const Card = function Card({
           onKeyUp={(event) => event.key === 'enter' && revealAnswer()}
         >
           <div>
-            {category && (
+            {hasCategoriesDisplayed && category && (
               <p>
                 {category}
               </p>
@@ -105,7 +108,7 @@ const Card = function Card({
             role="button"
             tabIndex={0}
           />
-          {category && (
+          {hasCategoriesDisplayed && category && (
             <p>
               {category}
             </p>

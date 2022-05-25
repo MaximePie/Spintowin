@@ -6,6 +6,7 @@ import Badges from '../molecules/Badges';
 import AnswersBarChart from '../molecules/AnswersBarChart';
 import MemorizationBarChart from '../molecules/MemorizationBarChart';
 import IconButton from "../atoms/IconButton/IconButton";
+import SettingsModal from "../molecules/SettingsModal/SettingsModal";
 
 export default function Stats() {
 
@@ -13,7 +14,7 @@ export default function Stats() {
 
   return (
     <div className="Stats">
-      {areSettingsDisplayed && <p>Settings are here.</p>}
+      {areSettingsDisplayed && <SettingsModal onClose={closeModal}/>}
       <h1>Statistiques
         <IconButton
           icon="fas fa-cog"
@@ -42,5 +43,9 @@ export default function Stats() {
 
   function displaySettings() {
     setSettingsDisplay(true);
+  }
+
+  function closeModal() {
+    setSettingsDisplay(false);
   }
 }
