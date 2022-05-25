@@ -1,31 +1,17 @@
 import {UserContext} from "../../../contexts/user";
 import React, {ChangeEvent, useContext} from "react";
-import { ModalContainer, Modal, Field, CloseButton } from "./styles";
 import {SettingsModalProps} from "./types";
+import SettingsModalDisplay from "./SettingsModalDisplay";
 
-export default function SettingsModal({onClose}: SettingsModalProps) {
+export default function SettingsModal(props: SettingsModalProps) {
   const {user, setCategoryDisplayState} = useContext(UserContext);
 
   return (
-    <ModalContainer>
-      <Modal>
-        <CloseButton
-          role="button"
-          tabIndex={0}
-          onClick={onClose}
-        >
-          X
-        </CloseButton>
-        <Field>
-          <label>Afficher les catégories</label>
-          <input
-            type="checkbox"
-            checked={user.hasCategoriesDisplayed}
-            onChange={onCategoryDisplayChange}
-          />
-        </Field>
-      </Modal>
-    </ModalContainer>
+    <SettingsModalDisplay
+      onClose={props.onClose}
+      hasCategoriesDisplayed={user.hasCategoriesDisplayed}
+      onCategoryDisplayChange={onCategoryDisplayChange}
+    />
   )
 
   function onCategoryDisplayChange(event: ChangeEvent<HTMLInputElement>) {
