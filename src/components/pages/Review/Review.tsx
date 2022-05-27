@@ -48,7 +48,7 @@ export default function Review() {
             onUpdate={refetch}
             isSingle
             isScoreDisplayed
-            areInverted={false}
+            isInverted={false}
           />
         )}
       </Content>

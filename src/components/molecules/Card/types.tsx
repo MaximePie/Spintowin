@@ -5,7 +5,7 @@ export type CardProps = {
   data: UserCard,
   onAnswer: Function,
   isScoreDisplayed?: boolean,
-  areInverted?: boolean,
+  isInverted?: boolean,
   onUpdate: Function,
   isSingle?: boolean,
 }
@@ -36,3 +36,5 @@ export type StyledCardProps = {
 export type StyledButtonProps = {
   isFailed?: boolean,
 }
+
+export type FlipState = "recto" | "verso"

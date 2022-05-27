@@ -10,7 +10,7 @@ const Card = function Card({
   data,
   onAnswer,
   isScoreDisplayed,
-  areInverted,
+  isInverted,
   onUpdate,
   isSingle,
 }: CardProps) {
@@ -39,12 +39,11 @@ const Card = function Card({
       key={data._id.toString()}
       image={formatedImage(image as ImageType)}
       data={data}
-      isAnswerSuccessful={isAnswerSuccessful}
       onAnswer={handleAnswer}
       isAnswerShown={isAnswerShown}
       isModalOpen={isModalOpen}
       isScoreDisplayed={isScoreDisplayed}
-      areInverted={areInverted}
+      isInverted={isInverted}
       isSingle={isSingle}
       onKeypress={(event) => reveal(event)}
       onClick={() => reveal()}

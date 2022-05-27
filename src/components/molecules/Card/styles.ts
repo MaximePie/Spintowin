@@ -27,7 +27,11 @@ export const StyledCard = styled.div<StyledCardProps>`
   width: ${width};
   height: ${height};
   font-size: ${fontSize};
-  
+
+
+  @media (max-width: 1200px) {
+    width: ${(props) => width(props, true)};
+  }
 
   border: ${border};
   margin: 0.25rem;
@@ -50,7 +54,7 @@ export const Image = styled.img<StyledCardProps>`
   width: ${imageWidth};
 `
 
-export const Question = styled.p<StyledCardProps>`
+export const Content = styled.p<StyledCardProps>`
   margin-bottom: ${spacings.small};
   font-weight: 500;
   margin-top: ${({isSingle}) => isSingle && spacings.small}};
@@ -77,8 +81,9 @@ function fontSize({isSingle}: StyledCardProps) {
   return `${isSingle ? 2 : 1.1}em`
 }
 
-function width({isSingle}: StyledCardProps) {
-  return `${isSingle ? 340 : 180}px`
+function width({isSingle}: StyledCardProps, isPhone = false) {
+  const multipleCardsWidth = isPhone ? '170' : '180';
+  return `${isSingle ? 340 : multipleCardsWidth}px`
 }
 
 function height({isSingle}: StyledCardProps) {

@@ -75,7 +75,7 @@ export default function Cards({
           key={card._id.toString()}
           onAnswer={(isSuccess: boolean) => handleAnswer(card._id, isSuccess)}
           isScoreDisplayed={isScoreDisplayed}
-          areInverted={shouldCardsBeInverted}
+          isInverted={shouldCardsBeInverted}
           onUpdate={fetchCards}
         />
       ))}

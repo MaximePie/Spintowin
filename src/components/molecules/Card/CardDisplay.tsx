@@ -1,9 +1,8 @@
 import QuestionEditionModal from "../QuestionEditionModal/QuestionEditionModal";
 import {CSSTransition} from "react-transition-group";
 import React from "react";
-import {CardDisplayProps} from "./types"
-import {StyledCard, Delay, Image, Question, Edit, StyledButton, Container} from "./styles";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {CardDisplayProps, FlipState} from "./types"
+import {StyledCard, Delay, Image, Content, Edit, StyledButton, Container} from "./styles";
 import { faEdit } from '@fortawesome/free-solid-svg-icons'
 
 export default function CardDisplay(props: CardDisplayProps) {
@@ -11,8 +10,7 @@ export default function CardDisplay(props: CardDisplayProps) {
     isScoreDisplayed,
     isSingle,
     hasCategoriesDisplayed,
-    areInverted,
-    isAnswerSuccessful,
+    isInverted,
     isAnswerShown,
     onAnswer,
 
@@ -33,6 +31,9 @@ export default function CardDisplay(props: CardDisplayProps) {
     category,
   } = data;
 
+  const cardFlipState: FlipState = (!isAnswerShown) ? 'recto' : 'verso'
+  const content = cardContent();
+
   return (
     <Container>
       {isModalOpen && (
@@ -43,7 +44,7 @@ export default function CardDisplay(props: CardDisplayProps) {
         />
       )}
 
-      {!isAnswerShown && isAnswerSuccessful === undefined && (
+      {cardFlipState === 'recto' && (
         <StyledCard
           onClick={onClick}
           role="button"
@@ -64,13 +65,7 @@ export default function CardDisplay(props: CardDisplayProps) {
                 {currentDelay}
               </Delay>
             )}
-            {question && !areInverted && (
-              <Question>{question}</Question>
-            )}
-            {answer && areInverted && (
-              <Question>{answer}</Question>
-            )}
-            <FontAwesomeIcon icon="coffee" />
+            <Content>{content}</Content>
             {image && (
               <Image
                 isSingle={isSingle}
@@ -94,7 +89,6 @@ export default function CardDisplay(props: CardDisplayProps) {
           tabIndex={0}
           onKeyUp={onKeypress}
         >
-          {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
           <Edit
             icon={faEdit}
             onClick={onModalOpen}
@@ -112,12 +106,7 @@ export default function CardDisplay(props: CardDisplayProps) {
               {currentDelay}
             </Delay>
           )}
-          {!areInverted && (
-            <Question>{answer}</Question>
-          )}
-          {areInverted && (
-            <Question>{question}</Question>
-          )}
+          <Content>{content}</Content>
           <div>
             <StyledButton
               onClick={() => onAnswer(true)}
@@ -136,4 +125,24 @@ export default function CardDisplay(props: CardDisplayProps) {
       </CSSTransition>
     </Container>
 )
+
+  /**
+   * Return the text displayed in the card
+   */
+  function cardContent(): string {
+    if (cardFlipState === 'recto') {
+      if (question && !isInverted) {
+        return question
+      }
+      else if (answer && isInverted) {
+        return answer
+      }
+      else {
+        return ''
+      }
+    }
+    else {
+      return isInverted ? question : answer
+    }
+  }
 }
