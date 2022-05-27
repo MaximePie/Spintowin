@@ -39,7 +39,7 @@ export default function Badge({ badge, current, required }: BadgeProps) {
           <Progress
             percent={Math.round((current / required) * 100)}
             theme={{
-              oldMedium: {
+              medium: {
                 symbol: `${current} / ${required}`,
                 color,
               },

@@ -4,13 +4,13 @@ import ImageType from './ImageType';
 
 type UserCard = {
   isAssignedToConnectedUser?: boolean;
-  _id: typeof ObjectId,
-  cardId: typeof ObjectId,
+  _id: ObjectId,
+  cardId: ObjectId,
   currentDelay: typeof intervals[number],
   isMemorized?: boolean,
   answer: string,
   question: string,
-  image: ImageType,
+  image: ImageType  | string,
   isOwnerOfCard: boolean,
   category: string | null,
   currentSuccessfulAnswerStreak: number,

@@ -1,5 +1,5 @@
 import React from 'react';
-import Card from '../../molecules/Card';
+import Card from '../../molecules/Card/Card';
 import CategorySelect from '../../atoms/CategorySelect';
 import {
   StyledReview, Content, Header, Score,
@@ -48,7 +48,7 @@ export default function Review() {
             onUpdate={refetch}
             isSingle
             isScoreDisplayed
-            shouldCardsBeInverted={false}
+            areInverted={false}
           />
         )}
       </Content>

@@ -2,7 +2,8 @@ import {colors} from "../../../style/StyledComponents/variables";
 import {MouseEventHandler} from "react";
 
 export type ButtonProps = {
-  variant: keyof typeof colors,
+  className?: string,
+  variant?: keyof typeof colors,
   onClick?: MouseEventHandler<HTMLButtonElement>,
   text: string,
   type?: "button" | "submit",

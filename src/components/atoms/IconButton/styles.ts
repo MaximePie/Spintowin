@@ -1,11 +1,11 @@
 import styled from "styled-components";
 import {colors, spacings} from "../../../style/StyledComponents/variables";
 
-const {oldMedium} = spacings;
+const {medium} = spacings;
 const {primary} = colors;
 
 export const StyledIconButton = styled.i`
-  margin-left: ${oldMedium};
+  margin-left: ${medium};
   color: ${primary};
 
   // Behavior

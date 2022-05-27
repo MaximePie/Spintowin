@@ -17,7 +17,7 @@ export const Modal = styled.div`
 export const CloseButton = styled.span`
   position: absolute;
   top: 0.5rem;
-  right: ${spacings.oldMedium};
+  right: ${spacings.medium};
   color: ${colors.grey};
 `
 

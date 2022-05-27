@@ -10,7 +10,7 @@ const Content = styled.div`
   width: ${shapes.singleCardWidth};
 `;
 
-const Header = styled.h4`margin: ${spacings.small} 0`;
+const Header = styled.h4`margin: ${spacings.smaller} 0`;
 
 const Score = styled.i<ScorePropsType>`
   color: ${scoreColor}

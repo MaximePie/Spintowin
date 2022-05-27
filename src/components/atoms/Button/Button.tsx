@@ -5,14 +5,17 @@ Button.defaultProps = {
   type: "button",
   icon: "",
   onClick: null,
+  variant: "primary",
+  className: '',
 }
 
-export default function Button({variant, onClick, type, text, icon}: ButtonProps) {
+export default function Button({className, variant, onClick, type, text, icon}: ButtonProps) {
   return (
     <StyledButton
       variant={variant}
       onClick={onClick}
       type={type}
+      className={className}
     >
       {icon && <i className={icon}/>}
       {text}

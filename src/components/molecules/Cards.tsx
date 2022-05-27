@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Store } from 'react-notifications-component';
-import Card from './Card';
+import Card from './Card/Card';
 
 import { memorisedNotification, streakNotification } from '../../services/notification';
 import { viewportContext } from '../../contexts/viewport';
@@ -75,7 +75,7 @@ export default function Cards({
           key={card._id.toString()}
           onAnswer={(isSuccess: boolean) => handleAnswer(card._id, isSuccess)}
           isScoreDisplayed={isScoreDisplayed}
-          shouldCardsBeInverted={shouldCardsBeInverted}
+          areInverted={shouldCardsBeInverted}
           onUpdate={fetchCards}
         />
       ))}
