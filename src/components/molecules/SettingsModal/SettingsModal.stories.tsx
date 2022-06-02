@@ -9,7 +9,7 @@ import {SettingsModalDisplayProps} from "./types";
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
-  title: 'Example/SettingsModal',
+  title: 'Molecules/SettingsModal',
   component: SettingsModal,
   // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
   argTypes: {
@@ -43,30 +43,21 @@ function LoginControls({areCategoriesEnabled}: LoginControlsProps) {
 
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
 const Template: ComponentStory<typeof SettingsModalDisplay> = function Template(args) {
-  const {hasCategoriesDisplayed: initialCategoryDisplayState} = args as SettingsModalDisplayProps;
-
-  const [hasCategoriesDisplayed, setCategoryDisplayState] = useState(initialCategoryDisplayState);
+  const [hasCategoriesDisplayed, setCategoryDisplayState] = useState(false);
+  const [hasStreakEnabled, setStreakDisplay] = useState(false);
 
   return (
     <UserContextProvider>
       <LoginControls areCategoriesEnabled={hasCategoriesDisplayed}/>
       <SettingsModalDisplay
         onCategoryDisplayChange={(event: ChangeEvent<HTMLInputElement>) => setCategoryDisplayState(event.target.checked)}
+        onStreakDisplayChange={(event: ChangeEvent<HTMLInputElement>) => setStreakDisplay(event.target.checked)}
         hasCategoriesDisplayed={hasCategoriesDisplayed}
+        hasStreakEnabled={hasStreakEnabled}
         onClose={() => {}}
       />
     </UserContextProvider>
   );
 }
 
-export const Enabled = Template.bind({});
-Enabled.args = {
-  hasCategoriesDisplayed: true,
-  onClose: () => {},
-}
-
-export const Disabled = Template.bind({});
-Disabled.args = {
-  hasCategoriesDisplayed: false,
-  onClose: () => {},
-}
+export const Default = Template.bind({});

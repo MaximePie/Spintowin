@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useContext, useState} from 'react';
 import { Link } from 'react-router-dom';
 import { Store } from 'react-notifications-component';
 import Card from './Card/Card';
@@ -10,6 +10,7 @@ import LoadingGif from '../atoms/LoadingGif';
 import generateUpdatedCard from '../../services/card';
 import UserCard from '../../types/UserCard';
 import CardType from '../../types/Card';
+import {UserContext} from "../../contexts/user";
 
 type CardsProps = {
   cardsList: UserCard[],
@@ -27,6 +28,7 @@ Cards.defaultProps = {
 export default function Cards({
   cardsList, triggerCardUpdate, remainingCards, fetchCards, isLoading,
 }: CardsProps) {
+  const {user: {hasStreakNotifications}} = useContext(UserContext);
   const [isScoreDisplayed, setScoreDisplayState] = useState(false);
   const [shouldCardsBeInverted, setInvertedState] = useState(false);
   const { isMobile } = React.useContext(viewportContext);
@@ -111,17 +113,23 @@ export default function Cards({
    * If the parameter >= 3,
    * Display the current successful answer streak notification
    * Else, do nothing
+   *
+   * If the user's preference is set to hasStreakNotifications = false
+   *  Do not display anything.
+   *
    * @param currentSuccessfulAnswerStreak Number, the current amount of successful answers
    * the user gave.
    */
   function tryToDisplayStreakNotification(currentSuccessfulAnswerStreak: number) {
-    const shouldDisplayStreakNotification = currentSuccessfulAnswerStreak >= 3;
-    if (shouldDisplayStreakNotification) {
-      Store.addNotification({
-        ...streakNotification,
-        message: `${currentSuccessfulAnswerStreak} à la suite !`,
-        container: isMobile ? 'bottom-center' : 'top-right',
-      });
+    if (hasStreakNotifications) {
+      const shouldDisplayStreakNotification = currentSuccessfulAnswerStreak >= 3;
+      if (shouldDisplayStreakNotification) {
+        Store.addNotification({
+          ...streakNotification,
+          message: `${currentSuccessfulAnswerStreak} à la suite !`,
+          container: isMobile ? 'bottom-center' : 'top-right',
+        });
+      }
     }
   }
 }

@@ -15,8 +15,10 @@ export const Modal = styled.div`
 `
 
 export const Field = styled.div`
-  ${flex('row', 'flex-start')}
+  ${flex('row', 'end')};
+  margin-bottom: ${spacings.medium};
 `
+
 
 export const CloseButton = styled.span`
   position: absolute;

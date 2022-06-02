@@ -6,5 +6,7 @@ export type SettingsModalProps = {
 
 export type SettingsModalDisplayProps = SettingsModalProps & {
   hasCategoriesDisplayed?: boolean,
-  onCategoryDisplayChange: ChangeEventHandler
+  hasStreakEnabled?: boolean,
+  onCategoryDisplayChange: ChangeEventHandler,
+  onStreakDisplayChange: ChangeEventHandler,
 }

@@ -4,6 +4,7 @@ import { iNotification } from 'react-notifications-component/dist/src/typings';
 
 const baseNotification: iNotification = {
   insert: 'top',
+  type: "success",
   container: 'top-right',
   animationIn: ['animate__animated', 'animate__fadeIn'],
   animationOut: ['animate__animated', 'animate__fadeOut'],
@@ -82,6 +83,13 @@ export const streakNotification: iNotification = {
 export const memorisedNotification: iNotification = {
   ...baseNotification,
   title: 'Félicitations !',
+  type: 'success',
+};
+
+export const userPreferencesSavedNotification: iNotification = {
+  ...baseNotification,
+  title: 'OK !',
+  message: "Vos préférences ont bien été sauvegardées",
   type: 'success',
 };
 

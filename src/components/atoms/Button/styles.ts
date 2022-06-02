@@ -15,7 +15,7 @@ export const StyledButton = styled.button<StyledButtonProps>`
   
   // Content
   padding: ${spacings.smaller} ${spacings.medium};
-  background-color: ${({variant}) => colors[variant]};
+  background-color: ${({variant}) => colors[variant || 'primary']};
   color: ${colors.white};
 
 

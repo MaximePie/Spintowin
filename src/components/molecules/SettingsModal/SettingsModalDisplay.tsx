@@ -5,7 +5,15 @@ import React from "react";
 SettingsModalDisplay.defaultProps = {
   hasCategoriesDisplayed: false,
 }
-export default function SettingsModalDisplay({onClose, hasCategoriesDisplayed, onCategoryDisplayChange}: SettingsModalDisplayProps) {
+export default function SettingsModalDisplay(props: SettingsModalDisplayProps) {
+  const {
+    onClose,
+    hasCategoriesDisplayed,
+    onCategoryDisplayChange,
+    onStreakDisplayChange,
+    hasStreakEnabled
+  } = props;
+
   return (
     <ModalContainer>
       <Modal>
@@ -22,6 +30,14 @@ export default function SettingsModalDisplay({onClose, hasCategoriesDisplayed, o
             type="checkbox"
             checked={hasCategoriesDisplayed}
             onChange={onCategoryDisplayChange}
+          />
+        </Field>
+        <Field>
+          <label>Afficher les notifications de série</label>
+          <input
+            type="checkbox"
+            checked={hasStreakEnabled}
+            onChange={onStreakDisplayChange}
           />
         </Field>
       </Modal>

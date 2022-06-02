@@ -7,7 +7,7 @@ import React, {
 } from 'react';
 import User from "../types/User";
 import {axiosInstance, postOnServer, setAuthToken} from "../services/server";
-import {addNotification} from "../services/notification";
+import {addNotification, userPreferencesSavedNotification} from "../services/notification";
 import handleError from "../services/errors";
 
 type UserContextType = {
@@ -18,6 +18,7 @@ type UserContextType = {
   user: User,
   setUser: (_user: User) => void,
   setCategoryDisplayState: (_isDisplayed: boolean) => void,
+  setStreakDisplay: (_isDisplayed: boolean) => void,
 }
 
 const userInitialValues: UserContextType = {} as UserContextType;
@@ -43,7 +44,8 @@ export function UserContextProvider(
         setSelectedCategory,
         user,
         setUser,
-        setCategoryDisplayState
+        setCategoryDisplayState,
+        setStreakDisplay
       }),
     [selectedCategory, user],
   );
@@ -62,10 +64,21 @@ export function UserContextProvider(
    * @param _isDisplayed
    */
   function setCategoryDisplayState(_isDisplayed: boolean) {
-    console.log(user);
     setUser({
       ...user,
       hasCategoriesDisplayed: _isDisplayed,
+    })
+  }
+
+
+  /**
+   * Update the User's choice
+   * @param _isEnabled
+   */
+  function setStreakDisplay(_isEnabled: boolean) {
+    setUser({
+      ...user,
+      hasStreakNotifications: _isEnabled,
     })
   }
 
@@ -115,13 +128,13 @@ export function UserContextProvider(
    * Update the user in the server according to new data
    */
   function updateUser() {
-    console.log(user);
     // Update user in DB here
     postOnServer('/users/connectedUser/preferences/update', {
-      hasCategoriesDisplayed: user.hasCategoriesDisplayed
+      hasCategoriesDisplayed: user.hasCategoriesDisplayed,
+      hasStreakNotifications: user.hasStreakNotifications,
     })
       .then(response => {
-        addNotification();
+        addNotification(userPreferencesSavedNotification);
       })
   }
 }

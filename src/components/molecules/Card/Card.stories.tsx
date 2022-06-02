@@ -87,7 +87,13 @@ const data: CardProps['data'] = {
   _id: new ObjectId(),
   answer: 'Réponse',
   question: 'Question',
-  image: '',
+  image: {
+    data: {
+      data: [0],
+      type: 'png',
+    },
+    contentType: 'png',
+  },
   currentDelay: parseInt(faker.random.numeric(3)),
   cardId: new ObjectId(),
   isOwnerOfCard: false,

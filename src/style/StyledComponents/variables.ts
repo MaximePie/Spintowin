@@ -3,7 +3,7 @@
  */
 
 type directions = "row" | "column";
-type flexPositioning = "center" | "baseline" | "space-around" | "space-between" | 'initial' | 'flex-start';
+type flexPositioning = "center" | "baseline" | "space-around" | "space-between" | 'initial' | 'flex-start' | 'end';
 export function flex(
   direction: directions = "row",
   alignItems: flexPositioning = "center",
