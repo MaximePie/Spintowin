@@ -19,21 +19,21 @@ function usePrevious(value: number) {
 }
 
 export default function TrainingPage() {
-  const [cardsList, setCardsList] = useState<UserCard[]>([]);
+  const [cards, setCards] = useState<UserCard[]>([]);
   const [remainingCards, setRemainingCards] = useState(0);
   const [isLoading, setLoadingState] = useState(false);
-  const previousLength = usePrevious(cardsList.length);
+  const previousLength = usePrevious(cards.length);
 
   useEffect(() => {
     if (previousLength === undefined) {
       fetchCards();
     }
-  }, [cardsList, previousLength]);
+  }, [cards, previousLength]);
 
   return (
     <div className="TrainingPage">
       <Cards
-        cardsList={cardsList}
+        cardsList={cards}
         triggerCardUpdate={triggerCardUpdate}
         remainingCards={remainingCards}
         fetchCards={fetchCards}
@@ -47,10 +47,10 @@ export default function TrainingPage() {
     getFromServer('/userCards').then(({ data }) => {
       setLoadingState(false);
       if (data.cards) {
-        setCardsList([...data.cards]);
+        setCards([...data.cards]);
         setRemainingCards(data.remainingCards);
       } else {
-        setCardsList([]);
+        setCards([]);
       }
     });
   }
@@ -60,9 +60,11 @@ export default function TrainingPage() {
    * @param card
    */
   function triggerCardUpdate(card: UserCard) {
+    const {currentDelay, isMemorized, _id} = card;
+    setCards([...cards.filter((stateCard) => stateCard._id !== _id)])
     postOnServer(
       `/userCards/update/${card.cardId}`,
-      { newDelay: card.currentDelay || intervals[1], isMemorized: card.isMemorized },
+      { newDelay: currentDelay || intervals[1], isMemorized },
     ).then(fetchCards);
   }
 }

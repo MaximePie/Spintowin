@@ -33,6 +33,7 @@ export function UserContextProvider(
   {children}: UserContextProviderProps,
 ) {
   const [user, setUser] = useState<User>({} as User)
+  const [isDraft, setDraftState] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<string | null>('');
   const [isInitialized, setInitializationState] = useState(false);
   let isMounted = true;
@@ -49,9 +50,8 @@ export function UserContextProvider(
       }),
     [selectedCategory, user],
   );
-
-  useEffect(onUserUpdate, [user])
   useEffect(onMount, [])
+  useEffect(onUserUpdate, [user])
 
   return (
     <UserContext.Provider value={userContextValue}>
@@ -64,6 +64,7 @@ export function UserContextProvider(
    * @param _isDisplayed
    */
   function setCategoryDisplayState(_isDisplayed: boolean) {
+    setDraftState(true);
     setUser({
       ...user,
       hasCategoriesDisplayed: _isDisplayed,
@@ -76,6 +77,7 @@ export function UserContextProvider(
    * @param _isEnabled
    */
   function setStreakDisplay(_isEnabled: boolean) {
+    setDraftState(true);
     setUser({
       ...user,
       hasStreakNotifications: _isEnabled,
@@ -83,8 +85,8 @@ export function UserContextProvider(
   }
 
   function onUserUpdate() {
-
-    if (isMounted && isInitialized) {
+    if (isMounted && isInitialized && isDraft) {
+      setDraftState(false);
       updateUser();
     }
 
@@ -95,14 +97,15 @@ export function UserContextProvider(
 
   function onMount() {
     if (isMounted) {
-      checkIfUserIsAuthed();
+      if (!isInitialized) {
+        checkIfUserIsAuthed();
+      }
     }
 
     return () => {
       isMounted = false;
     }
   }
-
 
   function checkIfUserIsAuthed() {
     const token = localStorage.getItem('auth-token');
@@ -119,8 +122,8 @@ export function UserContextProvider(
   function fetchUser() {
     axiosInstance.get<User>('/users/connectedUser')
       .then((response) => {
-        setInitializationState(true);
         setUser(response.data);
+        setInitializationState(true);
       }).catch(handleError);
   }
 
