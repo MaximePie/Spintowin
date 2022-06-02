@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import InputGroup from '../atoms/InputGroup/InputGroup';
 import {axiosInstance, setAuthToken} from '../../services/server';
-import InputGroup from '../atoms/InputGroup';
-import { addNotification } from '../../services/notification';
 
 type AuthFormProps = {
   action: 'register' | 'login'

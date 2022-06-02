@@ -10,7 +10,7 @@ import handleError from "../services/errors";
 import UserInterval from "../types/UserInterval";
 import {ObjectId} from "bson";
 
-type UserContextType = {
+export type UserContextType = {
   selectedCategory: string | null,
   // @ts-ignore
   setSelectedCategory: (_category: string | null) => void,

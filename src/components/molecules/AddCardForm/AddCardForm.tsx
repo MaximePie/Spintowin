@@ -4,14 +4,15 @@ import React, {
 import { Store } from 'react-notifications-component';
 import ReactTooltip from 'react-tooltip';
 import { OnChangeValue } from 'react-select';
+import InputGroup from '../atoms/InputGroup/InputGroup';
+import CategorySelect from '../atoms/CategorySelect';
+
 import { postOnServer } from '../../../services/server';
 import { addCardFailureNotification, addNotification, CardSuccessNotification } from '../../../services/notification';
 import InputGroup from '../../atoms/InputGroup';
 import CategorySelect from '../../atoms/CategorySelect';
 import { viewportContext } from '../../../contexts/viewport';
 import { UserContext } from '../../../contexts/user';
-import Checkbox from "../../atoms/Checkbox/Checkbox";
-import { Field } from './styles';
 
 export default function AddCardForm() {
   const userContext = useContext(UserContext);
@@ -70,7 +71,7 @@ export default function AddCardForm() {
                   type="text"
                   value={question}
                   onChange={(event) => setQuestion(event.target.value)}
-                  icon="question"
+                  icon={faQuestion}
                   isIconSolid
                   placeholder="Quelle est la taille d'un castor ?"
                   className="AddCardForm__field"
@@ -118,7 +119,7 @@ export default function AddCardForm() {
                 type="text"
                 value={answer}
                 onChange={(event) => setAnswer(event.target.value)}
-                icon="lightbulb"
+                icon={faLightbulb}
                 isIconSolid
                 placeholder="80 - 100 cm"
                 className="AddCardForm__field"

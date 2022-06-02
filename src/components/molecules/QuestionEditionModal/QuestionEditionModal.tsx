@@ -1,5 +1,5 @@
 import React from 'react';
-import InputGroup from '../../atoms/InputGroup';
+import InputGroup from '../../atoms/InputGroup/InputGroup';
 import QuestionEditionModalProps from "./types";
 import useQuestionEditionModal from "./useQuestionEditionModal";
 import {CloseButton, Modal, ModalContainer, Form, Fields, Field, Actions} from "./styles";
