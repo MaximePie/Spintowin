@@ -4,7 +4,7 @@ import {ViewportContextProvider} from './contexts/viewport';
 import {UserContextProvider} from './contexts/user';
 
 import AuthForm from './components/pages/AuthForm';
-import TrainingPage from './components/pages/TrainingPage';
+import Training from './components/pages/Training/Training';
 import AddCard from './components/pages/AddCard';
 import WelcomePage from './components/pages/WelcomePage';
 import Review from './components/pages/Review/Review';
@@ -37,7 +37,7 @@ function App() {
               <Switch>
                 {user && (
                   <>
-                    <Route path="/" exact component={TrainingPage}/>
+                    <Route path="/" exact component={Training}/>
                     <Route path="/review" exact component={Review}/>
                     <Route path="/add" component={AddCard}/>
                     <Route path="/stats" component={Stats}/>
