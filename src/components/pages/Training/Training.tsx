@@ -51,7 +51,7 @@ export default function Training() {
         key='Training Display'
       />
     )
-    : error;
+    : <p>error</p>;
 
   function fetchCards() {
     return getFromServer('/userCards').then(({data}) => data);

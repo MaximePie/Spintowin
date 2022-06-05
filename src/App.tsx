@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {BrowserRouter, Route, Switch} from 'react-router-dom';
+import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import {ViewportContextProvider} from './contexts/viewport';
 import {UserContextProvider} from './contexts/user';
 
@@ -34,27 +34,29 @@ function App() {
               <LoadingAppGif/>
             )}
             {!isLoading && (
-              <Switch>
+              <Routes>
                 {user && (
                   <>
-                    <Route path="/" exact component={Training}/>
-                    <Route path="/review" exact component={Review}/>
-                    <Route path="/add" component={AddCard}/>
-                    <Route path="/stats" component={Stats}/>
+                    <Route path="/" element={<Training/>}/>
+                    <Route path="/review" element={<Review/>}/>
+                    <Route path="/add" element={<AddCard/>}/>
+                    <Route path="/stats" element={<Stats/>}/>
                   </>
                 )}
                 {!user && (
                   <>
-                    <Route path="/" exact component={WelcomePage}/>
-                    <Route path="/login" exact>
-                      <AuthForm action="login" onTokenAcquisition={getUserWithToken}/>
-                    </Route>
-                    <Route path="/register" exact>
-                      <AuthForm action="register" onTokenAcquisition={getUserWithToken}/>
-                    </Route>
+                    <Route path="/" element={<WelcomePage/>}/>
+                    <Route
+                      path="/login"
+                      element={<AuthForm action="login" onTokenAcquisition={getUserWithToken}/>}
+                    />
+                    <Route
+                      path="/register"
+                      element={<AuthForm action="register" onTokenAcquisition={getUserWithToken}/>}
+                    />
                   </>
                 )}
-              </Switch>
+              </Routes>
             )}
           </div>
         </ViewportContextProvider>
