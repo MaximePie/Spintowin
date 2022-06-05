@@ -7,23 +7,11 @@ import {useQuery, useQueryClient} from "react-query";
 import {TrainingCardsQuery} from "./types";
 import {useIsMounted} from "react-query/types/devtools/utils";
 
-/**
- * This custom hooks returns the previous value of the ref.
- * It has an effect in hit which allows the previous value to update.
- * @param value
- */
-function usePrevious(value: number) {
-  const ref = useRef<number>();
-
-  useEffect(() => {
-    ref.current = value;
-  });
-  return ref.current;
-}
-
 export default function Training() {
-  const queryClient = useQueryClient()
-  const {data, isLoading, error} = useQuery<TrainingCardsQuery>('cards', fetchCards)
+
+  const queryClient = useQueryClient();
+
+  const {data, isLoading} = useQuery<TrainingCardsQuery>('cards', fetchCards)
   const [cards, setCards] = useState<UserCard[]>([]);
   const [remainingCards, setRemainingCards] = useState<number>(0);
 
@@ -40,6 +28,9 @@ export default function Training() {
   }, [data]);
 
 
+  if (isLoading) {
+    return <p>Chargement ...</p>
+  }
 
   return data ? (
       <TrainingDisplay
@@ -53,15 +44,18 @@ export default function Training() {
     )
     : <p>error</p>;
 
-  function fetchCards() {
-    return getFromServer('/userCards').then(({data}) => data);
+  function refetch(updatedCards: typeof cards) {
+    queryClient.setQueryData('cards', {
+      cards: updatedCards,
+      remainingCards
+    });
+    queryClient.cancelQueries('cards').then(() => {
+      queryClient.invalidateQueries('cards').then(null)
+    });
   }
 
-  /**
-   * Invalidate the query
-   */
-  function refetch() {
-    queryClient.invalidateQueries('cards');
+  function fetchCards() {
+    return getFromServer('/userCards').then(({data}) => data);
   }
 
   /**
@@ -70,11 +64,12 @@ export default function Training() {
    */
   function triggerCardUpdate(card: UserCard) {
     const {currentDelay, isMemorized, _id} = card;
-    setCards([...cards.filter((stateCard) => stateCard._id !== _id)])
+    const updatedCards = [...cards.filter((stateCard) => stateCard._id !== _id)];
+    setCards(updatedCards)
 
     postOnServer(
       `/userCards/update/${card.cardId}`,
       {newDelay: currentDelay || intervals[1], isMemorized},
-    ).then(refetch);
+    ).then(() => refetch(updatedCards))
   }
 }
