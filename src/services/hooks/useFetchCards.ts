@@ -1,7 +1,7 @@
-import cards from "../../data/cards";
 import {useQuery, useQueryClient} from "react-query";
 import {TrainingCardsQuery} from "../../components/pages/Training/types";
 import {getFromServer} from "../server";
+import UserCard from "../../types/UserCard";
 
 export default function () {
   const queryClient = useQueryClient();
@@ -19,7 +19,7 @@ export default function () {
     return getFromServer('/userCards').then(({data}) => data);
   }
 
-  function refetch(updatedCards: typeof cards) {
+  function refetch(updatedCards: UserCard[]) {
     const remainingCards = data?.remainingCards || 0;
     queryClient.setQueryData('cards', {
       cards: updatedCards,

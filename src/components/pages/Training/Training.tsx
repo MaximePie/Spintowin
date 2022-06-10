@@ -12,7 +12,7 @@ export default function Training() {
   const {displayPopupWithScore} = useContext(PoppingScoreContext)
   const queryClient = useQueryClient();
 
-  const {data, isLoading} = useQuery<TrainingCardsQuery>('cards', fetchCards)
+  const {data, isLoading, isRefetching} = useQuery<TrainingCardsQuery>('cards', fetchCards)
   const [cards, setCards] = useState<UserCard[]>([]);
   const [remainingCards, setRemainingCards] = useState<number>(0);
 
@@ -48,6 +48,7 @@ export default function Training() {
     : <p>error</p>;
 
   function refetch(updatedCards: typeof cards) {
+    console.log("Refetching ?" + isRefetching);
     queryClient.setQueryData('cards', {
       cards: updatedCards,
       remainingCards

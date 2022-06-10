@@ -1,16 +1,16 @@
 import {ChangeEvent, useEffect, useState} from "react";
 import QuestDisplay from "./QuestDisplay";
 import UserCard from "../../../types/UserCard";
-import {useQuery} from "react-query";
-import {getFromServer} from "../../../services/server";
+import {postOnServer} from "../../../services/server";
 import useFetchCards from "../../../services/hooks/useFetchCards";
+import generateUpdatedCard from "../../../services/card";
+import intervals from "../../../data/cards";
 
 export default function Quest() {
 
   const [answer, setAnswer] = useState('');
-  const {data, isLoading, error} = useFetchCards();
+  const {data, refetch} = useFetchCards();
   const [cards, setCards] = useState<UserCard[]>([]);
-  const [remainingCards, setRemainingCards] = useState(0);
   useEffect(initialize, [])
   useEffect(updateCardsList, [data])
 
@@ -32,16 +32,17 @@ export default function Quest() {
    * Remove card from hand
    */
   function onAnswer() {
-    const correctAnswer = cards.find((card) => card.answer === answer);
-    if (correctAnswer) {
-
+    const resolvedCard = cards.find((card) => card.answer === answer);
+    if (resolvedCard) {
+      // Get data
+      const updatedCard = generateUpdatedCard(resolvedCard, true);
+      triggerCardUpdate(updatedCard);
     }
   }
 
   function updateCardsList() {
     if (data?.cards) {
       setCards(data.cards.slice(0, 5));
-      setRemainingCards(data.remainingCards)
     }
 
     return () => {}
@@ -59,5 +60,20 @@ export default function Quest() {
     })
 
     return () => {}
+  }
+
+  /**
+   * Triggers the request to update the Card after a given Answer
+   * @param card
+   */
+  function triggerCardUpdate(card: UserCard) {
+    const {currentDelay, isMemorized, _id} = card;
+    const updatedCards = [...cards.filter((stateCard) => stateCard._id !== _id)];
+    setCards(updatedCards)
+
+    postOnServer(
+      `/userCards/update/${card.cardId}`,
+      {newDelay: currentDelay || intervals[1], isMemorized},
+    ).then(() => refetch(updatedCards))
   }
 }
