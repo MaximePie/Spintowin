@@ -14,11 +14,10 @@ import intervals from "../../../data/cards";
 
 export default function useReview() {
   const queryClient = useQueryClient()
-  const [cards, setCards] = useState<UserCard[] | undefined>([]);
   const [remainingCards, setRemainingCards] = useState<number | undefined>(0);
   const { isMobile } = useContext(viewportContext);
-  const { isLoading, error, data } = useQuery('cards', fetchCards);
-  const currentCard = cards ? cards[0] : null;
+  const { isLoading, error, data } = useQuery('card', fetchCard);
+  const currentCard = data?.card || null;
 
 
   const [categories, setCategories] = useState<string[]>([]);
@@ -40,9 +39,6 @@ export default function useReview() {
   }, [categories]);
 
   useEffect(() => {
-    if (data?.cards) {
-      setCards(data.cards);
-    }
     if (data?.remainingCards) {
       setRemainingCards(data.remainingCards);
     }
@@ -52,11 +48,11 @@ export default function useReview() {
    * Invalidates the queries
    */
   function refetch() {
-    queryClient.invalidateQueries();
+    queryClient.invalidateQueries('card');
   }
 
-  function fetchCards() {
-    return getFromServer('/userCards').then((response) => response.data);
+  function fetchCard() {
+    return postOnServer('/userCards/getOne', categories).then((response) => response.data);
   }
 
   /**
@@ -98,12 +94,6 @@ export default function useReview() {
       });
     }
 
-    if (cards) {
-      const updatedCards = [...cards];
-      updatedCards.shift();
-      setCards(updatedCards);
-    }
-
     if (remainingCards) {
       setRemainingCards(remainingCards - 1);
     }
@@ -130,7 +120,7 @@ export default function useReview() {
         answerTime,
         isFromReviewPage: true,
       },
-    )
+    ).then(refetch)
   }
 
   return {
