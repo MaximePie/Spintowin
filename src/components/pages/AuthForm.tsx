@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { axiosInstance } from '../../services/server';
+import {axiosInstance, setAuthToken} from '../../services/server';
 import InputGroup from '../atoms/InputGroup';
 import { addNotification } from '../../services/notification';
 
@@ -118,6 +118,7 @@ export default function AuthForm({ action, onTokenAcquisition }: AuthFormProps) 
       }).then(({ data }) => {
         const token = data.token;
         if (token) {
+          setAuthToken(token);
           onTokenAcquisition(token, true);
         }
       })
