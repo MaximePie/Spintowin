@@ -52,6 +52,7 @@ const Template: ComponentStory<typeof CardDisplay> = function Template(args) {
       onClick={() => reveal()}
       onModalClose={closeModal}
       onModalOpen={openModal}
+      onRightClick={() => {}}
     />
   );
 

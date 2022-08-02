@@ -1,4 +1,4 @@
-import React, {KeyboardEvent, useEffect, useState} from 'react';
+import React, {KeyboardEvent, MouseEventHandler, useEffect, useState} from 'react';
 import { CSSTransition } from 'react-transition-group';
 import QuestionEditionModal from '../QuestionEditionModal/QuestionEditionModal';
 import ImageType from '../../../types/ImageType';
@@ -49,8 +49,16 @@ const Card = function Card({
       onClick={() => reveal()}
       onModalClose={closeModal}
       onModalOpen={openModal}
+      onRightClick={handleRightClick}
     />
   );
+
+  function handleRightClick(event: React.MouseEvent) {
+    if (!isSingle) {
+      event.preventDefault();
+      handleAnswer(true);
+    }
+  }
 
   function reveal(event: KeyboardEvent<HTMLDivElement> | null = null) {
     if ((event?.code === 'enter' || !event) && !isAnswerShown) {

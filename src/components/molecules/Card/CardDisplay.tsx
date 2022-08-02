@@ -15,6 +15,7 @@ export default function CardDisplay(props: CardDisplayProps) {
     onAnswer,
 
     onClick,
+    onRightClick,
     onKeypress,
     isModalOpen,
     onModalClose,
@@ -52,6 +53,7 @@ export default function CardDisplay(props: CardDisplayProps) {
           onKeyUp={onKeypress}
           isSingle={isSingle}
           noBorders={!!image && !isSingle}
+          onContextMenu={onRightClick}
         >
           <div>
             {hasCategoriesDisplayed && category && (

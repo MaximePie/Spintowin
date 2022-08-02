@@ -24,6 +24,7 @@ export type CardDisplayProps =
   onClick: MouseEventHandler,
   onModalOpen: MouseEventHandler,
   onKeypress: KeyboardEventHandler<HTMLDivElement>,
+  onRightClick: MouseEventHandler,
   onAnswer: (isAnswerSuccessful: boolean) => void,
 }
 
