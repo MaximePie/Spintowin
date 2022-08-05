@@ -33,6 +33,8 @@ export default function Cards({
   const [shouldCardsBeInverted, setInvertedState] = useState(false);
   const { isMobile } = React.useContext(viewportContext);
 
+  const formattedCards = formattedCardsList();
+
   return (
     <div className="Cards">
       <div className="Card Card--static">
@@ -71,7 +73,7 @@ export default function Cards({
         !
       </p>
       )}
-      {cardsList.map((card) => (
+      {formattedCards.map((card) => (
         <Card
           data={card}
           key={card._id.toString()}
@@ -83,6 +85,33 @@ export default function Cards({
       ))}
     </div>
   );
+
+  /**
+   * Limit the total amount of displayed images simultaneously, because this is too hard to display
+   */
+  function formattedCardsList() {
+    if (cardsList.length) {
+      let displayedImages = 0;
+      const maxDisplayedImages = 3;
+
+      return cardsList.filter(card => {
+        if (!card.image) {
+          console.log("Adding card " + card.answer + " with no image");
+          return true
+        }
+        else if (displayedImages < maxDisplayedImages) {
+          displayedImages ++;
+          return true
+        }
+        else {
+          return false;
+        }
+      })
+    }
+    else {
+      return [];
+    }
+  }
 
   /**
    * If the answer is wrong, we go back to the previous interval so it appears earlier
