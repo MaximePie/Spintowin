@@ -39,8 +39,10 @@ export default function generateUpdatedCard(card: UserCard, isSuccess: boolean) 
       updatedCard.currentDelay = intervals[newDelayIndex];
     }
   } else { // Answer is incorrect
-    // updatedCard.currentDelay = intervals[currentDelayIndex - 1];
-    updatedCard.currentDelay = intervals[0];
+    if (currentDelayIndex > 1) {
+      updatedCard.currentDelay = intervals[currentDelayIndex - 1];
+    }
+    // updatedCard.currentDelay = intervals[0];
     updatedCard.currentSuccessfulAnswerStreak = 0;
   }
 
