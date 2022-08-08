@@ -55,8 +55,10 @@ export const Image = styled.img<StyledCardProps>`
 `
 
 export const Content = styled.p<StyledCardProps>`
-  margin-bottom: ${spacings.small};
+  margin-bottom: 0;
   font-weight: 500;
+  max-height: 80%;
+  overflow: auto;
   margin-top: ${({isSingle}) => isSingle && spacings.small}};
 `
 
@@ -70,7 +72,7 @@ export const Edit = styled(FontAwesomeIcon)`
 `
 
 export const StyledButton = styled(Button)<StyledButtonProps>`
-  margin: ${spacings.medium} 0 ${spacings.small} ${({isFailed}) => isFailed ? spacings.small : 0};
+  margin: ${spacings.small} 0 ${spacings.small} ${({isFailed}) => isFailed ? spacings.small : 0};
 `
 
 function border({noBorders}: StyledCardProps) {

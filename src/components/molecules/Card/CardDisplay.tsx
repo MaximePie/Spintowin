@@ -102,12 +102,6 @@ export default function CardDisplay(props: CardDisplayProps) {
               {category}
             </p>
           )}
-          {isScoreDisplayed && (
-            <Delay>
-              🎯
-              {currentDelay}
-            </Delay>
-          )}
           <Content>{content}</Content>
           <div>
             <StyledButton

@@ -1,10 +1,10 @@
 import React, {useContext, useState} from 'react';
-import { Link } from 'react-router-dom';
-import { Store } from 'react-notifications-component';
+import {Link} from 'react-router-dom';
+import {Store} from 'react-notifications-component';
 import Card from './Card/Card';
 
-import { memorisedNotification, streakNotification } from '../../services/notification';
-import { viewportContext } from '../../contexts/viewport';
+import {memorisedNotification, streakNotification} from '../../services/notification';
+import {viewportContext} from '../../contexts/viewport';
 import LoadingGif from '../atoms/LoadingGif';
 
 import generateUpdatedCard from '../../services/card';
@@ -26,12 +26,12 @@ Cards.defaultProps = {
 };
 
 export default function Cards({
-  cardsList, triggerCardUpdate, remainingCards, fetchCards, isLoading,
-}: CardsProps) {
+                                cardsList, triggerCardUpdate, remainingCards, fetchCards, isLoading,
+                              }: CardsProps) {
   const {user: {hasStreakNotifications}} = useContext(UserContext);
   const [isScoreDisplayed, setScoreDisplayState] = useState(false);
   const [shouldCardsBeInverted, setInvertedState] = useState(false);
-  const { isMobile } = React.useContext(viewportContext);
+  const {isMobile} = React.useContext(viewportContext);
 
   const formattedCards = formattedCardsList();
 
@@ -43,7 +43,7 @@ export default function Cards({
           {' '}
           cartes
         </p>
-        <LoadingGif isLoading={isLoading || false} className="Cards__loading" />
+        <LoadingGif isLoading={isLoading || false} className="Cards__loading"/>
         <div>
           <label className="Card--static__label">
             <input
@@ -66,12 +66,12 @@ export default function Cards({
         </div>
       </div>
       {!isLoading && !cardsList.length && (
-      <p>
-        Pas de cartes pour le moment,
-        <Link to="add">créez-en quelques unes</Link>
-        {' '}
-        !
-      </p>
+        <p>
+          Pas de cartes pour le moment,
+          <Link to="add">créez-en quelques unes</Link>
+          {' '}
+          !
+        </p>
       )}
       {formattedCards.map((card) => (
         <Card
@@ -95,20 +95,15 @@ export default function Cards({
       const maxDisplayedImages = 3;
 
       return cardsList.filter(card => {
-        if (!card.image) {
-          console.log("Adding card " + card.answer + " with no image");
-          return true
-        }
-        else if (displayedImages < maxDisplayedImages) {
-          displayedImages ++;
-          return true
-        }
-        else {
+        if ((card.image && displayedImages === maxDisplayedImages)) {
           return false;
         }
+        if (card.image) {
+          displayedImages++;
+        }
+        return true
       })
-    }
-    else {
+    } else {
       return [];
     }
   }
