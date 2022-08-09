@@ -11,18 +11,12 @@ function AddCardUserCardDetails({ card }: AddCardUserCardDetailsProps) {
     <>
       {card.question && <p>{card.question}</p>}
       {!card.question
-      && <img alt="questionCard" className="AddCardUserCard__image" src={formatedImage(card.image)} />}
+      && <img alt="questionCard" className="AddCardUserCard__image" src={card.image} />}
       <p>
         {card.answer}
       </p>
     </>
   );
-
-  function formatedImage(imageData: ImageType) {
-    const base64Flag = `data:${imageData.contentType};base64,`;
-    const imageString = arrayBufferToBase64(imageData.data.data);
-    return base64Flag + imageString;
-  }
 
   /**
    * Returns the converted image

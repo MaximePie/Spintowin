@@ -1,6 +1,4 @@
-import React, {KeyboardEvent, MouseEventHandler, useEffect, useState} from 'react';
-import { CSSTransition } from 'react-transition-group';
-import QuestionEditionModal from '../QuestionEditionModal/QuestionEditionModal';
+import React, {KeyboardEvent, useEffect, useState} from 'react';
 import ImageType from '../../../types/ImageType';
 import {UserContext} from "../../../contexts/user";
 import { CardProps } from './types';
@@ -37,7 +35,7 @@ const Card = function Card({
     <CardDisplay
       hasCategoriesDisplayed={hasCategoriesDisplayed}
       key={data._id.toString()}
-      image={formatedImage(image as ImageType)}
+      image={image}
       data={data}
       onAnswer={handleAnswer}
       isAnswerShown={isAnswerShown}
@@ -52,6 +50,13 @@ const Card = function Card({
       onRightClick={handleRightClick}
     />
   );
+
+  /**
+   * Fetch the data from AWS and displays it as an image
+   */
+  function formattedImage() {
+
+  }
 
   function handleRightClick(event: React.MouseEvent) {
     if (!isSingle) {

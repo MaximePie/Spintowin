@@ -10,7 +10,7 @@ type UserCard = {
   isMemorized?: boolean,
   answer: string,
   question: string,
-  image: ImageType,
+  image: string,
   isOwnerOfCard: boolean,
   category: string | null,
   currentSuccessfulAnswerStreak: number,
