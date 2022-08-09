@@ -1,5 +1,5 @@
 import {SettingsModalDisplayProps} from "./types";
-import {CloseButton, Field, Modal, ModalContainer} from "./styles";
+import {CloseButton, Field, Modal, ModalContainer, Intervals} from "./styles";
 import React from "react";
 
 SettingsModalDisplay.defaultProps = {
@@ -11,7 +11,9 @@ export default function SettingsModalDisplay(props: SettingsModalDisplayProps) {
     hasCategoriesDisplayed,
     onCategoryDisplayChange,
     onStreakDisplayChange,
-    hasStreakEnabled
+    hasStreakEnabled,
+    intervals,
+    onIntervalUpdate,
   } = props;
 
   return (
@@ -40,6 +42,18 @@ export default function SettingsModalDisplay(props: SettingsModalDisplayProps) {
             onChange={onStreakDisplayChange}
           />
         </Field>
+        <Intervals>
+          {intervals.map(userInterval => (
+            <Field>
+              <label>{userInterval.value}</label>
+              <input
+                type="checkbox"
+                checked={userInterval.isEnabled}
+                onChange={(event) => onIntervalUpdate(event, userInterval._id)}
+              />
+            </Field>
+          ))}
+        </Intervals>
       </Modal>
     </ModalContainer>
   )

@@ -2,13 +2,13 @@
  * This file has to contain every user value
  * and possible methods to change it
  */
-import React, {
-  createContext, ReactNode, useEffect, useMemo, useState,
-} from 'react';
+import React, {createContext, ReactNode, useEffect, useMemo, useState,} from 'react';
 import User from "../types/User";
 import {axiosInstance, postOnServer, setAuthToken} from "../services/server";
 import {addNotification, userPreferencesSavedNotification} from "../services/notification";
 import handleError from "../services/errors";
+import UserInterval from "../types/UserInterval";
+import {ObjectId} from "bson";
 
 type UserContextType = {
   selectedCategory: string | null,
@@ -16,9 +16,11 @@ type UserContextType = {
   setSelectedCategory: (_category: string | null) => void,
 
   user: User,
+  intervals: UserInterval[],
   setUser: (_user: User) => void,
   setCategoryDisplayState: (_isDisplayed: boolean) => void,
   setStreakDisplay: (_isDisplayed: boolean) => void,
+  updateInterval: (id: ObjectId, isEnabled: boolean) => void,
 }
 
 const userInitialValues: UserContextType = {} as UserContextType;
@@ -36,6 +38,7 @@ export function UserContextProvider(
   const [isDraft, setDraftState] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<string | null>('');
   const [isInitialized, setInitializationState] = useState(false);
+  const [intervals, setIntervals] = useState<UserInterval[]>(user.intervals || []);
   let isMounted = true;
 
   const userContextValue = useMemo(
@@ -46,12 +49,14 @@ export function UserContextProvider(
         user,
         setUser,
         setCategoryDisplayState,
-        setStreakDisplay
+        setStreakDisplay,
+        updateInterval,
+        intervals
       }),
-    [selectedCategory, user],
+    [selectedCategory, user, intervals],
   );
   useEffect(onMount, [])
-  useEffect(onUserUpdate, [user])
+  useEffect(onUserUpdate, [user, intervals])
 
   return (
     <UserContext.Provider value={userContextValue}>
@@ -82,6 +87,22 @@ export function UserContextProvider(
       ...user,
       hasStreakNotifications: _isEnabled,
     })
+  }
+
+  /**
+   */
+  /**
+   * Update the interval of repetition
+   * @param id The id of the interval to be updated
+   * @param isEnabled The boolean value of the new interval
+   */
+  function updateInterval(id: ObjectId, isEnabled: boolean) {
+    setDraftState(true);
+    const updatedIntervals = intervals.map(interval => interval._id === id ? ({
+      ...interval,
+      isEnabled: isEnabled
+    }) : interval)
+    setIntervals(updatedIntervals)
   }
 
   function onUserUpdate() {
@@ -123,6 +144,7 @@ export function UserContextProvider(
     axiosInstance.get<User>('/users/connectedUser')
       .then((response) => {
         setUser(response.data);
+        setIntervals(response.data.intervals)
         setInitializationState(true);
       }).catch(handleError);
   }
@@ -135,6 +157,7 @@ export function UserContextProvider(
     postOnServer('/users/connectedUser/preferences/update', {
       hasCategoriesDisplayed: user.hasCategoriesDisplayed,
       hasStreakNotifications: user.hasStreakNotifications,
+      intervals,
     })
       .then(response => {
         addNotification(userPreferencesSavedNotification);

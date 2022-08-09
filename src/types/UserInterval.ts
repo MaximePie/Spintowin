@@ -1,7 +1,7 @@
 import {ObjectId} from "bson";
 
 type UserInterval = {
-  interval: number,
+  value: number,
   _id: ObjectId,
   isEnabled: boolean,
 }

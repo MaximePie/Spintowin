@@ -26,3 +26,9 @@ export const CloseButton = styled.span`
   right: ${spacings.medium};
   color: ${colors.grey};
 `
+
+export const Intervals = styled.div`
+  display: grid;
+  grid-template-columns: repeat(4, 120px);
+  grid-column-gap: ${spacings.medium};
+`

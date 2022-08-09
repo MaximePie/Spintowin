@@ -4,13 +4,13 @@
 import { useContext, useEffect, useState } from 'react';
 import { MultiValue } from 'react-select';
 import { Store } from 'react-notifications-component';
-import {QueryClient, useQuery, useQueryClient} from 'react-query';
-import { getFromServer, postOnServer } from '../../../services/server';
+import {useQuery, useQueryClient} from 'react-query';
+import { postOnServer } from '../../../services/server';
 import { viewportContext } from '../../../contexts/viewport';
 import generateUpdatedCard from '../../../services/card';
 import { memorisedNotification } from '../../../services/notification';
 import UserCard from '../../../types/UserCard';
-import intervals from "../../../data/cards";
+import {UserContext} from "../../../contexts/user";
 
 export default function useReview() {
   const queryClient = useQueryClient()
@@ -18,6 +18,7 @@ export default function useReview() {
   const { isMobile } = useContext(viewportContext);
   const { isLoading, error, data } = useQuery('card', fetchCard);
   const currentCard = data?.card || null;
+  const {intervals} = useContext(UserContext);
 
 
   const [categories, setCategories] = useState<string[]>([]);
@@ -71,7 +72,7 @@ export default function useReview() {
    */
   function handleAnswer(isSuccess: boolean) {
     // Get data
-    const updatedCard = generateUpdatedCard(currentCard!, isSuccess);
+    const updatedCard = generateUpdatedCard(currentCard!, isSuccess, intervals);
 
     if (updatedCard.isMemorized) {
       Store.addNotification({

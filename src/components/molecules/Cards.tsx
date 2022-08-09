@@ -28,7 +28,7 @@ Cards.defaultProps = {
 export default function Cards({
                                 cardsList, triggerCardUpdate, remainingCards, fetchCards, isLoading,
                               }: CardsProps) {
-  const {user: {hasStreakNotifications}} = useContext(UserContext);
+  const {user: {hasStreakNotifications}, intervals} = useContext(UserContext);
   const [isScoreDisplayed, setScoreDisplayState] = useState(false);
   const [shouldCardsBeInverted, setInvertedState] = useState(false);
   const {isMobile} = React.useContext(viewportContext);
@@ -117,7 +117,7 @@ export default function Cards({
   function handleAnswer(cardId: CardType['_id'], isSuccess: boolean) {
     // Get data
     const targetCard = cardsList.find((card) => card._id === cardId);
-    const updatedCard = generateUpdatedCard(targetCard!, isSuccess);
+    const updatedCard = generateUpdatedCard(targetCard!, isSuccess, intervals);
 
     if (updatedCard.isMemorized) {
       Store.addNotification({
