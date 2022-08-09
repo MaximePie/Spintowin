@@ -5,7 +5,8 @@ import {UserContext, UserContextProvider} from "../../../contexts/user";
 import Button from "../../atoms/Button/Button";
 import {ObjectId} from "bson";
 import SettingsModalDisplay from "./SettingsModalDisplay";
-import {SettingsModalDisplayProps} from "./types";
+import intervals from "../../../data/cards";
+import UserInterval from "../../../types/UserInterval";
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
@@ -17,8 +18,8 @@ export default {
   },
 } as ComponentMeta<typeof SettingsModal>;
 
-type LoginControlsProps = {areCategoriesEnabled?: boolean}
-function LoginControls({areCategoriesEnabled}: LoginControlsProps) {
+type LoginControlsProps = {areCategoriesEnabled?: boolean, intervals: UserInterval[]}
+function LoginControls({areCategoriesEnabled, intervals}: LoginControlsProps) {
 
   const {setUser} = useContext(UserContext);
 
@@ -33,6 +34,8 @@ function LoginControls({areCategoriesEnabled}: LoginControlsProps) {
   function fillUser() {
     setUser({
       _id: new ObjectId(),
+      intervals,
+      hasStreakNotifications: false,
       experience: 0,
       level: 0,
       username: "Storybook",
@@ -45,11 +48,13 @@ function LoginControls({areCategoriesEnabled}: LoginControlsProps) {
 const Template: ComponentStory<typeof SettingsModalDisplay> = function Template(args) {
   const [hasCategoriesDisplayed, setCategoryDisplayState] = useState(false);
   const [hasStreakEnabled, setStreakDisplay] = useState(false);
-
+  const formattedIntervals = intervals.map(interval => ({value: interval, _id: new ObjectId, isEnabled: true}));
   return (
     <UserContextProvider>
-      <LoginControls areCategoriesEnabled={hasCategoriesDisplayed}/>
+      <LoginControls areCategoriesEnabled={hasCategoriesDisplayed} intervals={formattedIntervals}/>
       <SettingsModalDisplay
+        onIntervalUpdate={() => {}}
+        intervals={formattedIntervals}
         onCategoryDisplayChange={(event: ChangeEvent<HTMLInputElement>) => setCategoryDisplayState(event.target.checked)}
         onStreakDisplayChange={(event: ChangeEvent<HTMLInputElement>) => setStreakDisplay(event.target.checked)}
         hasCategoriesDisplayed={hasCategoriesDisplayed}
