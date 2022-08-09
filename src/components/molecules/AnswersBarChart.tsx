@@ -57,6 +57,7 @@ export default function AnswersBarChart() {
 
   return (
     <div className="AnswersBarChart">
+      <p>(Début de l'expérience : 09/08/2022)</p>
       <div className="row">
         <div className="mixed-chart AnswersBarChart__chart">
           <Chart
@@ -65,7 +66,7 @@ export default function AnswersBarChart() {
             series={chartData.series}
             type="bar"
             width="100%"
-            height="400"
+            height="600"
           />
         </div>
       </div>
