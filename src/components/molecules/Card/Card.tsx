@@ -1,5 +1,4 @@
 import React, {KeyboardEvent, useEffect, useState} from 'react';
-import ImageType from '../../../types/ImageType';
 import {UserContext} from "../../../contexts/user";
 import { CardProps } from './types';
 import CardDisplay from "./CardDisplay";
@@ -51,13 +50,6 @@ const Card = function Card({
     />
   );
 
-  /**
-   * Fetch the data from AWS and displays it as an image
-   */
-  function formattedImage() {
-
-  }
-
   function handleRightClick(event: React.MouseEvent) {
     if (!isSingle) {
       event.preventDefault();
@@ -90,39 +82,6 @@ const Card = function Card({
   function closeModal() {
     setOpenModalState(false);
     onUpdate();
-  }
-
-  function formatedImage(image: ImageType): string {
-    if (image) {
-      const {contentType, data} = image
-      if (contentType && data) {
-        const base64Flag = `data:${contentType};base64,`;
-        const imageString = arrayBufferToBase64(data.data);
-        return base64Flag + imageString;
-      }
-      else {
-        return '';
-      }
-    }
-    else {
-      return '';
-    }
-  }
-
-  /**
-   * Returns the converted image
-   * This function is not from me !
-   * https://stackoverflow.com/questions/9267899/arraybuffer-to-base64-encoded-string
-   * https://colinrlly.medium.com/send-store-and-show-images-with-react-express-and-mongodb-592bc38a9ed
-   * @param buffer
-   */
-  function arrayBufferToBase64(buffer: Iterable<number>) {
-    let binary = '';
-    const bytes = [].slice.call(new Uint8Array(buffer));
-    bytes.forEach((b) => {
-      binary += String.fromCharCode(b);
-    });
-    return window.btoa(binary);
   }
 
   function revealAnswer() {

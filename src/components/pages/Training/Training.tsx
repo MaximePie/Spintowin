@@ -1,11 +1,10 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {getFromServer, postOnServer} from '../../../services/server';
 import intervals from '../../../data/cards';
 import UserCard from '../../../types/UserCard';
 import TrainingDisplay from "./TrainingDisplay";
 import {useQuery, useQueryClient} from "react-query";
 import {TrainingCardsQuery} from "./types";
-import {useIsMounted} from "react-query/types/devtools/utils";
 
 export default function Training() {
 
@@ -37,7 +36,7 @@ export default function Training() {
         cards={cards}
         triggerCardUpdate={triggerCardUpdate}
         remainingCards={remainingCards}
-        fetchCards={fetchCards}
+        fetchCards={() => fetchCards(null)}
         isLoading={isLoading}
         key='Training Display'
       />
@@ -54,8 +53,9 @@ export default function Training() {
     });
   }
 
-  function fetchCards() {
-    return getFromServer('/userCards').then(({data}) => data);
+  function fetchCards({signal}: any) {
+    console.log(signal);
+    return getFromServer('/userCards', signal).then(({data}) => data);
   }
 
   /**
