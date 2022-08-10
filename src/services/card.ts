@@ -11,11 +11,19 @@ import UserInterval from "../types/UserInterval";
  * @return updatedCard - The updated card
  */
 export default function generateUpdatedCard(card: UserCard, isSuccess: boolean, userIntervals: UserInterval[]) {
-  const updatedCard = { ...card };
-  const currentDelayIndex = intervals.indexOf(updatedCard.currentDelay);
-  const shouldIncreaseDelay = isSuccess && currentDelayIndex !== 0;
+  const updatedCard = {...card};
 
   const possibleIntervals = userIntervals.filter(({isEnabled}) => isEnabled).map(({value}) => value);
+  const closesSuperiorDelay = possibleIntervals
+    .find((element, index) => {
+        return (
+          card.currentDelay <= possibleIntervals[index]
+          && card.currentDelay > (possibleIntervals[index - 1] || 0)
+        )
+      }
+    );
+  const currentDelayIndex = possibleIntervals.indexOf(closesSuperiorDelay || 0);
+  const shouldIncreaseDelay = isSuccess && currentDelayIndex !== 0;
 
   // Edit data
   if (!updatedCard.currentDelay) { // Reset if interval does not exist
