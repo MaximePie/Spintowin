@@ -13,6 +13,7 @@ export default function SettingsModalDisplay(props: SettingsModalDisplayProps) {
     onStreakDisplayChange,
     hasStreakEnabled,
     intervals,
+    shouldShowIntervals,
     onIntervalUpdate,
   } = props;
 
@@ -42,18 +43,20 @@ export default function SettingsModalDisplay(props: SettingsModalDisplayProps) {
             onChange={onStreakDisplayChange}
           />
         </Field>
-        <Intervals>
-          {intervals.map(userInterval => (
-            <Field>
-              <label>{userInterval.value}</label>
-              <input
-                type="checkbox"
-                checked={userInterval.isEnabled}
-                onChange={(event) => onIntervalUpdate(event, userInterval._id)}
-              />
-            </Field>
-          ))}
-        </Intervals>
+        {shouldShowIntervals && (
+          <Intervals>
+            {intervals.map(userInterval => (
+              <Field>
+                <label>{userInterval.value}</label>
+                <input
+                  type="checkbox"
+                  checked={userInterval.isEnabled}
+                  onChange={(event) => onIntervalUpdate(event, userInterval._id)}
+                />
+              </Field>
+            ))}
+          </Intervals>
+        )}
       </Modal>
     </ModalContainer>
   )

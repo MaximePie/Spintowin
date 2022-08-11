@@ -99,10 +99,10 @@ export default function AnswersBarChart() {
     return intervals
       .map((interval => {
         if (graphData?.length) {
-          const answerDelay = graphData
-            .find((answer) => answer.delay === interval);
+          const answerDelay = graphData.find(({delay}) => delay === interval);
           if (answerDelay) {
-            return `${100 - answerDelay!.successfulAnswersRate} `;
+            // I am using magic numbers because of float numbers, this is a mess i'm sorry. x(
+            return `${(10000 - Math.round(answerDelay!.successfulAnswersRate * 100)) / 100} `;
           }
           return 0;
         }

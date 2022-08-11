@@ -8,6 +8,7 @@ export type SettingsModalProps = {
 export type SettingsModalDisplayProps = SettingsModalProps & {
   hasCategoriesDisplayed?: boolean,
   hasStreakEnabled?: boolean,
+  shouldShowIntervals?: boolean,
   onCategoryDisplayChange: ChangeEventHandler,
   onStreakDisplayChange: ChangeEventHandler,
   intervals: UserInterval[],

@@ -14,7 +14,7 @@ export default function generateUpdatedCard(card: UserCard, isSuccess: boolean, 
   const updatedCard = {...card};
 
   const possibleIntervals = userIntervals.filter(({isEnabled}) => isEnabled).map(({value}) => value);
-  const closesSuperiorDelay = possibleIntervals
+  const closestSuperiorDelay = possibleIntervals
     .find((element, index) => {
         return (
           card.currentDelay <= possibleIntervals[index]
@@ -22,7 +22,7 @@ export default function generateUpdatedCard(card: UserCard, isSuccess: boolean, 
         )
       }
     );
-  const currentDelayIndex = possibleIntervals.indexOf(closesSuperiorDelay || 0);
+  const currentDelayIndex = possibleIntervals.indexOf(closestSuperiorDelay || 0);
   const shouldIncreaseDelay = isSuccess && currentDelayIndex !== 0;
 
   // Edit data

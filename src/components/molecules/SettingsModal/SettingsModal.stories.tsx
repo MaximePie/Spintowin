@@ -40,6 +40,7 @@ function LoginControls({areCategoriesEnabled, intervals}: LoginControlsProps) {
       level: 0,
       username: "Storybook",
       hasCategoriesDisplayed: areCategoriesEnabled,
+      role: "admin",
     });
   }
 }

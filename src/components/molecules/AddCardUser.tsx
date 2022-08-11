@@ -37,7 +37,7 @@ export default function AddCardUser({ userId }: CardUserProps) {
         )
       </button>
       {((isLoading && cards?.length) || (!isLoading)) && (
-        <div>
+        <div className="AddCardUser__cards">
           {cards?.map((card: UserCard) => (
             <AddCardUserCard
               key={card._id.toString()}

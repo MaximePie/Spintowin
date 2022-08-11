@@ -15,6 +15,7 @@ export default function SettingsModal(props: SettingsModalProps) {
       onStreakDisplayChange={onDisplayStreakChange}
       intervals={intervals}
       onIntervalUpdate={onIntervalChange}
+      shouldShowIntervals={user.role === 'admin'}
     />
   )
 
