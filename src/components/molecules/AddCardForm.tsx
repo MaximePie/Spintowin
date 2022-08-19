@@ -18,6 +18,7 @@ export default function AddCardForm() {
   const [answer, setAnswer] = useState('');
   const [image, setImage] = useState<Blob>({} as Blob);
   const [category, setCategory] = useState<string | null>(userContext.selectedCategory || null);
+  const [shouldCreateReverseQuestion, setCreateReverseQuestionState] = useState(false);
   const [displayedImage, setDisplayedImage] = useState<string>('');
 
   const [isTooltipDisplayed, setTooltipDisplayState] = useState(false);
