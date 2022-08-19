@@ -4,12 +4,14 @@ import React, {
 import { Store } from 'react-notifications-component';
 import ReactTooltip from 'react-tooltip';
 import { OnChangeValue } from 'react-select';
-import { postOnServer } from '../../services/server';
-import { addCardFailureNotification, addNotification, CardSuccessNotification } from '../../services/notification';
-import InputGroup from '../atoms/InputGroup';
-import CategorySelect from '../atoms/CategorySelect';
-import { viewportContext } from '../../contexts/viewport';
-import { UserContext } from '../../contexts/user';
+import { postOnServer } from '../../../services/server';
+import { addCardFailureNotification, addNotification, CardSuccessNotification } from '../../../services/notification';
+import InputGroup from '../../atoms/InputGroup';
+import CategorySelect from '../../atoms/CategorySelect';
+import { viewportContext } from '../../../contexts/viewport';
+import { UserContext } from '../../../contexts/user';
+import Checkbox from "../../atoms/Checkbox/Checkbox";
+import { Field } from './styles';
 
 export default function AddCardForm() {
   const userContext = useContext(UserContext);
@@ -122,6 +124,15 @@ export default function AddCardForm() {
                 className="AddCardForm__field"
               />
             </label>
+            {!displayedImage && (
+              <Field>
+                <Checkbox
+                  checked={shouldCreateReverseQuestion}
+                  onChange={(isChecked) => setCreateReverseQuestionState(isChecked)}
+                  label="Créer une question inverse"
+                />
+              </Field>
+            )}
           </div>
         </div>
         <div className="AddCardForm__actions">
@@ -184,6 +195,7 @@ export default function AddCardForm() {
 
     formData.append('question', question);
     formData.append('answer', answer);
+    formData.append('shouldCreateReverseQuestion', shouldCreateReverseQuestion.toString());
     if (category) {
       formData.append('category', category.toString());
     }

@@ -1,5 +1,5 @@
 import React from 'react';
-import AddCardForm from '../molecules/AddCardForm';
+import AddCardForm from '../molecules/AddCardForm/AddCardForm';
 import AddCardUsers from '../molecules/AddCardUsers';
 
 export default function AddCard() {
