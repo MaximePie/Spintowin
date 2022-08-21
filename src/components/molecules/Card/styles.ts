@@ -55,11 +55,15 @@ export const Image = styled.img<StyledCardProps>`
 `
 
 export const Content = styled.p<StyledCardProps>`
-  margin-bottom: 0;
   font-weight: 500;
-  max-height: 80%;
+  max-height: 100%;
   overflow: auto;
+  margin: 0;
   margin-top: ${({isSingle}) => isSingle && spacings.small}};
+`
+
+export const Category = styled.p`
+  margin: 0;
 `
 
 

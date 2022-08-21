@@ -2,7 +2,7 @@ import QuestionEditionModal from "../QuestionEditionModal/QuestionEditionModal";
 import {CSSTransition} from "react-transition-group";
 import React from "react";
 import {CardDisplayProps, FlipState} from "./types"
-import {StyledCard, Delay, Image, Content, Edit, StyledButton, Container} from "./styles";
+import {StyledCard, Delay, Image, Content, Edit, StyledButton, Container, Category} from "./styles";
 import { faEdit } from '@fortawesome/free-solid-svg-icons'
 
 export default function CardDisplay(props: CardDisplayProps) {
@@ -57,9 +57,9 @@ export default function CardDisplay(props: CardDisplayProps) {
         >
           <div>
             {hasCategoriesDisplayed && category && (
-              <p>
+              <Category>
                 {category}
-              </p>
+              </Category>
             )}
             {isScoreDisplayed && (
               <Delay>
@@ -98,9 +98,9 @@ export default function CardDisplay(props: CardDisplayProps) {
             tabIndex={0}
           />
           {hasCategoriesDisplayed && category && (
-            <p>
+            <Category>
               {category}
-            </p>
+            </Category>
           )}
           <Content>{content}</Content>
           <div>
