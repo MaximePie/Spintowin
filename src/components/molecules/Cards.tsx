@@ -134,7 +134,7 @@ export default function Cards({
     }
 
     if (isSuccess) {
-      displayPopupWithScore(updatedCard.currentDelay);
+      displayPopupWithScore(targetCard.currentDelay);
     }
 
     // TODO - Disable this line if you want the streak effect back.
