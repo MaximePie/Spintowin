@@ -11,6 +11,8 @@ import generateUpdatedCard from '../../services/card';
 import UserCard from '../../types/UserCard';
 import CardType from '../../types/Card';
 import {UserContext} from "../../contexts/user";
+import PoppingScoreDisplay from "../atoms/PoppingScore/PoppingScoreDisplay";
+import {PoppingScoreContext} from "../../contexts/poppingScore";
 
 type CardsProps = {
   cardsList: UserCard[],
@@ -28,6 +30,7 @@ Cards.defaultProps = {
 export default function Cards({
                                 cardsList, triggerCardUpdate, remainingCards, fetchCards, isLoading,
                               }: CardsProps) {
+  const {shouldScoreBePoppedOut, score, displayPopupWithScore} = useContext(PoppingScoreContext);
   const {user: {hasStreakNotifications}, intervals} = useContext(UserContext);
   const [isScoreDisplayed, setScoreDisplayState] = useState(false);
   const [shouldCardsBeInverted, setInvertedState] = useState(false);
@@ -38,6 +41,9 @@ export default function Cards({
   return (
     <div className="Cards">
       <div className="Card Card--static">
+        {shouldScoreBePoppedOut && (
+          <PoppingScoreDisplay score={score}/>
+        )}
         <p className="Card__answer">
           {remainingCards}
           {' '}
@@ -125,6 +131,10 @@ export default function Cards({
         message: `Vous avez mémorisé la carte ${updatedCard.answer} ! Félicitations !`,
         container: isMobile ? 'bottom-center' : 'top-right',
       });
+    }
+
+    if (isSuccess) {
+      displayPopupWithScore(updatedCard.currentDelay);
     }
 
     // TODO - Disable this line if you want the streak effect back.

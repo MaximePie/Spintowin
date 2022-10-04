@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import castorImage from '../../images/castor.jpg';
+import castorImage from '../../resources/images/castor.jpg';
 import { getFromServer } from '../../services/server';
 import User from '../../types/User';
 

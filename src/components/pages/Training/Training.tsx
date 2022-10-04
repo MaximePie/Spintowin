@@ -1,13 +1,15 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {getFromServer, postOnServer} from '../../../services/server';
 import intervals from '../../../data/cards';
 import UserCard from '../../../types/UserCard';
 import TrainingDisplay from "./TrainingDisplay";
 import {useQuery, useQueryClient} from "react-query";
 import {TrainingCardsQuery} from "./types";
+import Button from "../../atoms/Button/Button";
+import {PoppingScoreContext} from "../../../contexts/poppingScore";
 
 export default function Training() {
-
+  const {displayPopupWithScore} = useContext(PoppingScoreContext)
   const queryClient = useQueryClient();
 
   const {data, isLoading} = useQuery<TrainingCardsQuery>('cards', fetchCards)
@@ -32,6 +34,7 @@ export default function Training() {
   }
 
   return data ? (
+    <>
       <TrainingDisplay
         cards={cards}
         triggerCardUpdate={triggerCardUpdate}
@@ -40,6 +43,7 @@ export default function Training() {
         isLoading={isLoading}
         key='Training Display'
       />
+    </>
     )
     : <p>error</p>;
 
@@ -54,7 +58,6 @@ export default function Training() {
   }
 
   function fetchCards({signal}: any) {
-    console.log(signal);
     return getFromServer('/userCards', signal).then(({data}) => data);
   }
 
