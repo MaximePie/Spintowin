@@ -123,24 +123,26 @@ export default function Cards({
   function handleAnswer(cardId: CardType['_id'], isSuccess: boolean) {
     // Get data
     const targetCard = cardsList.find((card) => card._id === cardId);
-    const updatedCard = generateUpdatedCard(targetCard!, isSuccess, intervals);
+    if (targetCard) {
+      const updatedCard = generateUpdatedCard(targetCard!, isSuccess, intervals);
 
-    if (updatedCard.isMemorized) {
-      Store.addNotification({
-        ...memorisedNotification,
-        message: `Vous avez mémorisé la carte ${updatedCard.answer} ! Félicitations !`,
-        container: isMobile ? 'bottom-center' : 'top-right',
-      });
+      if (updatedCard.isMemorized) {
+        Store.addNotification({
+          ...memorisedNotification,
+          message: `Vous avez mémorisé la carte ${updatedCard.answer} ! Félicitations !`,
+          container: isMobile ? 'bottom-center' : 'top-right',
+        });
+      }
+
+      if (isSuccess) {
+        displayPopupWithScore(targetCard.currentDelay);
+      }
+
+      // TODO - Disable this line if you want the streak effect back.
+      tryToDisplayStreakNotification(updatedCard.currentSuccessfulAnswerStreak);
+
+      triggerCardUpdate(updatedCard);
     }
-
-    if (isSuccess) {
-      displayPopupWithScore(targetCard.currentDelay);
-    }
-
-    // TODO - Disable this line if you want the streak effect back.
-    tryToDisplayStreakNotification(updatedCard.currentSuccessfulAnswerStreak);
-
-    triggerCardUpdate(updatedCard);
   }
 
   /**
