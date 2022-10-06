@@ -13,7 +13,7 @@ export default function useQuestionEditionModal(props: QuestionEditionModalProps
     cardId: _id,
     _id: userCardId,
   } = card;
-  const [question, setQuestion] = React.useState<string>(initialQuestion);
+  const [question, setQuestion] = React.useState<string | undefined>(initialQuestion);
   const [answer, setAnswer] = React.useState<string>(initialAnswer);
 
   /**

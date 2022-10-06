@@ -18,7 +18,7 @@ export type CardDisplayProps =
   isAnswerSuccessful?: boolean,
   hasCategoriesDisplayed?: boolean,
 
-  image: string,
+  image?: string,
 
   onModalClose: MouseEventHandler,
   onClick: MouseEventHandler,

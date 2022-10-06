@@ -56,7 +56,7 @@ export default function QuestionEditionModal(props: QuestionEditionModalProps) {
                     Question
                     <InputGroup
                       type="text"
-                      value={question}
+                      value={question || ''}
                       onChange={updateQuestion}
                       icon="question"
                       isIconSolid

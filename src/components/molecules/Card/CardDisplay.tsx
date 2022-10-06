@@ -138,7 +138,7 @@ export default function CardDisplay(props: CardDisplayProps) {
       }
     }
     else {
-      return isInverted ? question : answer
+      return isInverted ? (question || '') : answer
     }
   }
 }
