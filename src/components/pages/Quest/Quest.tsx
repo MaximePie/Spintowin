@@ -1,12 +1,18 @@
 import {ChangeEvent, useEffect, useState} from "react";
 import QuestDisplay from "./QuestDisplay";
 import UserCard from "../../../types/UserCard";
+import {useQuery} from "react-query";
+import {getFromServer} from "../../../services/server";
+import useFetchCards from "../../../services/hooks/useFetchCards";
 
 export default function Quest() {
 
   const [answer, setAnswer] = useState('');
+  const {data, isLoading, error} = useFetchCards();
   const [cards, setCards] = useState<UserCard[]>([]);
+  const [remainingCards, setRemainingCards] = useState(0);
   useEffect(initialize, [])
+  useEffect(updateCardsList, [data])
 
 
   return <QuestDisplay
@@ -30,6 +36,15 @@ export default function Quest() {
     if (correctAnswer) {
 
     }
+  }
+
+  function updateCardsList() {
+    if (data?.cards) {
+      setCards(data.cards.slice(0, 5));
+      setRemainingCards(data.remainingCards)
+    }
+
+    return () => {}
   }
 
 

@@ -8,6 +8,7 @@ export type CardProps = {
   isInverted?: boolean,
   onUpdate: Function,
   isSingle?: boolean,
+  mode?: 'training' | 'review' | 'quest'
 }
 
 export type CardDisplayProps =

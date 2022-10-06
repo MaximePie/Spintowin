@@ -15,6 +15,7 @@ import Stats from './components/pages/Stats';
 import {axiosInstance, setAuthToken} from './services/server';
 import handleError from './services/errors';
 import User from "./types/User";
+import Quest from "./components/pages/Quest/Quest";
 
 function App() {
   const [user, setUser] = useState<User | undefined>(undefined);
@@ -43,6 +44,7 @@ function App() {
                       <Route path="/review" element={<Review/>}/>
                       <Route path="/add" element={<AddCard/>}/>
                       <Route path="/stats" element={<Stats/>}/>
+                      <Route path="/quest" element={<Quest/>}/>
                     </>
                   )}
                   {!user && (

@@ -1,16 +1,23 @@
 import React, {KeyboardEvent, useEffect, useState} from 'react';
+import {CSSTransition} from 'react-transition-group';
+import QuestionEditionModal from '../QuestionEditionModal/QuestionEditionModal';
+import ImageType from '../../../types/ImageType';
 import {UserContext} from "../../../contexts/user";
-import { CardProps } from './types';
+import {CardProps} from './types';
 import CardDisplay from "./CardDisplay";
 
-const Card = function Card({
-  data,
-  onAnswer,
-  isScoreDisplayed,
-  isInverted,
-  onUpdate,
-  isSingle,
-}: CardProps) {
+const Card = function Card(props: CardProps) {
+
+  const {
+    data,
+    onAnswer,
+    isScoreDisplayed,
+    isInverted,
+    onUpdate,
+    isSingle,
+    mode
+  } = props;
+
   const {
     image,
   } = data;
