@@ -4,6 +4,7 @@ import QuestionEditionModalProps from "./types";
 import useQuestionEditionModal from "./useQuestionEditionModal";
 import {CloseButton, Modal, ModalContainer, Form, Fields, Field, Actions} from "./styles";
 import Button from "../../atoms/Button/Button"
+import {faLightbulb, faQuestion} from "@fortawesome/free-solid-svg-icons";
 
 QuestionEditionModal.defaultProps = {
   isOwnerOfCard: false,
@@ -58,7 +59,7 @@ export default function QuestionEditionModal(props: QuestionEditionModalProps) {
                       type="text"
                       value={question || ''}
                       onChange={updateQuestion}
-                      icon="question"
+                      icon={faQuestion}
                       isIconSolid
                       placeholder="Quelle est la taille d'un castor ?"
                     />
@@ -71,7 +72,7 @@ export default function QuestionEditionModal(props: QuestionEditionModalProps) {
                       type="text"
                       value={answer}
                       onChange={updateAnswer}
-                      icon="lightbulb"
+                      icon={faLightbulb}
                       isIconSolid
                       placeholder="80 - 100 cm"
                     />

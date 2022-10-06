@@ -43,7 +43,10 @@ const Template: ComponentStory<typeof CardsHand> = function Template(args) {
     setUser: () => {},
     setSelectedCategory: () => {},
     setCategoryDisplayState: () => {},
+    setStreakDisplay: () => {},
+    updateInterval: () => {},
     selectedCategory: null,
+    intervals: [],
   }
 
   return (

@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {ComponentStory, ComponentMeta} from '@storybook/react';
 import InputGroup from "./InputGroup";
+import {faEdit} from "@fortawesome/free-solid-svg-icons";
 
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
@@ -21,7 +22,7 @@ const Template: ComponentStory<typeof InputGroup> = function Template(args) {
 
   return (
     <InputGroup
-      icon='edit'
+      icon={faEdit}
       value={answer}
       onChange={(event) => setAnswer(event.target.value)}
       placeholder='Champ basique'

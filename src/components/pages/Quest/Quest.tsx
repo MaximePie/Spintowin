@@ -1,16 +1,18 @@
-import {ChangeEvent, useEffect, useState} from "react";
+import {ChangeEvent, useContext, useEffect, useState} from "react";
 import QuestDisplay from "./QuestDisplay";
 import UserCard from "../../../types/UserCard";
 import {postOnServer} from "../../../services/server";
 import useFetchCards from "../../../services/hooks/useFetchCards";
 import generateUpdatedCard from "../../../services/card";
-import intervals from "../../../data/cards";
+import {UserContext} from "../../../contexts/user";
 
 export default function Quest() {
 
   const [answer, setAnswer] = useState('');
   const {data, refetch} = useFetchCards();
   const [cards, setCards] = useState<UserCard[]>([]);
+  const {user: {hasStreakNotifications}, intervals} = useContext(UserContext);
+
   useEffect(initialize, [])
   useEffect(updateCardsList, [data])
 
@@ -35,7 +37,7 @@ export default function Quest() {
     const resolvedCard = cards.find((card) => card.answer === answer);
     if (resolvedCard) {
       // Get data
-      const updatedCard = generateUpdatedCard(resolvedCard, true);
+      const updatedCard = generateUpdatedCard(resolvedCard, true, intervals);
       triggerCardUpdate(updatedCard);
     }
   }

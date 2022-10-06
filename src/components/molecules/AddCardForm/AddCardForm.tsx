@@ -1,18 +1,19 @@
 import React, {
   ChangeEvent, FormEvent, useContext, useEffect, useState,
 } from 'react';
+import {faQuestion, faLightbulb} from "@fortawesome/free-solid-svg-icons"
 import { Store } from 'react-notifications-component';
 import ReactTooltip from 'react-tooltip';
 import { OnChangeValue } from 'react-select';
-import InputGroup from '../atoms/InputGroup/InputGroup';
-import CategorySelect from '../atoms/CategorySelect';
+import InputGroup from '../../atoms/InputGroup/InputGroup';
+import CategorySelect from '../../atoms/CategorySelect';
 
 import { postOnServer } from '../../../services/server';
 import { addCardFailureNotification, addNotification, CardSuccessNotification } from '../../../services/notification';
-import InputGroup from '../../atoms/InputGroup';
-import CategorySelect from '../../atoms/CategorySelect';
 import { viewportContext } from '../../../contexts/viewport';
 import { UserContext } from '../../../contexts/user';
+import { Field } from './styles';
+import Checkbox from '../../atoms/Checkbox/Checkbox';
 
 export default function AddCardForm() {
   const userContext = useContext(UserContext);

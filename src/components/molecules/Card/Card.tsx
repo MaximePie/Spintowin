@@ -1,7 +1,4 @@
 import React, {KeyboardEvent, useEffect, useState} from 'react';
-import {CSSTransition} from 'react-transition-group';
-import QuestionEditionModal from '../QuestionEditionModal/QuestionEditionModal';
-import ImageType from '../../../types/ImageType';
 import {UserContext} from "../../../contexts/user";
 import {CardProps} from './types';
 import CardDisplay from "./CardDisplay";

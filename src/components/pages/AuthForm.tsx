@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import InputGroup from '../atoms/InputGroup/InputGroup';
 import {axiosInstance, setAuthToken} from '../../services/server';
+import {faEnvelope, faLock, faUser} from "@fortawesome/free-solid-svg-icons"
 
 type AuthFormProps = {
   action: 'register' | 'login'
@@ -30,7 +31,7 @@ export default function AuthForm({ action, onTokenAcquisition }: AuthFormProps) 
                   (event: React.ChangeEvent<HTMLInputElement>) => setUsername(event.target.value)
                 }
                 className="AuthForm__input"
-                icon="user"
+                icon={faUser}
                 placeholder="Entrez votre castobriquet"
               />
             </label>
@@ -44,7 +45,7 @@ export default function AuthForm({ action, onTokenAcquisition }: AuthFormProps) 
               value={email}
               onChange={(event) => setMail(event.target.value)}
               className="AuthForm__input"
-              icon="envelope"
+              icon={faEnvelope}
               placeholder="Entrez votre e-mail"
             />
           </label>
@@ -57,7 +58,7 @@ export default function AuthForm({ action, onTokenAcquisition }: AuthFormProps) 
               value={password}
               onChange={(event) => setPassword(event.target.value)}
               className="AuthForm__input"
-              icon="lock"
+              icon={faLock}
               isIconSolid
               placeholder="Entrez votre mot de passe"
             />
