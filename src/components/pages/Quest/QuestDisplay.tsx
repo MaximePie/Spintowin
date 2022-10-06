@@ -3,15 +3,17 @@ import CardsHand from "../../molecules/CardsHand/CardsHand";
 import InputGroup from "../../atoms/InputGroup/InputGroup";
 import {QuestDisplayProps} from "./types";
 import Button from "../../atoms/Button/Button";
-import {FormEvent} from "react";
+import {FormEvent, useContext, useState} from "react";
 import {StyledQuest, Form} from "./styles";
+import {ObjectId} from "bson";
+import {QuestContext} from "../../../contexts/quest";
 
-export default function ({answer, onUserInput, onAnswer, cards}: QuestDisplayProps) {
-
+export default function ({answer, onUserInput, onAttack, cards, onFail}: QuestDisplayProps) {
+  const {ignoredCards} = useContext(QuestContext)
   return (
     <StyledQuest>
       <Monster/>
-      <CardsHand cards={cards}/>
+      <CardsHand cards={cards} onFail={onFail}/>
       <Form onSubmit={handleSubmit}>
         <InputGroup
           value={answer}
@@ -20,13 +22,22 @@ export default function ({answer, onUserInput, onAnswer, cards}: QuestDisplayPro
           placeholder='Réponse'
           isIconSolid
         />
-        <Button text='Attaquer' onClick={() => onAnswer()}/>
+        <Button text='Attaquer' onClick={attack}/>
       </Form>
     </StyledQuest>
   )
 
+  /**
+   * Trigger onAttack event
+   */
+  function attack() {
+    onAttack(ignoredCards);
+  }
+
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    onAnswer()
+    if (answer !== '') {
+      attack()
+    }
   }
 }

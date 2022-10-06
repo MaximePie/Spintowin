@@ -2,6 +2,7 @@ import React, {KeyboardEvent, useEffect, useState} from 'react';
 import {UserContext} from "../../../contexts/user";
 import {CardProps} from './types';
 import CardDisplay from "./CardDisplay";
+import {QuestContext} from "../../../contexts/quest";
 
 const Card = function Card(props: CardProps) {
 
@@ -12,7 +13,7 @@ const Card = function Card(props: CardProps) {
     isInverted,
     onUpdate,
     isSingle,
-    mode
+    mode,
   } = props;
 
   const {
@@ -24,6 +25,7 @@ const Card = function Card(props: CardProps) {
   const isAnswerShownRef = React.useRef(false);
 
   const {user: {hasCategoriesDisplayed}} = React.useContext(UserContext);
+  const {ignore: ignoreCard} = React.useContext(QuestContext);
 
   useEffect(() => {
     if (isAnswerSuccessful === true || isAnswerSuccessful === false) {
@@ -31,6 +33,8 @@ const Card = function Card(props: CardProps) {
       onAnswer(isAnswerSuccessful);
     }
   }, [isAnswerSuccessful]);
+
+  useEffect(onReveal, [isAnswerShown]);
 
   useEffect(setKeyBinds, []);
 
@@ -46,6 +50,7 @@ const Card = function Card(props: CardProps) {
       isScoreDisplayed={isScoreDisplayed}
       isInverted={isInverted}
       isSingle={isSingle}
+      mode={mode}
       onKeypress={(event) => reveal(event)}
       onClick={() => reveal()}
       onModalClose={closeModal}
@@ -54,18 +59,36 @@ const Card = function Card(props: CardProps) {
     />
   );
 
+  /**
+   * Remove the cards from potentially valid answers
+   * Only for Quest mode
+   */
+  function onReveal() {
+    if (isAnswerShown) {
+      ignoreCard(data.cardId);
+    }
+  }
+
+  /**
+   * Try to successfully answer, but only for other than quest mode
+   * @param event
+   */
   function handleRightClick(event: React.MouseEvent) {
-    if (!isSingle) {
+    if (!isSingle && mode !== 'quest') {
       event.preventDefault();
       handleAnswer(true);
     }
   }
 
+  /**
+   * Display the answer
+   * @param event
+   */
   function reveal(event: KeyboardEvent<HTMLDivElement> | null = null) {
-    if ((event?.code === 'enter' || !event) && !isAnswerShown) {
-      setAnswerDisplayState(true);
-      isAnswerShownRef.current = true;
-    }
+      if ((event?.code === 'enter' || !event) && !isAnswerShown) {
+        setAnswerDisplayState(true);
+        isAnswerShownRef.current = true;
+      }
   }
 
   function handleAnswer(isAnswerSuccessful: boolean) {
@@ -95,8 +118,13 @@ const Card = function Card(props: CardProps) {
     }
   }
 
+  /**
+   * Add shortcuts to automatically valide or invalidate cards
+   * Mode !== quest only !
+   */
   function setKeyBinds() {
-    document.addEventListener('keydown', (event) => {
+
+    function eventHandler(event: globalThis.KeyboardEvent) {
       switch (event.code) {
         case 'NumpadEnter':
           revealAnswer();
@@ -110,7 +138,14 @@ const Card = function Card(props: CardProps) {
         default:
           break;
       }
-    });
+    }
+    if (mode !== 'quest') {
+      document.addEventListener('keydown', eventHandler);
+    }
+
+    if (mode === 'quest') {
+      document.removeEventListener('keydown', eventHandler);
+    }
   }
 };
 

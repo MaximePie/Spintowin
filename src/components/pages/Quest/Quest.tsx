@@ -5,6 +5,8 @@ import {postOnServer} from "../../../services/server";
 import useFetchCards from "../../../services/hooks/useFetchCards";
 import generateUpdatedCard from "../../../services/card";
 import {UserContext} from "../../../contexts/user";
+import {QuestContextProvider} from "../../../contexts/quest";
+import {ObjectId} from "bson";
 
 export default function Quest() {
 
@@ -13,16 +15,33 @@ export default function Quest() {
   const [cards, setCards] = useState<UserCard[]>([]);
   const {user: {hasStreakNotifications}, intervals} = useContext(UserContext);
 
-  useEffect(initialize, [])
   useEffect(updateCardsList, [data])
 
 
-  return <QuestDisplay
-    answer={answer}
-    onUserInput={handleAnswerChange}
-    onAnswer={onAnswer}
-    cards={cards}
-  />
+  return (
+    <QuestContextProvider>
+      <QuestDisplay
+        answer={answer}
+        onUserInput={handleAnswerChange}
+        onAttack={onAnswer}
+        cards={cards}
+        onFail={updateAndFail}
+      />
+    </QuestContextProvider>
+  )
+
+
+  /**
+   * Update the card as the user failed to answer
+   * @param cardId
+   */
+  function updateAndFail(cardId: ObjectId) {
+    const failedCard = cards.find(({_id}) => _id === cardId);
+    if (failedCard) {
+      const updatedCard = generateUpdatedCard(failedCard, false, intervals);
+      triggerCardUpdate(updatedCard);
+    }
+  }
 
   function handleAnswerChange(event: ChangeEvent<HTMLInputElement>) {
     setAnswer(event.target.value);
@@ -33,13 +52,40 @@ export default function Quest() {
    * Send the result to back
    * Remove card from hand
    */
-  function onAnswer() {
-    const resolvedCard = cards.find((card) => card.answer === answer);
+  function onAnswer(ignoredCards: ObjectId[]) {
+    const resolvedCard = cards.find((card) => {
+      if (!ignoredCards.includes(card._id)) {
+
+        return card.answer === answer
+      }
+      else {
+        return false;
+      }
+    });
     if (resolvedCard) {
-      // Get data
+      setAnswer(answer => '');
       const updatedCard = generateUpdatedCard(resolvedCard, true, intervals);
       triggerCardUpdate(updatedCard);
+      emptyAnswer();
     }
+    else {
+      failAtAnswering();
+    }
+  }
+
+  /**
+   * Reset answer to initial state
+   */
+  function emptyAnswer() {
+    setAnswer(answer => '');
+  }
+
+  /**
+   * Deal damage to the hero
+   * Empty the answer field
+   */
+  function failAtAnswering() {
+    emptyAnswer();
   }
 
   function updateCardsList() {
@@ -50,19 +96,6 @@ export default function Quest() {
     return () => {}
   }
 
-
-  /**
-   * Set the 'Enter' event listener
-   */
-  function initialize() {
-    document.addEventListener('keyup', (event) => {
-      if (event.code === 'enter') {
-        onAnswer();
-      }
-    })
-
-    return () => {}
-  }
 
   /**
    * Triggers the request to update the Card after a given Answer

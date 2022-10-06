@@ -3,7 +3,7 @@ import {CSSTransition} from "react-transition-group";
 import React from "react";
 import {CardDisplayProps, FlipState} from "./types"
 import {StyledCard, Delay, Image, Content, Edit, StyledButton, Container, Category} from "./styles";
-import { faEdit } from '@fortawesome/free-solid-svg-icons'
+import {faEdit} from '@fortawesome/free-solid-svg-icons'
 
 export default function CardDisplay(props: CardDisplayProps) {
   const {
@@ -22,6 +22,7 @@ export default function CardDisplay(props: CardDisplayProps) {
     onModalOpen,
     data,
     image,
+    mode
   } = props;
 
   const {
@@ -104,11 +105,13 @@ export default function CardDisplay(props: CardDisplayProps) {
           )}
           <Content>{content}</Content>
           <div>
-            <StyledButton
-              onClick={() => onAnswer(true)}
-              type="button"
-              text="Ok"
-            />
+            {mode !== 'quest' && (
+              <StyledButton
+                onClick={() => onAnswer(true)}
+                type="button"
+                text="Ok"
+              />
+            )}
             <StyledButton
               onClick={() => onAnswer(false)}
               type="button"
@@ -120,7 +123,7 @@ export default function CardDisplay(props: CardDisplayProps) {
         </StyledCard>
       </CSSTransition>
     </Container>
-)
+  )
 
   /**
    * Return the text displayed in the card
@@ -129,15 +132,12 @@ export default function CardDisplay(props: CardDisplayProps) {
     if (cardFlipState === 'recto') {
       if (question && !isInverted) {
         return question
-      }
-      else if (answer && isInverted) {
+      } else if (answer && isInverted) {
         return answer
-      }
-      else {
+      } else {
         return ''
       }
-    }
-    else {
+    } else {
       return isInverted ? (question || '') : answer
     }
   }

@@ -20,6 +20,7 @@ export type CardDisplayProps =
   hasCategoriesDisplayed?: boolean,
 
   image?: string,
+  mode?: string,
 
   onModalClose: MouseEventHandler,
   onClick: MouseEventHandler,
