@@ -1,8 +1,8 @@
 import axios from 'axios';
 
-console.log(import.meta.env.VITE_BASE_URL);
+console.log(process.env.VITE_BASE_URL);
 export const axiosInstance = axios.create({
-  baseURL: import.meta.env.VITE_BASE_URL,
+  baseURL: process.env.VITE_BASE_URL,
 });
 
 export function setAuthToken(authToken: string | null) {

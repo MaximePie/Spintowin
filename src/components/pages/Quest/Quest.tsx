@@ -7,6 +7,8 @@ import generateUpdatedCard from "../../../services/card";
 import {UserContext} from "../../../contexts/user";
 import {QuestContextProvider} from "../../../contexts/quest";
 import {ObjectId} from "bson";
+import { normalize } from 'normalize-diacritics';
+
 
 export default function Quest() {
 
@@ -52,11 +54,15 @@ export default function Quest() {
    * Send the result to back
    * Remove card from hand
    */
-  function onAnswer(ignoredCards: ObjectId[]) {
-    const resolvedCard = cards.find((card) => {
+  async function onAnswer(ignoredCards: ObjectId[]) {
+    const flatProvidedAnswer = await normalize(answer.trim().toLowerCase());
+    const flatPossibleAnswers = await Promise.all(
+      cards.map(({answer: cardAnswer}) => normalize(cardAnswer.trim().toLowerCase()))
+  )
+    const resolvedCard = cards.find(async (card) => {
       if (!ignoredCards.includes(card._id)) {
-
-        return card.answer === answer
+        console.log({flatPossibleAnswers, flatProvidedAnswer})
+        return flatPossibleAnswers.includes(flatProvidedAnswer)
       }
       else {
         return false;
@@ -106,6 +112,9 @@ export default function Quest() {
     const updatedCards = [...cards.filter((stateCard) => stateCard._id !== _id)];
     setCards(updatedCards)
 
+
+    console.log("Activez");
+    return;
     postOnServer(
       `/userCards/update/${card.cardId}`,
       {newDelay: currentDelay || intervals[1], isMemorized},

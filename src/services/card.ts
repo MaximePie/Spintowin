@@ -60,3 +60,13 @@ export default function generateUpdatedCard(card: UserCard, isSuccess: boolean, 
 
   return updatedCard;
 }
+
+
+/**
+ * Compare
+ * @param word1
+ * @param word2
+ */
+function areSameIsh(word1: string, word2: string) {
+
+}
