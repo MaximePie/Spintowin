@@ -1,6 +1,6 @@
 import intervals from '../data/cards';
-import UserCard from "../types/UserCard";
-import UserInterval from "../types/UserInterval";
+import UserCard from '../types/UserCard';
+import UserInterval from '../types/UserInterval';
 
 /**
  * Updates the card according to the given answer
@@ -10,18 +10,23 @@ import UserInterval from "../types/UserInterval";
  * @param userIntervals
  * @return updatedCard - The updated card
  */
-export default function generateUpdatedCard(card: UserCard, isSuccess: boolean, userIntervals: UserInterval[]) {
-  const updatedCard = {...card};
+export default function generateUpdatedCard(
+  card: UserCard,
+  isSuccess: boolean,
+  userIntervals: UserInterval[],
+) {
+  const updatedCard = { ...card };
 
-  const possibleIntervals = userIntervals.filter(({isEnabled}) => isEnabled).map(({value}) => value);
+  const possibleIntervals = userIntervals.filter(
+    ({ isEnabled }) => isEnabled,
+  ).map(
+    ({ value }) => value,
+  );
   const closestSuperiorDelay = possibleIntervals
-    .find((element, index) => {
-        return (
-          card.currentDelay <= possibleIntervals[index]
+    .find((element, index) => (
+      card.currentDelay <= possibleIntervals[index]
           && card.currentDelay > (possibleIntervals[index - 1] || 0)
-        )
-      }
-    );
+    ));
   const currentDelayIndex = possibleIntervals.indexOf(closestSuperiorDelay || 0);
   const shouldIncreaseDelay = isSuccess && currentDelayIndex !== 0;
 
@@ -61,12 +66,18 @@ export default function generateUpdatedCard(card: UserCard, isSuccess: boolean, 
   return updatedCard;
 }
 
-
 /**
- * Compare
- * @param word1
- * @param word2
+ * Remove the diacritics from a string, make it lowercase, remove all spaces and
+ * remove all special characters and remove un, une, le, la, les, du, de, des, d' and l' from the beginning
+ * of the string
+ * @param unnormalizedString - The string to normalize
+ * @return {string} - The string without diacritics, lowercase and without spaces
  */
-function areSameIsh(word1: string, word2: string) {
-
+export function normalizedString(unnormalizedString: string) {
+  return unnormalizedString
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^a-z0-9]/g, '')
+    .replace(/^(un|une|le|la|les|du|de|des|d'|l')/, '');
 }
