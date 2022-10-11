@@ -2,13 +2,15 @@
  * This file has to contain every user value
  * and possible methods to change it
  */
-import React, {createContext, ReactNode, useEffect, useMemo, useState,} from 'react';
-import User from "../types/User";
-import {axiosInstance, postOnServer, setAuthToken} from "../services/server";
-import {addNotification, userPreferencesSavedNotification} from "../services/notification";
-import handleError from "../services/errors";
-import UserInterval from "../types/UserInterval";
-import {ObjectId} from "bson";
+import React, {
+  createContext, ReactNode, useEffect, useMemo, useState,
+} from 'react';
+import { ObjectId } from 'bson';
+import User from '../types/User';
+import { axiosInstance, postOnServer, setAuthToken } from '../services/server';
+import { addNotification, userPreferencesSavedNotification } from '../services/notification';
+import handleError from '../services/errors';
+import UserInterval from '../types/UserInterval';
 
 export type UserContextType = {
   selectedCategory: string | null,
@@ -20,7 +22,8 @@ export type UserContextType = {
   setUser: (_user: User) => void,
   setCategoryDisplayState: (_isDisplayed: boolean) => void,
   setStreakDisplay: (_isDisplayed: boolean) => void,
-  updateInterval: (id: ObjectId, isEnabled: boolean) => void,
+  setSoundActivation: (_isEnabled: boolean) => void,
+  updateInterval: (_id: ObjectId, _isEnabled: boolean) => void,
 }
 
 const userInitialValues: UserContextType = {} as UserContextType;
@@ -32,9 +35,9 @@ type UserContextProviderProps = {
 }
 
 export function UserContextProvider(
-  {children}: UserContextProviderProps,
+  { children }: UserContextProviderProps,
 ) {
-  const [user, setUser] = useState<User>({} as User)
+  const [user, setUser] = useState<User>({} as User);
   const [isDraft, setDraftState] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<string | null>('');
   const [isInitialized, setInitializationState] = useState(false);
@@ -50,19 +53,32 @@ export function UserContextProvider(
         setUser,
         setCategoryDisplayState,
         setStreakDisplay,
+        setSoundActivation,
         updateInterval,
-        intervals
+        intervals,
       }),
     [selectedCategory, user, intervals],
   );
-  useEffect(onMount, [])
-  useEffect(onUserUpdate, [user, intervals])
+  useEffect(onMount, []);
+  useEffect(onUserUpdate, [user, intervals]);
 
   return (
     <UserContext.Provider value={userContextValue}>
       {children}
     </UserContext.Provider>
   );
+
+  /**
+   * Enable or disable sound for user
+   * @param isEnabled
+   */
+  function setSoundActivation(isEnabled: boolean) {
+    setDraftState(true);
+    setUser({
+      ...user,
+      hasSoundEnabled: isEnabled,
+    });
+  }
 
   /**
    * Update the User's choice
@@ -73,9 +89,8 @@ export function UserContextProvider(
     setUser({
       ...user,
       hasCategoriesDisplayed: _isDisplayed,
-    })
+    });
   }
-
 
   /**
    * Update the User's choice
@@ -86,7 +101,7 @@ export function UserContextProvider(
     setUser({
       ...user,
       hasStreakNotifications: _isEnabled,
-    })
+    });
   }
 
   /**
@@ -98,11 +113,11 @@ export function UserContextProvider(
    */
   function updateInterval(id: ObjectId, isEnabled: boolean) {
     setDraftState(true);
-    const updatedIntervals = intervals.map(interval => interval._id === id ? ({
+    const updatedIntervals = intervals.map((interval) => (interval._id === id ? ({
       ...interval,
-      isEnabled: isEnabled
-    }) : interval)
-    setIntervals(updatedIntervals)
+      isEnabled,
+    }) : interval));
+    setIntervals(updatedIntervals);
   }
 
   function onUserUpdate() {
@@ -113,7 +128,7 @@ export function UserContextProvider(
 
     return () => {
       isMounted = false;
-    }
+    };
   }
 
   function onMount() {
@@ -125,7 +140,7 @@ export function UserContextProvider(
 
     return () => {
       isMounted = false;
-    }
+    };
   }
 
   function checkIfUserIsAuthed() {
@@ -144,7 +159,7 @@ export function UserContextProvider(
     axiosInstance.get<User>('/users/connectedUser')
       .then((response) => {
         setUser(response.data);
-        setIntervals(response.data.intervals)
+        setIntervals(response.data.intervals);
         setInitializationState(true);
       }).catch(handleError);
   }
@@ -159,8 +174,8 @@ export function UserContextProvider(
       hasStreakNotifications: user.hasStreakNotifications,
       intervals,
     })
-      .then(response => {
+      .then(() => {
         addNotification(userPreferencesSavedNotification);
-      })
+      });
   }
 }

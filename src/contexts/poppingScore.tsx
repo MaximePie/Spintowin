@@ -1,47 +1,51 @@
-import {createContext, ReactNode, useEffect, useState} from "react";
-import {playSuccessSound} from "../services/sounds";
+import React, {
+  createContext, ReactNode, useContext, useEffect, useState,
+} from 'react';
+import { playSuccessSound } from '../services/sounds';
+import { UserContext } from './user';
 
 type Props = {
   children: ReactNode;
 }
 
 type Context = {
-  displayPopupWithScore: (score: number) => void,
+  displayPopupWithScore: (_score: number) => void,
   shouldScoreBePoppedOut: boolean,
   score: number,
 }
-
 
 export const PoppingScoreContext = createContext({} as Context);
 
 export const PoppingScoreProvider = function (props: Props) {
   let isMounted = true;
+  const { user } = useContext(UserContext);
 
   /**
    * Used to store the popup display timeout
    */
-  let timeout: NodeJS.Timeout | undefined = undefined;
-  const {children} = props;
+  let timeout: NodeJS.Timeout | undefined;
+  const { children } = props;
   const [isDisplayed, setDisplayState] = useState(false);
   const [score, setScore] = useState(5);
-  useEffect(onDisplayStateChange, [isDisplayed])
+  useEffect(onDisplayStateChange, [isDisplayed]);
 
   return (
     <PoppingScoreContext.Provider value={{
       displayPopupWithScore: displayPopup,
       shouldScoreBePoppedOut: isDisplayed,
-      score
-    }}>
+      score,
+    }}
+    >
       {children}
     </PoppingScoreContext.Provider>
-  )
+  );
 
   /**
    * Set the score display state to true
    */
-  function displayPopup(score: number) {
+  function displayPopup(popupScore: number) {
     removePopup();
-    setScore(score);
+    setScore(popupScore);
     setDisplayState(true);
   }
 
@@ -62,13 +66,12 @@ export const PoppingScoreProvider = function (props: Props) {
     clearTimeout(timeout);
 
     if (isMounted && isDisplayed) {
-      playSuccessSound();
-
-      timeout = setTimeout(removePopup, 1000)
+      if (user.hasSoundEnabled) playSuccessSound();
+      timeout = setTimeout(removePopup, 1000);
     }
 
     return () => {
       isMounted = false;
-    }
+    };
   }
-}
+};

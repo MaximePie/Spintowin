@@ -1,5 +1,5 @@
 import { ObjectId } from 'bson';
-import UserInterval from "./UserInterval";
+import UserInterval from './UserInterval';
 
 type User = {
   _id: ObjectId
@@ -9,6 +9,7 @@ type User = {
   experience: number,
   hasCategoriesDisplayed?: boolean,
   hasStreakNotifications?: boolean,
+  hasSoundEnabled?: boolean,
   intervals: UserInterval[],
 }
 
