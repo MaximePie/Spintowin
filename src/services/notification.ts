@@ -4,7 +4,7 @@ import { iNotification } from 'react-notifications-component/dist/src/typings';
 
 const baseNotification: iNotification = {
   insert: 'top',
-  type: "success",
+  type: 'success',
   container: 'top-right',
   animationIn: ['animate__animated', 'animate__fadeIn'],
   animationOut: ['animate__animated', 'animate__fadeOut'],
@@ -45,6 +45,13 @@ export const CardSuccessNotification: iNotification = {
   ...baseNotification,
   title: 'Bravo !',
   message: "Votre carte a correctement été ajoutée ! Allez l'essayer !",
+  type: 'success',
+};
+
+export const BulkUploadSuccessNotification: iNotification = {
+  ...baseNotification,
+  title: 'Bravo !',
+  message: "Vos cartes ont correctement été ajoutées ! Allez les essayer dans l'entrâinement !",
   type: 'success',
 };
 
@@ -89,7 +96,7 @@ export const memorisedNotification: iNotification = {
 export const userPreferencesSavedNotification: iNotification = {
   ...baseNotification,
   title: 'OK !',
-  message: "Vos préférences ont bien été sauvegardées",
+  message: 'Vos préférences ont bien été sauvegardées',
   type: 'success',
 };
 

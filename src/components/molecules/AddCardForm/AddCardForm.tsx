@@ -1,7 +1,7 @@
 import React, {
   ChangeEvent, FormEvent, useContext, useEffect, useState,
 } from 'react';
-import {faQuestion, faLightbulb} from "@fortawesome/free-solid-svg-icons"
+import { faQuestion, faLightbulb } from '@fortawesome/free-solid-svg-icons';
 import { Store } from 'react-notifications-component';
 import ReactTooltip from 'react-tooltip';
 import { OnChangeValue } from 'react-select';
@@ -14,6 +14,7 @@ import { viewportContext } from '../../../contexts/viewport';
 import { UserContext } from '../../../contexts/user';
 import { Field } from './styles';
 import Checkbox from '../../atoms/Checkbox/Checkbox';
+import ExcelUpload from '../../atoms/ExcelUpload/ExcelUpload';
 
 export default function AddCardForm() {
   const userContext = useContext(UserContext);
@@ -43,6 +44,7 @@ export default function AddCardForm() {
   return (
     <div className="AddCardForm">
       <ReactTooltip id="main" place={tooltipPlace} type="dark" effect="solid" multiline />
+      <ExcelUpload />
       <h3>
         Ajouter une question
         <a

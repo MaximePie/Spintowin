@@ -2,11 +2,11 @@
  * This file is made to locate and reuse all the CSS variables
  */
 
-type directions = "row" | "column";
-type flexPositioning = "center" | "baseline" | "space-around" | "space-between" | 'initial' | 'flex-start' | 'end';
+type directions = 'row' | 'column';
+type flexPositioning = 'center' | 'baseline' | 'space-around' | 'space-between' | 'initial' | 'flex-start' | 'end';
 export function flex(
-  direction: directions = "row",
-  alignItems: flexPositioning = "center",
+  direction: directions = 'row',
+  alignItems: flexPositioning = 'center',
   justifyContent: flexPositioning = 'center',
 ) {
   return `
@@ -14,7 +14,7 @@ export function flex(
     justify-content: ${justifyContent};
     align-items: ${alignItems};
     flex-direction: ${direction};
-  `
+  `;
 }
 
 const spacings = {
@@ -34,7 +34,7 @@ const shapes = {
     radius: {
       small: '4px',
       medium: '8px',
-    }
+    },
   },
 };
 
@@ -49,7 +49,7 @@ export const cardStyle = `
   ${flex};
 
   text-align: center;
-`
+`;
 
 const colors = {
   warning: '#eab000',
@@ -59,7 +59,7 @@ const colors = {
   success: '#00e396',
   gray: '#b5b5b5',
   grey: '#707070',
-  white: '#fbfbfb'
+  white: '#fbfbfb',
 };
 
 export const modalContainer = `
@@ -76,7 +76,6 @@ export const modalContainer = `
   width: 100vw;
   height: 100vh;
 `;
-
 
 export {
   colors, shapes, spacings,
