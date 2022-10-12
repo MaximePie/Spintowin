@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 import ExcelUploadDisplay from './ExcelUploadDisplay';
 import { postOnServer } from '../../../services/server';
 import { addNotification, BulkUploadSuccessNotification } from '../../../services/notification';
@@ -6,9 +6,30 @@ import { playSuccessSound } from '../../../services/sounds';
 
 export default function ExcelUpload() {
   const [selectedFile, setSelectedFile] = useState<FileList | null>(null);
+
+  useEffect(onFilesUpdate, [selectedFile]);
+
   return (
     <ExcelUploadDisplay onUpload={handleUpload} selectedFile={selectedFile} />
   );
+
+  function handleUpload(file: FileList | null) {
+    if (file) {
+      setSelectedFile(file);
+    }
+  }
+
+  /**
+   * Effect triggered when the selected file changes
+   * If the file is not empty, trigger the save function
+   */
+  function onFilesUpdate() {
+    if (selectedFile) {
+      save(selectedFile);
+    }
+
+    return () => setSelectedFile(null);
+  }
 
   /**
    * If files is not null
@@ -17,7 +38,7 @@ export default function ExcelUpload() {
    * @param files the files to upload
    * @returns void
    */
-  function handleUpload(files: FileList | null) {
+  function save(files: FileList | null) {
     if (files) {
       const formData = new FormData();
       formData.append('file', files[0]);
