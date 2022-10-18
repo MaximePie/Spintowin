@@ -1,9 +1,10 @@
+import { Coordinates } from '../../../contexts/poppingScore';
 
 type PoppingScoreProps = {
-  score?: number,
 }
 type PoppingScoreDisplayProps = PoppingScoreProps & {
+  score: number
+  coordinates: Coordinates
 }
 
-export type {PoppingScoreDisplayProps, PoppingScoreProps}
-
+export type { PoppingScoreDisplayProps, PoppingScoreProps };

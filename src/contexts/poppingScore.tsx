@@ -11,14 +11,20 @@ type Props = {
 }
 
 type Context = {
-  displayPopupWithScore: (_score: number) => void,
+  displayPopupWithScore: (_score: number, _coordinates: Coordinates | undefined) => void,
   shouldScoreBePoppedOut: boolean,
   score: number,
+  coordinates: Coordinates,
+}
+
+export type Coordinates = {
+  x: number,
+  y: number,
 }
 
 export const PoppingScoreContext = createContext({} as Context);
 
-export const PoppingScoreProvider = function (props: Props) {
+export function PoppingScoreProvider(props: Props) {
   let isMounted = true;
   const { user } = useContext(UserContext);
 
@@ -29,10 +35,12 @@ export const PoppingScoreProvider = function (props: Props) {
   const { children } = props;
   const [isDisplayed, setDisplayState] = useState(false);
   const [score, setScore] = useState(5);
+  const [coordinates, setCoordinates] = useState<Coordinates>({ x: 0, y: 0 });
   useEffect(onDisplayStateChange, [isDisplayed]);
 
   return (
     <PoppingScoreContext.Provider value={{
+      coordinates,
       displayPopupWithScore: displayPopup,
       shouldScoreBePoppedOut: isDisplayed,
       score,
@@ -45,9 +53,10 @@ export const PoppingScoreProvider = function (props: Props) {
   /**
    * Set the score display state to true
    */
-  function displayPopup(popupScore: number) {
+  function displayPopup(popupScore: number, popupCoordinates: Coordinates | undefined) {
     removePopup();
     setScore(popupScore);
+    setCoordinates(popupCoordinates || { x: 0, y: 0 });
     setDisplayState(true);
   }
 
@@ -76,4 +85,4 @@ export const PoppingScoreProvider = function (props: Props) {
       isMounted = false;
     };
   }
-};
+}

@@ -4,10 +4,10 @@ import { PoppingScoreDisplayProps } from './types';
 import { defaultProps } from './defaultProps';
 
 export default function PoppingScoreDisplay(props: PoppingScoreDisplayProps = defaultProps) {
-  const { score } = props;
+  const { score, coordinates } = props;
 
   return (
-    <StyledPoppingScore>
+    <StyledPoppingScore coordinates={coordinates}>
       +
       {' '}
       {score}

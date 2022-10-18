@@ -33,13 +33,14 @@ export default function CardDisplay(props: CardDisplayProps) {
     currentDelay,
     isOwnerOfCard,
     category,
+    _id,
   } = data;
 
   const cardFlipState: FlipState = (!isAnswerShown) ? 'recto' : 'verso';
   const content = cardContent();
 
   return (
-    <Container>
+    <Container id={`card-${_id}`}>
       {isModalOpen && (
         <QuestionEditionModal
           card={data}

@@ -30,7 +30,7 @@ Cards.defaultProps = {
 export default function Cards({
   cardsList, triggerCardUpdate, remainingCards, fetchCards, isLoading,
 }: CardsProps) {
-  const { shouldScoreBePoppedOut, score, displayPopupWithScore } = useContext(PoppingScoreContext);
+  const { shouldScoreBePoppedOut, displayPopupWithScore } = useContext(PoppingScoreContext);
   const { user: { hasStreakNotifications }, intervals } = useContext(UserContext);
   const [isScoreDisplayed, setScoreDisplayState] = useState(false);
   const [shouldCardsBeInverted, setInvertedState] = useState(false);
@@ -42,7 +42,7 @@ export default function Cards({
     <div className="Cards">
       <div className="Card Card--static">
         {shouldScoreBePoppedOut && (
-          <PoppingScore score={score} />
+          <PoppingScore />
         )}
         <p className="Card__answer">
           {remainingCards}
@@ -134,7 +134,16 @@ export default function Cards({
       }
 
       if (isSuccess) {
-        displayPopupWithScore(targetCard.currentDelay);
+        // Get coordinates of the card
+        const cardElement = document.getElementById(`card-${cardId}`);
+        let coordinates;
+
+        if (cardElement) {
+          const { x, y } = cardElement.getBoundingClientRect();
+          coordinates = { x, y };
+          console.log(coordinates);
+        }
+        displayPopupWithScore(targetCard.currentDelay, coordinates);
       }
 
       // TODO - Disable this line if you want the streak effect back.
