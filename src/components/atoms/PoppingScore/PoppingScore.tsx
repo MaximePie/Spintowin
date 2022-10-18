@@ -1,8 +1,9 @@
+import React from 'react';
+import PoppingScoreDisplay from './PoppingScoreDisplay';
+import { PoppingScoreProps } from './types';
 
-import React from "react"
-import PoppingScoreDisplay from "./PoppingScoreDisplay"
-export default function PoppingScore() {
+export default function PoppingScore({ score }: PoppingScoreProps) {
   return (
-    <PoppingScoreDisplay></PoppingScoreDisplay>
-  )
+    <PoppingScoreDisplay score={score} />
+  );
 }

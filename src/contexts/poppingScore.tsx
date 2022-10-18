@@ -4,6 +4,8 @@ import React, {
 import { playSuccessSound } from '../services/sounds';
 import { UserContext } from './user';
 
+const duration = 750;
+
 type Props = {
   children: ReactNode;
 }
@@ -67,7 +69,7 @@ export const PoppingScoreProvider = function (props: Props) {
 
     if (isMounted && isDisplayed) {
       if (user.hasSoundEnabled) playSuccessSound();
-      timeout = setTimeout(removePopup, 1000);
+      timeout = setTimeout(removePopup, duration);
     }
 
     return () => {

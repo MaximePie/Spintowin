@@ -1,11 +1,10 @@
-import React, {KeyboardEvent, useEffect, useState} from 'react';
-import {UserContext} from "../../../contexts/user";
-import {CardProps} from './types';
-import CardDisplay from "./CardDisplay";
-import {QuestContext} from "../../../contexts/quest";
+import React, { KeyboardEvent, useEffect, useState } from 'react';
+import { UserContext } from '../../../contexts/user';
+import { CardProps } from './types';
+import CardDisplay from './CardDisplay';
+import { QuestContext } from '../../../contexts/quest';
 
 const Card = function Card(props: CardProps) {
-
   const {
     data,
     onAnswer,
@@ -24,8 +23,8 @@ const Card = function Card(props: CardProps) {
   const [isModalOpen, setOpenModalState] = useState(false);
   const isAnswerShownRef = React.useRef(false);
 
-  const {user: {hasCategoriesDisplayed}} = React.useContext(UserContext);
-  const {ignore: ignoreCard} = React.useContext(QuestContext);
+  const { user: { hasCategoriesDisplayed } } = React.useContext(UserContext);
+  const { ignore: ignoreCard } = React.useContext(QuestContext);
 
   useEffect(() => {
     if (isAnswerSuccessful === true || isAnswerSuccessful === false) {
@@ -85,14 +84,18 @@ const Card = function Card(props: CardProps) {
    * @param event
    */
   function reveal(event: KeyboardEvent<HTMLDivElement> | null = null) {
-      if ((event?.code === 'enter' || !event) && !isAnswerShown) {
-        setAnswerDisplayState(true);
-        isAnswerShownRef.current = true;
-      }
+    if ((event?.code === 'enter' || !event) && !isAnswerShown) {
+      setAnswerDisplayState(true);
+      isAnswerShownRef.current = true;
+    }
   }
 
-  function handleAnswer(isAnswerSuccessful: boolean) {
-    setAnswerSuccessState(isAnswerSuccessful);
+  /**
+   * Handle the answer of the user
+   * @param isSuccessful - true if the answer is correct, false otherwise
+   */
+  function handleAnswer(isSuccessful: boolean) {
+    setAnswerSuccessState(isSuccessful);
   }
 
   /**
@@ -101,7 +104,6 @@ const Card = function Card(props: CardProps) {
   function openModal() {
     setOpenModalState(true);
   }
-
 
   /**
    * Closes the modal, and updates the current collection
@@ -123,7 +125,6 @@ const Card = function Card(props: CardProps) {
    * Mode !== quest only !
    */
   function setKeyBinds() {
-
     function eventHandler(event: globalThis.KeyboardEvent) {
       switch (event.code) {
         case 'NumpadEnter':

@@ -1,18 +1,18 @@
-import React, {useContext, useState} from 'react';
-import {Link} from 'react-router-dom';
-import {Store} from 'react-notifications-component';
+import React, { useContext, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { Store } from 'react-notifications-component';
 import Card from './Card/Card';
 
-import {memorisedNotification, streakNotification} from '../../services/notification';
-import {viewportContext} from '../../contexts/viewport';
+import { memorisedNotification, streakNotification } from '../../services/notification';
+import { viewportContext } from '../../contexts/viewport';
 import LoadingGif from '../atoms/LoadingGif';
 
 import generateUpdatedCard from '../../services/card';
 import UserCard from '../../types/UserCard';
 import CardType from '../../types/Card';
-import {UserContext} from "../../contexts/user";
-import PoppingScoreDisplay from "../atoms/PoppingScore/PoppingScoreDisplay";
-import {PoppingScoreContext} from "../../contexts/poppingScore";
+import { UserContext } from '../../contexts/user';
+import { PoppingScoreContext } from '../../contexts/poppingScore';
+import PoppingScore from '../atoms/PoppingScore/PoppingScore';
 
 type CardsProps = {
   cardsList: UserCard[],
@@ -28,13 +28,13 @@ Cards.defaultProps = {
 };
 
 export default function Cards({
-                                cardsList, triggerCardUpdate, remainingCards, fetchCards, isLoading,
-                              }: CardsProps) {
-  const {shouldScoreBePoppedOut, score, displayPopupWithScore} = useContext(PoppingScoreContext);
-  const {user: {hasStreakNotifications}, intervals} = useContext(UserContext);
+  cardsList, triggerCardUpdate, remainingCards, fetchCards, isLoading,
+}: CardsProps) {
+  const { shouldScoreBePoppedOut, score, displayPopupWithScore } = useContext(PoppingScoreContext);
+  const { user: { hasStreakNotifications }, intervals } = useContext(UserContext);
   const [isScoreDisplayed, setScoreDisplayState] = useState(false);
   const [shouldCardsBeInverted, setInvertedState] = useState(false);
-  const {isMobile} = React.useContext(viewportContext);
+  const { isMobile } = React.useContext(viewportContext);
 
   const formattedCards = formattedCardsList();
 
@@ -42,14 +42,14 @@ export default function Cards({
     <div className="Cards">
       <div className="Card Card--static">
         {shouldScoreBePoppedOut && (
-          <PoppingScoreDisplay score={score}/>
+          <PoppingScore score={score} />
         )}
         <p className="Card__answer">
           {remainingCards}
           {' '}
           cartes
         </p>
-        <LoadingGif isLoading={isLoading || false} className="Cards__loading"/>
+        <LoadingGif isLoading={isLoading || false} className="Cards__loading" />
         <div>
           <label className="Card--static__label">
             <input
@@ -100,18 +100,17 @@ export default function Cards({
       let displayedImages = 0;
       const maxDisplayedImages = 3;
 
-      return cardsList.filter(card => {
+      return cardsList.filter((card) => {
         if ((card.image && displayedImages === maxDisplayedImages)) {
           return false;
         }
         if (card.image) {
           displayedImages++;
         }
-        return true
-      })
-    } else {
-      return [];
+        return true;
+      });
     }
+    return [];
   }
 
   /**

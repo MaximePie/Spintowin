@@ -1,9 +1,11 @@
-import QuestionEditionModal from "../QuestionEditionModal/QuestionEditionModal";
-import {CSSTransition} from "react-transition-group";
-import React from "react";
-import {CardDisplayProps, FlipState} from "./types"
-import {StyledCard, Delay, Image, Content, Edit, StyledButton, Container, Category} from "./styles";
-import {faEdit} from '@fortawesome/free-solid-svg-icons'
+import { CSSTransition } from 'react-transition-group';
+import React from 'react';
+import { faEdit } from '@fortawesome/free-solid-svg-icons';
+import QuestionEditionModal from '../QuestionEditionModal/QuestionEditionModal';
+import { CardDisplayProps, FlipState } from './types';
+import {
+  StyledCard, Delay, Image, Content, Edit, StyledButton, Container, Category,
+} from './styles';
 
 export default function CardDisplay(props: CardDisplayProps) {
   const {
@@ -22,7 +24,7 @@ export default function CardDisplay(props: CardDisplayProps) {
     onModalOpen,
     data,
     image,
-    mode
+    mode,
   } = props;
 
   const {
@@ -33,7 +35,7 @@ export default function CardDisplay(props: CardDisplayProps) {
     category,
   } = data;
 
-  const cardFlipState: FlipState = (!isAnswerShown) ? 'recto' : 'verso'
+  const cardFlipState: FlipState = (!isAnswerShown) ? 'recto' : 'verso';
   const content = cardContent();
 
   return (
@@ -123,7 +125,7 @@ export default function CardDisplay(props: CardDisplayProps) {
         </StyledCard>
       </CSSTransition>
     </Container>
-  )
+  );
 
   /**
    * Return the text displayed in the card
@@ -131,14 +133,12 @@ export default function CardDisplay(props: CardDisplayProps) {
   function cardContent(): string {
     if (cardFlipState === 'recto') {
       if (question && !isInverted) {
-        return question
-      } else if (answer && isInverted) {
-        return answer
-      } else {
-        return ''
+        return question;
+      } if (answer && isInverted) {
+        return answer;
       }
-    } else {
-      return isInverted ? (question || '') : answer
+      return '';
     }
+    return isInverted ? (question || '') : answer;
   }
 }
