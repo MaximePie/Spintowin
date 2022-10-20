@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { colors, shapes } from '../../../style/StyledComponents/variables';
 import { Coordinates } from '../../../contexts/poppingScore';
+import { poppingScoreDuration } from './helpers';
 
 type Props = {
   coordinates: Coordinates,
@@ -19,11 +20,9 @@ export const StyledPoppingScore = styled.span<Props>`
   // Left is displayed the popping score at the center of the card
   top: calc(${(props) => props.coordinates.y}px - 3em);
   left: calc(${(props) => props.coordinates.x}px);
-  transition: all 0.2s ease-in-out;
-  
-  animation: popInAndOut 700ms ease-in-out forwards;
-  
-  @keyframes popInAndOut { 
+  animation: popInAndOut ${poppingScoreDuration}ms ease-in-out forwards;
+
+  @keyframes popInAndOut {
     0% {
       transform: scale(0);
     }

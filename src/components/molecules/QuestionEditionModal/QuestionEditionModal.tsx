@@ -1,10 +1,12 @@
 import React from 'react';
+import { faLightbulb, faQuestion } from '@fortawesome/free-solid-svg-icons';
 import InputGroup from '../../atoms/InputGroup/InputGroup';
-import QuestionEditionModalProps from "./types";
-import useQuestionEditionModal from "./useQuestionEditionModal";
-import {CloseButton, Modal, ModalContainer, Form, Fields, Field, Actions} from "./styles";
-import Button from "../../atoms/Button/Button"
-import {faLightbulb, faQuestion} from "@fortawesome/free-solid-svg-icons";
+import QuestionEditionModalProps from './types';
+import useQuestionEditionModal from './useQuestionEditionModal';
+import {
+  CloseButton, Modal, ModalContainer, Form, Fields, Field, Actions,
+} from './styles';
+import Button from '../../atoms/Button/Button';
 
 QuestionEditionModal.defaultProps = {
   isOwnerOfCard: false,
@@ -21,8 +23,8 @@ export default function QuestionEditionModal(props: QuestionEditionModalProps) {
     initialAnswer,
     updateAnswer,
     save,
-    deleteCard
-  } = useQuestionEditionModal(props)
+    deleteCard,
+  } = useQuestionEditionModal(props);
 
   return (
     <ModalContainer>

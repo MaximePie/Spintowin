@@ -41,7 +41,7 @@ export default function Cards({
   return (
     <div className="Cards">
       <div className="Card Card--static">
-        {shouldScoreBePoppedOut && (
+        {(shouldScoreBePoppedOut) && (
           <PoppingScore />
         )}
         <p className="Card__answer">

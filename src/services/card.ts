@@ -68,7 +68,8 @@ export default function generateUpdatedCard(
 
 /**
  * Remove the diacritics from a string, make it lowercase, remove all spaces and
- * remove all special characters and remove un, une, le, la, les, du, de, des, d' and l' from the beginning
+ * remove all special characters and remove un, une, le, la, les, du, de, des, d' and l'
+ * from the beginning
  * of the string
  * @param unnormalizedString - The string to normalize
  * @return {string} - The string without diacritics, lowercase and without spaces

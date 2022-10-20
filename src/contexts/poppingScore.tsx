@@ -3,8 +3,7 @@ import React, {
 } from 'react';
 import { playSuccessSound } from '../services/sounds';
 import { UserContext } from './user';
-
-const duration = 750;
+import { poppingScoreDuration as duration } from '../components/atoms/PoppingScore/helpers';
 
 type Props = {
   children: ReactNode;
