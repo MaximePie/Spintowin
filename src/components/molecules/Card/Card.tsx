@@ -25,6 +25,7 @@ const Card = function Card(props: CardProps) {
 
   const { user: { hasCategoriesDisplayed } } = React.useContext(UserContext);
   const { ignore: ignoreCard } = React.useContext(QuestContext);
+  const hints = data.hints || [];
 
   useEffect(() => {
     if (isAnswerSuccessful === true || isAnswerSuccessful === false) {
@@ -55,6 +56,7 @@ const Card = function Card(props: CardProps) {
       onModalClose={closeModal}
       onModalOpen={openModal}
       onRightClick={handleRightClick}
+      hints={hints}
     />
   );
 

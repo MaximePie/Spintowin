@@ -4,7 +4,7 @@ import InputGroup from '../../atoms/InputGroup/InputGroup';
 import QuestionEditionModalProps from './types';
 import useQuestionEditionModal from './useQuestionEditionModal';
 import {
-  CloseButton, Modal, ModalContainer, Form, Fields, Field, Actions,
+  CloseButton, Modal, ModalContainer, Form, Fields, Field, Actions, Hints,
 } from './styles';
 import Button from '../../atoms/Button/Button';
 
@@ -24,6 +24,9 @@ export default function QuestionEditionModal(props: QuestionEditionModalProps) {
     updateAnswer,
     save,
     deleteCard,
+    hint,
+    hints,
+    onHintUpdate,
   } = useQuestionEditionModal(props);
 
   return (
@@ -41,6 +44,15 @@ export default function QuestionEditionModal(props: QuestionEditionModalProps) {
           <div>
             <h4>{initialQuestion}</h4>
             <h4>{initialAnswer}</h4>
+            <label htmlFor="">
+              Petit indice ?
+              <InputGroup
+                value={hint}
+                onChange={onHintUpdate}
+                icon={faLightbulb}
+                placeholder="Indice"
+              />
+            </label>
           </div>
         )}
         {isOwnerOfCard && (
@@ -54,32 +66,55 @@ export default function QuestionEditionModal(props: QuestionEditionModalProps) {
             />
             <Form onSubmit={save}>
               <Fields>
-                <Field>
-                  <label>
-                    Question
-                    <InputGroup
-                      type="text"
-                      value={question || ''}
-                      onChange={updateQuestion}
-                      icon={faQuestion}
-                      isIconSolid
-                      placeholder="Quelle est la taille d'un castor ?"
-                    />
-                  </label>
-                </Field>
                 <div>
-                  <label>
-                    Réponse
+                  <Field>
+                    <label>
+                      Question
+                      <InputGroup
+                        type="text"
+                        value={question || ''}
+                        onChange={updateQuestion}
+                        icon={faQuestion}
+                        isIconSolid
+                        placeholder="Quelle est la taille d'un castor ?"
+                      />
+                    </label>
+                  </Field>
+                  <div>
+                    <label>
+                      Réponse
+                      <InputGroup
+                        type="text"
+                        value={answer}
+                        onChange={updateAnswer}
+                        icon={faLightbulb}
+                        isIconSolid
+                        placeholder="80 - 100 cm"
+                      />
+                    </label>
+                  </div>
+                  <label htmlFor="">
+                    Petit indice ?
                     <InputGroup
-                      type="text"
-                      value={answer}
-                      onChange={updateAnswer}
+                      value={hint}
+                      onChange={onHintUpdate}
                       icon={faLightbulb}
-                      isIconSolid
-                      placeholder="80 - 100 cm"
+                      placeholder="Indice"
                     />
                   </label>
                 </div>
+                {hints && (
+                  <Hints>
+                    <h4>Indices</h4>
+                    <ul>
+                      {hints?.map((existingHint) => (
+                        <li key={existingHint}>
+                          {existingHint}
+                        </li>
+                      ))}
+                    </ul>
+                  </Hints>
+                )}
               </Fields>
               <Actions>
                 <Button

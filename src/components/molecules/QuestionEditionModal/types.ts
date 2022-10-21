@@ -1,4 +1,4 @@
-import UserCard from "../../../types/UserCard";
+import UserCard from '../../../types/UserCard';
 
 type QuestionEditionModalProps = {
   card: UserCard,
@@ -6,4 +6,4 @@ type QuestionEditionModalProps = {
   onClose: Function
 }
 
-export default QuestionEditionModalProps
+export default QuestionEditionModalProps;

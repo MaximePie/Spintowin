@@ -18,6 +18,8 @@ export function flex(
 }
 
 const spacings = {
+  extraLarge: '3rem',
+  large: '2rem',
   medium: '1rem',
   small: '0.5rem',
   smaller: '0.25rem',

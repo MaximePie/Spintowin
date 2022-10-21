@@ -1,10 +1,12 @@
 import { CSSTransition } from 'react-transition-group';
 import React from 'react';
+import ReactTooltip from 'react-tooltip';
+
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import QuestionEditionModal from '../QuestionEditionModal/QuestionEditionModal';
 import { CardDisplayProps, FlipState } from './types';
 import {
-  StyledCard, Delay, Image, Content, Edit, StyledButton, Container, Category,
+  StyledCard, Delay, Image, Content, Edit, StyledButton, Container, Category, Hint,
 } from './styles';
 
 export default function CardDisplay(props: CardDisplayProps) {
@@ -25,6 +27,7 @@ export default function CardDisplay(props: CardDisplayProps) {
     data,
     image,
     mode,
+    hints,
   } = props;
 
   const {
@@ -60,6 +63,19 @@ export default function CardDisplay(props: CardDisplayProps) {
           onContextMenu={onRightClick}
         >
           <div>
+            {hints.length > 0 && (
+              <Hint>
+                <ReactTooltip id={`main-${_id}`} place="top" type="dark" effect="solid" multiline />
+                <span
+                  className="AddCardForm__hint"
+                  data-for={`main-${_id}`}
+                  data-tip={hints.join('|')}
+                  data-iscapture="true"
+                >
+                  <i className="far fa-question-circle" />
+                </span>
+              </Hint>
+            )}
             {hasCategoriesDisplayed && category && (
               <Category>
                 {category}
@@ -135,7 +151,8 @@ export default function CardDisplay(props: CardDisplayProps) {
     if (cardFlipState === 'recto') {
       if (question && !isInverted) {
         return question;
-      } if (answer && isInverted) {
+      }
+      if (answer && isInverted) {
         return answer;
       }
       return '';

@@ -1,5 +1,5 @@
-import UserCard from "../../../types/UserCard";
-import {KeyboardEventHandler, MouseEventHandler} from "react";
+import { KeyboardEventHandler, MouseEventHandler } from 'react';
+import UserCard from '../../../types/UserCard';
 
 export type CardProps = {
   data: UserCard,
@@ -27,9 +27,9 @@ export type CardDisplayProps =
   onModalOpen: MouseEventHandler,
   onKeypress: KeyboardEventHandler<HTMLDivElement>,
   onRightClick: MouseEventHandler,
-  onAnswer: (isAnswerSuccessful: boolean) => void,
+  onAnswer: (_isAnswerSuccessful: boolean) => void,
+  hints: string[],
 }
-
 
 export type StyledCardProps = {
   noBorders?: boolean,
@@ -40,4 +40,4 @@ export type StyledButtonProps = {
   isFailed?: boolean,
 }
 
-export type FlipState = "recto" | "verso"
+export type FlipState = 'recto' | 'verso'
