@@ -1,11 +1,13 @@
 import React from 'react';
-import { Stats, StatsListTop, StatsListLarge } from './styles';
+import {
+  Stats, StatsListTop, StatsListLarge, IconButton,
+} from './styles';
 import { StatsDisplayProps } from './types';
 import SettingsModal from '../../molecules/SettingsModal/SettingsModal';
-import IconButton from '../../atoms/IconButton/IconButton';
 import Profile from '../../molecules/Profile';
 import StatsCard from '../../molecules/StatsCard';
 import AnswersBarChart from '../../molecules/AnswersBarChart';
+import Objectives from '../../molecules/Objectives/Objectives';
 
 export default function StatsDisplay({
   areSettingsDisplayed,
@@ -24,6 +26,7 @@ export default function StatsDisplay({
       </h1>
       <StatsListTop>
         <Profile />
+        <Objectives />
       </StatsListTop>
       <StatsListLarge>
         <StatsCard title="Réponses" component={<AnswersBarChart />} />

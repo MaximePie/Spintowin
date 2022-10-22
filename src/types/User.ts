@@ -11,6 +11,8 @@ type User = {
   hasStreakNotifications?: boolean,
   hasSoundEnabled?: boolean,
   intervals: UserInterval[],
+  limitDate?: string,
+  remainingCards?: number,
 }
 
 export default User;

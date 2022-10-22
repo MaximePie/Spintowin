@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import IconButtonBase from '../../atoms/IconButton/IconButton';
 
 export const Stats = styled.div`
   padding: 1rem;
@@ -25,4 +26,8 @@ export const StatsListLarge = styled.div`
 @include for-phone-only {
   grid-template-columns: initial;
 }
+`;
+
+export const IconButton = styled(IconButtonBase)`
+  margin-left: {$spacings.medium};
 `;

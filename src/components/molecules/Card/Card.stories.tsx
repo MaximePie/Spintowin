@@ -1,10 +1,9 @@
-import React, {KeyboardEvent, useState} from 'react';
-import {ComponentStory, ComponentMeta} from '@storybook/react';
-import CardDisplay from './CardDisplay';
-import {ObjectId} from "bson";
-import {CardDisplayProps, CardProps} from "./types";
+import React, { KeyboardEvent, useState } from 'react';
+import { ComponentStory, ComponentMeta } from '@storybook/react';
+import { ObjectId } from 'bson';
 import { faker } from '@faker-js/faker';
-
+import CardDisplay from './CardDisplay';
+import { CardDisplayProps, CardProps } from './types';
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
@@ -12,15 +11,12 @@ export default {
   component: CardDisplay,
   // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
   argTypes: {
-    backgroundColor: {control: 'color'},
+    backgroundColor: { control: 'color' },
   },
 } as ComponentMeta<typeof CardDisplay>;
 
-
-
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
 const Template: ComponentStory<typeof CardDisplay> = function Template(args) {
-
   const {
     hasCategoriesDisplayed,
     image,
@@ -28,10 +24,10 @@ const Template: ComponentStory<typeof CardDisplay> = function Template(args) {
     isInverted,
     isSingle,
     data,
-  } = args as CardDisplayProps
+  } = args as CardDisplayProps;
 
   const [isAnswerShown, setAnswerDisplayState] = useState(false);
-  const [isAnswerSuccessful, setAnswerSuccessState] = useState<boolean | undefined>(undefined);
+  const [isAnswerSuccessful] = useState<boolean | undefined>(undefined);
   const [isModalOpen, setOpenModalState] = useState(false);
   const isAnswerShownRef = React.useRef(false);
 
@@ -53,12 +49,9 @@ const Template: ComponentStory<typeof CardDisplay> = function Template(args) {
       onModalClose={closeModal}
       onModalOpen={openModal}
       onRightClick={() => {}}
+      hints={[]}
     />
   );
-
-  function handleAnswer(isAnswerSuccessful: boolean) {
-    setAnswerSuccessState(isAnswerSuccessful);
-  }
 
   function reveal(event: KeyboardEvent<HTMLDivElement> | null = null) {
     if ((event?.code === 'enter' || !event) && !isAnswerShown) {
@@ -67,7 +60,6 @@ const Template: ComponentStory<typeof CardDisplay> = function Template(args) {
     }
   }
 
-
   /**
    * Open the question edition modal
    */
@@ -75,39 +67,37 @@ const Template: ComponentStory<typeof CardDisplay> = function Template(args) {
     setOpenModalState(true);
   }
 
-
   /**
    * Closes the modal, and updates the current collection
    */
   function closeModal() {
     setOpenModalState(false);
   }
-}
+};
 
 const data: CardProps['data'] = {
   _id: new ObjectId(),
   answer: 'Réponse',
   question: 'Question',
-  image: "haha"  ,
-  currentDelay: parseInt(faker.random.numeric(3)),
+  image: 'haha',
+  currentDelay: parseInt(faker.random.numeric(3), 10),
   cardId: new ObjectId(),
   isOwnerOfCard: false,
   currentSuccessfulAnswerStreak: 3,
   category: 'Suuuper',
-}
-
+};
 
 export const Default = Template.bind({});
 Default.args = {
   hasCategoriesDisplayed: false,
   data,
-}
+};
 
 export const WithCategories = Template.bind({});
 WithCategories.args = {
   hasCategoriesDisplayed: true,
-  data
-}
+  data,
+};
 
 export const WithImage = Template.bind({});
 WithImage.args = {
@@ -116,27 +106,25 @@ WithImage.args = {
     question: '',
   },
   image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Cat03.jpg/1200px-Cat03.jpg',
-}
-
+};
 
 export const WithLongDelay = Template.bind({});
 WithLongDelay.args = {
   data: {
     ...data,
-    currentDelay: parseInt(faker.random.numeric(12))
+    currentDelay: parseInt(faker.random.numeric(12), 10),
   },
   isScoreDisplayed: true,
-}
+};
 
 export const isSingle = Template.bind({});
 isSingle.args = {
   isSingle: true,
-  data
-}
+  data,
+};
 
-export const isSingleWithImage = Template.bind({})
+export const isSingleWithImage = Template.bind({});
 isSingleWithImage.args = {
   ...WithImage.args,
   isSingle: true,
-}
-
+};

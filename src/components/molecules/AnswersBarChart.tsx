@@ -1,7 +1,7 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Chart from 'react-apexcharts';
-import {getFromServer} from '../../services/server';
-import {UserContext} from "../../contexts/user";
+import { getFromServer } from '../../services/server';
+import { UserContext } from '../../contexts/user';
 
 type answerType = {
   delay: number,
@@ -18,12 +18,12 @@ type graphDataType = answerType[];
  */
 export default function AnswersBarChart() {
   const [graphData, setGraphData] = useState<graphDataType>({} as graphDataType);
-  const {intervals: flatIntervals} = useContext(UserContext);
+  const { intervals: flatIntervals } = useContext(UserContext);
   let isMounted = false;
 
   const intervals = flatIntervals
     .filter((interval, index) => index > 1 && interval.isEnabled)
-    .map(({value}) => value)
+    .map(({ value }) => value);
 
   useEffect(() => {
     isMounted = true;
@@ -39,7 +39,7 @@ export default function AnswersBarChart() {
         id: 'basic-bar',
       },
       xaxis: {
-        categories: intervals
+        categories: intervals,
       },
       colors: ['#f04444', '#1e8ee9'],
     },
@@ -80,7 +80,7 @@ export default function AnswersBarChart() {
     return intervals.filter((interval, index) => index > 1).map((interval) => {
       if (graphData?.length) {
         const answer: answerType | undefined = graphData
-            .find((graphAnswer: answerType) => graphAnswer.delay === interval)
+          .find((graphAnswer: answerType) => graphAnswer.delay === interval)
           || {} as answerType;
 
         if (answer) {
@@ -97,9 +97,9 @@ export default function AnswersBarChart() {
    */
   function successfulAnswersRate() {
     return intervals
-      .map((interval => {
+      .map(((interval) => {
         if (graphData?.length) {
-          const answerDelay = graphData.find(({delay}) => delay === interval);
+          const answerDelay = graphData.find(({ delay }) => delay === interval);
           if (answerDelay) {
             // I am using magic numbers because of float numbers, this is a mess i'm sorry. x(
             return `${(10000 - Math.round(answerDelay!.successfulAnswersRate * 100)) / 100} `;
@@ -107,7 +107,7 @@ export default function AnswersBarChart() {
           return 0;
         }
         return 0;
-      }))
+      }));
   }
 
   function fetchData() {
