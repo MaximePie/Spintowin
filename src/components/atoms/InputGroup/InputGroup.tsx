@@ -1,10 +1,10 @@
 import React from 'react';
-import { StyledInputGroup, Icon, StyledInput} from './styles';
-import {InputGroupProps} from "./types"
+import { StyledInputGroup, Icon, StyledInput } from './styles';
+import { InputGroupProps } from './types';
 
 InputGroup.defaultProps = {
   isIconSolid: true,
-  className: "",
+  className: '',
   type: 'text',
   icon: '',
 };
@@ -17,13 +17,12 @@ export default function InputGroup(props: InputGroupProps) {
     className,
     placeholder,
     icon,
-  } = props
+  } = props;
 
   return (
     <StyledInputGroup>
-      {icon &&
-        <Icon icon={icon}/>
-      }
+      {icon
+        && <Icon icon={icon} />}
       <StyledInput
         type={type}
         value={value}

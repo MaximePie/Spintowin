@@ -1,14 +1,5 @@
-.AuthForm-container {
-  // Screen size - Nav bar height - padding top - Navbar padding
-  height: calc(100vh - #{$navbarHeight} - 8rem - 1rem);
-  padding-top: 8rem;
-}
 
 .AuthForm {
-  @include cardStyle;
-  margin: 0 auto;
-  width: 300px;
-
   &__field {
     display: flex;
     justify-content: center;

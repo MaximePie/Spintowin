@@ -4,7 +4,7 @@ import { ViewportContextProvider } from './contexts/viewport';
 import { UserContextProvider } from './contexts/user';
 import { PoppingScoreProvider } from './contexts/poppingScore';
 
-import AuthForm from './components/pages/AuthForm';
+import AuthForm from './components/pages/AuthForm/AuthForm';
 import Training from './components/pages/Training/Training';
 import AddCard from './components/pages/AddCard';
 import WelcomePage from './components/pages/WelcomePage';
@@ -80,6 +80,7 @@ function App() {
   }
 
   function getUserWithToken(token: string, isAfterLogging = false) {
+    console.log(`Getting user with token${token} and isAfterLogging = ${isAfterLogging}`);
     axiosInstance.get<User>('/users/connectedUser')
       .then((connectedUser) => {
         setLoading(false);

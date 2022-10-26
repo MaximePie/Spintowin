@@ -172,6 +172,7 @@ export function UserContextProvider(
     postOnServer('/users/connectedUser/preferences/update', {
       hasCategoriesDisplayed: user.hasCategoriesDisplayed,
       hasStreakNotifications: user.hasStreakNotifications,
+      hasSoundEnabled: user.hasSoundEnabled,
       intervals,
     })
       .then(() => {

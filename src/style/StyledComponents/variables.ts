@@ -28,6 +28,7 @@ const spacings = {
 const shapes = {
   cardWidth: '180px',
   singleCardWidth: '340px',
+  navbarHeight: '40px',
 
   borders: {
     defaultBorderRadius: '8px',
