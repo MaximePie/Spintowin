@@ -9,9 +9,10 @@ export default function Objectives() {
   // get limit date from user context
   const { user: { limitDate: initialDate, remainingCards = 0 } } = useContext(UserContext);
   const [limitDate, setLimitDate] = React.useState<string | undefined>(moment(initialDate).format('DD/MM/YYYY') || undefined);
-
+  // 80% of the remaining days
+  const remainingDays = Math.round(moment(limitDate, 'DD/MM/YYYY').diff(moment(), 'days') * 0.8);
   // Calculate the number of cards to learn per day to reach the limit date
-  const cardsPerDay = Math.round(remainingCards / moment(limitDate, 'DD/MM/YYYY').diff(moment(), 'days'));
+  const cardsPerDay = Math.round(remainingCards / remainingDays);
   const objective = remainingCards - cardsPerDay;
 
   return (
