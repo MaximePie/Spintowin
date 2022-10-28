@@ -69,7 +69,7 @@ export default function CardDisplay(props: CardDisplayProps) {
                 <span
                   className="AddCardForm__hint"
                   data-for={`main-${_id}`}
-                  data-tip={hints.join('|')}
+                  data-tip={hints.join(' | ')}
                   data-iscapture="true"
                 >
                   <i className="far fa-question-circle" />
