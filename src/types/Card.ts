@@ -4,7 +4,7 @@ import ImageType from './ImageType';
 type CardType = {
   question: string;
   answer: string;
-  _id: typeof ObjectId,
+  _id: ObjectId,
   isAssignedToConnectedUser?: boolean,
   image?: ImageType
 }

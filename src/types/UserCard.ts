@@ -2,16 +2,18 @@ import { ObjectId } from 'bson';
 import intervals from '../data/cards';
 import ImageType from './ImageType';
 
-type UserCardType = {
+type UserCard = {
   isAssignedToConnectedUser?: boolean;
-  _id: typeof ObjectId,
-  cardId: typeof ObjectId,
+  _id: ObjectId,
+  cardId: ObjectId,
   currentDelay: typeof intervals[number],
   isMemorized?: boolean,
   answer: string,
-  question: string,
-  image: ImageType,
+  question?: string,
+  hints?: string[],
+  image?: string,
   isOwnerOfCard: boolean,
-  category: string | null
+  category: string | null,
+  currentSuccessfulAnswerStreak: number,
 }
-export default UserCardType;
+export default UserCard;

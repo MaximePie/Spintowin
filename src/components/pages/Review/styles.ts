@@ -4,21 +4,21 @@ import {
 } from '../../../style/StyledComponents/variables';
 import ScorePropsType from './types';
 
-const StyledReview = styled.div`${flex}`;
+const StyledReview = styled.div`${flex('column')}`;
 const Content = styled.div`
-  ${flex};
+  ${flex('column')};
   width: ${shapes.singleCardWidth};
 `;
 
-const Header = styled.h4`margin: ${spacings.small} 0`;
+const Header = styled.h4`margin: ${spacings.smaller} 0`;
 
 const Score = styled.i<ScorePropsType>`
   color: ${scoreColor}
 `;
 
 function scoreColor({ type }: ScorePropsType) {
-  const { successColor, dangerColor } = colors;
-  return type === 'success' ? successColor : dangerColor;
+  const { success, danger } = colors;
+  return type === 'success' ? success : danger;
 }
 
 /**

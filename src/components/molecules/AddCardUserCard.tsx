@@ -1,10 +1,10 @@
 import React, { memo, useState } from 'react';
 import AddCardUserCardDetails from './AddCardUserCardDetails';
-import UserCardType from '../../types/UserCard';
+import UserCard from '../../types/UserCard';
 import CardType from '../../types/Card';
 
 type AddCardUserCardProps = {
-  card: UserCardType,
+  card: UserCard,
   onAddCardToCart: Function,
 }
 

@@ -1,6 +1,6 @@
 import React from 'react';
-import loadingGif from '../../images/loading.gif';
-import sleepingCastor from '../../images/sleepingcastor.png';
+import loadingGif from '../../resources/images/loading.gif';
+import sleepingCastor from '../../resources/images/sleepingcastor.png';
 
 export default function LoadingAppGif() {
   return (

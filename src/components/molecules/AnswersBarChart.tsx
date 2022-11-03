@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Chart from 'react-apexcharts';
 import { getFromServer } from '../../services/server';
-import intervals from '../../data/cards';
+import { UserContext } from '../../contexts/user';
 
 type answerType = {
   delay: number,
@@ -18,12 +18,19 @@ type graphDataType = answerType[];
  */
 export default function AnswersBarChart() {
   const [graphData, setGraphData] = useState<graphDataType>({} as graphDataType);
+  const { intervals: flatIntervals } = useContext(UserContext);
   let isMounted = false;
+
+  const intervals = flatIntervals
+    .filter((interval, index) => index > 1 && interval.isEnabled)
+    .map(({ value }) => value);
 
   useEffect(() => {
     isMounted = true;
     fetchData();
-    return () => { isMounted = false; };
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   const chartData = {
@@ -32,24 +39,25 @@ export default function AnswersBarChart() {
         id: 'basic-bar',
       },
       xaxis: {
-        categories: intervals.filter((interval, index) => index > 1),
+        categories: intervals,
       },
       colors: ['#f04444', '#1e8ee9'],
     },
     series: [
       {
-        name: 'Réussite',
+        name: "Taux d'échec",
         data: successfulAnswersRate(),
       },
-      {
-        name: 'Temps de réponse moyen',
-        data: answerTimes(),
-      },
+      // {
+      //   name: 'Temps de réponse moyen',
+      //   data: answerTimes(),
+      // },
     ],
   };
 
   return (
     <div className="AnswersBarChart">
+      <p>(Début de l'expérience : 09/08/2022)</p>
       <div className="row">
         <div className="mixed-chart AnswersBarChart__chart">
           <Chart
@@ -58,7 +66,7 @@ export default function AnswersBarChart() {
             series={chartData.series}
             type="bar"
             width="100%"
-            height="400"
+            height="600"
           />
         </div>
       </div>
@@ -66,8 +74,8 @@ export default function AnswersBarChart() {
   );
 
   /**
-     * Returns all the answer delay averages
-     */
+   * Returns all the answer delay averages
+   */
   function answerTimes() {
     return intervals.filter((interval, index) => index > 1).map((interval) => {
       if (graphData?.length) {
@@ -85,20 +93,21 @@ export default function AnswersBarChart() {
   }
 
   /**
-     * Returns all the wrong answer values
-     */
+   * Returns all the wrong answer values
+   */
   function successfulAnswersRate() {
-    return intervals.filter((interval, index) => index > 1).map((interval) => {
-      if (graphData?.length) {
-        const answerDelay = graphData
-          .find((answer) => answer.delay === interval);
-        if (answerDelay) {
-          return `${100 - answerDelay!.successfulAnswersRate} `;
+    return intervals
+      .map(((interval) => {
+        if (graphData?.length) {
+          const answerDelay = graphData.find(({ delay }) => delay === interval);
+          if (answerDelay) {
+            // I am using magic numbers because of float numbers, this is a mess i'm sorry. x(
+            return `${(10000 - Math.round(answerDelay!.successfulAnswersRate * 100)) / 100} `;
+          }
+          return 0;
         }
         return 0;
-      }
-      return 0;
-    });
+      }));
   }
 
   function fetchData() {

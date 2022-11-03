@@ -6,7 +6,7 @@ import useSWR from 'swr';
 import { getFromServer, postOnServer } from '../../services/server';
 import AddCardUserCard from './AddCardUserCard';
 import { addNotification, CardSuccessNotification } from '../../services/notification';
-import UserCardType from '../../types/UserCard';
+import UserCard from '../../types/UserCard';
 import CardType from '../../types/Card';
 import axios from 'axios';
 
@@ -37,8 +37,8 @@ export default function AddCardUser({ userId }: CardUserProps) {
         )
       </button>
       {((isLoading && cards?.length) || (!isLoading)) && (
-        <div>
-          {cards?.map((card: UserCardType) => (
+        <div className="AddCardUser__cards">
+          {cards?.map((card: UserCard) => (
             <AddCardUserCard
               key={card._id.toString()}
               card={card}

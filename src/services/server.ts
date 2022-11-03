@@ -1,18 +1,29 @@
 import axios from 'axios';
 
+console.log(process.env.VITE_BASE_URL);
 export const axiosInstance = axios.create({
-  baseURL: process.env.REACT_APP_BASE_URL,
+  baseURL: process.env.VITE_BASE_URL,
 });
 
-export function setAuthToken(authToken: string) {
+export function setAuthToken(authToken: string | null) {
   axiosInstance.defaults.headers = {
     'auth-token': authToken,
   };
 }
 
-export function getFromServer(path: string) {
+export function getFromServer(path: string, signal: any = null) {
+  const CancelToken = axios.CancelToken;
+  const source = CancelToken.source();
+
+  signal?.addEventListener('abort', () => {
+    console.log("Aborted ");
+    source.cancel('Query was cancelled by React Query')
+  })
+
+
   return axiosInstance.get(path, {
     headers: axiosInstance.defaults.headers,
+    cancelToken: source.token,
   });
 }
 

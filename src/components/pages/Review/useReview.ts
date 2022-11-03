@@ -5,20 +5,20 @@ import { useContext, useEffect, useState } from 'react';
 import { MultiValue } from 'react-select';
 import { Store } from 'react-notifications-component';
 import {useQuery, useQueryClient} from 'react-query';
-import { getFromServer, postOnServer } from '../../../services/server';
+import { postOnServer } from '../../../services/server';
 import { viewportContext } from '../../../contexts/viewport';
 import generateUpdatedCard from '../../../services/card';
 import { memorisedNotification } from '../../../services/notification';
-import UserCardType from '../../../types/UserCard';
-import intervals from "../../../data/cards";
+import UserCard from '../../../types/UserCard';
+import {UserContext} from "../../../contexts/user";
 
 export default function useReview() {
   const queryClient = useQueryClient()
-  const [cards, setCards] = useState<UserCardType[] | undefined>([]);
   const [remainingCards, setRemainingCards] = useState<number | undefined>(0);
   const { isMobile } = useContext(viewportContext);
-  const { isLoading, error, data } = useQuery('cards', fetchCards);
-  const currentCard = cards ? cards[0] : null;
+  const { isLoading, error, data } = useQuery('card', fetchCard);
+  const currentCard = data?.card || null;
+  const {intervals} = useContext(UserContext);
 
 
   const [categories, setCategories] = useState<string[]>([]);
@@ -40,16 +40,20 @@ export default function useReview() {
   }, [categories]);
 
   useEffect(() => {
-    if (data?.cards) {
-      setCards(data.cards);
-    }
     if (data?.remainingCards) {
       setRemainingCards(data.remainingCards);
     }
-  }, [data]);
+  }, [data])
 
-  function fetchCards() {
-    return getFromServer('/userCards').then((response) => response.data);
+  /**
+   * Invalidates the queries
+   */
+  function refetch() {
+    queryClient.invalidateQueries('card');
+  }
+
+  function fetchCard() {
+    return postOnServer('/userCards/getOne', categories).then((response) => response.data);
   }
 
   /**
@@ -68,7 +72,7 @@ export default function useReview() {
    */
   function handleAnswer(isSuccess: boolean) {
     // Get data
-    const updatedCard = generateUpdatedCard(currentCard, isSuccess);
+    const updatedCard = generateUpdatedCard(currentCard!, isSuccess, intervals);
 
     if (updatedCard.isMemorized) {
       Store.addNotification({
@@ -91,12 +95,6 @@ export default function useReview() {
       });
     }
 
-    if (cards) {
-      const updatedCards = [...cards];
-      updatedCards.shift();
-      setCards(updatedCards);
-    }
-
     if (remainingCards) {
       setRemainingCards(remainingCards - 1);
     }
@@ -108,7 +106,7 @@ export default function useReview() {
    * Triggers the request to update the Card after a given Answer
    * @param updatedCard
    */
-  function triggerCardUpdate(updatedCard: UserCardType) {
+  function triggerCardUpdate(updatedCard: UserCard) {
     let answerTime = 0;
     if (answerTimeStart) {
       answerTime = new Date().getTime() - answerTimeStart.getTime();
@@ -123,7 +121,7 @@ export default function useReview() {
         answerTime,
         isFromReviewPage: true,
       },
-    )
+    ).then(refetch)
   }
 
   return {
@@ -133,7 +131,7 @@ export default function useReview() {
     error,
     data,
     currentCard,
-    fetchCards,
+    refetch,
     updateCategories,
     handleAnswer,
   };

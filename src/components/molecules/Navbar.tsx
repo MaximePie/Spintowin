@@ -2,10 +2,10 @@ import React, { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import Stopwatch from './Stopwatch';
 import { viewportContext } from '../../contexts/viewport';
-import UserType from '../../types/UserType';
+import User from '../../types/User';
 
 type NavbarProps = {
-  user: UserType,
+  user: User | undefined,
   logout: Function
 }
 
@@ -17,10 +17,8 @@ export default function Navbar({ user, logout }: NavbarProps) {
         <>
           <div className="Navbar__right">
             <NavLink
-              activeClassName="Navbar__link--active"
               className="Navbar__link"
               to="/"
-              exact
             >
               <i className="fas fa-dumbbell" />
               {!isMobile && "S'entraîner"}
@@ -28,8 +26,6 @@ export default function Navbar({ user, logout }: NavbarProps) {
             <NavLink
               to="/review"
               className="Navbar__link"
-              activeClassName="Navbar__link--active"
-              exact
             >
               <i className="fas fa-book-open" />
               {!isMobile && 'Réviser'}
@@ -37,8 +33,6 @@ export default function Navbar({ user, logout }: NavbarProps) {
             <NavLink
               to="/add"
               className="Navbar__link"
-              activeClassName="Navbar__link--active"
-              exact
             >
               <i className="fas fa-plus" />
               {!isMobile && 'Ajouter'}
@@ -46,8 +40,6 @@ export default function Navbar({ user, logout }: NavbarProps) {
             <NavLink
               to="/stats"
               className="Navbar__link"
-              activeClassName="Navbar__link--active"
-              exact
             >
               <i className="fas fa-chart-line" />
               {!isMobile && 'Stats'}
@@ -75,16 +67,12 @@ export default function Navbar({ user, logout }: NavbarProps) {
             <NavLink
               to="/login"
               className="Navbar__link"
-              activeClassName="Navbar__link--active"
-              exact
             >
               Se connecter
             </NavLink>
             <NavLink
               to="/register"
               className="Navbar__link"
-              activeClassName="Navbar__link--active"
-              exact
             >
               Créer un compte
             </NavLink>

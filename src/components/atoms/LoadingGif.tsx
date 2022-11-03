@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import loadingGif from '../../images/loading.gif';
+import loadingGif from '../../resources/images/loading.gif';
 
 type LoadingGifProps = {
   isLoading: boolean,
