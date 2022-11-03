@@ -27,7 +27,7 @@
     "@types/mongodb": "^4.0.7",
     "apexcharts": "^3.26.2",
     "axios": "^0.21.1",
-    "bson": "^4.6.2",
+    "bson": "^4.7.0",
     "classnames": "^2.3.1",
     "eslint-plugin-jest": "^27.1.1",
     "jest-environment-jsdom": "^29.1.2",
