@@ -26,7 +26,7 @@ export function normalizedString(unnormalizedString: string) {
  * @param userIntervals
  * @return updatedCard - The updated card
  */
-export default function generateUpdatedCard(
+export function generateUpdatedCard(
   card: UserCard,
   isSuccess: boolean,
   userIntervals: UserInterval[],

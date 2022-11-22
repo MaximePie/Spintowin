@@ -7,7 +7,7 @@ import { memorisedNotification, streakNotification } from '../../services/notifi
 import { viewportContext } from '../../contexts/viewport';
 import LoadingGif from '../atoms/LoadingGif';
 
-import generateUpdatedCard from '../../services/card';
+import { generateUpdatedCard } from '../../services/card';
 import UserCard from '../../types/UserCard';
 import CardType from '../../types/Card';
 import { UserContext } from '../../contexts/user';
@@ -42,8 +42,10 @@ export default function Cards({
 
   const formattedCards = formattedCardsList();
 
+  const cardsClassname = isFlashmode ? 'Cards Cards--flashmode' : 'Cards';
+
   return (
-    <div className="Cards">
+    <div className={cardsClassname}>
       <div className="Card Card--static">
         {(shouldScoreBePoppedOut) && (
           <PoppingScore />

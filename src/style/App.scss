@@ -8,6 +8,11 @@
     position: absolute;
     top: 0.3rem;
   }
+
+  &--flashmode {
+    // This is ugly but i'm still waiting for a better inspiration to do it better :D
+    background-color: $primaryColorDisabled;
+  }
 }
 
 body {

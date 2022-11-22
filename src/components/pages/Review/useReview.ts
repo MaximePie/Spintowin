@@ -7,7 +7,7 @@ import { Store } from 'react-notifications-component';
 import {useQuery, useQueryClient} from 'react-query';
 import { postOnServer } from '../../../services/server';
 import { viewportContext } from '../../../contexts/viewport';
-import generateUpdatedCard from '../../../services/card';
+import {generateUpdatedCard} from '../../../services/card';
 import { memorisedNotification } from '../../../services/notification';
 import UserCard from '../../../types/UserCard';
 import {UserContext} from "../../../contexts/user";

@@ -34,7 +34,7 @@ const Card = function Card(props: CardProps) {
     }
   }, [isAnswerSuccessful]);
 
-  useEffect(onReveal, [isAnswerShown]);
+  useEffect(afterReveal, [isAnswerShown]);
 
   useEffect(setKeyBinds, []);
 
@@ -67,7 +67,7 @@ const Card = function Card(props: CardProps) {
     if (isFlashmode) {
       handleAnswer(true);
     } else {
-      onReveal();
+      reveal();
     }
   }
 
@@ -75,7 +75,7 @@ const Card = function Card(props: CardProps) {
    * Remove the cards from potentially valid answers
    * Only for Quest mode
    */
-  function onReveal() {
+  function afterReveal() {
     if (isAnswerShown) {
       ignoreCard(data.cardId);
     }
@@ -98,6 +98,7 @@ const Card = function Card(props: CardProps) {
    */
   function reveal(event: KeyboardEvent<HTMLDivElement> | null = null) {
     if ((event?.code === 'enter' || !event) && !isAnswerShown) {
+      console.log('Revealing Answer');
       setAnswerDisplayState(true);
       isAnswerShownRef.current = true;
     }

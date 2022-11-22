@@ -147,15 +147,6 @@ export default function CardDisplay(props: CardDisplayProps) {
    * Return the text displayed in the card
    */
   function cardContent(): string {
-    if (cardFlipState === 'recto') {
-      if (question) {
-        return question;
-      }
-      if (answer) {
-        return answer;
-      }
-      return '';
-    }
-    return question || '';
+    return cardFlipState === 'recto' ? question || '' : answer;
   }
 }
