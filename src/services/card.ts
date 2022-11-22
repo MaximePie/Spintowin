@@ -3,6 +3,22 @@ import UserCard from '../types/UserCard';
 import UserInterval from '../types/UserInterval';
 
 /**
+ * Remove the diacritics from a string, make it lowercase, remove all spaces and
+ * remove all special characters and remove un, une, le, la, les, du, de, des, d' and l'
+ * from the beginning
+ * of the string
+ * @param unnormalizedString - The string to normalize
+ * @return {string} - The string without diacritics, lowercase and without spaces
+ */
+export function normalizedString(unnormalizedString: string) {
+  return unnormalizedString
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^a-z0-9]/g, '')
+    .replace(/^(un|une|le|la|les|du|de|des|d'|l')/, '');
+}
+/**
  * Updates the card according to the given answer
  * @param card - The question card we want to set the new delay on, and if it is memorized or not
  * @param isSuccess - Whether is the question has been answered successfully or not
@@ -64,21 +80,4 @@ export default function generateUpdatedCard(
   }
 
   return updatedCard;
-}
-
-/**
- * Remove the diacritics from a string, make it lowercase, remove all spaces and
- * remove all special characters and remove un, une, le, la, les, du, de, des, d' and l'
- * from the beginning
- * of the string
- * @param unnormalizedString - The string to normalize
- * @return {string} - The string without diacritics, lowercase and without spaces
- */
-export function normalizedString(unnormalizedString: string) {
-  return unnormalizedString
-    .toLowerCase()
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '')
-    .replace(/[^a-z0-9]/g, '')
-    .replace(/^(un|une|le|la|les|du|de|des|d'|l')/, '');
 }

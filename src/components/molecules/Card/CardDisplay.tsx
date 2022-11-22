@@ -14,7 +14,6 @@ export default function CardDisplay(props: CardDisplayProps) {
     isScoreDisplayed,
     isSingle,
     hasCategoriesDisplayed,
-    isInverted,
     isAnswerShown,
     onAnswer,
 
@@ -149,14 +148,14 @@ export default function CardDisplay(props: CardDisplayProps) {
    */
   function cardContent(): string {
     if (cardFlipState === 'recto') {
-      if (question && !isInverted) {
+      if (question) {
         return question;
       }
-      if (answer && isInverted) {
+      if (answer) {
         return answer;
       }
       return '';
     }
-    return isInverted ? (question || '') : answer;
+    return question || '';
   }
 }

@@ -9,10 +9,10 @@ const Card = function Card(props: CardProps) {
     data,
     onAnswer,
     isScoreDisplayed,
-    isInverted,
     onUpdate,
     isSingle,
     mode,
+    isFlashmode,
   } = props;
 
   const {
@@ -48,17 +48,28 @@ const Card = function Card(props: CardProps) {
       isAnswerShown={isAnswerShown}
       isModalOpen={isModalOpen}
       isScoreDisplayed={isScoreDisplayed}
-      isInverted={isInverted}
       isSingle={isSingle}
       mode={mode}
       onKeypress={(event) => reveal(event)}
-      onClick={() => reveal()}
+      onClick={() => onCardClick()}
       onModalClose={closeModal}
       onModalOpen={openModal}
       onRightClick={handleRightClick}
       hints={hints}
     />
   );
+
+  /**
+   * If isFlashmode, handleAnswer with true
+   * else trigger onReveal
+   */
+  function onCardClick() {
+    if (isFlashmode) {
+      handleAnswer(true);
+    } else {
+      onReveal();
+    }
+  }
 
   /**
    * Remove the cards from potentially valid answers
@@ -154,7 +165,7 @@ const Card = function Card(props: CardProps) {
 
 Card.defaultProps = {
   isScoreDisplayed: false,
-  shouldCardsBeInverted: false,
+  isFlashmode: false,
   isSingle: false,
 };
 export default Card;

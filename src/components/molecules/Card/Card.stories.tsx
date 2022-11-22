@@ -21,7 +21,6 @@ const Template: ComponentStory<typeof CardDisplay> = function Template(args) {
     hasCategoriesDisplayed,
     image,
     isScoreDisplayed,
-    isInverted,
     isSingle,
     data,
   } = args as CardDisplayProps;
@@ -42,7 +41,6 @@ const Template: ComponentStory<typeof CardDisplay> = function Template(args) {
       isAnswerShown={isAnswerShown}
       isModalOpen={isModalOpen}
       isScoreDisplayed={isScoreDisplayed}
-      isInverted={isInverted}
       isSingle={isSingle}
       onKeypress={(event) => reveal(event)}
       onClick={() => reveal()}

@@ -59,7 +59,7 @@ export default function QuestionEditionModal(
                   Question
                   <InputGroup
                     type="text"
-                    value={question}
+                    value={question || ''}
                     onChange={(event) => setQuestion(event.target.value)}
                     icon="question"
                     isIconSolid

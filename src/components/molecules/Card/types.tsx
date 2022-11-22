@@ -5,7 +5,7 @@ export type CardProps = {
   data: UserCard,
   onAnswer: Function,
   isScoreDisplayed?: boolean,
-  isInverted?: boolean,
+  isFlashmode?: boolean, // In flashmode state, the card can be validated by left-clicking or being touched
   onUpdate: Function,
   isSingle?: boolean,
   mode?: 'training' | 'review' | 'quest'

@@ -33,7 +33,11 @@ export default function Cards({
   const { shouldScoreBePoppedOut, displayPopupWithScore } = useContext(PoppingScoreContext);
   const { user: { hasStreakNotifications }, intervals } = useContext(UserContext);
   const [isScoreDisplayed, setScoreDisplayState] = useState(false);
-  const [shouldCardsBeInverted, setInvertedState] = useState(false);
+
+  /**
+   * In flashmode State, the user can validate a card by left-clicking or touching the card.
+   */
+  const [isFlashmode, setFlashmodeDisplay] = useState(false);
   const { isMobile } = React.useContext(viewportContext);
 
   const formattedCards = formattedCardsList();
@@ -64,10 +68,10 @@ export default function Cards({
           <label className="Card--static__label">
             <input
               type="checkbox"
-              onChange={(event) => setInvertedState(event.target.checked)}
-              checked={shouldCardsBeInverted}
+              onChange={onFlashModeChange}
+              checked={isFlashmode}
             />
-            Inverser
+            Mode Flash
           </label>
         </div>
       </div>
@@ -85,12 +89,20 @@ export default function Cards({
           key={card._id.toString()}
           onAnswer={(isSuccess: boolean) => handleAnswer(card._id, isSuccess)}
           isScoreDisplayed={isScoreDisplayed}
-          isInverted={shouldCardsBeInverted}
+          isFlashmode={isFlashmode}
           onUpdate={fetchCards}
         />
       ))}
     </div>
   );
+
+  /**
+   * Set the flashmode state to 'on' or 'off'
+   * @param event
+   */
+  function onFlashModeChange(event: React.ChangeEvent<HTMLInputElement>) {
+    setFlashmodeDisplay(event.target.checked);
+  }
 
   /**
    * Limit the total amount of displayed images simultaneously, because this is too hard to display
@@ -105,7 +117,7 @@ export default function Cards({
           return false;
         }
         if (card.image) {
-          displayedImages++;
+          displayedImages += 1;
         }
         return true;
       });

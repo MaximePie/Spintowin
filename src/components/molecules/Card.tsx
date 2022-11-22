@@ -79,7 +79,7 @@ const Card = function Card({
               <p className="Card__answer">{answer}</p>
             )}
             {image && (
-              <img className="Card__image" src={formatedImage(image)} alt="" />
+              <img className="Card__image" src={image} alt="" />
             )}
           </div>
         </div>

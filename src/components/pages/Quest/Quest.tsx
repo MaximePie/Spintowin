@@ -6,6 +6,7 @@ import QuestDisplay from './QuestDisplay';
 import UserCard from '../../../types/UserCard';
 import { postOnServer } from '../../../services/server';
 import useFetchCards from '../../../services/hooks/useFetchCards';
+// eslint-disable-next-line import/named
 import generateUpdatedCard, { normalizedString } from '../../../services/card';
 import { UserContext } from '../../../contexts/user';
 import { QuestContext, QuestContextProvider } from '../../../contexts/quest';
