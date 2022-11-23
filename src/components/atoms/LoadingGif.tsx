@@ -1,6 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
-import loadingGif from '../../resources/images/loading.gif';
+
+const loadingGif = 'https://eurekard.s3.eu-west-3.amazonaws.com/loading.gif';
 
 type LoadingGifProps = {
   isLoading: boolean,

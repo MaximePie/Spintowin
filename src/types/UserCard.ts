@@ -1,6 +1,5 @@
 import { ObjectId } from 'bson';
 import intervals from '../data/cards';
-import ImageType from './ImageType';
 
 type UserCard = {
   isAssignedToConnectedUser?: boolean;

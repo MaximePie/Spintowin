@@ -1,16 +1,44 @@
-import { render } from '@testing-library/react';
 import React from 'react';
-import CategorySelect from '../components/atoms/CategorySelect';
+import { render } from '@testing-library/react';
+import { ObjectId } from 'bson';
+import Cards from '../components/molecules/Cards';
+import UserCard from '../types/UserCard';
+import { UserContextProvider } from '../contexts/user';
+import { ViewportContextProvider } from '../contexts/viewport';
 
-test('Cards', () => {
-  const emptyFunction = () => {};
+const cards: UserCard[] = [
+  {
+    _id: new ObjectId(),
+    cardId: new ObjectId(),
+    currentDelay: 1,
+    isOwnerOfCard: true,
+    category: null,
+    currentSuccessfulAnswerStreak: 0,
+    answer: 'test',
+    question: 'test',
+    hints: ['test'],
+    image: 'random',
+  },
+];
 
-  const category = render(<CategorySelect
-    onSelect={emptyFunction}
-    onSelectMultiple={emptyFunction}
-    value=""
-    variant="creatable"
-  />);
+function Wrapper({ children }: { children: React.ReactNode }) {
+  return (
+    <UserContextProvider>
+      <ViewportContextProvider>{children}</ViewportContextProvider>
+    </UserContextProvider>
+  );
+}
 
-  expect(category.container.firstChild).toHaveClass('CategorySelect--warning');
+describe('Cards', () => {
+  it('should render correctly', () => {
+    render(<Cards
+      cardsList={cards}
+      triggerCardUpdate={() => {}}
+      fetchCards={() => {}}
+      remainingCards={cards.length}
+      isLoading={false}
+    />, {
+      wrapper: Wrapper,
+    });
+  });
 });

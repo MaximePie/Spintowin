@@ -1,15 +1,17 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, {
+  useEffect, useMemo, useState, createContext, ReactNode,
+} from 'react';
 
 const defaultValue = {
   isMobile: false,
   setIsMobile: () => {},
 };
 
-export const viewportContext = React.createContext(defaultValue);
+export const viewportContext = createContext(defaultValue);
 const mobileWidth = 1000;
 
 type ViewportContextProviderProps = {
-  children: React.ReactNode
+  children: ReactNode
 }
 export function ViewportContextProvider({ children }: ViewportContextProviderProps) {
   const [isMobile, setMobileState] = useState(false);

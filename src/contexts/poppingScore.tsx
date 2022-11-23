@@ -30,7 +30,7 @@ export function PoppingScoreProvider(props: Props) {
   /**
    * Used to store the popup display timeout
    */
-  let timeout: NodeJS.Timeout | undefined;
+  let timeout: any | undefined;
   const { children } = props;
   const [isDisplayed, setDisplayState] = useState(false);
   const [score, setScore] = useState(5);

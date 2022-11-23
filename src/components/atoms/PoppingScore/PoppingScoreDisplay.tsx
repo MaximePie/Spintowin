@@ -2,7 +2,8 @@ import React from 'react';
 import { StyledPoppingScore, Sparkle, Score } from './styles';
 import { PoppingScoreDisplayProps } from './types';
 import { defaultProps } from './defaultProps';
-import sparkles from '../../../images/sparkle.gif';
+
+const sparkles = 'https://eurekard.s3.eu-west-3.amazonaws.com/sparkle.gif';
 
 export default function PoppingScoreDisplay(props: PoppingScoreDisplayProps = defaultProps) {
   const { score, coordinates } = props;

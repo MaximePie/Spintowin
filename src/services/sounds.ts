@@ -1,4 +1,4 @@
-import successSound from "../resources/success.mp3";
+const successSound = 'https://eurekard.s3.eu-west-3.amazonaws.com/success.mp3';
 
 /**
  * I use this file to play a sound to commit various actions
