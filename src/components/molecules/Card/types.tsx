@@ -17,6 +17,7 @@ export type CardDisplayProps =
   isModalOpen: boolean,
   isAnswerShown: boolean,
   isAnswerSuccessful?: boolean,
+  isDisappearing: boolean,
   hasCategoriesDisplayed?: boolean,
 
   image?: string,
@@ -34,6 +35,7 @@ export type CardDisplayProps =
 export type StyledCardProps = {
   noBorders?: boolean,
   isSingle?: boolean,
+  isDisappearing?: boolean,
 }
 
 export type StyledButtonProps = {

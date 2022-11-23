@@ -31,17 +31,41 @@ export const StyledCard = styled.div<StyledCardProps>`
 
   @media (max-width: 1200px) {
     width: ${(props) => width(props, true)};
+    // if isDisappearing is true, trigger a shrinking animation
+    ${({ isDisappearing }) => isDisappearing && 'animation: shrink-out 0.125s ease-in-out forwards;'}
+
+    @keyframes shrink-out {
+      0% {
+        width: ${(props) => width(props, true)};
+      }
+      90% {
+        width: 0;
+      }
+    }
   }
 
   border: ${border};
   margin: 0.25rem;
   cursor: pointer;
-  
+
   ${flex('column')}
 
   font-weight: bold;
 
   text-align: center;
+  
+  // if isDisappearing is true, trigger a shrinking animation
+  ${({ isDisappearing }) => isDisappearing && 'animation: shrink-out 0.125s ease-in-out forwards;'}
+
+  @keyframes shrink-out {
+    0% {
+      width: ${width};
+    }
+    90% {
+      width: 0;
+    }
+  }
+
 `;
 
 export const Delay = styled.div`
