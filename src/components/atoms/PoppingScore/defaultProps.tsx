@@ -4,4 +4,5 @@ export const defaultProps = {
     x: 0,
     y: 0,
   },
+  hasSparkles: false,
 };

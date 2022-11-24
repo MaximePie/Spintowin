@@ -4,7 +4,8 @@ type PoppingScoreProps = {
 }
 type PoppingScoreDisplayProps = PoppingScoreProps & {
   score: number
-  coordinates: Coordinates
+  coordinates: Coordinates,
+  hasSparkles: boolean,
 }
 
 export type { PoppingScoreDisplayProps, PoppingScoreProps };

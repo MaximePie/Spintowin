@@ -6,7 +6,7 @@ import { defaultProps } from './defaultProps';
 const sparkles = 'https://eurekard.s3.eu-west-3.amazonaws.com/sparkle.gif';
 
 export default function PoppingScoreDisplay(props: PoppingScoreDisplayProps = defaultProps) {
-  const { score, coordinates } = props;
+  const { score, coordinates, hasSparkles } = props;
   // randomly display the sparkles with a 20% chance
   return (
     <StyledPoppingScore coordinates={coordinates}>
@@ -15,7 +15,7 @@ export default function PoppingScoreDisplay(props: PoppingScoreDisplayProps = de
         {' '}
         {score}
       </Score>
-      {Math.random() > 0.8 && <Sparkle src={sparkles} />}
+      {hasSparkles && <Sparkle src={sparkles} />}
     </StyledPoppingScore>
   );
 }
