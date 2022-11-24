@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Store } from 'react-notifications-component';
+import { faBolt, faBullseye } from '@fortawesome/free-solid-svg-icons';
 import Card from './Card/Card';
 
 import { memorisedNotification, streakNotification } from '../../services/notification';
@@ -13,6 +14,7 @@ import CardType from '../../types/Card';
 import { UserContext } from '../../contexts/user';
 import { PoppingScoreContext } from '../../contexts/poppingScore';
 import PoppingScore from '../atoms/PoppingScore/PoppingScore';
+import IconCheckbox from '../atoms/IconCheckbox/IconCheckbox';
 
 type CardsProps = {
   cardsList: UserCard[],
@@ -46,6 +48,10 @@ export default function Cards({
 
   return (
     <div className={cardsClassname}>
+      <div className="Cards__actions">
+        <IconCheckbox onChange={onScoreCheck} checked={isScoreDisplayed} icon={faBullseye} />
+        <IconCheckbox onChange={onFlashModeChange} checked={isFlashmode} icon={faBolt} />
+      </div>
       <div className="Card Card--static">
         {(shouldScoreBePoppedOut) && (
           <PoppingScore />
@@ -56,26 +62,6 @@ export default function Cards({
           cartes
         </p>
         <LoadingGif isLoading={isLoading || false} className="Cards__loading" />
-        <div>
-          <label className="Card--static__label">
-            <input
-              type="checkbox"
-              onChange={(event) => setScoreDisplayState(event.target.checked)}
-              checked={isScoreDisplayed}
-            />
-            Afficher le score
-          </label>
-        </div>
-        <div>
-          <label className="Card--static__label">
-            <input
-              type="checkbox"
-              onChange={onFlashModeChange}
-              checked={isFlashmode}
-            />
-            Mode Flash
-          </label>
-        </div>
       </div>
       {!isLoading && !cardsList.length && (
         <p>
@@ -97,6 +83,13 @@ export default function Cards({
       ))}
     </div>
   );
+
+  /**
+   * Update the score display on each card.
+   */
+  function onScoreCheck(event: React.ChangeEvent<HTMLInputElement>) {
+    setScoreDisplayState(event.target.checked);
+  }
 
   /**
    * Set the flashmode state to 'on' or 'off'

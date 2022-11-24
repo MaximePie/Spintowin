@@ -48,6 +48,7 @@ const Template: ComponentStory<typeof CardDisplay> = function Template(args) {
       onModalOpen={openModal}
       onRightClick={() => {}}
       hints={[]}
+      isDisappearing={false}
     />
   );
 

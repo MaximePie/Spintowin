@@ -9,10 +9,29 @@
     top: 0.3rem;
   }
 
-  &--flashmode {
-    // This is ugly but i'm still waiting for a better inspiration to do it better :D
-    background-color: $primaryColorDisabled;
+
+  &__actions {
+    // Fixed position to the bottom right of the screen
+    // Content is displayed in column
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin: 1rem;
+    z-index: 1;
+
+
+    // For phones, the actions are displayed in row
+    @include for-phone-only {
+      flex-direction: row;
+      margin: 0.5rem;
+    }
+
+
   }
+
 }
 
 body {
