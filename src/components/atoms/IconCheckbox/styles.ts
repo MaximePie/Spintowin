@@ -33,8 +33,4 @@ export const Icon = styled(FontAwesomeIcon)<IconProps>`
   color: ${({ isActive }) => (isActive ? colors.primary : colors.gray)};
   
   transition: all 0.2s ease-in-out;
-  
-  ${StyledIconCheckbox}:hover & {
-    color: ${colors.primary};
-  }
 `;

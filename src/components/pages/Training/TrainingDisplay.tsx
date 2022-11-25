@@ -1,6 +1,6 @@
-import Cards from "../../molecules/Cards";
-import React from "react";
-import {TrainingDisplayProps} from "./types"
+import React from 'react';
+import Cards from '../../molecules/Cards/Cards';
+import { TrainingDisplayProps } from './types';
 
 export default function TrainingDisplay(props: TrainingDisplayProps) {
   const {
@@ -21,5 +21,5 @@ export default function TrainingDisplay(props: TrainingDisplayProps) {
         isLoading={isLoading}
       />
     </div>
-  )
+  );
 }

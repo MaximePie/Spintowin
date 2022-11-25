@@ -1,28 +1,16 @@
 import React, { useContext, useState } from 'react';
-import { Link } from 'react-router-dom';
 import { Store } from 'react-notifications-component';
 import { faBolt, faBullseye } from '@fortawesome/free-solid-svg-icons';
-import Card from './Card/Card';
 
-import { memorisedNotification, streakNotification } from '../../services/notification';
-import { viewportContext } from '../../contexts/viewport';
-import LoadingGif from '../atoms/LoadingGif';
+import { memorisedNotification, streakNotification } from '../../../services/notification';
+import { viewportContext } from '../../../contexts/viewport';
 
-import { generateUpdatedCard } from '../../services/card';
-import UserCard from '../../types/UserCard';
-import CardType from '../../types/Card';
-import { UserContext } from '../../contexts/user';
-import { PoppingScoreContext } from '../../contexts/poppingScore';
-import PoppingScore from '../atoms/PoppingScore/PoppingScore';
-import IconCheckbox from '../atoms/IconCheckbox/IconCheckbox';
-
-type CardsProps = {
-  cardsList: UserCard[],
-  triggerCardUpdate: Function,
-  fetchCards: Function,
-  remainingCards?: number,
-  isLoading?: boolean,
-};
+import { generateUpdatedCard } from '../../../services/card';
+import CardType from '../../../types/Card';
+import { UserContext } from '../../../contexts/user';
+import { PoppingScoreContext } from '../../../contexts/poppingScore';
+import { CardsProps } from './types';
+import CardsDisplay from './CardsDisplay';
 
 Cards.defaultProps = {
   remainingCards: 0,
@@ -44,44 +32,21 @@ export default function Cards({
 
   const formattedCards = formattedCardsList();
 
-  const cardsClassname = isFlashmode ? 'Cards Cards--flashmode' : 'Cards';
-
   return (
-    <div className={cardsClassname}>
-      <div className="Cards__actions">
-        <IconCheckbox onChange={onScoreCheck} checked={isScoreDisplayed} icon={faBullseye} />
-        <IconCheckbox onChange={onFlashModeChange} checked={isFlashmode} icon={faBolt} />
-      </div>
-      <div className="Card Card--static">
-        {(shouldScoreBePoppedOut) && (
-          <PoppingScore />
-        )}
-        <p className="Card__answer">
-          {remainingCards}
-          {' '}
-          cartes
-        </p>
-        <LoadingGif isLoading={isLoading || false} className="Cards__loading" />
-      </div>
-      {!isLoading && !cardsList.length && (
-        <p>
-          Pas de cartes pour le moment,
-          <Link to="add">créez-en quelques unes</Link>
-          {' '}
-          !
-        </p>
-      )}
-      {formattedCards.map((card) => (
-        <Card
-          data={card}
-          key={card._id.toString()}
-          onAnswer={(isSuccess: boolean) => handleAnswer(card._id, isSuccess)}
-          isScoreDisplayed={isScoreDisplayed}
-          isFlashmode={isFlashmode}
-          onUpdate={fetchCards}
-        />
-      ))}
-    </div>
+    <CardsDisplay
+      fetchCards={fetchCards}
+      cardsList={formattedCards}
+      remainingCards={remainingCards}
+      isLoading={isLoading}
+      onScoreCheck={onScoreCheck}
+      isScoreDisplayed={isScoreDisplayed}
+      scoreModeIcon={faBullseye}
+      flashModeIcon={faBolt}
+      onFlashModeChange={onFlashModeChange}
+      isFlashMode={isFlashmode}
+      shouldScoreBePoppedOut={shouldScoreBePoppedOut}
+      handleAnswer={handleAnswer}
+    />
   );
 
   /**
