@@ -10,7 +10,7 @@ export const StyledIconCheckbox = styled.label`
   align-items: center;
   position: relative;
   width: 40px;
-  height: 40px;
+  height: 40px; 
   border-radius: 50%;
   border: 1px solid #ccc;
   background-color: ${colors.white};

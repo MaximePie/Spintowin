@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import Cards from '../molecules/Cards';
+import Cards from '../molecules/Cards/Cards';
 import { getFromServer, postOnServer } from '../../services/server';
 import intervals from '../../data/cards';
 import UserCardType from '../../types/UserCard';

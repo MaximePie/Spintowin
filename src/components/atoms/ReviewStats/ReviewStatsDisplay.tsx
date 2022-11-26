@@ -15,9 +15,6 @@ export default function ReviewStatsDisplay(props: ReviewStatsDisplayProps) {
           horizontal: true,
         },
       },
-      chart: {
-        height: 350,
-      },
       xaxis: {
         categories: cardsStats.map(([delay]) => delay),
       },
@@ -33,6 +30,8 @@ export default function ReviewStatsDisplay(props: ReviewStatsDisplayProps) {
   return (
     <StyledReviewStats>
       {remainingCards}
+      {' '}
+      cartes restantes
       <LoadingGif isLoading={isLoading || false} className="Cards__loading" />
       <div id="chart">
         <Chart
@@ -41,8 +40,8 @@ export default function ReviewStatsDisplay(props: ReviewStatsDisplayProps) {
           series={chartData.series}
           type="bar"
           width="100%"
-          height="300"
-          chart={{ toolbar: { show: false } }}
+          height="260"
+          toolbar={{ show: false }}
         />
       </div>
     </StyledReviewStats>

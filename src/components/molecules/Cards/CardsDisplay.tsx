@@ -1,11 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { StyledCards, Actions } from './styles';
+import ReviewStats from '../../atoms/ReviewStats/ReviewStats';
+
 import { CardsDisplayProps } from './types';
 import IconCheckbox from '../../atoms/IconCheckbox/IconCheckbox';
 import PoppingScore from '../../atoms/PoppingScore/PoppingScore';
 import Card from '../Card/Card';
-import ReviewStats from '../../atoms/ReviewStats/ReviewStats';
 
 export default function CardsDisplay(props: CardsDisplayProps) {
   const {

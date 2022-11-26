@@ -1,7 +1,12 @@
 import styled from 'styled-components';
 
 export const StyledCards = styled.div`
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  grid-template-rows: repeat(auto-fill, 160px);
+  grid-gap: 0.25rem;
+  border-radius: 8px;
+  
   flex-wrap: wrap;
   justify-content: flex-start;
 `;
@@ -23,5 +28,5 @@ export const Actions = styled.div`
     @include for-phone-only {
       flex-direction: row;
       margin: 0.5rem;
-    }
+    } 
 `;
