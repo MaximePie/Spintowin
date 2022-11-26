@@ -4,8 +4,8 @@ import { StyledCards, Actions } from './styles';
 import { CardsDisplayProps } from './types';
 import IconCheckbox from '../../atoms/IconCheckbox/IconCheckbox';
 import PoppingScore from '../../atoms/PoppingScore/PoppingScore';
-import LoadingGif from '../../atoms/LoadingGif';
 import Card from '../Card/Card';
+import ReviewStats from '../../atoms/ReviewStats/ReviewStats';
 
 export default function CardsDisplay(props: CardsDisplayProps) {
   const {
@@ -36,15 +36,12 @@ export default function CardsDisplay(props: CardsDisplayProps) {
           icon={flashModeIcon}
         />
       </Actions>
-      <div className="Card Card--static">
-        {shouldScoreBePoppedOut && <PoppingScore />}
-        <p className="Card__answer">
-          {remainingCards}
-          {' '}
-          cartes
-        </p>
-        <LoadingGif isLoading={isLoading || false} className="Cards__loading" />
-      </div>
+      {shouldScoreBePoppedOut && <PoppingScore />}
+      <ReviewStats
+        remainingCards={remainingCards || 0}
+        isLoading={isLoading || false}
+        cardsList={cardsList}
+      />
       {!isLoading && !cardsList.length && (
       <p>
         Pas de cartes pour le moment,

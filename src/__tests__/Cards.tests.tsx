@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 import { ObjectId } from 'bson';
-import Cards from '../components/molecules/Cards';
+import Cards from '../components/molecules/Cards/Cards';
 import UserCard from '../types/UserCard';
 import { UserContextProvider } from '../contexts/user';
 import { ViewportContextProvider } from '../contexts/viewport';
