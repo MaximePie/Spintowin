@@ -75,7 +75,7 @@ const Card = function Card(props: CardProps) {
       setTimeout(() => {
         setDisappearingState(false);
         handleAnswer(isAnswerSuccessful || true);
-      }, 150);
+      }, 250);
     }
   }
 

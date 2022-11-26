@@ -4,6 +4,8 @@ import { flex, shapes, spacings } from '../../../style/StyledComponents/variable
 import { StyledButtonProps, StyledCardProps } from './types';
 import Button from '../../atoms/Button/Button';
 
+const disappearDelay = 0.3;
+
 export const Container = styled.div`
   
   &.Card--answerShown-enter, &.Card--answerShown-enter-active {
@@ -32,13 +34,13 @@ export const StyledCard = styled.div<StyledCardProps>`
   @media (max-width: 1200px) {
     width: ${(props) => width(props, true)};
     // if isDisappearing is true, trigger a shrinking animation
-    ${({ isDisappearing }) => isDisappearing && 'animation: shrink-out 0.125s ease-in-out forwards;'}
+    ${({ isDisappearing }) => isDisappearing && `animation: shrink-out ${disappearDelay}s ease-in-out forwards;`}
 
     @keyframes shrink-out {
       0% {
         width: ${(props) => width(props, true)};
       }
-      90% {
+      100% {
         width: 0;
       }
     }
@@ -55,7 +57,7 @@ export const StyledCard = styled.div<StyledCardProps>`
   text-align: center;
   
   // if isDisappearing is true, trigger a shrinking animation
-  ${({ isDisappearing }) => isDisappearing && 'animation: shrink-out 0.125s ease-in-out forwards;'}
+  ${({ isDisappearing }) => isDisappearing && `animation: shrink-out ${disappearDelay}s ease-in-out forwards;`}
 
   @keyframes shrink-out {
     0% {
