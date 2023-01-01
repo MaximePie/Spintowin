@@ -5,12 +5,12 @@ import CardType from '../../../types/Card';
 
 export type CardsProps = {
   cardsList: UserCard[],
-  triggerCardUpdate: Function,
+  onCardUpdate: Function,
   fetchCards: Function,
   remainingCards?: number,
   isLoading?: boolean,
 }
-export type CardsDisplayProps = Omit<CardsProps, 'triggerCardUpdate'> & {
+export type CardsDisplayProps = Omit<CardsProps, 'onCardUpdate'> & {
   onScoreCheck: ChangeEventHandler<HTMLInputElement>,
   onFlashModeChange: ChangeEventHandler<HTMLInputElement>,
   isScoreDisplayed: boolean,

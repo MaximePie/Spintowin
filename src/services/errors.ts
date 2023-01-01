@@ -1,6 +1,6 @@
 import { Store as store } from 'react-notifications-component';
+import { AxiosError } from 'axios';
 import { systemErrorNotification } from './notification';
-import {AxiosError} from "axios";
 
 /**
  * This file is used to handle errors after Axios request failure by providing
@@ -8,6 +8,7 @@ import {AxiosError} from "axios";
  * */
 
 export default function handleError(error: Error | AxiosError) {
+  console.log('Error: ', error);
   if (Object.entries(error)[2][1] === undefined) {
     store.addNotification({ ...systemErrorNotification });
   }

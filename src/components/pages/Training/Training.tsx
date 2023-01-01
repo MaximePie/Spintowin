@@ -1,18 +1,15 @@
-import React, {useContext, useEffect, useState} from 'react';
-import {getFromServer, postOnServer} from '../../../services/server';
+import React, { useEffect, useState } from 'react';
+import { useQuery, useQueryClient } from 'react-query';
+import { getFromServer, postOnServer } from '../../../services/server';
 import intervals from '../../../data/cards';
 import UserCard from '../../../types/UserCard';
-import TrainingDisplay from "./TrainingDisplay";
-import {useQuery, useQueryClient} from "react-query";
-import {TrainingCardsQuery} from "./types";
-import Button from "../../atoms/Button/Button";
-import {PoppingScoreContext} from "../../../contexts/poppingScore";
+import TrainingDisplay from './TrainingDisplay';
+import { TrainingCardsQuery } from './types';
 
 export default function Training() {
-  const {displayPopupWithScore} = useContext(PoppingScoreContext)
   const queryClient = useQueryClient();
 
-  const {data, isLoading, isRefetching} = useQuery<TrainingCardsQuery>('cards', fetchCards)
+  const { data, isLoading } = useQuery<TrainingCardsQuery>('cards', fetchCards);
   const [cards, setCards] = useState<UserCard[]>([]);
   const [remainingCards, setRemainingCards] = useState<number>(0);
 
@@ -20,60 +17,77 @@ export default function Training() {
 
   useEffect(() => {
     if (isMounted && data) {
-      setCards(data.cards)
-      setRemainingCards(data.remainingCards)
+      setCards(data.cards);
+      setRemainingCards(data.remainingCards);
     }
     return () => {
       isMounted = false;
     };
   }, [data]);
 
-
   if (isLoading) {
-    return <p>Chargement ...</p>
+    return <p>Chargement ...</p>;
   }
 
   return data ? (
-    <>
-      <TrainingDisplay
-        cards={cards}
-        triggerCardUpdate={triggerCardUpdate}
-        remainingCards={remainingCards}
-        fetchCards={() => fetchCards(null)}
-        isLoading={isLoading}
-        key='Training Display'
-      />
-    </>
-    )
+    <TrainingDisplay
+      cards={cards}
+      onCardUpdate={onCardUpdate}
+      remainingCards={remainingCards}
+      fetchCards={() => fetchCards(null)}
+      isLoading={isLoading}
+      key="Training Display"
+    />
+  )
     : <p>error</p>;
 
   function refetch(updatedCards: typeof cards) {
-    console.log("Refetching ?" + isRefetching);
     queryClient.setQueryData('cards', {
       cards: updatedCards,
-      remainingCards
+      remainingCards,
     });
     queryClient.cancelQueries('cards').then(() => {
-      queryClient.invalidateQueries('cards').then(null)
+      queryClient.invalidateQueries('cards').then(null);
     });
   }
 
-  function fetchCards({signal}: any) {
-    return getFromServer('/userCards', signal).then(({data}) => data);
+  function fetchCards(options: any = {}) {
+    return getFromServer('/userCards', options?.signal).then(({ data: fetchedCards }) => fetchedCards);
+  }
+
+  /**
+   * After the card has been updated, we need to update the remaining cards
+   * and the cards list
+   * @param card The updated card
+   */
+  function onCardUpdate(card: UserCard) {
+    const updatedCards = cleanUpdatedCard(card);
+    triggerCardUpdate(card, updatedCards);
+  }
+
+  /**
+   * Remove the updated card from the cards list and update the remaining cards
+   * @param updatedCard The updated card to remove from the cards list
+   */
+  function cleanUpdatedCard(updatedCard: UserCard) : UserCard[] {
+    const { _id } = updatedCard;
+    const updatedCards = [...cards.filter((stateCard) => stateCard._id !== _id)];
+    setCards(updatedCards);
+
+    return updatedCards;
   }
 
   /**
    * Triggers the request to update the Card after a given Answer
-   * @param card
+   * @param card The card to update
+   * @param updatedCards The updated cards list
    */
-  function triggerCardUpdate(card: UserCard) {
-    const {currentDelay, isMemorized, _id} = card;
-    const updatedCards = [...cards.filter((stateCard) => stateCard._id !== _id)];
-    setCards(updatedCards)
+  function triggerCardUpdate(card: UserCard, updatedCards: UserCard[]) {
+    const { currentDelay, isMemorized } = card;
 
     postOnServer(
       `/userCards/update/${card.cardId}`,
-      {newDelay: currentDelay || intervals[1], isMemorized},
-    ).then(() => refetch(updatedCards))
+      { newDelay: currentDelay || intervals[1], isMemorized },
+    ).then(() => refetch(updatedCards));
   }
 }

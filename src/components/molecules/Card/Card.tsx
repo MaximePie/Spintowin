@@ -72,9 +72,9 @@ const Card = function Card(props: CardProps) {
    */
   function handleDisappearing() {
     if (isDisappearing) {
+      handleAnswer(isAnswerSuccessful || true);
       setTimeout(() => {
         setDisappearingState(false);
-        handleAnswer(isAnswerSuccessful || true);
       }, 250);
     }
   }

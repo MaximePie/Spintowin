@@ -7,7 +7,7 @@ export default function TrainingDisplay(props: TrainingDisplayProps) {
     remainingCards,
     fetchCards,
     isLoading,
-    triggerCardUpdate,
+    onCardUpdate,
     cards,
   } = props;
 
@@ -15,7 +15,7 @@ export default function TrainingDisplay(props: TrainingDisplayProps) {
     <div>
       <Cards
         cardsList={cards}
-        triggerCardUpdate={triggerCardUpdate}
+        onCardUpdate={onCardUpdate}
         remainingCards={remainingCards}
         fetchCards={fetchCards}
         isLoading={isLoading}
