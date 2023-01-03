@@ -16,6 +16,7 @@ export default function AuthFormDisplay({
   onEmailChange,
   onPasswordChange,
   onSubmit,
+  isFormValid,
 }: AuthFormDisplayProps) {
   return (
     <Container>
@@ -63,7 +64,12 @@ export default function AuthFormDisplay({
             />
           </Label>
         </Field>
-        <Action type="button" onClick={onSubmit} className="AuthForm__action">
+        <Action
+          type="button"
+          onClick={onSubmit}
+          className="AuthForm__action"
+          disabled={!isFormValid}
+        >
           {action === 'register' ? "S'enregistrer" : 'Se connecter'}
         </Action>
         {action === 'register' && (

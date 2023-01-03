@@ -14,6 +14,8 @@ export default function AuthForm({ action, onTokenAcquisition }: AuthFormProps) 
   const [email, setMail] = useState('');
   const [username, setUsername] = useState('');
 
+  const isFormValid = password.length > 0 && email.length > 0 && (action === 'register' ? username.length > 0 : true);
+
   return (
     <AuthFormDisplay
       action={action}
@@ -24,6 +26,7 @@ export default function AuthForm({ action, onTokenAcquisition }: AuthFormProps) 
       onEmailChange={(event) => setMail(event.target.value)}
       onPasswordChange={(event) => setPassword(event.target.value)}
       onSubmit={sendData}
+      isFormValid={isFormValid}
     />
   );
 
