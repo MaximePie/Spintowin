@@ -57,7 +57,7 @@ export default function AnswersBarChart() {
 
   return (
     <div className="AnswersBarChart">
-      <p>(Début de l'expérience : 09/08/2022)</p>
+      <p>(Début de l'expérience : 19/01/2023)</p>
       <div className="row">
         <div className="mixed-chart AnswersBarChart__chart">
           <Chart
