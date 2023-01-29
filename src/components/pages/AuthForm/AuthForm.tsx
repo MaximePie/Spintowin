@@ -1,11 +1,8 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { faEnvelope, faLock, faUser } from '@fortawesome/free-solid-svg-icons';
-import { iNotification } from 'react-notifications-component/dist/src/typings';
-import InputGroup from '../../atoms/InputGroup/InputGroup';
-import { axiosInstance, setAuthToken } from '../../../services/server';
+import React, {useState} from 'react';
+import {iNotification} from 'react-notifications-component/dist/src/typings';
+import {axiosInstance, setAuthToken} from '../../../services/server';
 import AuthFormDisplay from './AuthFormDisplay';
-import { addNotification, systemErrorNotification } from '../../../services/notification';
+import {addNotification, loginFailedNotification, systemErrorNotification} from '../../../services/notification';
 
 type AuthFormProps = {
   action: 'register' | 'login'
@@ -17,6 +14,8 @@ export default function AuthForm({ action, onTokenAcquisition }: AuthFormProps) 
   const [email, setMail] = useState('');
   const [username, setUsername] = useState('');
 
+  const isFormValid = password.length > 0 && email.length > 0 && (action === 'register' ? username.length > 0 : true);
+
   return (
     <AuthFormDisplay
       action={action}
@@ -27,6 +26,7 @@ export default function AuthForm({ action, onTokenAcquisition }: AuthFormProps) 
       onEmailChange={(event) => setMail(event.target.value)}
       onPasswordChange={(event) => setPassword(event.target.value)}
       onSubmit={sendData}
+      isFormValid={isFormValid}
     />
   );
 
@@ -69,8 +69,8 @@ export default function AuthForm({ action, onTokenAcquisition }: AuthFormProps) 
       }
     })
       .catch((error) => {
-        const response = error;
-        console.log(response);
+        console.log(error);
+        addNotification(loginFailedNotification);
       });
   }
 }

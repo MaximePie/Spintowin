@@ -69,6 +69,13 @@ export const addCardFailureNotification: iNotification = {
   type: 'warning',
 };
 
+export const loginFailedNotification: iNotification = {
+  ...baseNotification,
+  title: 'Oups...',
+  message: "Le mot de passe ou l'adresse e-mail sont incorects",
+  type: 'warning',
+};
+
 export const systemErrorNotification: iNotification = {
   ...baseNotification,
   title: 'Aïe !',

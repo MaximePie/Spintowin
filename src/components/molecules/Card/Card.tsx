@@ -75,7 +75,7 @@ const Card = function Card(props: CardProps) {
       handleAnswer(isAnswerSuccessful || true);
       setTimeout(() => {
         setDisappearingState(false);
-      }, 250);
+      }, 1); // 1ms to trigger the animation, because it's "under progress" 🤷🏻‍♂️
     }
   }
 

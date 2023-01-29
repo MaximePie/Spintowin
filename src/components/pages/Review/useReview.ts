@@ -7,7 +7,6 @@ import { Store } from 'react-notifications-component';
 import {useQuery, useQueryClient} from 'react-query';
 import { postOnServer } from '../../../services/server';
 import { viewportContext } from '../../../contexts/viewport';
-import {generateUpdatedCard} from '../../../services/card';
 import { memorisedNotification } from '../../../services/notification';
 import UserCard from '../../../types/UserCard';
 import {UserContext} from "../../../contexts/user";
@@ -66,24 +65,23 @@ export default function useReview() {
   }
 
   /**
-   * If the answer is wrong, we go back to the previous interval so it appears earlier
-   * If the answer is right, we increment the interval so it appears later
+   * If the answer is wrong, we go back to the previous interval, so it appears earlier
+   * If the answer is right, we increment the interval, so it appears later
    * @param isSuccess {boolean}
    */
   function handleAnswer(isSuccess: boolean) {
     // Get data
-    const updatedCard = generateUpdatedCard(currentCard!, isSuccess, intervals);
 
-    if (updatedCard.isMemorized) {
+    if (currentCard.isMemorized) {
       Store.addNotification({
         ...memorisedNotification,
-        message: `Vous avez mémorisé la carte ${updatedCard.answer} ! Félicitations !`,
+        message: `Vous avez mémorisé la carte ${currentCard.answer} ! Félicitations !`,
         container: isMobile ? 'bottom-center' : 'top-right',
       });
     }
 
     if (isSuccess) {
-      // setNumberOfSuccess(numberOfSuccess + updatedCard.currentSuccessfulAnswerStreak)
+      // setNumberOfSuccess(numberOfSuccess + currentCard.currentSuccessfulAnswerStreak)
       setScore({
         ...score,
         numberOfSuccess: score.numberOfSuccess + 1,
@@ -99,7 +97,7 @@ export default function useReview() {
       setRemainingCards(remainingCards - 1);
     }
 
-    triggerCardUpdate(updatedCard);
+    triggerCardUpdate(currentCard);
   }
 
   /**

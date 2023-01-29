@@ -13,6 +13,7 @@ type AuthFormDisplayProps = {
   onEmailChange: (_event: React.ChangeEvent<HTMLInputElement>) => void
   onPasswordChange: (_event: React.ChangeEvent<HTMLInputElement>) => void
   onSubmit: () => void
+  isFormValid: boolean,
 }
 
 export type { AuthFormDisplayProps, AuthFormProps };

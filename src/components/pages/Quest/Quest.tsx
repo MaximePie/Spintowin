@@ -8,7 +8,7 @@ import { postOnServer } from '../../../services/server';
 import useFetchCards from '../../../services/hooks/useFetchCards';
 import { UserContext } from '../../../contexts/user';
 import { QuestContext, QuestContextProvider } from '../../../contexts/quest';
-import { normalizedString, generateUpdatedCard } from '../../../services/card';
+import { normalizedString } from '../../../services/card';
 
 export default function Quest() {
   const [answer, setAnswer] = useState('');
@@ -46,8 +46,7 @@ export default function Quest() {
   function updateAndFail(cardId: ObjectId) {
     const failedCard = cards.find(({ _id }) => _id === cardId);
     if (failedCard) {
-      const updatedCard = generateUpdatedCard(failedCard, false, intervals);
-      triggerCardUpdate(updatedCard);
+      triggerCardUpdate(failedCard, false);
     }
   }
 
@@ -76,8 +75,7 @@ export default function Quest() {
 
     if (resolvedCard) {
       setAnswer(() => '');
-      const updatedCard = generateUpdatedCard(resolvedCard, true, intervals);
-      triggerCardUpdate(updatedCard);
+      triggerCardUpdate(resolvedCard, true);
       emptyAnswer();
     } else {
       failAtAnswering();
@@ -111,14 +109,15 @@ export default function Quest() {
   /**
    * Triggers the request to update the Card after a given Answer
    * @param card
+   * @param isSuccessful
    */
-  function triggerCardUpdate(card: UserCard) {
+  function triggerCardUpdate(card: UserCard, isSuccessful = true) {
     const { currentDelay, isMemorized, _id } = card;
     const updatedCards = [...cards.filter((stateCard) => stateCard._id !== _id)];
     setCards(updatedCards);
     postOnServer(
       `/userCards/update/${card.cardId}`,
-      { newDelay: currentDelay || intervals[1], isMemorized },
+      { newDelay: currentDelay || intervals[1], isMemorized, isSuccessful },
     ).then(() => refetch(updatedCards));
   }
 }
