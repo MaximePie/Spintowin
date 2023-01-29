@@ -4,8 +4,6 @@ import { faBolt, faBullseye } from '@fortawesome/free-solid-svg-icons';
 
 import { memorisedNotification, streakNotification } from '../../../services/notification';
 import { viewportContext } from '../../../contexts/viewport';
-
-import { generateUpdatedCard } from '../../../services/card';
 import CardType from '../../../types/Card';
 import { UserContext } from '../../../contexts/user';
 import { PoppingScoreContext } from '../../../contexts/poppingScore';
@@ -21,7 +19,7 @@ export default function Cards({
   cardsList, onCardUpdate, remainingCards, fetchCards, isLoading,
 }: CardsProps) {
   const { shouldScoreBePoppedOut, displayPopupWithScore } = useContext(PoppingScoreContext);
-  const { user: { hasStreakNotifications }, intervals } = useContext(UserContext);
+  const { user: { hasStreakNotifications } } = useContext(UserContext);
   const [isScoreDisplayed, setScoreDisplayState] = useState(false);
 
   /**
@@ -86,8 +84,8 @@ export default function Cards({
   }
 
   /**
-   * If the answer is wrong, we go back to the previous interval so it appears earlier
-   * If the answer is right, we increment the interval so it appears later
+   * If the answer is wrong, we go back to the previous interval, so it appears earlier
+   * If the answer is right, we increment the interval, so it appears later
    * @param cardId
    * @param isSuccess
    */
@@ -95,12 +93,10 @@ export default function Cards({
     // Get data
     const targetCard = cardsList.find((card) => card._id === cardId);
     if (targetCard) {
-      const updatedCard = generateUpdatedCard(targetCard!, isSuccess, intervals);
-
-      if (updatedCard.isMemorized) {
+      if (targetCard.isMemorized) {
         Store.addNotification({
           ...memorisedNotification,
-          message: `Vous avez mémorisé la carte ${updatedCard.answer} ! Félicitations !`,
+          message: `Vous avez mémorisé la carte ${targetCard.answer} ! Félicitations !`,
           container: isMobile ? 'bottom-center' : 'top-right',
         });
       }
@@ -118,9 +114,9 @@ export default function Cards({
       }
 
       // TODO - Disable this line if you want the streak effect back.
-      tryToDisplayStreakNotification(updatedCard.currentSuccessfulAnswerStreak);
+      tryToDisplayStreakNotification(targetCard.currentSuccessfulAnswerStreak);
 
-      onCardUpdate(updatedCard);
+      onCardUpdate(targetCard, isSuccess);
     }
   }
 

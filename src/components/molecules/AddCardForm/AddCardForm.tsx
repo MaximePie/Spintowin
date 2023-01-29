@@ -25,6 +25,7 @@ export default function AddCardForm() {
   const [category, setCategory] = useState<string | null>(userContext.selectedCategory || null);
   const [shouldCreateReverseQuestion, setCreateReverseQuestionState] = useState(false);
   const [displayedImage, setDisplayedImage] = useState<string>('');
+  const [isLoading, setLoadingState] = useState(false);
 
   const [isTooltipDisplayed, setTooltipDisplayState] = useState(false);
   const { isMobile } = useContext(viewportContext);
@@ -143,7 +144,7 @@ export default function AddCardForm() {
           <button
             className="AddCardForm__submit"
             type="submit"
-            disabled={!isValid}
+            disabled={!isValid || isLoading}
           >
             Envoyer
           </button>
@@ -165,7 +166,7 @@ export default function AddCardForm() {
   }
 
   /**
-   * Redirects the user on Youtube link if he is on desktop
+   * Redirects the user on YouTube link if he is on desktop
    * Else,
    *  if the tooltip is open, redirects
    *  else, display the tooltip.
@@ -187,6 +188,7 @@ export default function AddCardForm() {
   }
 
   function saveQuestion(event: FormEvent | null = null) {
+    setLoadingState(true);
     if (event) {
       event.preventDefault();
     }
@@ -213,9 +215,11 @@ export default function AddCardForm() {
         setAnswer('');
         setImage({} as Blob);
         setDisplayedImage('');
+        setLoadingState(false);
       } else {
         // @ts-ignore
         const { message } = response;
+        console.error(message);
         Store.addNotification({
           ...addCardFailureNotification,
           message: addCardFailureNotification.message + message,

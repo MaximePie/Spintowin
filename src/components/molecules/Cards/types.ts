@@ -5,7 +5,7 @@ import CardType from '../../../types/Card';
 
 export type CardsProps = {
   cardsList: UserCard[],
-  onCardUpdate: Function,
+  onCardUpdate: (_card: UserCard, _isSuccessful: boolean) => void,
   fetchCards: Function,
   remainingCards?: number,
   isLoading?: boolean,

@@ -33,10 +33,10 @@ describe('Cards', () => {
   it('should render correctly', () => {
     render(<Cards
       cardsList={cards}
-      triggerCardUpdate={() => {}}
       fetchCards={() => {}}
       remainingCards={cards.length}
       isLoading={false}
+      onCardUpdate={() => {}}
     />, {
       wrapper: Wrapper,
     });

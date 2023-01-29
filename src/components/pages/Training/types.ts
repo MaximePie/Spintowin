@@ -2,7 +2,7 @@ import UserCard from '../../../types/UserCard';
 
 export type TrainingDisplayProps = {
   cards: UserCard[],
-  onCardUpdate: (_card: UserCard) => void,
+  onCardUpdate: (_card: UserCard, _isSuccessful: boolean) => void,
   remainingCards: number,
   fetchCards: () => void,
   isLoading: boolean,

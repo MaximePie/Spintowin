@@ -59,10 +59,11 @@ export default function Training() {
    * After the card has been updated, we need to update the remaining cards
    * and the cards list
    * @param card The updated card
+   * @param isSuccessful
    */
-  function onCardUpdate(card: UserCard) {
+  function onCardUpdate(card: UserCard, isSuccessful: boolean) {
     const updatedCards = cleanUpdatedCard(card);
-    triggerCardUpdate(card, updatedCards);
+    triggerCardUpdate(card, updatedCards, isSuccessful);
   }
 
   /**
@@ -81,13 +82,14 @@ export default function Training() {
    * Triggers the request to update the Card after a given Answer
    * @param card The card to update
    * @param updatedCards The updated cards list
+   * @param isSuccessful
    */
-  function triggerCardUpdate(card: UserCard, updatedCards: UserCard[]) {
-    const { currentDelay, isMemorized } = card;
+  function triggerCardUpdate(card: UserCard, updatedCards: UserCard[], isSuccessful: boolean) {
+    const { isMemorized } = card;
 
     postOnServer(
-      `/userCards/update/${card.cardId}`,
-      { newDelay: currentDelay || intervals[1], isMemorized },
+      `/userCards/update/${card._id}`,
+      { isMemorized, isSuccessful },
     ).then(() => refetch(updatedCards));
   }
 }
