@@ -1,6 +1,5 @@
 import axios from 'axios';
 
-console.log(process.env.VITE_BASE_URL);
 export const axiosInstance = axios.create({
   baseURL: process.env.VITE_BASE_URL,
 });
@@ -16,10 +15,9 @@ export function getFromServer(path: string, signal: any = null) {
   const source = CancelToken.source();
 
   signal?.addEventListener('abort', () => {
-    console.log("Aborted ");
-    source.cancel('Query was cancelled by React Query')
-  })
-
+    console.log('Aborted ');
+    source.cancel('Query was cancelled by React Query');
+  });
 
   return axiosInstance.get(path, {
     headers: axiosInstance.defaults.headers,

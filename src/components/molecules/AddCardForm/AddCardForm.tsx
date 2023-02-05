@@ -208,23 +208,20 @@ export default function AddCardForm() {
     postOnServer(
       '/cards',
       formData,
-    ).then((response) => {
-      if (response.status === 200) {
-        addNotification(CardSuccessNotification);
-        setQuestion('');
-        setAnswer('');
-        setImage({} as Blob);
-        setDisplayedImage('');
-        setLoadingState(false);
-      } else {
-        // @ts-ignore
-        const { message } = response;
-        console.error(message);
+    ).then(() => {
+      addNotification(CardSuccessNotification);
+      setQuestion('');
+      setAnswer('');
+      setImage({} as Blob);
+      setDisplayedImage('');
+      setLoadingState(false);
+    })
+      .catch((error) => {
+        const { response: { data } } = error;
         Store.addNotification({
           ...addCardFailureNotification,
-          message: addCardFailureNotification.message + message,
+          message: addCardFailureNotification.message + data,
         });
-      }
-    });
+      });
   }
 }
