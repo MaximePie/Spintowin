@@ -1,6 +1,4 @@
-import styled from 'styled-components';
-
-export const StyledReviewStats = styled.div`
+.ReviewStats {
   // 2 rows size
   grid-row: 1 / 3;
   overflow: hidden;
@@ -20,12 +18,12 @@ export const StyledReviewStats = styled.div`
 
   text-align: center;
 
-@include for-phone-only {
-  width: 170px;
+  @include for-phone-only {
+    width: 170px;
 
-  &--isSingle {
-    width: 240px;
-    height: 340px;
+    &--isSingle {
+      width: 240px;
+      height: 340px;
+    }
   }
 }
-`;

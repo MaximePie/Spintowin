@@ -1,6 +1,5 @@
 import React from 'react';
 import Chart from 'react-apexcharts';
-import { StyledReviewStats } from './styles';
 import { ReviewStatsDisplayProps } from './types';
 import LoadingGif from '../LoadingGif';
 
@@ -28,7 +27,7 @@ export default function ReviewStatsDisplay(props: ReviewStatsDisplayProps) {
     ],
   };
   return (
-    <StyledReviewStats>
+    <div className="ReviewStats">
       {remainingCards}
       {' '}
       cartes restantes
@@ -44,6 +43,6 @@ export default function ReviewStatsDisplay(props: ReviewStatsDisplayProps) {
           toolbar={{ show: false }}
         />
       </div>
-    </StyledReviewStats>
+    </div>
   );
 }
