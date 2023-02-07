@@ -1,5 +1,5 @@
 import React from 'react';
-import {createRoot} from 'react-dom/client';
+import { createRoot } from 'react-dom/client';
 import './style/index.scss';
 import { ReactNotifications } from 'react-notifications-component';
 import { QueryClient, QueryClientProvider } from 'react-query';
@@ -15,4 +15,4 @@ createRoot(document.getElementById('root')!).render(
       <App />
     </div>
   </QueryClientProvider>,
-)
+);

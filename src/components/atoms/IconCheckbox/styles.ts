@@ -1,25 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styled from 'styled-components';
-import { colors, spacings } from '../../../style/StyledComponents/variables';
-import { IconProps } from './types';
+import { colors } from '../../../style/StyledComponents/variables';
 
-export const StyledIconCheckbox = styled.label`
-  // Circle around the icon
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  width: 40px;
-  height: 40px; 
-  border-radius: 50%;
-  border: 1px solid #ccc;
-  background-color: ${colors.white};
-  cursor: pointer;
-  transition: all 0.2s ease-in-out;
-  margin: ${spacings.small};
-`;
-
-// invisible input
 export const Input = styled.input`
   position: absolute;
   opacity: 0;
@@ -28,9 +10,33 @@ export const Input = styled.input`
   width: 0;
 `;
 
-// Icon
-export const Icon = styled(FontAwesomeIcon)<IconProps>`
+export const Wrapper = styled.div`
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin: 8px 0;
+  transition: background-color 0.2s;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid ${colors.gray};
+  cursor: pointer;
+`;
+
+export const Icon = styled(FontAwesomeIcon)<{ isActive: boolean }>`
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  margin: auto;
+  font-size: 20px;
   color: ${({ isActive }) => (isActive ? colors.primary : colors.gray)};
-  
-  transition: all 0.2s ease-in-out;
+  transition: color 0.2s;
+  &:hover {
+    color: ${colors.primary};
+  }
 `;

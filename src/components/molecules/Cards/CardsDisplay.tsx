@@ -4,9 +4,9 @@ import { StyledCards, Actions } from './styles';
 import ReviewStats from '../../atoms/ReviewStats/ReviewStats';
 
 import { CardsDisplayProps } from './types';
-import IconCheckbox from '../../atoms/IconCheckbox/IconCheckbox';
 import PoppingScore from '../../atoms/PoppingScore/PoppingScore';
 import Card from '../Card/Card';
+import IconCheckbox from '../../atoms/IconCheckbox/IconCheckbox';
 
 export default function CardsDisplay(props: CardsDisplayProps) {
   const {
@@ -14,11 +14,11 @@ export default function CardsDisplay(props: CardsDisplayProps) {
     remainingCards,
     fetchCards,
     isLoading,
-    onScoreCheck,
+    onScoreChange,
+    onFlashmodeChange,
     isScoreDisplayed,
     scoreModeIcon,
     flashModeIcon,
-    onFlashModeChange,
     isFlashMode,
     shouldScoreBePoppedOut,
     handleAnswer,
@@ -27,12 +27,12 @@ export default function CardsDisplay(props: CardsDisplayProps) {
     <StyledCards>
       <Actions>
         <IconCheckbox
-          onChange={onScoreCheck}
+          onChange={onScoreChange}
           checked={isScoreDisplayed}
           icon={scoreModeIcon}
         />
         <IconCheckbox
-          onChange={onFlashModeChange}
+          onChange={onFlashmodeChange}
           checked={isFlashMode}
           icon={flashModeIcon}
         />

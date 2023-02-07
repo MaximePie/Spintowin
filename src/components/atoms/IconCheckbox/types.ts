@@ -1,9 +1,8 @@
 import { IconDefinition } from '@fortawesome/free-solid-svg-icons';
-import { ChangeEventHandler } from 'react';
 
 type IconCheckboxProps = {
   checked: boolean,
-  onChange: ChangeEventHandler<HTMLInputElement>,
+  onChange: (_isChecked: boolean) => void,
   icon: IconDefinition
 }
 type IconCheckboxDisplayProps = IconCheckboxProps & {

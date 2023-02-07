@@ -36,11 +36,11 @@ export default function Cards({
       cardsList={formattedCards}
       remainingCards={remainingCards}
       isLoading={isLoading}
-      onScoreCheck={onScoreCheck}
+      onScoreChange={onScoreCheck}
+      onFlashmodeChange={onFlashModeChange}
       isScoreDisplayed={isScoreDisplayed}
       scoreModeIcon={faBullseye}
       flashModeIcon={faBolt}
-      onFlashModeChange={onFlashModeChange}
       isFlashMode={isFlashmode}
       shouldScoreBePoppedOut={shouldScoreBePoppedOut}
       handleAnswer={handleAnswer}
@@ -49,17 +49,18 @@ export default function Cards({
 
   /**
    * Update the score display on each card.
+   * @param isChecked - true if the score should be displayed
    */
-  function onScoreCheck(event: React.ChangeEvent<HTMLInputElement>) {
-    setScoreDisplayState(event.target.checked);
+  function onScoreCheck(isChecked: boolean) {
+    setScoreDisplayState(isChecked);
   }
 
   /**
    * Set the flashmode state to 'on' or 'off'
-   * @param event
+   * @param isChecked - true if the flashmode should be displayed
    */
-  function onFlashModeChange(event: React.ChangeEvent<HTMLInputElement>) {
-    setFlashmodeDisplay(event.target.checked);
+  function onFlashModeChange(isChecked: boolean) {
+    setFlashmodeDisplay(isChecked);
   }
 
   /**

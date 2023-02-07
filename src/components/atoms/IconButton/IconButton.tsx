@@ -1,3 +1,4 @@
+import React from 'react';
 import { IconButtonProps } from './types';
 import { StyledIconButton } from './styles';
 

@@ -11,8 +11,8 @@ export type CardsProps = {
   isLoading?: boolean,
 }
 export type CardsDisplayProps = Omit<CardsProps, 'onCardUpdate'> & {
-  onScoreCheck: ChangeEventHandler<HTMLInputElement>,
-  onFlashModeChange: ChangeEventHandler<HTMLInputElement>,
+  onScoreChange: (_isScoreDisplayed: boolean) => void,
+  onFlashmodeChange: (_isFlashMode: boolean) => void,
   isScoreDisplayed: boolean,
   shouldScoreBePoppedOut: boolean,
   isFlashMode: boolean,
