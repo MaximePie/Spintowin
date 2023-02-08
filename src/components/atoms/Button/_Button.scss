@@ -43,6 +43,11 @@
       transition: border-bottom 150ms ease-in-out;
     }
   }
+
+  &--danger {
+    background-color: $dangerColor;
+    color: $white;
+  }
 }
 
 

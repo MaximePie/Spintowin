@@ -7,6 +7,7 @@ import React, {
 } from 'react';
 import { ObjectId } from 'bson';
 import User from '../types/User';
+import Session from '../types/Session';
 import { axiosInstance, postOnServer, setAuthToken } from '../services/server';
 import { addNotification, userPreferencesSavedNotification } from '../services/notification';
 import handleError from '../services/errors';
@@ -18,6 +19,7 @@ export type UserContextType = {
   setSelectedCategory: (_category: string | null) => void,
 
   user: User,
+  session: Session,
   intervals: UserInterval[],
   setUser: (_user: User) => void,
   setCategoryDisplayState: (_isDisplayed: boolean) => void,
@@ -28,18 +30,25 @@ export type UserContextType = {
   updateInterval: (_id: ObjectId, _isEnabled: boolean) => void,
 }
 
-const userInitialValues: UserContextType = {} as UserContextType;
-
-export const UserContext = createContext(userInitialValues);
-
 type UserContextProviderProps = {
   children: ReactNode
 }
+
+const initialSession: Session = {
+  sessionStreak: 0,
+};
+
+const userInitialValues: UserContextType = {
+  session: initialSession,
+} as UserContextType;
+
+export const UserContext = createContext(userInitialValues);
 
 export function UserContextProvider(
   { children }: UserContextProviderProps,
 ) {
   const [user, setUser] = useState<User>({} as User);
+  const [session, setSession] = useState<Session>(initialSession);
   const [isDraft, setDraftState] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<string | null>('');
   const [isInitialized, setInitializationState] = useState(false);
@@ -53,6 +62,7 @@ export function UserContextProvider(
         setSelectedCategory,
         user,
         setUser,
+        session,
         setCategoryDisplayState,
         setStreakDisplay,
         setSoundActivation,
@@ -188,15 +198,16 @@ export function UserContextProvider(
    * Increment the user's streak
    */
   function incrementUserStreak() {
-    setUser({
-      ...user,
-      sessionStreak: user.sessionStreak + 1,
+    console.log('incrementing user streak');
+    setSession({
+      ...session,
+      sessionStreak: session.sessionStreak + 1,
     });
   }
 
   function resetUserStreak() {
-    setUser({
-      ...user,
+    setSession({
+      ...session,
       sessionStreak: 0,
     });
   }

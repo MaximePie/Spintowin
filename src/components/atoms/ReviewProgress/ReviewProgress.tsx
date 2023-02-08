@@ -5,8 +5,9 @@ import ProgressBar from '../ProgressBar/ProgressBar';
 export default function ReviewProgress() {
   const {
     user: {
-      experience, level, experienceRequiredForNextLevel, sessionStreak,
+      experience, level, experienceRequiredForNextLevel,
     },
+    session: { sessionStreak },
   } = useContext(UserContext);
 
   return (
@@ -16,16 +17,11 @@ export default function ReviewProgress() {
         {' '}
         {level}
         {' '}
-        (
-        {experience}
-        /
-        {experienceRequiredForNextLevel}
-        )
       </div>
       <ProgressBar min={experience} max={experienceRequiredForNextLevel} />
 
       <div className="ReviewProgress__streak">
-        Série en cours
+        Combo :
         {' '}
         {sessionStreak || 0}
       </div>

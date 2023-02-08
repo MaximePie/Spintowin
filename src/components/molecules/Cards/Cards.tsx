@@ -131,7 +131,6 @@ export default function Cards({
 
       // TODO - Disable this line if you want the streak effect back.
       tryToDisplayStreakNotification(targetCard.currentSuccessfulAnswerStreak);
-
       onCardUpdate(targetCard, isSuccess);
     }
   }

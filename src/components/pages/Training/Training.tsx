@@ -14,7 +14,7 @@ export default function Training() {
   const [remainingCards, setRemainingCards] = useState<number>(0);
 
   const {
-    incrementUserStreak, resetUserStreak, user: { sessionStreak }, setUser,
+    incrementUserStreak, resetUserStreak, setUser,
   } = useContext(UserContext);
 
   let isMounted = true;
@@ -102,10 +102,7 @@ export default function Training() {
     ).then((response) => {
       // Update user
       if (response.data.updatedUser) {
-        setUser({
-          ...response.data.updatedUser,
-          sessionStreak,
-        });
+        setUser(response.data.updatedUser);
       }
       refetch(updatedCards);
     });

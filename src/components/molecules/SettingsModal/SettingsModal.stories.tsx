@@ -32,6 +32,7 @@ function LoginControls({ areCategoriesEnabled, intervals }: LoginControlsProps) 
 
   function fillUser() {
     setUser({
+      sessionStreak: 0,
       _id: new ObjectId(),
       intervals,
       hasStreakNotifications: false,
