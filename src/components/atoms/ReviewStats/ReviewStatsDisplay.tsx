@@ -39,7 +39,7 @@ export default function ReviewStatsDisplay(props: ReviewStatsDisplayProps) {
           series={chartData.series}
           type="bar"
           width="100%"
-          height="260"
+          height="250"
           toolbar={{ show: false }}
         />
       </div>

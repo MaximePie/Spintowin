@@ -57,6 +57,7 @@ export const cardStyle = `
 const colors = {
   warning: '#eab000',
   primary: 'dodgerblue',
+  secondary: '#6EBDFF',
   primaryDisabled: '#6EBDFF',
   danger: '#ff6d46',
   success: '#00e396',

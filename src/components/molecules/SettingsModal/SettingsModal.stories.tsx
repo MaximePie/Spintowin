@@ -40,6 +40,7 @@ function LoginControls({ areCategoriesEnabled, intervals }: LoginControlsProps) 
       username: 'Storybook',
       hasCategoriesDisplayed: areCategoriesEnabled,
       role: 'admin',
+      experienceRequiredForNextLevel: 100,
     });
   }
 }

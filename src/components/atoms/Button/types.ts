@@ -1,12 +1,12 @@
-import {colors} from "../../../style/StyledComponents/variables";
-import {MouseEventHandler} from "react";
+import { MouseEventHandler } from 'react';
+import { colors } from '../../../style/StyledComponents/variables';
 
 export type ButtonProps = {
   className?: string,
   variant?: keyof typeof colors,
   onClick?: MouseEventHandler<HTMLButtonElement>,
   text: string,
-  type?: "button" | "submit",
+  type?: 'button' | 'submit',
   icon?: string,
 }
 

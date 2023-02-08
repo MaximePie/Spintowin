@@ -1,6 +1,6 @@
-import styled from "styled-components";
-import {colors, shapes, spacings} from "../../../style/StyledComponents/variables";
-import { StyledButtonProps} from "./types";
+import styled from 'styled-components';
+import { colors, shapes, spacings } from '../../../style/StyledComponents/variables';
+import { StyledButtonProps } from './types';
 
 export const StyledButton = styled.button<StyledButtonProps>`
   // Positionning
@@ -15,8 +15,23 @@ export const StyledButton = styled.button<StyledButtonProps>`
   
   // Content
   padding: ${spacings.smaller} ${spacings.medium};
-  background-color: ${({variant}) => colors[variant || 'primary']};
-  color: ${colors.white};
+  background-color: ${({ variant }) => {
+    if (variant === 'secondary') {
+      return colors.white;
+    }
+    return colors[variant || 'primary'];
+  }};
+
+  color: ${({ variant }) => {
+    if (variant === 'secondary') {
+      return colors.primary;
+    }
+    return colors.white;
+  }};
+  
+  // Font
+  font-size: 14px;
+  font-weight: 500;
 
 
 
@@ -27,4 +42,4 @@ export const StyledButton = styled.button<StyledButtonProps>`
   i {
     margin-right: ${spacings.medium};
   }
-`
+`;

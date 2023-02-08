@@ -8,6 +8,7 @@ import { CardsDisplayProps } from './types';
 import PoppingScore from '../../atoms/PoppingScore/PoppingScore';
 import Card from '../Card/Card';
 import IconCheckbox from '../../atoms/IconCheckbox/IconCheckbox';
+import Button from '../../atoms/Button/Button';
 
 export default function CardsDisplay(props: CardsDisplayProps) {
   const {
@@ -41,16 +42,34 @@ export default function CardsDisplay(props: CardsDisplayProps) {
         />
       </Actions>
       {shouldScoreBePoppedOut && <PoppingScore />}
-      {infoCardMode === 'stats' && (
-        <ReviewStats
-          remainingCards={remainingCards || 0}
-          isLoading={isLoading || false}
-          cardsList={cardsList}
-        />
-      )}
-      {infoCardMode === 'progress' && (
-        <ReviewProgress />
-      )}
+      <div className="Cards__infoCards">
+        <div className="Cards__infoCards__actions">
+          <Button
+            text="Stats"
+            onClick={() => onInfoCardModeChange('stats')}
+            className={`Cards__infoCards__button ${infoCardMode === 'stats' ? 'Cards__infoCards__button--active' : ''}`}
+            type="button"
+            variant="secondary"
+          />
+          <Button
+            text="Progression"
+            onClick={() => onInfoCardModeChange('progress')}
+            className={`Cards__infoCards__button ${infoCardMode === 'progress' ? 'Cards__infoCards__button--active' : ''}`}
+            type="button"
+            variant="secondary"
+          />
+        </div>
+        {infoCardMode === 'stats' && (
+          <ReviewStats
+            remainingCards={remainingCards || 0}
+            isLoading={isLoading || false}
+            cardsList={cardsList}
+          />
+        )}
+        {infoCardMode === 'progress' && (
+          <ReviewProgress />
+        )}
+      </div>
       {!isLoading && !cardsList.length && (
       <p>
         Pas de cartes pour le moment,

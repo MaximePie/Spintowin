@@ -1,15 +1,18 @@
-import { StyledButton } from "./styles";
-import {ButtonProps} from "./types";
+import React from 'react';
+import { StyledButton } from './styles';
+import { ButtonProps } from './types';
 
 Button.defaultProps = {
-  type: "button",
-  icon: "",
+  type: 'button',
+  icon: '',
   onClick: null,
-  variant: "primary",
+  variant: 'primary',
   className: '',
-}
+};
 
-export default function Button({className, variant, onClick, type, text, icon}: ButtonProps) {
+export default function Button({
+  className, variant, onClick, type, text, icon,
+}: ButtonProps) {
   return (
     <StyledButton
       variant={variant}
@@ -17,8 +20,8 @@ export default function Button({className, variant, onClick, type, text, icon}: 
       type={type}
       className={className}
     >
-      {icon && <i className={icon}/>}
+      {icon && <i className={icon} />}
       {text}
     </StyledButton>
-  )
+  );
 }

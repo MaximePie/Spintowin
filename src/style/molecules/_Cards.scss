@@ -1,0 +1,39 @@
+.Cards {
+  &__infoCards {
+    grid-row: 1 / 3;
+    overflow: hidden;
+    border-radius: 8px;
+    width: 180px;
+    height: 290px;
+    border: solid 1px lightgray;
+    margin: 0.25rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    padding: 12px 0;
+    @include for-phone-only {
+      width: 170px;
+
+      &--isSingle {
+        width: 240px;
+        height: 340px;
+      }
+    }
+
+    &__actions {
+        display: flex;
+        justify-content: space-between;
+        margin: 8px 0;
+    }
+
+    &__button {
+      height: 24px;
+      margin: 0 4px !important;
+      // Secondary button
+      width: 30px;
+    }
+  }
+}
