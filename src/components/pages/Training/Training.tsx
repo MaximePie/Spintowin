@@ -13,7 +13,9 @@ export default function Training() {
   const [cards, setCards] = useState<UserCard[]>([]);
   const [remainingCards, setRemainingCards] = useState<number>(0);
 
-  const { setUser } = useContext(UserContext);
+  const {
+    incrementUserStreak, resetUserStreak, user: { sessionStreak }, setUser,
+  } = useContext(UserContext);
 
   let isMounted = true;
 
@@ -65,6 +67,11 @@ export default function Training() {
    */
   function onCardUpdate(card: UserCard, isSuccessful: boolean) {
     const updatedCards = cleanUpdatedCard(card);
+    if (isSuccessful) {
+      incrementUserStreak();
+    } else {
+      resetUserStreak();
+    }
     triggerCardUpdate(card, updatedCards, isSuccessful);
   }
 
@@ -95,7 +102,10 @@ export default function Training() {
     ).then((response) => {
       // Update user
       if (response.data.updatedUser) {
-        setUser(response.data.updatedUser);
+        setUser({
+          ...response.data.updatedUser,
+          sessionStreak,
+        });
       }
       refetch(updatedCards);
     });

@@ -14,6 +14,11 @@ type User = {
   intervals: UserInterval[],
   limitDate?: string,
   remainingCards?: number,
+  /**
+   * Current streak of successful answer in the current session,
+   * is reset to 0 when the user answers a card incorrectly
+   */
+  sessionStreak: number,
 }
 
 export default User;

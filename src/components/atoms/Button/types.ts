@@ -8,6 +8,7 @@ export type ButtonProps = {
   text: string,
   type?: 'button' | 'submit',
   icon?: string,
+  isActive?: boolean,
 }
 
 export type StyledButtonProps = { variant: ButtonProps['variant'] }

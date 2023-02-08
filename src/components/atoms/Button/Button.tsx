@@ -1,5 +1,4 @@
 import React from 'react';
-import { StyledButton } from './styles';
 import { ButtonProps } from './types';
 
 Button.defaultProps = {
@@ -11,17 +10,18 @@ Button.defaultProps = {
 };
 
 export default function Button({
-  className, variant, onClick, type, text, icon,
+  className, variant, onClick, type, text, icon, isActive,
 }: ButtonProps) {
+  let finalClassName = `Button ${className} Button--${variant}`;
+  finalClassName += isActive ? ` Button--${variant}--active` : '';
   return (
-    <StyledButton
-      variant={variant}
+    <button
       onClick={onClick}
-      type={type}
-      className={className}
+      type={type === 'submit' ? 'submit' : 'button'}
+      className={finalClassName}
     >
       {icon && <i className={icon} />}
       {text}
-    </StyledButton>
+    </button>
   );
 }

@@ -23,6 +23,8 @@ export type UserContextType = {
   setCategoryDisplayState: (_isDisplayed: boolean) => void,
   setStreakDisplay: (_isDisplayed: boolean) => void,
   setSoundActivation: (_isEnabled: boolean) => void,
+  incrementUserStreak: () => void,
+  resetUserStreak: () => void,
   updateInterval: (_id: ObjectId, _isEnabled: boolean) => void,
 }
 
@@ -55,6 +57,8 @@ export function UserContextProvider(
         setStreakDisplay,
         setSoundActivation,
         updateInterval,
+        incrementUserStreak,
+        resetUserStreak,
         intervals,
       }),
     [selectedCategory, user, intervals],
@@ -178,5 +182,22 @@ export function UserContextProvider(
       .then(() => {
         addNotification(userPreferencesSavedNotification);
       });
+  }
+
+  /**
+   * Increment the user's streak
+   */
+  function incrementUserStreak() {
+    setUser({
+      ...user,
+      sessionStreak: user.sessionStreak + 1,
+    });
+  }
+
+  function resetUserStreak() {
+    setUser({
+      ...user,
+      sessionStreak: 0,
+    });
   }
 }

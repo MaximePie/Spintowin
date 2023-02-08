@@ -47,16 +47,18 @@ export default function CardsDisplay(props: CardsDisplayProps) {
           <Button
             text="Stats"
             onClick={() => onInfoCardModeChange('stats')}
-            className={`Cards__infoCards__button ${infoCardMode === 'stats' ? 'Cards__infoCards__button--active' : ''}`}
+            className="Cards__infoCards__button"
             type="button"
             variant="secondary"
+            isActive={infoCardMode === 'stats'}
           />
           <Button
             text="Progression"
             onClick={() => onInfoCardModeChange('progress')}
-            className={`Cards__infoCards__button ${infoCardMode === 'progress' ? 'Cards__infoCards__button--active' : ''}`}
+            className="Cards__infoCards__button"
             type="button"
             variant="secondary"
+            isActive={infoCardMode === 'progress'}
           />
         </div>
         {infoCardMode === 'stats' && (

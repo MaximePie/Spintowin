@@ -3,7 +3,11 @@ import { UserContext } from '../../../contexts/user';
 import ProgressBar from '../ProgressBar/ProgressBar';
 
 export default function ReviewProgress() {
-  const { user: { experience, level, experienceRequiredForNextLevel } } = useContext(UserContext);
+  const {
+    user: {
+      experience, level, experienceRequiredForNextLevel, sessionStreak,
+    },
+  } = useContext(UserContext);
 
   return (
     <div className="ReviewProgress">
@@ -19,6 +23,12 @@ export default function ReviewProgress() {
         )
       </div>
       <ProgressBar min={experience} max={experienceRequiredForNextLevel} />
+
+      <div className="ReviewProgress__streak">
+        Série en cours
+        {' '}
+        {sessionStreak || 0}
+      </div>
     </div>
   );
 }

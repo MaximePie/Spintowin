@@ -1,0 +1,48 @@
+.Button {
+  // Positioning
+  margin: $mediumSpacing;
+
+  // Shape
+  border-radius: $borderRadiusSmall;
+  outline: none;
+  border: none;
+  height: 32px;
+  min-width: 64px;
+
+  // Content
+  padding: $smallSpacing $mediumSpacing;
+  background-color: $primaryColor;
+
+  color: $white;
+
+  // Font
+  font-size: 14px;
+  font-weight: 500;
+
+
+  // Behavior
+  cursor: pointer;
+  transition: filter 150ms ease-in-out;
+
+  i {
+    margin-right: $mediumSpacing;
+  }
+
+    &:hover {
+        filter: brightness(1.1);
+    }
+
+  &--secondary {
+    background-color: $white;
+    color: $primaryColor;
+    transition: border-bottom 150ms ease-in-out;
+
+    &--active {
+      border-radius: 0;
+      border-bottom: 2px solid $primaryColor;
+      transition: border-bottom 150ms ease-in-out;
+    }
+  }
+}
+
+
