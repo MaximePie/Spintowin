@@ -35,7 +35,9 @@ body {
 
 @import "./App";
 @import "./atoms/Badge";
+@import "../components/atoms/ProgressBar/ProgressBar";
 @import "../components/atoms/ReviewStats/ReviewStats";
+@import "../components/atoms/ReviewProgress/ReviewProgress";
 
 @import "./molecules/Navbar";
 @import "./molecules/Card";

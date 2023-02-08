@@ -7,7 +7,7 @@ import { viewportContext } from '../../../contexts/viewport';
 import CardType from '../../../types/Card';
 import { UserContext } from '../../../contexts/user';
 import { PoppingScoreContext } from '../../../contexts/poppingScore';
-import { CardsProps } from './types';
+import { CardsProps, InfoCardMode as InfoCardModeType } from './types';
 import CardsDisplay from './CardsDisplay';
 
 Cards.defaultProps = {
@@ -21,6 +21,9 @@ export default function Cards({
   const { shouldScoreBePoppedOut, displayPopupWithScore } = useContext(PoppingScoreContext);
   const { user: { hasStreakNotifications } } = useContext(UserContext);
   const [isScoreDisplayed, setScoreDisplayState] = useState(false);
+
+  // Switch the info display card mode between "stats" and "progress"
+  const [infoCardMode, setInfoCardMode] = useState<InfoCardModeType>('progress');
 
   /**
    * In flashmode State, the user can validate a card by left-clicking or touching the card.
@@ -38,6 +41,8 @@ export default function Cards({
       isLoading={isLoading}
       onScoreChange={onScoreCheck}
       onFlashmodeChange={onFlashModeChange}
+      onInfoCardModeChange={onInfoCardModeChange}
+      infoCardMode={infoCardMode}
       isScoreDisplayed={isScoreDisplayed}
       scoreModeIcon={faBullseye}
       flashModeIcon={faBolt}
@@ -46,6 +51,16 @@ export default function Cards({
       handleAnswer={handleAnswer}
     />
   );
+
+  /**
+   * Change the info card mode between "stats" and "progress"
+   * stats = display the stats of the card (graph with remaining delays)
+   * progress = display the exp and stats about current session (exp, streak, average score)
+   * @param mode
+   */
+  function onInfoCardModeChange(mode: InfoCardModeType) {
+    setInfoCardMode(mode);
+  }
 
   /**
    * Update the score display on each card.

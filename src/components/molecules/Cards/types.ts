@@ -1,5 +1,4 @@
 import { IconDefinition } from '@fortawesome/free-solid-svg-icons';
-import { ChangeEventHandler } from 'react';
 import UserCard from '../../../types/UserCard';
 import CardType from '../../../types/Card';
 
@@ -13,6 +12,8 @@ export type CardsProps = {
 export type CardsDisplayProps = Omit<CardsProps, 'onCardUpdate'> & {
   onScoreChange: (_isScoreDisplayed: boolean) => void,
   onFlashmodeChange: (_isFlashMode: boolean) => void,
+  onInfoCardModeChange: (_mode: InfoCardMode) => void,
+  infoCardMode: InfoCardMode,
   isScoreDisplayed: boolean,
   shouldScoreBePoppedOut: boolean,
   isFlashMode: boolean,
@@ -21,3 +22,5 @@ export type CardsDisplayProps = Omit<CardsProps, 'onCardUpdate'> & {
   scoreModeIcon: IconDefinition,
   flashModeIcon: IconDefinition,
 }
+
+export type InfoCardMode = 'progress' | 'stats'

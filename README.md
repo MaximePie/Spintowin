@@ -29,3 +29,13 @@ Start the front : `yarn && yarn start`;
 A library used for tooltip display
 [Documentation](https://www.npmjs.com/package/react-tooltip)
 ![image](https://user-images.githubusercontent.com/16031936/124700564-3bfd3f00-deed-11eb-9954-2445733efc84.png)
+
+
+### Changelog 
+
+#### 07/02/2023
+
+Using styled components was a bad idea, I am going to use... SASS instead
+Because it does not work well in local and I wanted to see the result on the server
+I'm so sad because I had found a way to separate the concern, this is making my wonderful code ugly. :(
+

@@ -1,0 +1,11 @@
+.ProgressBar {
+  border: 1px solid $primaryColor;
+  height: 20px;
+  width: 90%;
+ &__bar {
+  background-color: $primaryColor;
+  height: 100%;
+  width: 0;
+  transition: width 0.5s ease-in-out;
+ }
+}

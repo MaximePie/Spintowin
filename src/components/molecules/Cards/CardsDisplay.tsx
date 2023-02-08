@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { StyledCards, Actions } from './styles';
 import ReviewStats from '../../atoms/ReviewStats/ReviewStats';
+import ReviewProgress from '../../atoms/ReviewProgress/ReviewProgress';
 
 import { CardsDisplayProps } from './types';
 import PoppingScore from '../../atoms/PoppingScore/PoppingScore';
@@ -17,6 +18,8 @@ export default function CardsDisplay(props: CardsDisplayProps) {
     onScoreChange,
     onFlashmodeChange,
     isScoreDisplayed,
+    onInfoCardModeChange,
+    infoCardMode,
     scoreModeIcon,
     flashModeIcon,
     isFlashMode,
@@ -38,11 +41,16 @@ export default function CardsDisplay(props: CardsDisplayProps) {
         />
       </Actions>
       {shouldScoreBePoppedOut && <PoppingScore />}
-      <ReviewStats
-        remainingCards={remainingCards || 0}
-        isLoading={isLoading || false}
-        cardsList={cardsList}
-      />
+      {infoCardMode === 'stats' && (
+        <ReviewStats
+          remainingCards={remainingCards || 0}
+          isLoading={isLoading || false}
+          cardsList={cardsList}
+        />
+      )}
+      {infoCardMode === 'progress' && (
+        <ReviewProgress />
+      )}
       {!isLoading && !cardsList.length && (
       <p>
         Pas de cartes pour le moment,

@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useQuery, useQueryClient } from 'react-query';
 import { getFromServer, postOnServer } from '../../../services/server';
-import intervals from '../../../data/cards';
 import UserCard from '../../../types/UserCard';
 import TrainingDisplay from './TrainingDisplay';
 import { TrainingCardsQuery } from './types';
+import { UserContext } from '../../../contexts/user';
 
 export default function Training() {
   const queryClient = useQueryClient();
@@ -12,6 +12,8 @@ export default function Training() {
   const { data, isLoading } = useQuery<TrainingCardsQuery>('cards', fetchCards);
   const [cards, setCards] = useState<UserCard[]>([]);
   const [remainingCards, setRemainingCards] = useState<number>(0);
+
+  const { setUser } = useContext(UserContext);
 
   let isMounted = true;
 
@@ -90,6 +92,12 @@ export default function Training() {
     postOnServer(
       `/userCards/update/${card._id}`,
       { isMemorized, isSuccessful },
-    ).then(() => refetch(updatedCards));
+    ).then((response) => {
+      // Update user
+      if (response.data.updatedUser) {
+        setUser(response.data.updatedUser);
+      }
+      refetch(updatedCards);
+    });
   }
 }

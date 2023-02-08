@@ -7,6 +7,7 @@ type User = {
   role: string,
   level: number,
   experience: number,
+  experienceRequiredForNextLevel: number,
   hasCategoriesDisplayed?: boolean,
   hasStreakNotifications?: boolean,
   hasSoundEnabled?: boolean,
