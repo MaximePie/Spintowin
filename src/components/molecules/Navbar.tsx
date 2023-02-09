@@ -24,13 +24,6 @@ export default function Navbar({ user, logout }: NavbarProps) {
               {!isMobile && "S'entraîner"}
             </NavLink>
             <NavLink
-              to="/review"
-              className="Navbar__link"
-            >
-              <i className="fas fa-book-open" />
-              {!isMobile && 'Réviser'}
-            </NavLink>
-            <NavLink
               to="/add"
               className="Navbar__link"
             >

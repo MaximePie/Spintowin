@@ -1,5 +1,4 @@
 import React from 'react';
-import { StyledPoppingScore, Sparkle, Score } from './styles';
 import { PoppingScoreDisplayProps } from './types';
 import { defaultProps } from './defaultProps';
 
@@ -9,14 +8,22 @@ export default function PoppingScoreDisplay(props: PoppingScoreDisplayProps = de
   const { score, coordinates, hasSparkles } = props;
   // randomly display the sparkles with a 20% chance
   return (
-    <StyledPoppingScore coordinates={coordinates}>
-      <Score>
+    <div
+      className="PoppingScore"
+      style={{
+        top: coordinates.y,
+        left: coordinates.x,
+      }}
+    >
+      <div
+        className="PoppingScore__score"
+      >
         +
         {' '}
         {score}
-      </Score>
-      {hasSparkles && <Sparkle src={sparkles} />}
-    </StyledPoppingScore>
+      </div>
+      {(hasSparkles || true) && <img src={sparkles} className="PoppingScore__sparkles" alt="Sparkles" />}
+    </div>
   );
 }
 

@@ -8,7 +8,6 @@ import AuthForm from './components/pages/AuthForm/AuthForm';
 import Training from './components/pages/Training/Training';
 import AddCard from './components/pages/AddCard';
 import WelcomePage from './components/pages/WelcomePage';
-import Review from './components/pages/Review/Review';
 import Navbar from './components/molecules/Navbar';
 import LoadingAppGif from './components/molecules/LoadingAppGif';
 import Stats from './components/pages/Stats/Stats';
@@ -41,7 +40,6 @@ function App() {
                   {user && (
                     <>
                       <Route path="/" element={<Training />} />
-                      <Route path="/review" element={<Review />} />
                       <Route path="/add" element={<AddCard />} />
                       <Route path="/stats" element={<Stats />} />
                       <Route path="/quest" element={<Quest />} />
