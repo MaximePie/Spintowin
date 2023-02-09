@@ -5,13 +5,34 @@
   flex-direction: column;
   align-items: center;
 
+  &__level {
+    margin: 1rem 0 0.5rem 0;
+  }
+
   &__streak {
+    margin-top: 1rem;
     position: relative;
     width: 100%;
     &-value {
       position: absolute;
       color: $primaryColor;
       top: 4px;
+
+      &--red {
+        color: $dangerColor;
+      }
+
+      &--orange {
+        color: $warningColor;
+      }
+
+      &--green {
+        color: $successColor;
+      }
+
+      &--blue {
+        color: $primaryColor;
+      }
     }
 
     &-image {

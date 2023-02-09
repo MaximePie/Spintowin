@@ -2,6 +2,8 @@
   border: 1px solid $primaryColor;
   height: 20px;
   width: 90%;
+
+  border-radius: $borderRadiusSmall;
  &__bar {
   background-color: $primaryColor;
   height: 100%;

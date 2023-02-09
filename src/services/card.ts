@@ -1,7 +1,3 @@
-import intervals from '../data/cards';
-import UserCard from '../types/UserCard';
-import UserInterval from '../types/UserInterval';
-
 /**
  * Remove the diacritics from a string, make it lowercase, remove all spaces and
  * remove all special characters and remove un, une, le, la, les, du, de, des, d' and l'
