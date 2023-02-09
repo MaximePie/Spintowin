@@ -1,5 +1,7 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { CSSTransition } from 'react-transition-group';
 import { UserContext } from '../../../contexts/user';
+import streak from '../../../images/streak.png';
 import ProgressBar from '../ProgressBar/ProgressBar';
 
 export default function ReviewProgress() {
@@ -9,6 +11,12 @@ export default function ReviewProgress() {
     },
     session: { sessionStreak },
   } = useContext(UserContext);
+
+  const [animationSwitch, setAnimationSwitch] = useState(false);
+
+  useEffect(() => {
+    setAnimationSwitch(!animationSwitch);
+  }, [sessionStreak]);
 
   return (
     <div className="ReviewProgress">
@@ -21,10 +29,30 @@ export default function ReviewProgress() {
       <ProgressBar min={experience} max={experienceRequiredForNextLevel} />
 
       <div className="ReviewProgress__streak">
-        Combo :
-        {' '}
-        {sessionStreak || 0}
+        <img
+          className="ReviewProgress__streak-image"
+          src={streak}
+          alt="streak"
+        />
+        <CSSTransition
+          in={animationSwitch}
+          classNames="streak"
+          timeout={100}
+        >
+          <span className="ReviewProgress__streak-value">
+            x
+            {sessionStreak || 0}
+          </span>
+        </CSSTransition>
       </div>
+
+      <button
+        className="ReviewProgress__switch"
+        type="button"
+        onClick={() => setAnimationSwitch(!animationSwitch)}
+      >
+        {animationSwitch ? 'off' : 'on'}
+      </button>
     </div>
   );
 }

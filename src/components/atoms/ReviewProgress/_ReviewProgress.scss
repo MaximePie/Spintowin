@@ -4,4 +4,52 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  &__streak {
+    position: relative;
+    width: 100%;
+    &-value {
+      position: absolute;
+      color: $primaryColor;
+      top: 4px;
+    }
+
+    &-image {
+        width: 1.5em;
+        height: 1.5em;
+        object-fit: cover;
+    }
+  }
+
+  .streak {
+    position: absolute;
+    font-size: 1rem;
+    font-weight: 700;
+    color: $primaryColor;
+    transition: font-size .100s ease-in;
+
+    &-enter {
+      &-active {
+        transform: scale(2);
+        transition: transform .100s ease-in;
+      }
+
+      &-done {
+        transform: scale(1);
+        transition: transform .100s ease-in;
+      }
+    }
+
+    &-exit {
+      &-active {
+        transform: scale(2);
+        transition: transform .100s ease-in;
+      }
+
+        &-done {
+          transform: scale(1);
+          transition: transform .100s ease-in;
+        }
+    }
+  }
 }
