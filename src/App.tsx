@@ -71,12 +71,10 @@ function App() {
   );
 
   function logout() {
-    axiosInstance.get('/users/logout').then(() => {
-      localStorage.removeItem('auth-token');
-      setAuthToken(null);
-      setUser(undefined);
-      document.location.pathname = '/';
-    });
+    localStorage.removeItem('auth-token');
+    setAuthToken(null);
+    setUser(undefined);
+    document.location.pathname = '/';
   }
 
   function getUserWithToken(token: string, isAfterLogging = false) {
