@@ -23,11 +23,6 @@ const Card = function Card(props: CardProps) {
   const [isModalOpen, setOpenModalState] = useState(false);
   const isAnswerShownRef = React.useRef(false);
 
-  /**
-   * When the user removes a card, trigger a little fancy fade out animation
-   */
-  const [isDisappearing, setDisappearingState] = useState(false);
-
   const { user: { hasCategoriesDisplayed } } = React.useContext(UserContext);
   const { ignore: ignoreCard } = React.useContext(QuestContext);
   const hints = data.hints || [];
@@ -42,8 +37,6 @@ const Card = function Card(props: CardProps) {
   useEffect(afterReveal, [isAnswerShown]);
 
   useEffect(setKeyBinds, []);
-
-  useEffect(handleDisappearing, [isDisappearing]);
 
   return (
     <CardDisplay
@@ -63,28 +56,8 @@ const Card = function Card(props: CardProps) {
       onModalOpen={openModal}
       onRightClick={handleRightClick}
       hints={hints}
-      isDisappearing={isDisappearing}
     />
   );
-
-  /**
-   * Handle the disappearance of the card
-   */
-  function handleDisappearing() {
-    if (isDisappearing) {
-      handleAnswer(isAnswerSuccessful || true);
-      setTimeout(() => {
-        setDisappearingState(false);
-      }, 1); // 1ms to trigger the animation, because it's "under progress" 🤷🏻‍♂️
-    }
-  }
-
-  /**
-   * Set the card as disappearing
-   */
-  function removeCard() {
-    setDisappearingState(true);
-  }
 
   /**
    * If isFlashmode, handleAnswer with true
@@ -92,7 +65,7 @@ const Card = function Card(props: CardProps) {
    */
   function onCardClick() {
     if (isFlashmode) {
-      removeCard();
+      handleAnswer(true);
     } else {
       reveal();
     }
@@ -115,7 +88,7 @@ const Card = function Card(props: CardProps) {
   function handleRightClick(event: React.MouseEvent) {
     if (!isSingle && mode !== 'quest') {
       event.preventDefault();
-      removeCard();
+      handleAnswer(true);
     }
   }
 

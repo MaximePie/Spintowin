@@ -7,6 +7,7 @@ import { viewportContext } from '../../../contexts/viewport';
 import CardType from '../../../types/Card';
 import { UserContext } from '../../../contexts/user';
 import { PoppingScoreContext } from '../../../contexts/poppingScore';
+import { CoinContext } from '../../../contexts/coin';
 import { CardsProps, InfoCardMode as InfoCardModeType } from './types';
 import CardsDisplay from './CardsDisplay';
 
@@ -19,6 +20,7 @@ export default function Cards({
   cardsList, onCardUpdate, remainingCards, fetchCards, isLoading,
 }: CardsProps) {
   const { shouldScoreBePoppedOut, displayPopupWithScore } = useContext(PoppingScoreContext);
+  const { hasEarnedACoin, earnCoin } = useContext(CoinContext);
   const { user: { hasStreakNotifications } } = useContext(UserContext);
   const [isScoreDisplayed, setScoreDisplayState] = useState(false);
 
@@ -48,6 +50,7 @@ export default function Cards({
       flashModeIcon={faBolt}
       isFlashMode={isFlashmode}
       shouldScoreBePoppedOut={shouldScoreBePoppedOut}
+      hasEarnedACoin={hasEarnedACoin}
       handleAnswer={handleAnswer}
     />
   );
@@ -109,6 +112,7 @@ export default function Cards({
     // Get data
     const targetCard = cardsList.find((card) => card._id === cardId);
     if (targetCard) {
+      let earnedCoins = 0;
       if (targetCard.isMemorized) {
         Store.addNotification({
           ...memorisedNotification,
@@ -127,11 +131,17 @@ export default function Cards({
           coordinates = { x, y };
         }
         displayPopupWithScore(targetCard.currentDelay, coordinates);
+
+        // Gain a coin with a 10% chance
+        if (Math.random() < 0.1) {
+          earnCoin(coordinates);
+          earnedCoins = 1;
+        }
       }
 
       // TODO - Disable this line if you want the streak effect back.
       tryToDisplayStreakNotification(targetCard.currentSuccessfulAnswerStreak);
-      onCardUpdate(targetCard, isSuccess);
+      onCardUpdate(targetCard, isSuccess, earnedCoins);
     }
   }
 

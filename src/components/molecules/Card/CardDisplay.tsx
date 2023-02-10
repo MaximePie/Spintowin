@@ -16,12 +16,10 @@ export default function CardDisplay(props: CardDisplayProps) {
     hasCategoriesDisplayed,
     isAnswerShown,
     onAnswer,
-
     onClick,
     onRightClick,
     onKeypress,
     isModalOpen,
-    isDisappearing,
     onModalClose,
     onModalOpen,
     data,
@@ -61,7 +59,6 @@ export default function CardDisplay(props: CardDisplayProps) {
           isSingle={isSingle}
           noBorders={!!image && !isSingle}
           onContextMenu={onRightClick}
-          isDisappearing={isDisappearing}
         >
           <div>
             {hints.length > 0 && (
@@ -111,7 +108,6 @@ export default function CardDisplay(props: CardDisplayProps) {
           role="button"
           tabIndex={0}
           onKeyUp={onKeypress}
-          isDisappearing={isDisappearing}
         >
           <Edit
             icon={faEdit}

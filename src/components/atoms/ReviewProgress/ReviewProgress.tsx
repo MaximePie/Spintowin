@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { CSSTransition } from 'react-transition-group';
 import { UserContext } from '../../../contexts/user';
 import streak from '../../../images/streak.png';
+import coin from '../../../images/coin.png';
 import ProgressBar from '../ProgressBar/ProgressBar';
 
 /**
@@ -13,7 +14,7 @@ import ProgressBar from '../ProgressBar/ProgressBar';
 export default function ReviewProgress() {
   const {
     user: {
-      experience, level, experienceRequiredForNextLevel,
+      experience, level, experienceRequiredForNextLevel, coins,
     },
     session: { sessionStreak },
   } = useContext(UserContext);
@@ -30,25 +31,36 @@ export default function ReviewProgress() {
         {`Niv ${level}`}
       </div>
       <ProgressBar min={experience} max={experienceRequiredForNextLevel} />
-
-      <div className="ReviewProgress__streak">
-        <img
-          className="ReviewProgress__streak-image"
-          src={streak}
-          alt="streak"
-        />
-        <CSSTransition
-          in={animationSwitch}
-          classNames="streak"
-          timeout={100}
-        >
-          <span
-            className={`ReviewProgress__streak-value ReviewProgress__streak-value--${sessionColor()}`}
-          >
-            x
-            {sessionStreak || 0}
+      <div className="ReviewProgress__line">
+        <div className="ReviewProgress__coins">
+          <img
+            className="ReviewProgress__coins-image"
+            src={coin}
+            alt="coin"
+          />
+          <span className="ReviewProgress__coins-value">
+            {coins}
           </span>
-        </CSSTransition>
+        </div>
+        <div className="ReviewProgress__streak">
+          <img
+            className="ReviewProgress__streak-image"
+            src={streak}
+            alt="streak"
+          />
+          <CSSTransition
+            in={animationSwitch}
+            classNames="streak"
+            timeout={100}
+          >
+            <span
+              className={`ReviewProgress__streak-value ReviewProgress__streak-value--${sessionColor()}`}
+            >
+              x
+              {sessionStreak || 0}
+            </span>
+          </CSSTransition>
+        </div>
       </div>
     </div>
   );

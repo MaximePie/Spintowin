@@ -1,0 +1,33 @@
+.Coin {
+  width: 40px;
+  height: 40px;
+  z-index: 1;
+
+  position: absolute;
+  transform: translate(-50%, -50%);
+
+  animation: SpinWhileAppearingAndFadeOut 3s ease-in-out forwards;
+
+    @keyframes SpinWhileAppearingAndFadeOut {
+        0% {
+            opacity: 0;
+            transform: rotateY(-180deg) translateY(100px)
+        }
+        20% {
+            opacity: 1;
+            transform: rotateY(0deg) translateY(0px);
+        }
+        60% {
+          opacity: 1;
+          transform: rotateY(360deg) translateY(0px);
+        }
+        80% {
+            opacity: 1;
+            transform: rotateY(360deg) translateY(0px);
+        }
+        100% {
+            opacity: 0;
+            transform: rotateY(720deg) translateY(100px);
+        }
+    }
+}

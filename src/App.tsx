@@ -15,6 +15,7 @@ import { axiosInstance, setAuthToken } from './services/server';
 import handleError from './services/errors';
 import User from './types/User';
 import Quest from './components/pages/Quest/Quest';
+import { CoinProvider } from './contexts/coin';
 
 function App() {
   const [user, setUser] = useState<User | undefined>(undefined);
@@ -29,13 +30,14 @@ function App() {
     <BrowserRouter>
       <UserContextProvider>
         <ViewportContextProvider>
-          <PoppingScoreProvider>
-            <div className="App">
-              <Navbar user={user} logout={logout} />
-              {isLoading && (
+          <CoinProvider>
+            <PoppingScoreProvider>
+              <div className="App">
+                <Navbar user={user} logout={logout} />
+                {isLoading && (
                 <LoadingAppGif />
-              )}
-              {!isLoading && (
+                )}
+                {!isLoading && (
                 <Routes>
                   {user && (
                     <>
@@ -59,9 +61,10 @@ function App() {
                     </>
                   )}
                 </Routes>
-              )}
-            </div>
-          </PoppingScoreProvider>
+                )}
+              </div>
+            </PoppingScoreProvider>
+          </CoinProvider>
         </ViewportContextProvider>
       </UserContextProvider>
 

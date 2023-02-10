@@ -6,6 +6,7 @@ import ReviewProgress from '../../atoms/ReviewProgress/ReviewProgress';
 
 import { CardsDisplayProps } from './types';
 import PoppingScore from '../../atoms/PoppingScore/PoppingScore';
+import Coin from '../../atoms/Coin/Coin';
 import Card from '../Card/Card';
 import IconCheckbox from '../../atoms/IconCheckbox/IconCheckbox';
 import Button from '../../atoms/Button/Button';
@@ -25,6 +26,7 @@ export default function CardsDisplay(props: CardsDisplayProps) {
     flashModeIcon,
     isFlashMode,
     shouldScoreBePoppedOut,
+    hasEarnedACoin,
     handleAnswer,
   } = props;
   return (
@@ -42,6 +44,7 @@ export default function CardsDisplay(props: CardsDisplayProps) {
         />
       </Actions>
       {shouldScoreBePoppedOut && <PoppingScore />}
+      {hasEarnedACoin && <Coin />}
       <div className="Cards__infoCards">
         <div className="Cards__infoCards__actions">
           <Button

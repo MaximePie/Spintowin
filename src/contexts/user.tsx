@@ -198,7 +198,6 @@ export function UserContextProvider(
    * Increment the user's streak
    */
   function incrementUserStreak() {
-    console.log('incrementing user streak');
     setSession({
       ...session,
       sessionStreak: session.sessionStreak + 1,

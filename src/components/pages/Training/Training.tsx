@@ -64,15 +64,17 @@ export default function Training() {
    * and the cards list
    * @param card The updated card
    * @param isSuccessful
+   * @param earnedCoins The number of coins earned by the user, sometimes it can
+   * appear when answering
    */
-  function onCardUpdate(card: UserCard, isSuccessful: boolean) {
+  function onCardUpdate(card: UserCard, isSuccessful: boolean, earnedCoins: number = 0) {
     const updatedCards = cleanUpdatedCard(card);
     if (isSuccessful) {
       incrementUserStreak();
     } else {
       resetUserStreak();
     }
-    triggerCardUpdate(card, updatedCards, isSuccessful);
+    triggerCardUpdate(card, updatedCards, isSuccessful, earnedCoins);
   }
 
   /**
@@ -91,14 +93,20 @@ export default function Training() {
    * Triggers the request to update the Card after a given Answer
    * @param card The card to update
    * @param updatedCards The updated cards list
-   * @param isSuccessful
+   * @param isSuccessful Whether the answer was successful or not
+   * @param coins The number of coins to add to the user, sometimes it can appear when answering
    */
-  function triggerCardUpdate(card: UserCard, updatedCards: UserCard[], isSuccessful: boolean) {
+  function triggerCardUpdate(
+    card: UserCard,
+    updatedCards: UserCard[],
+    isSuccessful: boolean,
+    coins: number = 0,
+  ) {
     const { isMemorized } = card;
 
     postOnServer(
       `/userCards/update/${card._id}`,
-      { isMemorized, isSuccessful },
+      { isMemorized, isSuccessful, coins },
     ).then((response) => {
       // Update user
       if (response.data.updatedUser) {

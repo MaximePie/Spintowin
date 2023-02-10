@@ -9,6 +9,34 @@
     margin: 1rem 0 0.5rem 0;
   }
 
+  &__line {
+    width: 100%;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__coins {
+    margin-top: 1rem;
+    width: 100%;
+    position: relative;
+
+    &-image {
+      width: 1.5em;
+      height: 1.5em;
+      object-fit: cover;
+    }
+
+    &-value {
+      position: absolute;
+      color: $primaryColor;
+      top: 4px;
+      margin-left: 0.25rem;
+    }
+  }
+
   &__streak {
     margin-top: 1rem;
     position: relative;

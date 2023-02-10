@@ -18,7 +18,6 @@ export type CardDisplayProps =
   isModalOpen: boolean,
   isAnswerShown: boolean,
   isAnswerSuccessful?: boolean,
-  isDisappearing: boolean,
   hasCategoriesDisplayed?: boolean,
 
   image?: string,
