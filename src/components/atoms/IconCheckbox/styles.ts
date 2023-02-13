@@ -24,6 +24,7 @@ export const Wrapper = styled.div`
   align-items: center;
   border: 1px solid ${colors.gray};
   cursor: pointer;
+  background-color: ${colors.white}
 `;
 
 export const Icon = styled(FontAwesomeIcon)<{ isActive: boolean }>`
