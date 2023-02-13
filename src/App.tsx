@@ -42,8 +42,7 @@ function App() {
                 <Routes>
                   {user && (
                     <>
-                      <Route path="/" element={<Home />} />
-                      <Route path="/train" element={<Training />} />
+                      <Route path="/" element={<Training />} />
                       <Route path="/add" element={<AddCard />} />
                       <Route path="/stats" element={<Stats />} />
                       <Route path="/quest" element={<Quest />} />
@@ -51,7 +50,7 @@ function App() {
                   )}
                   {!user && (
                     <>
-                      <Route path="/" element={<WelcomePage />} />
+                      <Route path="/" element={<Home />} />
                       <Route
                         path="/login"
                         element={<AuthForm action="login" onTokenAcquisition={getUserWithToken} />}

@@ -18,7 +18,7 @@ export default function Navbar({ user, logout }: NavbarProps) {
           <div className="Navbar__right">
             <NavLink
               className="Navbar__link"
-              to="/train"
+              to="/"
             >
               <i className="fas fa-dumbbell" />
               {!isMobile && "S'entraîner"}
@@ -55,7 +55,14 @@ export default function Navbar({ user, logout }: NavbarProps) {
       )}
       {!user && (
         <>
-          <span />
+          <div className="Navbar__right">
+            <NavLink
+              to="/"
+              className="Navbar__link"
+            >
+              Eurekard
+            </NavLink>
+          </div>
           <div className="Navbar__left">
             <NavLink
               to="/login"

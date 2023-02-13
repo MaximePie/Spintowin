@@ -13,6 +13,7 @@ const Card = function Card(props: CardProps) {
     isSingle,
     mode,
     isFlashmode,
+    className,
   } = props;
 
   const {
@@ -56,6 +57,7 @@ const Card = function Card(props: CardProps) {
       onModalOpen={openModal}
       onRightClick={handleRightClick}
       hints={hints}
+      className={className}
     />
   );
 

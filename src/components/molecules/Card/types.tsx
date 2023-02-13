@@ -10,6 +10,7 @@ export type CardProps = {
   onUpdate: Function,
   isSingle?: boolean,
   mode?: 'training' | 'review' | 'quest'
+  className?: string,
 }
 
 export type CardDisplayProps =
@@ -30,6 +31,7 @@ export type CardDisplayProps =
   onRightClick: MouseEventHandler,
   onAnswer: (_isAnswerSuccessful: boolean) => void,
   hints: string[],
+  className?: string,
 }
 
 export type StyledCardProps = {

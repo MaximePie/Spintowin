@@ -25,6 +25,7 @@ export default function CardDisplay(props: CardDisplayProps) {
     data,
     image,
     mode,
+    className,
     hints,
   } = props;
 
@@ -52,6 +53,7 @@ export default function CardDisplay(props: CardDisplayProps) {
 
       {cardFlipState === 'recto' && (
         <StyledCard
+          className={className}
           onClick={onClick}
           role="button"
           tabIndex={0}
@@ -103,18 +105,21 @@ export default function CardDisplay(props: CardDisplayProps) {
         timeout={0}
       >
         <StyledCard
+          className={className}
           isSingle={isSingle}
           onClick={onClick}
           role="button"
           tabIndex={0}
           onKeyUp={onKeypress}
         >
-          <Edit
-            icon={faEdit}
-            onClick={onModalOpen}
-            role="button"
-            tabIndex={0}
-          />
+          {isOwnerOfCard && (
+            <Edit
+              icon={faEdit}
+              onClick={onModalOpen}
+              role="button"
+              tabIndex={0}
+            />
+          )}
           {hasCategoriesDisplayed && category && (
             <Category>
               {category}
