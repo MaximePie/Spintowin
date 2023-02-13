@@ -18,7 +18,7 @@ export default function Navbar({ user, logout }: NavbarProps) {
           <div className="Navbar__right">
             <NavLink
               className="Navbar__link"
-              to="/"
+              to="/train"
             >
               <i className="fas fa-dumbbell" />
               {!isMobile && "S'entraîner"}

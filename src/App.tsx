@@ -6,6 +6,7 @@ import { PoppingScoreProvider } from './contexts/poppingScore';
 
 import AuthForm from './components/pages/AuthForm/AuthForm';
 import Training from './components/pages/Training/Training';
+import Home from './components/pages/Home/Home';
 import AddCard from './components/pages/AddCard';
 import WelcomePage from './components/pages/WelcomePage';
 import Navbar from './components/molecules/Navbar';
@@ -41,7 +42,8 @@ function App() {
                 <Routes>
                   {user && (
                     <>
-                      <Route path="/" element={<Training />} />
+                      <Route path="/" element={<Home />} />
+                      <Route path="/train" element={<Training />} />
                       <Route path="/add" element={<AddCard />} />
                       <Route path="/stats" element={<Stats />} />
                       <Route path="/quest" element={<Quest />} />
