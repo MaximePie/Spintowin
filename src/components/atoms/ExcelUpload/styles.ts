@@ -12,6 +12,7 @@ cursor: pointer;
 
 export const Input = styled.input`
   width: 0.1px;
+  min-width: 0.1px;
   height: 0.1px;
   opacity: 0;
   overflow: hidden;

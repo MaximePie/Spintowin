@@ -15,19 +15,28 @@ export default function AddCardUsers() {
 
   return (
     <div className="AddCardUsers">
-      {users.map((user) => (
-        <div
-          key={user._id.toString()}
-          className="AddCardUsers__user"
-          onClick={() => setDisplayedUser(user._id)}
-          onKeyUp={(event) => event.key === 'enter' && setDisplayedUser(user._id)}
-          role="button"
-          tabIndex={0}
-        >
-          <p>{user.username}</p>
+      <h3>Ou ajouter des cartes d'autres utilisateurs</h3>
+      <div className="AddCardUsers__body">
+        <div className="AddCardUsers__users">
+          {users.map((user) => (
+            <div
+              key={user._id.toString()}
+              className={`AddCardUsers__user ${
+                displayedUser === user._id ? 'AddCardUsers__user--active' : ''
+              }`}
+              onClick={() => setDisplayedUser(user._id)}
+              onKeyUp={(event) => event.key === 'enter' && setDisplayedUser(user._id)}
+              role="button"
+              tabIndex={0}
+            >
+              <p>{user.username}</p>
+            </div>
+          ))}
         </div>
-      ))}
-      {displayedUser && <AddCardUser userId={displayedUser} />}
+        <div className="AddCardUsers__user-cards">
+          {displayedUser && <AddCardUser userId={displayedUser} />}
+        </div>
+      </div>
     </div>
   );
 
