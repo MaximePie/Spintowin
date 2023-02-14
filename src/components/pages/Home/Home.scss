@@ -9,6 +9,12 @@
 
   padding-top: 2rem;
 
+  @include for-phone-only {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
   &__Card {
     position: relative !important;
     background-color: white;
@@ -17,6 +23,17 @@
 
     width: 360px !important;
     height: 440px !important;
+
+    @include for-phone-only {
+      width: 300px !important;
+      height: 360px !important;
+    }
+
+    &--last {
+      .Button--danger {
+        display: none;
+      }
+    }
   }
 
   .Home__actions {

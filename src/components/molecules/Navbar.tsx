@@ -68,13 +68,15 @@ export default function Navbar({ user, logout }: NavbarProps) {
               to="/login"
               className="Navbar__link"
             >
-              Se connecter
+              <i className="fas fa-sign-in-alt" />
+              {!isMobile && 'Se connecter'}
             </NavLink>
             <NavLink
               to="/register"
               className="Navbar__link"
             >
-              Créer un compte
+              <i className="fas fa-user-plus" />
+              {!isMobile && 'Créer un compte'}
             </NavLink>
           </div>
         </>

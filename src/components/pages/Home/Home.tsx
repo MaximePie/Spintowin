@@ -66,7 +66,7 @@ export default function Home() {
             onAnswer={removeFirst}
             onUpdate={removeFirst}
             mode="training"
-            className="Home__Card"
+            className={cards.length === 1 ? 'Home__Card Home__Card--last' : 'Home__Card'}
           />
         </div>
       </div>
