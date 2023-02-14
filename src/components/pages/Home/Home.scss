@@ -1,18 +1,51 @@
 .Home {
-  // Create a home page
-  background: url('/src/resources/images/home1.png');
-  height: 100vh;
-  width: 100%;
-  display: flex;
-  justify-content: space-around;
-  color: white;
+  &--1 {
+    // Create a home page
+    background: url('/src/resources/images/home1.png');
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    color: white;
 
-  padding-top: 2rem;
+    padding-top: 2rem;
 
-  @include for-phone-only {
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    @include for-phone-only {
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
+  &--2 {
+
+    padding: 2rem;
+
+    &__Cards {
+      display: flex;
+      justify-content: space-around;
+      height: 400px;
+    }
+
+    &__Card {
+      height: 400px !important;
+      width: 300px !important;
+    }
+
+
+    .Button {
+      display: none;
+    }
+  }
+
+  &--3 {
+    color: white;
+    background-image: url('/src/resources/images/home3.webp');
+    background-size: cover;
+    padding: 2rem;
+    &--stats {
+      margin: auto;
+    }
   }
 
   &__Card {
@@ -116,6 +149,8 @@
         animation-delay: 0.75s;
     }
   }
+
+
 
     @keyframes growAndFade {
         0% {

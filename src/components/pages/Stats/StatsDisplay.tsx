@@ -7,7 +7,6 @@ import SettingsModal from '../../molecules/SettingsModal/SettingsModal';
 import Profile from '../../molecules/Profile';
 import StatsCard from '../../molecules/StatsCard';
 import AnswersBarChart from '../../molecules/AnswersBarChart';
-import Objectives from '../../molecules/Objectives/Objectives';
 
 export default function StatsDisplay({
   areSettingsDisplayed,
