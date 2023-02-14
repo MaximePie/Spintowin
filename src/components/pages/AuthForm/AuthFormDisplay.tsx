@@ -20,7 +20,9 @@ export default function AuthFormDisplay({
 }: AuthFormDisplayProps) {
   return (
     <Container>
-      <StyledForm>
+      <StyledForm
+        onSubmit={onSubmit}
+      >
         <h3>Bienvenue !</h3>
         {action === 'register' && (
         <Field>

@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Stats, StatsListTop, StatsListLarge, IconButton,
+  Stats, StatsListLarge, IconButton,
 } from './styles';
 import { StatsDisplayProps } from './types';
 import SettingsModal from '../../molecules/SettingsModal/SettingsModal';
@@ -24,10 +24,9 @@ export default function StatsDisplay({
           onClick={onSettingsDisplay}
         />
       </h1>
-      <StatsListTop>
+      <div className="Stats__list--top">
         <Profile />
-        <Objectives />
-      </StatsListTop>
+      </div>
       <StatsListLarge>
         <StatsCard title="Réponses" component={<AnswersBarChart />} />
       </StatsListLarge>

@@ -57,10 +57,6 @@
     font-size: 16px;
     margin: 4px 2px;
     cursor: pointer;
-
-    &:hover {
-      background-color: #3e8e41;
-    }
   }
 
   &__action--register {
@@ -80,6 +76,7 @@
 
     &:hover {
       background-color: #3e8e41;
+      transition : 0.5s;
     }
   }
 

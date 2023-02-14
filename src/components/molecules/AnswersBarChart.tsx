@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import Chart from 'react-apexcharts';
 import { getFromServer } from '../../services/server';
 import { UserContext } from '../../contexts/user';
+import { viewportContext } from '../../contexts/viewport';
 
 type answerType = {
   delay: number,
@@ -19,6 +20,7 @@ type graphDataType = answerType[];
 export default function AnswersBarChart() {
   const [graphData, setGraphData] = useState<graphDataType>({} as graphDataType);
   const { intervals: flatIntervals } = useContext(UserContext);
+  const { isMobile } = useContext(viewportContext);
   let isMounted = false;
 
   const intervals = flatIntervals
@@ -48,10 +50,6 @@ export default function AnswersBarChart() {
         name: "Taux d'échec",
         data: successfulAnswersRate(),
       },
-      // {
-      //   name: 'Temps de réponse moyen',
-      //   data: answerTimes(),
-      // },
     ],
   };
 
