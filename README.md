@@ -45,3 +45,11 @@ New feature :
 - [x] Add a new tab on review stats cards to display the exp progression
 
 It is still a bit broken but it is working. I am going to fix it later.
+
+#### 14/02/2023
+
+- [x] Reworking the addCards page to make it more user friendly
+
+#### 15/02/2023
+
+Going through AWS S3 to host our static gif files

@@ -32,27 +32,31 @@
   &__user {
     padding: 1rem;
     margin: 1rem 0;
-    width: 100%;
 
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: space-around;
     flex-direction: column;
-    height: 32px;
 
     &-name {
         font-size: 1.2rem;
         font-weight: 600;
-      margin: 0;
+        margin: 0;
     }
 
     &-details {
         font-size: 1em;
-        margin: 0;
+        margin-top: 1em;
         display: flex;
         align-items: center;
         justify-content: space-around;
+        width: 60%;
+
+      i {
+        margin-right: .25em;
+        color: $primaryColor;
+      }
     }
 
     &--active {

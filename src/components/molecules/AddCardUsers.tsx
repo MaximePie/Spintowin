@@ -41,13 +41,12 @@ export default function AddCardUsers() {
               <h4 className="AddCardUsers__user-name">{username}</h4>
               <p className="AddCardUsers__user-details">
                 <span className="AddCardUsers__user-detail">
-                  Niveau :
+                  <i className="fas fa-brain" />
                   {' '}
                   <strong>{level}</strong>
                 </span>
                 <span className="AddCardUsers__user-detail">
-                  Questions :
-                  {' '}
+                  <i className="fas fa-clone" />
                   <strong>{cardsCount}</strong>
                 </span>
               </p>
