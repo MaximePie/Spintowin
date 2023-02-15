@@ -11,6 +11,7 @@
   }
 
   &--top {
+    display: grid;
     grid-template-columns: 500px 1fr;
 
     @include for-phone-only {

@@ -69,11 +69,4 @@
       transition: 0.5s;
     }
   }
-
-  &__cards {
-    display: flex;
-
-    max-height: 100vh;
-    overflow-y: auto;
-  }
 }

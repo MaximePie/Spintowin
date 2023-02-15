@@ -25,6 +25,7 @@ export default function StatsDisplay({
       </h1>
       <div className="Stats__list--top">
         <Profile />
+        <div />
       </div>
       <StatsListLarge>
         <StatsCard title="Réponses" component={<AnswersBarChart />} />
