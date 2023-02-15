@@ -150,7 +150,7 @@ export default function Home() {
         <p>Configurez vos intervales de révision pour trouver celle qui vous convient le mieux</p>
         <img
           className="Home--3__stats"
-          src="/public/stats.gif"
+          src="https://eurekardimages.s3.eu-west-2.amazonaws.com/stats.gif"
           alt="Rétention de l'information et taux d'échec selon l'intervale espacée de répétition en secondes"
         />
       </div>
