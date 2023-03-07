@@ -19,6 +19,16 @@ export default function useQuestionEditionModal(props: QuestionEditionModalProps
   const [hint, setHint] = React.useState<string>('');
 
   /**
+   * Close the modal if the user press the escape key
+   * @param event The event of the key press (escape)
+   */
+  function tryCloseModal(event: React.KeyboardEvent<HTMLDivElement>) {
+    if (event.key === 'Escape') {
+      onClose();
+    }
+  }
+
+  /**
    * Call the onClose method
    */
   function closeModal() {
@@ -98,5 +108,6 @@ export default function useQuestionEditionModal(props: QuestionEditionModalProps
     onHintUpdate,
     hint,
     hints,
+    tryCloseModal,
   };
 }

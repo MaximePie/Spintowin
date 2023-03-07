@@ -1,27 +1,7 @@
 import styled from 'styled-components';
 import {
-  cardStyle, colors, flex, modalContainer, spacings,
+  cardStyle, colors, flex, spacings,
 } from '../../../style/StyledComponents/variables';
-
-export const ModalContainer = styled.div`
-  ${modalContainer};
-  position: fixed;
-  top: 0;
-  left: 0;
-  background-color: rgba(0, 0, 0, 0.42);
-  z-index: 100;
-  
-  // fade in animation
-  animation: fadeIn 0.3s;
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-`;
 
 export const Modal = styled.div`
   width: 600px;

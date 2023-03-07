@@ -1,0 +1,83 @@
+.QuestionEditionModalContainer {
+  top: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  background-color: #00000080;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.42);
+  z-index: 100;
+
+  // fade in animation
+  animation: fadeIn 0.3s;
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+}
+
+.QuestionEditionModal {
+  width: 800px;
+  height: 500px;
+  background-color: white;
+  position: fixed;
+  top: $extraLargeSpacing;
+
+  @include cardStyle;
+
+  &__close-button {
+    position: absolute;
+    top: 0.5rem;
+    right: $mediumSpacing;
+    color: $gray;
+  }
+
+  &__fields, &__field {
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+  }
+
+  &__field {
+    min-width: 186px !important;
+  }
+
+  .InputGroup {
+    display: flex;
+    align-items: center;
+  }
+
+  &__actions {
+    display: flex;
+  }
+
+  &__action {
+    margin: 1rem 0.5rem;
+
+    &--danger {
+      background-color: $dangerColor;
+    }
+
+    &-icon {
+      margin-right: 0.5rem;
+    }
+  }
+
+  &__hints {
+    padding-left: $mediumSpacing;
+    margin-left: $mediumSpacing;
+    // Add a border on the left of the hints
+    border-left: 1px solid $gray;
+    height: 100%;
+  }
+}

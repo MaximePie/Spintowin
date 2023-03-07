@@ -4,7 +4,7 @@ import InputGroup from '../../atoms/InputGroup/InputGroup';
 import QuestionEditionModalProps from './types';
 import useQuestionEditionModal from './useQuestionEditionModal';
 import {
-  CloseButton, Modal, ModalContainer, Form, Fields, Field, Actions, Hints,
+  Form, Fields, Field, Actions, Hints,
 } from './styles';
 import Button from '../../atoms/Button/Button';
 
@@ -27,18 +27,23 @@ export default function QuestionEditionModal(props: QuestionEditionModalProps) {
     hint,
     hints,
     onHintUpdate,
+    tryCloseModal,
   } = useQuestionEditionModal(props);
-
   return (
-    <ModalContainer>
-      <Modal>
-        <CloseButton
+    <div className="QuestionEditionModalContainer" onKeyUp={tryCloseModal}>
+      <div
+        className="QuestionEditionModal"
+        onKeyUp={tryCloseModal}
+      >
+        <div
+          className="QuestionEditionModal__close-button"
           role="button"
           tabIndex={0}
           onClick={closeModal}
+          onKeyUp={tryCloseModal}
         >
           X
-        </CloseButton>
+        </div>
 
         {!isOwnerOfCard && (
           <div>
@@ -104,7 +109,7 @@ export default function QuestionEditionModal(props: QuestionEditionModalProps) {
                   </label>
                 </div>
                 {hints && (
-                  <Hints>
+                  <div className="QuestionEditionModal__hints">
                     <h4>Indices</h4>
                     <ul>
                       {hints?.map((existingHint) => (
@@ -113,14 +118,14 @@ export default function QuestionEditionModal(props: QuestionEditionModalProps) {
                         </li>
                       ))}
                     </ul>
-                  </Hints>
+                  </div>
                 )}
               </Fields>
               <Actions>
                 <Button
                   onClick={closeModal}
                   type="button"
-                  variant="gray"
+                  variant="secondary"
                   text="Annuler"
                 />
                 <Button
@@ -132,7 +137,7 @@ export default function QuestionEditionModal(props: QuestionEditionModalProps) {
             </Form>
           </>
         )}
-      </Modal>
-    </ModalContainer>
+      </div>
+    </div>
   );
 }

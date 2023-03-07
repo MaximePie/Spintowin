@@ -1,7 +1,7 @@
 import React from 'react';
 import { SettingsModalDisplayProps } from './types';
 import {
-  CloseButton, Field, Modal, ModalContainer, Intervals,
+  CloseButton, Field, Modal, Intervals,
 } from './styles';
 
 SettingsModalDisplay.defaultProps = {
@@ -22,8 +22,8 @@ export default function SettingsModalDisplay(props: SettingsModalDisplayProps) {
   } = props;
 
   return (
-    <ModalContainer>
-      <Modal>
+    <div className="ModalContainer">
+      <div className="SettingsModal">
         <CloseButton
           role="button"
           tabIndex={0}
@@ -76,7 +76,7 @@ export default function SettingsModalDisplay(props: SettingsModalDisplayProps) {
             ))}
           </Intervals>
         )}
-      </Modal>
-    </ModalContainer>
+      </div>
+    </div>
   );
 }

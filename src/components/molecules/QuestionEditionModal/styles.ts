@@ -1,28 +1,5 @@
 import styled from 'styled-components';
-import {
-  cardStyle, colors, flex, modalContainer, spacings,
-} from '../../../style/StyledComponents/variables';
-
-export const ModalContainer = styled.div`
-  ${modalContainer}
-`;
-
-export const Modal = styled.div`
-  width: 800px;
-  height: 500px;
-  background-color: white;
-  position: fixed;
-  top: ${spacings.extraLarge};
-
-  ${cardStyle};
-`;
-
-export const CloseButton = styled.span`
-  position: absolute;
-  top: 0.5rem;
-  right: ${spacings.medium};
-  color: ${colors.grey};
-`;
+import { colors, flex, spacings } from '../../../style/StyledComponents/variables';
 
 export const Form = styled.form`
   height: 80%;

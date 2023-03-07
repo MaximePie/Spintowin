@@ -66,21 +66,6 @@ const colors = {
   white: '#fbfbfb',
 };
 
-export const modalContainer = `
-  position: absolute;
-  top: 0;
-  right: 0;
-  z-index: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-
-  background-color: #00000080;
-  width: 100vw;
-  height: 100vh;
-`;
-
 export {
   colors, shapes, spacings,
 };

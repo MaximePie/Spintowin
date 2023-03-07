@@ -1,0 +1,27 @@
+.SettingsModal {
+  top: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  background-color: #00000080;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.42);
+  z-index: 100;
+
+  // fade in animation
+  animation: fadeIn 0.3s;
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+}
