@@ -30,7 +30,7 @@ export default function CardsDisplay(props: CardsDisplayProps) {
     handleAnswer,
   } = props;
   return (
-    <StyledCards>
+    <StyledCards id="Cards">
       <Actions>
         <IconCheckbox
           onChange={onScoreChange}

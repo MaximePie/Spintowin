@@ -12,14 +12,12 @@ export default function TrainingDisplay(props: TrainingDisplayProps) {
   } = props;
 
   return (
-    <div>
-      <Cards
-        cardsList={cards}
-        onCardUpdate={onCardUpdate}
-        remainingCards={remainingCards}
-        fetchCards={fetchCards}
-        isLoading={isLoading}
-      />
-    </div>
+    <Cards
+      cardsList={cards}
+      onCardUpdate={onCardUpdate}
+      remainingCards={remainingCards}
+      fetchCards={fetchCards}
+      isLoading={isLoading}
+    />
   );
 }

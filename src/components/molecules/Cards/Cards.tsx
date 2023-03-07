@@ -128,7 +128,8 @@ export default function Cards({
 
         if (cardElement) {
           const { x, y } = cardElement.getBoundingClientRect();
-          coordinates = { x, y };
+          const YOffset = window.scrollY;
+          coordinates = { x, y: y + YOffset };
         }
         displayPopupWithScore(targetCard.currentDelay, coordinates);
 
