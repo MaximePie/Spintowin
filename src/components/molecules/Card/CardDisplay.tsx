@@ -43,13 +43,12 @@ export default function CardDisplay(props: CardDisplayProps) {
 
   return (
     <Container id={`card-${_id}`}>
-      {isModalOpen && (
-        <QuestionEditionModal
-          card={data}
-          onClose={onModalClose}
-          isOwnerOfCard={isOwnerOfCard}
-        />
-      )}
+      <QuestionEditionModal
+        card={data}
+        onClose={onModalClose}
+        isOwnerOfCard={isOwnerOfCard}
+        isOpen={isModalOpen}
+      />
 
       {cardFlipState === 'recto' && (
         <StyledCard

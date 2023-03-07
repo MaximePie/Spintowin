@@ -8,20 +8,34 @@
 
   background-color: #00000080;
   width: 100vw;
-  height: 100vh;
+  height: 200vh; // Additional height for animation
   position: fixed;
   left: 0;
   background-color: rgba(0, 0, 0, 0.42);
+  overflow: hidden;
   z-index: 100;
 
   // fade in animation
-  animation: fadeIn 0.3s;
-  @keyframes fadeIn {
+  animation: fadeInFromTop 0.3s;
+  @keyframes fadeInFromTop {
     from {
       opacity: 0;
     }
     to {
       opacity: 1;
+    }
+  }
+
+  &-exit {
+    // fade out animation
+    animation: fadeOut 0.3s forwards;
+    @keyframes fadeOut {
+      from {
+        opacity: 1;
+      }
+      to {
+        opacity: 0;
+      }
     }
   }
 }
@@ -38,14 +52,30 @@
   &__close-button {
     position: absolute;
     top: 0.5rem;
-    right: $mediumSpacing;
-    color: $gray;
+    right: $largeSpacing;
+    color: $black;
+    transition: 0.2s;
+    font-size: 1.5rem;
+
+    &:hover {
+      color: $primaryColor;
+      transition: 0.2s;
+    }
+  }
+
+  &__form {
+    padding: $mediumSpacing;
+    height: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
   }
 
   &__fields, &__field {
     display: flex;
-    flex-direction: column;
     align-items: baseline;
+    margin-bottom: $mediumSpacing;
   }
 
   &__field {
@@ -79,5 +109,35 @@
     // Add a border on the left of the hints
     border-left: 1px solid $gray;
     height: 100%;
+  }
+
+  &-enter {
+    // fade in to top animation
+    animation: fadeInFromTop 0.3s forwards;
+    @keyframes fadeInFromTop {
+      from {
+        opacity: 0;
+        transform: translateY(-$extraLargeSpacing);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  }
+
+  &-exit {
+    // fade in to top animation
+    animation: fadeOutTop 0.3s forwards;
+    @keyframes fadeOutTop {
+      from {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      to {
+        opacity: 0;
+        transform: translateY(-$extraLargeSpacing);
+      }
+    }
   }
 }
