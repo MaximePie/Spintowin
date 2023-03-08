@@ -15,7 +15,7 @@ export default function StatsDisplay({
 }: StatsDisplayProps) {
   return (
     <Stats>
-      {areSettingsDisplayed && <SettingsModal onClose={onModalClose} />}
+      <SettingsModal onClose={onModalClose} isOpen={areSettingsDisplayed} />
       <h1>
         Statistiques
         <IconButton

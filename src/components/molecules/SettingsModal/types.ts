@@ -3,6 +3,7 @@ import UserInterval from '../../../types/UserInterval';
 
 export type SettingsModalProps = {
   onClose: MouseEventHandler<HTMLButtonElement>
+  isOpen: boolean
 }
 
 export type SettingsModalDisplayProps = SettingsModalProps & {
@@ -10,6 +11,7 @@ export type SettingsModalDisplayProps = SettingsModalProps & {
   hasStreakEnabled?: boolean,
   shouldShowIntervals?: boolean,
   hasSoundEnabled?: boolean,
+  isOpen?: boolean,
   onCategoryDisplayChange: ChangeEventHandler,
   onStreakDisplayChange: ChangeEventHandler,
   onSoundActivationChange: ChangeEventHandler,

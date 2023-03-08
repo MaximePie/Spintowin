@@ -5,7 +5,7 @@ import SettingsModalDisplay from './SettingsModalDisplay';
 import UserInterval from '../../../types/UserInterval';
 
 export default function SettingsModal(props: SettingsModalProps) {
-  const { onClose } = props;
+  const { onClose, isOpen } = props;
 
   const {
     user,
@@ -27,6 +27,7 @@ export default function SettingsModal(props: SettingsModalProps) {
       shouldShowIntervals={user.role === 'admin'}
       onSoundActivationChange={onSoundActivationChange}
       hasSoundEnabled={user.hasSoundEnabled}
+      isOpen={isOpen}
     />
   );
 
