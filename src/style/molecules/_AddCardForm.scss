@@ -16,7 +16,7 @@
   text-align: center;
 
   @include for-phone-only {
-    width: initial;
+    width: 80%;
   }
 
   &__hint {
