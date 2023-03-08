@@ -97,4 +97,14 @@
       }
     }
   }
+
+  &-intervals {
+    display: grid;
+    grid-template-columns: repeat(4, 120px);
+    grid-column-gap: $mediumSpacing;
+
+    @include for-phone-only {
+      grid-template-columns: repeat(2, 120px);
+    }
+  }
 }

@@ -80,7 +80,7 @@ export default function SettingsModalDisplay(props: SettingsModalDisplayProps) {
               </label>
             </Field>
             {shouldShowIntervals && (
-            <Intervals>
+            <div className="SettingsModal-intervals">
               {intervals.map((userInterval) => (
                 <Field>
                   <label>{userInterval.value}</label>
@@ -91,7 +91,7 @@ export default function SettingsModalDisplay(props: SettingsModalDisplayProps) {
                   />
                 </Field>
               ))}
-            </Intervals>
+            </div>
             )}
           </div>
         </CSSTransition>
