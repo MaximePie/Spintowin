@@ -11,7 +11,7 @@
 
   // Content
   padding: $smallSpacing $mediumSpacing;
-  background-color: $primaryColor;
+  background-color: $primary;
 
   color: $white;
 
@@ -34,18 +34,18 @@
 
   &--secondary {
     background-color: $white;
-    color: $primaryColor;
+    color: $primary;
     transition: border-bottom 150ms ease-in-out;
 
     &--active {
       border-radius: 0;
-      border-bottom: 2px solid $primaryColor;
+      border-bottom: 2px solid $primary;
       transition: border-bottom 150ms ease-in-out;
     }
   }
 
   &--danger {
-    background-color: $dangerColor;
+    background-color: $danger;
     color: $white;
   }
 }

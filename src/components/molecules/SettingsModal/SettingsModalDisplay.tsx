@@ -81,13 +81,15 @@ export default function SettingsModalDisplay(props: SettingsModalDisplayProps) {
             </Field>
             {shouldShowIntervals && (
             <div className="SettingsModal-intervals">
-              {intervals.map((userInterval) => (
+              {intervals.map(({
+                value, displayValue, isEnabled, _id,
+              }) => (
                 <Field>
-                  <label>{userInterval.value}</label>
+                  <label>{displayValue || value}</label>
                   <input
                     type="checkbox"
-                    checked={userInterval.isEnabled}
-                    onChange={(event) => onIntervalUpdate(event, userInterval._id)}
+                    checked={isEnabled}
+                    onChange={(event) => onIntervalUpdate(event, _id)}
                   />
                 </Field>
               ))}

@@ -3,14 +3,14 @@
 Modules extension because I would like to import the values
 from another file in React
  */
+$navbarHeight: 40px;
 
 // Colors
-$warningColor: #eab000 !default;
-$navbarHeight: 40px;
-$primaryColor: #005ca0;
-$primaryColorDisabled: #6EBDFF;
-$dangerColor: #ff6d46;
-$successColor: #00e396;
+$warning: #eab000 !default;
+$primary: #005ca0;
+$primaryDisabled: #6EBDFF;
+$danger: #ff6d46;
+$success: #00e396;
 $gray: #b5b5b5;
 $lightGray: #f5f5f5;
 $white: #fff;

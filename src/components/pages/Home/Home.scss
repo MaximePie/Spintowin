@@ -125,7 +125,7 @@
     height: 160px;
     border-radius: 50%;
     background: none;
-    border: 8px solid $primaryColor;
+    border: 8px solid $primary;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -139,7 +139,7 @@
     opacity: 0;
 
     &:hover {
-      background-color: $primaryColor;
+      background-color: $primary;
       transition: 0.5s;
     }
 

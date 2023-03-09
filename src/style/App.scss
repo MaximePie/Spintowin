@@ -19,7 +19,7 @@ body {
 
 button {
   border-radius: 4px;
-  background-color: $primaryColor;
+  background-color: $primary;
   color: whitesmoke;
   outline: none;
   border: none;
@@ -37,7 +37,7 @@ button:hover {
 }
 
 button:disabled {
-  background-color: $primaryColorDisabled;
+  background-color: $primaryDisabled;
   transition: background-color 250ms ease;
   cursor: not-allowed;
 

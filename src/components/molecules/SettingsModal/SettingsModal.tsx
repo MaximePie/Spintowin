@@ -3,6 +3,7 @@ import { UserContext } from '../../../contexts/user';
 import { SettingsModalProps } from './types';
 import SettingsModalDisplay from './SettingsModalDisplay';
 import UserInterval from '../../../types/UserInterval';
+import { getFormattedInterval } from '../../../services/time';
 
 export default function SettingsModal(props: SettingsModalProps) {
   const { onClose, isOpen } = props;
@@ -22,7 +23,7 @@ export default function SettingsModal(props: SettingsModalProps) {
       hasStreakEnabled={user.hasStreakNotifications}
       onCategoryDisplayChange={onCategoryDisplayChange}
       onStreakDisplayChange={onDisplayStreakChange}
-      intervals={intervals}
+      intervals={formattedIntervals(intervals)}
       onIntervalUpdate={onIntervalChange}
       shouldShowIntervals={user.role === 'admin'}
       onSoundActivationChange={onSoundActivationChange}
@@ -30,6 +31,18 @@ export default function SettingsModal(props: SettingsModalProps) {
       isOpen={isOpen}
     />
   );
+
+  /**
+   * Format the intervals to display the appropriate duration
+   * @param rawIntervals - The intervals to format
+   * @returns The formatted intervals array with the new value
+   */
+  function formattedIntervals(rawIntervals: UserInterval[]): UserInterval[] {
+    return rawIntervals.map((interval) => ({
+      ...interval,
+      displayValue: getFormattedInterval(interval.value),
+    }));
+  }
 
   /**
    * Update the User's choice about the sound

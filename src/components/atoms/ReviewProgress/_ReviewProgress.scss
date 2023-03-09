@@ -31,7 +31,7 @@
 
     &-value {
       position: absolute;
-      color: $primaryColor;
+      color: $primary;
       top: 4px;
       margin-left: 0.25rem;
     }
@@ -43,23 +43,23 @@
     width: 100%;
     &-value {
       position: absolute;
-      color: $primaryColor;
+      color: $primary;
       top: 4px;
 
       &--red {
-        color: $dangerColor;
+        color: $danger;
       }
 
       &--orange {
-        color: $warningColor;
+        color: $warning;
       }
 
       &--green {
-        color: $successColor;
+        color: $success;
       }
 
       &--blue {
-        color: $primaryColor;
+        color: $primary;
       }
     }
 
@@ -74,7 +74,7 @@
     position: absolute;
     font-size: 1rem;
     font-weight: 700;
-    color: $primaryColor;
+    color: $primary;
     transition: font-size .100s ease-in;
 
     &-enter {

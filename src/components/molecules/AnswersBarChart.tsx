@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import Chart from 'react-apexcharts';
 import { getFromServer } from '../../services/server';
 import { UserContext } from '../../contexts/user';
-import { viewportContext } from '../../contexts/viewport';
+import { getFormattedInterval } from '../../services/time';
 
 type answerType = {
   delay: number,
@@ -14,13 +14,11 @@ type graphDataType = answerType[];
 
 /**
  * Calculates generates a graph based on the wrong answers given by the user.
- * @returns {JSX.Element}
  * @constructor
  */
 export default function AnswersBarChart() {
   const [graphData, setGraphData] = useState<graphDataType>({} as graphDataType);
   const { intervals: flatIntervals } = useContext(UserContext);
-  const { isMobile } = useContext(viewportContext);
   let isMounted = false;
 
   const intervals = flatIntervals
@@ -41,7 +39,7 @@ export default function AnswersBarChart() {
         id: 'basic-bar',
       },
       xaxis: {
-        categories: intervals,
+        categories: intervals.map((value) => getFormattedInterval(value)),
       },
       colors: ['#f04444', '#1e8ee9'],
     },
@@ -55,7 +53,7 @@ export default function AnswersBarChart() {
 
   return (
     <div className="AnswersBarChart">
-      <p>(Début de l'expérience : 19/01/2023)</p>
+      <p>(Début de l&apos;expérience : 19/01/2023)</p>
       <div className="row">
         <div className="mixed-chart AnswersBarChart__chart">
           <Chart
@@ -70,25 +68,6 @@ export default function AnswersBarChart() {
       </div>
     </div>
   );
-
-  /**
-   * Returns all the answer delay averages
-   */
-  function answerTimes() {
-    return intervals.filter((interval, index) => index > 1).map((interval) => {
-      if (graphData?.length) {
-        const answer: answerType | undefined = graphData
-          .find((graphAnswer: answerType) => graphAnswer.delay === interval)
-          || {} as answerType;
-
-        if (answer) {
-          return Math.round(answer.delayAverage / 100) / 10;
-        }
-        return 0;
-      }
-      return 0;
-    });
-  }
 
   /**
    * Returns all the wrong answer values
