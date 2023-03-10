@@ -2,7 +2,7 @@ import React from 'react';
 import { CSSTransition } from 'react-transition-group';
 import { SettingsModalDisplayProps } from './types';
 import {
-  CloseButton, Field, Intervals,
+  CloseButton, Field,
 } from './styles';
 
 SettingsModalDisplay.defaultProps = {
