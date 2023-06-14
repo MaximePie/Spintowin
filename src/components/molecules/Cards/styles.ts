@@ -2,7 +2,10 @@ import styled from 'styled-components';
 
 export const StyledCards = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  /**
+  * Using 178 instead of 180 to fit multiple screen
+  */
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
   grid-template-rows: repeat(auto-fill, 160px);
   grid-gap: 0.25rem;
   border-radius: 8px;

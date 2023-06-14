@@ -10,7 +10,7 @@ mixed with
 
 ## Installation 
 
-Make sure the `.env` is up to date on backoffice
+Make sure the `.env` is up-to-date on backoffice
 
 ## How to start : 
 
