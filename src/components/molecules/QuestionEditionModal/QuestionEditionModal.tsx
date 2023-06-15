@@ -75,7 +75,7 @@ export default function QuestionEditionModal(props: QuestionEditionModalProps) {
               </div>
             )}
             {isOwnerOfCard && (
-              <div className="QuestionEditionModal__form" onSubmit={save}>
+              <form className="QuestionEditionModal__form" onSubmit={save}>
                 <div className="QuestionEditionModal__fields">
                   <div>
                     <div className="QuestionEditionModal__field">
@@ -157,7 +157,7 @@ export default function QuestionEditionModal(props: QuestionEditionModalProps) {
                     />
                   </div>
                 </div>
-              </div>
+              </form>
             )}
           </div>
         </CSSTransition>

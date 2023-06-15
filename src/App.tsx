@@ -8,8 +8,8 @@ import AuthForm from './components/pages/AuthForm/AuthForm';
 import Training from './components/pages/Training/Training';
 import Home from './components/pages/Home/Home';
 import AddCard from './components/pages/AddCard';
-import WelcomePage from './components/pages/WelcomePage';
 import Navbar from './components/molecules/Navbar';
+import Tips from './components/pages/Tips/Tips';
 import LoadingAppGif from './components/molecules/LoadingAppGif';
 import Stats from './components/pages/Stats/Stats';
 import { axiosInstance, setAuthToken } from './services/server';
@@ -46,6 +46,7 @@ function App() {
                       <Route path="/add" element={<AddCard />} />
                       <Route path="/stats" element={<Stats />} />
                       <Route path="/quest" element={<Quest />} />
+                      <Route path="/tips" element={<Tips />} />
                     </>
                   )}
                   {!user && (
