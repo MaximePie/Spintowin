@@ -1,3 +1,40 @@
 .NoCardInfo {
   color: #00b1ca;
+  position: relative;
+  margin-top: 4px;
+
+  @include cardStyle;
+  height: 280px;
+  width: 220px;
+
+  background-color: white;
+
+  img {
+    width: 180px;
+    height: 180px;
+    margin-bottom: $mediumSpacing;
+  }
+
+  @include for-phone-only {
+    width: 160px;
+    height: 316px;
+    margin: 4px;
+    padding: 0;
+
+    img {
+      height: 90px;
+      width: 90px;
+    }
+  }
+
+  animation: bounce 1s infinite alternate;
+
+    @keyframes bounce {
+        from {
+        transform: translateY(0px);
+        }
+        to {
+        transform: translateY(-10px);
+        }
+    }
 }

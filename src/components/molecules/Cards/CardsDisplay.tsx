@@ -74,9 +74,7 @@ export default function CardsDisplay(props: CardsDisplayProps) {
             cardsList={cardsList}
           />
         )}
-        {infoCardMode === 'progress' && (
-          <ReviewProgress />
-        )}
+        {infoCardMode === 'progress' && <ReviewProgress />}
       </div>
       {hasNoCards && <NoCardInfo />}
       {cardsList.map((card) => (
