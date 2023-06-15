@@ -1,6 +1,5 @@
 import React, { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
-import Stopwatch from './Stopwatch';
 import { viewportContext } from '../../contexts/viewport';
 import User from '../../types/User';
 
@@ -37,9 +36,13 @@ export default function Navbar({ user, logout }: NavbarProps) {
               <i className="fas fa-chart-line" />
               {!isMobile && 'Stats'}
             </NavLink>
-            {!isMobile && (
-              <Stopwatch className="Navbar__stopwatch" />
-            )}
+            <NavLink
+              to="/tips"
+              className="Navbar__link"
+            >
+              <i className="fas fa-book-open" />
+              {!isMobile && 'Astuces'}
+            </NavLink>
           </div>
           <div className="Navbar__left">
             <button
