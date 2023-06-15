@@ -1,11 +1,14 @@
 import styled from 'styled-components';
 
-export const StyledCards = styled.div`
+interface StyledCardsProps {
+  isMobile?: boolean;
+}
+export const StyledCards = styled.div<StyledCardsProps>`
   display: grid;
   /**
-  * Using 178 instead of 180 to fit multiple screen
+  * Using 160 instead of 180 to fit multiple screen
   */
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(${({ isMobile }) => (isMobile ? '160' : '180')}px, 1fr));
   grid-template-rows: repeat(auto-fill, 160px);
   grid-gap: 0.25rem;
   border-radius: 8px;

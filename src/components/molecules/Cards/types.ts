@@ -19,6 +19,7 @@ export type CardsDisplayProps = Omit<CardsProps, 'onCardUpdate'> & {
   hasEarnedACoin: boolean,
   isFlashMode: boolean,
   handleAnswer: (_cardId: CardType['_id'], _isSuccess: boolean) => void,
+  isMobile?: boolean,
 
   scoreModeIcon: IconDefinition,
   flashModeIcon: IconDefinition,

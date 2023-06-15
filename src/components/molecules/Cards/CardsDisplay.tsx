@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { StyledCards, Actions } from './styles';
 import ReviewStats from '../../atoms/ReviewStats/ReviewStats';
 import ReviewProgress from '../../atoms/ReviewProgress/ReviewProgress';
@@ -10,6 +9,7 @@ import Coin from '../../atoms/Coin/Coin';
 import Card from '../Card/Card';
 import IconCheckbox from '../../atoms/IconCheckbox/IconCheckbox';
 import Button from '../../atoms/Button/Button';
+import NoCardInfo from '../../atoms/NoCardInfo/NoCardInfo';
 
 export default function CardsDisplay(props: CardsDisplayProps) {
   const {
@@ -28,9 +28,12 @@ export default function CardsDisplay(props: CardsDisplayProps) {
     shouldScoreBePoppedOut,
     hasEarnedACoin,
     handleAnswer,
+    isMobile,
   } = props;
+
+  const hasNoCards = !cardsList.length && !isLoading;
   return (
-    <StyledCards id="Cards">
+    <StyledCards id="Cards" isMobile={isMobile}>
       <Actions>
         <IconCheckbox
           onChange={onScoreChange}
@@ -75,14 +78,7 @@ export default function CardsDisplay(props: CardsDisplayProps) {
           <ReviewProgress />
         )}
       </div>
-      {!isLoading && !cardsList.length && (
-      <p>
-        Pas de cartes pour le moment,
-        <Link to="add">créez-en quelques unes</Link>
-        {' '}
-        !
-      </p>
-      )}
+      {hasNoCards && <NoCardInfo />}
       {cardsList.map((card) => (
         <Card
           data={card}

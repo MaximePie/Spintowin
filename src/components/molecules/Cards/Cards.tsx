@@ -37,6 +37,7 @@ export default function Cards({
 
   return (
     <CardsDisplay
+      isMobile={isMobile}
       fetchCards={fetchCards}
       cardsList={formattedCards}
       remainingCards={remainingCards}
