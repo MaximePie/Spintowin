@@ -94,6 +94,13 @@ export default function useQuestionEditionModal(props: QuestionEditionModalProps
     });
   }
 
+  const swapQuestionAndAnswer = () => {
+    if (question) {
+      setQuestion(answer);
+      setAnswer(question);
+    }
+  }
+
   return {
     question,
     answer,
@@ -103,6 +110,7 @@ export default function useQuestionEditionModal(props: QuestionEditionModalProps
     initialQuestion,
     updateQuestion,
     updateAnswer,
+    swapQuestionAndAnswer,
     save,
     deleteCard,
     onHintUpdate,

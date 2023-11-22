@@ -5,6 +5,7 @@ import InputGroup from '../../atoms/InputGroup/InputGroup';
 import QuestionEditionModalProps from './types';
 import useQuestionEditionModal from './useQuestionEditionModal';
 import Button from '../../atoms/Button/Button';
+import IconButton from '../../atoms/IconButton/IconButton';
 
 QuestionEditionModal.defaultProps = {
   isOwnerOfCard: false,
@@ -26,6 +27,7 @@ export default function QuestionEditionModal(props: QuestionEditionModalProps) {
     hints,
     onHintUpdate,
     tryCloseModal,
+    swapQuestionAndAnswer,
   } = useQuestionEditionModal(props);
   const { isOpen } = props;
 
@@ -80,7 +82,14 @@ export default function QuestionEditionModal(props: QuestionEditionModalProps) {
                   <div>
                     <div className="QuestionEditionModal__field">
                       <label>
-                        Question
+                        <span>
+                          {`Question ${question ? '' : ' (obligatoire)'}`}
+                          <IconButton
+                            icon="fas fa-sync"
+                            onClick={swapQuestionAndAnswer}
+                            className="QuestionEditionModal__swap-button"
+                          />
+                        </span>
                         <InputGroup
                           type="text"
                           value={question || ''}

@@ -1,11 +1,11 @@
-import React from 'react';
 import { IconButtonProps } from './types';
-import { StyledIconButton } from './styles';
+import classnames from 'classnames';
 
-export default function IconButton({ icon, onClick }: IconButtonProps) {
+export default function IconButton({ icon, onClick, className }: IconButtonProps) {
+  const classname = classnames(icon, className);
   return (
-    <StyledIconButton
-      className={icon}
+    <i
+      className={classname}
       onClick={onClick}
     />
   );
