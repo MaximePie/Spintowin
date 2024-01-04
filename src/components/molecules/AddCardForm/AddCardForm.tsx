@@ -15,14 +15,16 @@ import { UserContext } from '../../../contexts/user';
 import { Field } from './styles';
 import Checkbox from '../../atoms/Checkbox/Checkbox';
 import ExcelUpload from '../../atoms/ExcelUpload/ExcelUpload';
+import { useCompletion } from './useCompletion';
 
 export default function AddCardForm() {
-  const userContext = useContext(UserContext);
+  const { selectedCategory, setSelectedCategory } = useContext(UserContext);
+  const { askForCompletion, response } = useCompletion();
 
   const [question, setQuestion] = useState('');
   const [answer, setAnswer] = useState('');
   const [image, setImage] = useState<Blob>({} as Blob);
-  const [category, setCategory] = useState<string | null>(userContext.selectedCategory || null);
+  const [category, setCategory] = useState<string | null>(selectedCategory || null);
   const [shouldCreateReverseQuestion, setCreateReverseQuestionState] = useState(false);
   const [displayedImage, setDisplayedImage] = useState<string>('');
   const [isLoading, setLoadingState] = useState(false);
@@ -32,7 +34,7 @@ export default function AddCardForm() {
   const tooltipPlace = isMobile ? 'bottom' : 'top';
 
   useEffect(() => {
-    userContext.setSelectedCategory(category);
+    setSelectedCategory(category);
   }, [category]);
 
   let isValid = (question || image) && !!answer;

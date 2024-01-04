@@ -4,6 +4,7 @@ import QuestionEditionModalProps from './types';
 import { getFromServer, postOnServer } from '../../../services/server';
 import handleError from '../../../services/errors';
 import { CardSuccessNotification } from '../../../services/notification';
+import { useChatGPT } from '../../../hooks/ChatGPT';
 
 export default function useQuestionEditionModal(props: QuestionEditionModalProps) {
   const { card, onClose, isOwnerOfCard } = props;
@@ -17,6 +18,8 @@ export default function useQuestionEditionModal(props: QuestionEditionModalProps
   const [question, setQuestion] = React.useState<string | undefined>(initialQuestion);
   const [answer, setAnswer] = React.useState<string>(initialAnswer);
   const [hint, setHint] = React.useState<string>('');
+
+  const { sendMessage, response, isTyping } = useChatGPT();
 
   /**
    * Close the modal if the user press the escape key
@@ -99,7 +102,18 @@ export default function useQuestionEditionModal(props: QuestionEditionModalProps
       setQuestion(answer);
       setAnswer(question);
     }
-  }
+  };
+
+  /**
+   * Call chat gpt to ask for completion and examples
+   */
+  const askForCompletion = () => {
+    const ChatGPTPrompt = `Je suis étudiant en ${card.category}. 
+  Ecris 3 phrases en en ${card.category} courtes contenant le mot "${question}" et leur traduction en français.
+  Les phrases ne doivent pas dépasser 4 ou 5 mots. Ecris les phrases sous la forme "phrase en ${card.category} : traduction en français -"
+  "`;
+    sendMessage(ChatGPTPrompt);
+  };
 
   return {
     question,
@@ -117,5 +131,10 @@ export default function useQuestionEditionModal(props: QuestionEditionModalProps
     hint,
     hints,
     tryCloseModal,
+    suggestion: {
+      response: response.split('\n').filter((message) => !!message),
+      isTyping,
+      askForCompletion,
+    },
   };
 }

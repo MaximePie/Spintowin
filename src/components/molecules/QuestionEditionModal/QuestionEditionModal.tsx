@@ -6,6 +6,7 @@ import QuestionEditionModalProps from './types';
 import useQuestionEditionModal from './useQuestionEditionModal';
 import Button from '../../atoms/Button/Button';
 import IconButton from '../../atoms/IconButton/IconButton';
+import chatGPTIcon from '../../../images/chat.webp';
 
 QuestionEditionModal.defaultProps = {
   isOwnerOfCard: false,
@@ -28,9 +29,9 @@ export default function QuestionEditionModal(props: QuestionEditionModalProps) {
     onHintUpdate,
     tryCloseModal,
     swapQuestionAndAnswer,
+    suggestion,
   } = useQuestionEditionModal(props);
-  const { isOpen } = props;
-
+  const { isOpen, card } = props;
   return (
     <CSSTransition
       in={isOpen}
@@ -81,9 +82,35 @@ export default function QuestionEditionModal(props: QuestionEditionModalProps) {
                 <div className="QuestionEditionModal__fields">
                   <div>
                     <div className="QuestionEditionModal__field">
+                      {question && card.category && (
+                        <div className="QuestionEditionModal__chat">
+                          <button
+                            className="QuestionEditionModal__chat-button"
+                            type="button"
+                            onClick={() => suggestion.askForCompletion()}
+                          >
+                            <img
+                              src={chatGPTIcon}
+                              alt="Use CHAT to generate questions"
+                              className="QuestionEditionModal__chat-icon"
+                            />
+                          </button>
+                          {!suggestion.isTyping && suggestion.response && (
+                          <li className="QuestionEditionModal__chat-response">
+                            {suggestion.response.map((item) => (
+                              <ul key={item}>
+                                <span>
+                                  {item}
+                                </span>
+                              </ul>
+                            ))}
+                          </li>
+                          )}
+                        </div>
+                      )}
                       <label>
                         <span>
-                          {`Question ${question ? '' : ' (obligatoire)'}`}
+                          Question *
                           <IconButton
                             icon="fas fa-sync"
                             onClick={swapQuestionAndAnswer}

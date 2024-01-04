@@ -16,6 +16,8 @@ module.exports = {
     '@testing-library/jest-dom/extend-expect',
   ],
 
+  setupFiles: ['./jest.setup.js'],
+
   testEnvironment: 'jsdom',
 
   // Test spec file resolution pattern

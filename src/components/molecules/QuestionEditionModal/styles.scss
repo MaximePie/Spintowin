@@ -171,4 +171,27 @@
   &__swap-button {
     margin-left: $mediumSpacing;
   }
+
+  &__chat {
+    position: relative;
+  }
+
+  &__chat-response {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 16rem;
+    transform: translateX(50%);
+    background-color: $lightGray;
+  }
+
+  &__chat-icon {
+    width: 1em;
+  }
+
+  &__chat-button {
+    width: 1rem;
+    height: 1rem;
+    background: none;
+  }
 }
