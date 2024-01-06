@@ -15,7 +15,8 @@ QuestionEditionModal.defaultProps = {
 export default function QuestionEditionModal(props: QuestionEditionModalProps) {
   const {
     question,
-    updateQuestion,
+    onQuestionChange,
+    setQuestion,
     answer,
     closeModal,
     isOwnerOfCard,
@@ -99,6 +100,15 @@ export default function QuestionEditionModal(props: QuestionEditionModalProps) {
                           <li className="QuestionEditionModal__chat-response">
                             {suggestion.response.map((item) => (
                               <ul key={item}>
+                                <button
+                                  type="button"
+                                  onClick={() => {
+                                    const itemQuestion = item.split(':')[0];
+                                    setQuestion(itemQuestion);
+                                  }}
+                                >
+                                  ✅
+                                </button>
                                 <span>
                                   {item}
                                 </span>
@@ -120,7 +130,7 @@ export default function QuestionEditionModal(props: QuestionEditionModalProps) {
                         <InputGroup
                           type="text"
                           value={question || ''}
-                          onChange={updateQuestion}
+                          onChange={onQuestionChange}
                           icon={faQuestion}
                           isIconSolid
                           placeholder="Quelle est la taille d'un castor ?"

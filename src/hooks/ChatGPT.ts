@@ -1,9 +1,6 @@
 import { useState } from 'react';
-import { config } from 'dotenv';
 
-config();
-
-const API_KEY = process.env.VITE_CHAT_API_KEY;
+const API_KEY = import.meta.env.VITE_CHAT_API_KEY ?? '';
 
 type MessageType = {
   message: string;

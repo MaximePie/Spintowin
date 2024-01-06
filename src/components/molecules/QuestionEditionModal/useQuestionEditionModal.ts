@@ -46,7 +46,7 @@ export default function useQuestionEditionModal(props: QuestionEditionModalProps
     setHint(event.target.value);
   }
 
-  function updateQuestion(event: ChangeEvent<HTMLInputElement>) {
+  function onQuestionChange(event: ChangeEvent<HTMLInputElement>) {
     setQuestion(event.target.value);
   }
 
@@ -122,7 +122,8 @@ export default function useQuestionEditionModal(props: QuestionEditionModalProps
     isOwnerOfCard,
     initialAnswer,
     initialQuestion,
-    updateQuestion,
+    onQuestionChange,
+    setQuestion,
     updateAnswer,
     swapQuestionAndAnswer,
     save,

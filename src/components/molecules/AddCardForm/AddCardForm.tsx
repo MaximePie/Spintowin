@@ -7,6 +7,7 @@ import ReactTooltip from 'react-tooltip';
 import { OnChangeValue } from 'react-select';
 import InputGroup from '../../atoms/InputGroup/InputGroup';
 import CategorySelect from '../../atoms/CategorySelect';
+import chatGPTIcon from '../../../images/chat.webp';
 
 import { postOnServer } from '../../../services/server';
 import { addCardFailureNotification, addNotification, CardSuccessNotification } from '../../../services/notification';
@@ -19,7 +20,7 @@ import { useCompletion } from './useCompletion';
 
 export default function AddCardForm() {
   const { selectedCategory, setSelectedCategory } = useContext(UserContext);
-  const { askForCompletion, response } = useCompletion();
+  const { askForCompletion, response, isTyping } = useCompletion();
 
   const [question, setQuestion] = useState('');
   const [answer, setAnswer] = useState('');
@@ -70,6 +71,25 @@ export default function AddCardForm() {
             value={category}
           />
           <div className="AddCardForm__subfields">
+            <div className="AddCardForm__chat">
+              <button
+                className="AddCardForm__chat-button"
+                type="button"
+                onClick={() => askForCompletion(question, category || '')}
+              >
+                <img
+                  src={chatGPTIcon}
+                  alt="Use CHAT to generate questions"
+                  className="AddCardForm__chat-icon"
+                />
+              </button>
+              {isTyping && (
+                <span>Loading</span>
+              )}
+              {response && (
+                <p>{response}</p>
+              )}
+            </div>
             <div className={`AddCardForm__subfield-field ${isImageLoaded && 'AddCardForm__subfield-field--disabled'}`}>
               <label>
                 Question
@@ -83,6 +103,7 @@ export default function AddCardForm() {
                   className="AddCardForm__field"
                 />
               </label>
+
             </div>
             <div className="AddCardForm__subfield-field">
               <div>

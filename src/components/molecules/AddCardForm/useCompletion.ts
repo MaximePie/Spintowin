@@ -2,7 +2,7 @@ import { useChatGPT } from '../../../hooks/ChatGPT';
 
 // eslint-disable-next-line import/prefer-default-export
 export const useCompletion = () => {
-  const { sendMessage } = useChatGPT();
+  const { sendMessage, isTyping, response } = useChatGPT();
   const askForCompletion = (question: string, category: string) => {
     const ChatGPTPrompt = `Je suis étudiant en ${category}. 
   Ecris 3 phrases en en ${category} courtes contenant le mot "${question}" et leur traduction en français.
@@ -13,5 +13,7 @@ export const useCompletion = () => {
 
   return {
     askForCompletion,
+    response,
+    isTyping,
   };
 };
