@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const API_KEY = import.meta.env.VITE_CHAT_API_KEY ?? '';
+const API_KEY = import.meta.env.VITE_CHAT_API_KEY;
 
 type MessageType = {
   message: string;

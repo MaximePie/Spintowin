@@ -17,6 +17,7 @@ import { Field } from './styles';
 import Checkbox from '../../atoms/Checkbox/Checkbox';
 import ExcelUpload from '../../atoms/ExcelUpload/ExcelUpload';
 import { useCompletion } from './useCompletion';
+import styles from './styles.module.scss';
 
 export default function AddCardForm() {
   const { selectedCategory, setSelectedCategory } = useContext(UserContext);
@@ -73,14 +74,14 @@ export default function AddCardForm() {
           <div className="AddCardForm__subfields">
             <div className="AddCardForm__chat">
               <button
-                className="AddCardForm__chat-button"
+                className={styles['AddCardForm__chat-button']}
                 type="button"
                 onClick={() => askForCompletion(question, category || '')}
               >
                 <img
                   src={chatGPTIcon}
                   alt="Use CHAT to generate questions"
-                  className="AddCardForm__chat-icon"
+                  className={styles['AddCardForm__chat-icon']}
                 />
               </button>
               {isTyping && (
